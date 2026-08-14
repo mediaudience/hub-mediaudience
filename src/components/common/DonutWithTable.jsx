@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { formatNumber } from "../../utils/format";
 import Card from "./Card";
 
@@ -27,6 +27,7 @@ export default function DonutWithTable({ title, data, labelHeader, valueHeader =
                   <Cell key={i} fill={SHADES[i % SHADES.length]} />
                 ))}
               </Pie>
+              <Tooltip formatter={(value) => formatNumber(value)} />
             </PieChart>
           </ResponsiveContainer>
           {data.length === 1 && (
