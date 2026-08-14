@@ -27,7 +27,12 @@ export default function DonutWithTable({ title, data, labelHeader, valueHeader =
                   <Cell key={i} fill={SHADES[i % SHADES.length]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value) => `${((value / total) * 100).toFixed(1)}%`} />
+              <Tooltip
+                formatter={(value) => `${((value / total) * 100).toFixed(1)}%`}
+                contentStyle={{ borderRadius: 8, border: "1px solid #e2e8f0" }}
+                labelStyle={{ color: "#1f2937", fontWeight: 600 }}
+                itemStyle={{ color: "#1f2937", fontWeight: 600 }}
+              />
             </PieChart>
           </ResponsiveContainer>
           {data.length === 1 && (
