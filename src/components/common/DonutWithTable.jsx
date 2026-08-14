@@ -2,7 +2,9 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { formatNumber } from "../../utils/format";
 import Card from "./Card";
 
-const SHADES = ["#57007E", "#7A1AA6", "#9B3FC0", "#B85FD1", "#D096E0", "#E8C6EF"];
+// Fixed categorical order (never reassigned per dataset), validated for
+// colorblind-safe adjacent-pair separation with scripts/validate_palette.js.
+const SHADES = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300"];
 
 export default function DonutWithTable({ title, data, labelHeader, valueHeader = "Impresiones Totales" }) {
   const total = data.reduce((acc, d) => acc + d.value, 0);

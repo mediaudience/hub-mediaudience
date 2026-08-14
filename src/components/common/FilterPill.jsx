@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-export default function FilterPill({ label, options = [] }) {
+export default function FilterPill({ label, options = [], resetKey }) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("Todos");
   const ref = useRef(null);
@@ -13,12 +13,18 @@ export default function FilterPill({ label, options = [] }) {
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (resetKey) setSelected("Todos");
+  }, [resetKey]);
+
   return (
     <div className="relative" ref={ref}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-2 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-white/90"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className="flex items-center gap-2 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
       >
         {selected === "Todos" ? label : `${label}: ${selected}`}
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none">

@@ -66,7 +66,7 @@ export default function Sidebar({ collapsed }) {
 
         <button
           type="button"
-          className="w-full flex items-center justify-center gap-1.5 py-3 text-sm font-medium text-gray-700 hover:bg-slate-50"
+          className="w-full flex items-center justify-center gap-1.5 py-3 text-sm font-medium text-gray-700 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta"
         >
           Nombre Usuario
           <ChevronDown className="text-slate-label" />
@@ -80,7 +80,8 @@ export default function Sidebar({ collapsed }) {
                 <button
                   type="button"
                   onClick={() => toggleGroup(group.id)}
-                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-label hover:bg-slate-50 transition-colors"
+                  aria-expanded={open}
+                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-label hover:bg-slate-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta"
                 >
                   <span>{group.label}</span>
                   <GroupArrow open={open} />
@@ -92,7 +93,7 @@ export default function Sidebar({ collapsed }) {
                         key={item.path}
                         to={item.path}
                         className={({ isActive }) =>
-                          `mx-1 px-3 py-2 rounded-full text-sm transition-colors ${
+                          `mx-1 px-3 py-2 rounded-full text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
                             isActive
                               ? "bg-brand-magenta text-white font-medium"
                               : "text-gray-600 hover:bg-slate-50"
