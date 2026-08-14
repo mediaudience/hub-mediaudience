@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { NAV_GROUPS } from "../../navConfig";
 
@@ -7,6 +7,51 @@ function ChevronDown({ className }) {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className={className}>
       <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+  );
+}
+
+function UserMenu() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    function onClickOutside(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className="w-full flex items-center justify-center gap-1.5 py-3 text-sm font-medium text-gray-700 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta"
+      >
+        Nombre Usuario
+        <ChevronDown className={`text-slate-label transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div
+          role="menu"
+          className="absolute z-20 left-2 right-2 mt-1 bg-white rounded-lg shadow-lg border border-slate-100 py-1"
+        >
+          <button
+            type="button"
+            role="menuitem"
+            disabled
+            aria-disabled="true"
+            title="Próximamente"
+            className="w-full text-left px-4 py-2 text-sm text-gray-400 cursor-not-allowed"
+          >
+            Cerrar sesión
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -64,13 +109,7 @@ export default function Sidebar({ collapsed }) {
           </div>
         </div>
 
-        <button
-          type="button"
-          className="w-full flex items-center justify-center gap-1.5 py-3 text-sm font-medium text-gray-700 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta"
-        >
-          Nombre Usuario
-          <ChevronDown className="text-slate-label" />
-        </button>
+        <UserMenu />
 
         <nav className="px-2 pb-6">
           {NAV_GROUPS.map((group) => {
