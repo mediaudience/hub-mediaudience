@@ -11,19 +11,21 @@ export default function GradientHeader({ title, filters = [], onApplyPeriod, onC
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-purple to-brand-magenta px-6 py-6 mb-6">
-      <svg
-        className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none"
-        width="220"
-        height="220"
-        viewBox="0 0 220 220"
-        fill="none"
-      >
-        <circle cx="60" cy="110" r="90" stroke="white" strokeWidth="2" />
-        <circle cx="60" cy="110" r="60" stroke="white" strokeWidth="2" />
-        <circle cx="60" cy="110" r="32" stroke="white" strokeWidth="2" />
-        <circle cx="60" cy="110" r="10" fill="white" />
-      </svg>
+    <div className="relative rounded-2xl bg-gradient-to-r from-brand-purple to-brand-magenta px-6 py-6 mb-6">
+      <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+        <svg
+          className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-20"
+          width="220"
+          height="220"
+          viewBox="0 0 220 220"
+          fill="none"
+        >
+          <circle cx="60" cy="110" r="90" stroke="white" strokeWidth="2" />
+          <circle cx="60" cy="110" r="60" stroke="white" strokeWidth="2" />
+          <circle cx="60" cy="110" r="32" stroke="white" strokeWidth="2" />
+          <circle cx="60" cy="110" r="10" fill="white" />
+        </svg>
+      </div>
 
       <div className="relative flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-white font-bold text-2xl md:text-3xl">{title}</h1>
