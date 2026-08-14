@@ -99,7 +99,9 @@ export default function PeriodPicker({ onApply }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-2 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-white/90"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        className="flex items-center gap-2 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
           <rect x="3" y="5" width="18" height="16" rx="2" stroke="#57007E" strokeWidth="1.8" />
@@ -112,7 +114,7 @@ export default function PeriodPicker({ onApply }) {
       </button>
 
       {open && (
-        <div className="absolute z-30 mt-2 right-0 bg-white rounded-xl shadow-xl border border-slate-100 p-4 w-[520px]">
+        <div className="fixed left-1/2 top-20 -translate-x-1/2 sm:absolute sm:left-auto sm:top-full sm:translate-x-0 sm:right-0 sm:mt-2 z-30 bg-white rounded-xl shadow-xl border border-slate-100 p-4 w-[92vw] max-w-[520px]">
           <div className="relative mb-4">
             <button
               type="button"
@@ -140,7 +142,7 @@ export default function PeriodPicker({ onApply }) {
             )}
           </div>
 
-          <div className="flex gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center max-h-[60vh] overflow-y-auto sm:max-h-none sm:overflow-visible">
             <Calendar
               label="Fecha de inicio"
               year={leftView.year}

@@ -69,7 +69,7 @@ function GroupArrow({ open }) {
   );
 }
 
-export default function Sidebar({ collapsed }) {
+export default function Sidebar({ open, onNavigate }) {
   const location = useLocation();
   const activeGroupId = NAV_GROUPS.find((g) =>
     g.items.some((i) => location.pathname.startsWith(i.path))
@@ -83,8 +83,8 @@ export default function Sidebar({ collapsed }) {
 
   return (
     <aside
-      className={`fixed top-16 left-0 bottom-0 bg-white border-r border-slate-100 overflow-y-auto transition-all duration-200 z-30 ${
-        collapsed ? "w-0 -translate-x-full" : "w-[245px]"
+      className={`fixed top-16 left-0 bottom-0 w-[245px] bg-white border-r border-slate-100 overflow-y-auto transition-transform duration-200 z-40 ${
+        open ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <div className="w-[245px]">
@@ -131,6 +131,7 @@ export default function Sidebar({ collapsed }) {
                       <NavLink
                         key={item.path}
                         to={item.path}
+                        onClick={onNavigate}
                         className={({ isActive }) =>
                           `mx-1 px-3 py-2 rounded-full text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
                             isActive

@@ -9,7 +9,7 @@ function kFormatter(value) {
 
 function Legend({ series }) {
   return (
-    <div className="flex items-center gap-6 mb-3">
+    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-3">
       {series.map((s) => (
         <div key={s.key} className="flex items-center gap-2 text-sm text-gray-600">
           <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: s.color }} />

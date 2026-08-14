@@ -11,7 +11,7 @@ export default function GradientHeader({ title, filters = [], onApplyPeriod, onC
   };
 
   return (
-    <div className="relative rounded-2xl bg-gradient-to-r from-brand-purple to-brand-magenta px-6 py-6 mb-6">
+    <div className="relative rounded-2xl bg-gradient-to-r from-brand-purple to-brand-magenta px-4 py-5 sm:px-6 sm:py-6 mb-6">
       <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
         <svg
           className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-20"

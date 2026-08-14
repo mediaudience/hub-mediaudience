@@ -27,7 +27,7 @@ const ICONS = { megaphone: MegaphoneIcon, clip: ClipIcon };
 
 export default function Tabs({ tabs, active, onChange }) {
   return (
-    <div className="flex items-center gap-6 border-b border-slate-200 bg-white rounded-t-xl px-5">
+    <div className="flex items-center gap-6 overflow-x-auto border-b border-slate-200 bg-white rounded-t-xl px-5">
       {tabs.map((tab) => {
         const Icon = ICONS[tab.icon] || MegaphoneIcon;
         const isActive = active === tab.key;
@@ -36,7 +36,7 @@ export default function Tabs({ tabs, active, onChange }) {
             key={tab.key}
             type="button"
             onClick={() => onChange(tab.key)}
-            className={`relative flex items-center gap-2 py-3 text-sm font-medium transition-colors ${
+            className={`relative flex items-center gap-2 py-3 text-sm font-medium whitespace-nowrap shrink-0 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-purple ${
               isActive ? "text-brand-purple" : "text-gray-500 hover:text-gray-700"
             }`}
           >

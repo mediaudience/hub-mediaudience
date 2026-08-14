@@ -1,12 +1,13 @@
-export default function Navbar({ onToggleSidebar }) {
+export default function Navbar({ onToggleSidebar, sidebarOpen }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-40 h-16 bg-brand-purple flex items-center justify-between px-4">
       <div className="flex items-center gap-4">
         <button
           type="button"
           onClick={onToggleSidebar}
-          aria-label="Colapsar menú"
-          className="text-white/90 hover:text-white p-2 rounded-md hover:bg-white/10 transition-colors"
+          aria-label={sidebarOpen ? "Colapsar menú" : "Expandir menú"}
+          aria-expanded={sidebarOpen}
+          className="text-white/90 hover:text-white p-2 rounded-md hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -27,7 +28,7 @@ export default function Navbar({ onToggleSidebar }) {
       <button
         type="button"
         aria-label="Perfil"
-        className="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0"
+        className="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="8" r="4" fill="#57007E" />

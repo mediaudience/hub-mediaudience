@@ -32,7 +32,7 @@ export default function FilterPill({ label, options = [], resetKey }) {
         </svg>
       </button>
       {open && (
-        <div className="absolute z-20 mt-1 min-w-[180px] bg-white rounded-lg shadow-lg border border-slate-100 py-1 max-h-56 overflow-y-auto">
+        <div className="absolute z-20 mt-1 min-w-[180px] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-lg border border-slate-100 py-1 max-h-56 overflow-y-auto">
           <button
             type="button"
             onClick={() => {

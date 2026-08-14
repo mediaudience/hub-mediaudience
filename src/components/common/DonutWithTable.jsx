@@ -10,7 +10,7 @@ export default function DonutWithTable({ title, data, labelHeader, valueHeader =
   return (
     <Card className="p-5">
       {title && <h3 className="text-brand-purple font-bold text-sm mb-4">{title}</h3>}
-      <div className="flex flex-wrap items-center gap-8">
+      <div className="flex flex-wrap items-center gap-4 sm:gap-8">
         <div className="relative w-44 h-44 shrink-0">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
