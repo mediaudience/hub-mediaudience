@@ -1,0 +1,6 @@
+[
+  { "dispositivo": "Desktop", "impresionesTotales": 220100 },
+  { "dispositivo": "Mobile", "impresionesTotales": 210800 },
+  { "dispositivo": "Tablet", "impresionesTotales": 55200 },
+  { "dispositivo": "CTV / Smart TV", "impresionesTotales": 26240 }
+]

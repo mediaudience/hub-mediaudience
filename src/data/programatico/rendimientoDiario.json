@@ -1,0 +1,34 @@
+{
+  "porCampana": [
+    { "fecha": "2026-08-01", "campana": "Pacífico Tarjeta Digital", "motivo": "Conversión", "impresionesTotales": 8200, "visualizaciones": 6100, "quartil25": 5800, "quartil50": 5100, "quartil75": 4300, "quartil100": 3700, "vtr": 60 },
+    { "fecha": "2026-08-01", "campana": "Mr. Pollo Campaña Nacional", "motivo": "Alcance", "impresionesTotales": 9600, "visualizaciones": 7500, "quartil25": 7100, "quartil50": 6300, "quartil75": 5400, "quartil100": 4700, "vtr": 62 },
+    { "fecha": "2026-08-01", "campana": "BI Cuenta Digital", "motivo": "Conversión", "impresionesTotales": 6100, "visualizaciones": 4600, "quartil25": 4300, "quartil50": 3800, "quartil75": 3200, "quartil100": 2800, "vtr": 58 },
+    { "fecha": "2026-08-02", "campana": "Pacífico Tarjeta Digital", "motivo": "Conversión", "impresionesTotales": 8450, "visualizaciones": 6300, "quartil25": 5950, "quartil50": 5250, "quartil75": 4450, "quartil100": 3850, "vtr": 61 },
+    { "fecha": "2026-08-02", "campana": "Mr. Pollo Campaña Nacional", "motivo": "Alcance", "impresionesTotales": 9850, "visualizaciones": 7700, "quartil25": 7300, "quartil50": 6500, "quartil75": 5550, "quartil100": 4850, "vtr": 63 },
+    { "fecha": "2026-08-02", "campana": "BI Cuenta Digital", "motivo": "Conversión", "impresionesTotales": 6250, "visualizaciones": 4700, "quartil25": 4400, "quartil50": 3900, "quartil75": 3300, "quartil100": 2900, "vtr": 59 },
+    { "fecha": "2026-08-03", "campana": "Pacífico Tarjeta Digital", "motivo": "Conversión", "impresionesTotales": 7950, "visualizaciones": 5950, "quartil25": 5600, "quartil50": 4950, "quartil75": 4200, "quartil100": 3600, "vtr": 60 },
+    { "fecha": "2026-08-03", "campana": "Mr. Pollo Campaña Nacional", "motivo": "Alcance", "impresionesTotales": 9400, "visualizaciones": 7350, "quartil25": 6950, "quartil50": 6150, "quartil75": 5250, "quartil100": 4600, "vtr": 62 },
+    { "fecha": "2026-08-03", "campana": "BI Cuenta Digital", "motivo": "Conversión", "impresionesTotales": 5980, "visualizaciones": 4480, "quartil25": 4180, "quartil50": 3700, "quartil75": 3130, "quartil100": 2730, "vtr": 58 },
+    { "fecha": "2026-08-04", "campana": "Pacífico Tarjeta Digital", "motivo": "Conversión", "impresionesTotales": 8600, "visualizaciones": 6450, "quartil25": 6080, "quartil50": 5370, "quartil75": 4560, "quartil100": 3940, "vtr": 61 },
+    { "fecha": "2026-08-04", "campana": "Mr. Pollo Campaña Nacional", "motivo": "Alcance", "impresionesTotales": 10050, "visualizaciones": 7880, "quartil25": 7460, "quartil50": 6640, "quartil75": 5680, "quartil100": 4970, "vtr": 63 },
+    { "fecha": "2026-08-04", "campana": "BI Cuenta Digital", "motivo": "Conversión", "impresionesTotales": 6350, "visualizaciones": 4780, "quartil25": 4470, "quartil50": 3960, "quartil75": 3360, "quartil100": 2940, "vtr": 59 }
+  ],
+  "porPublisher": [
+    { "fecha": "2026-08-01", "publisher": "Google Ad Manager", "motivo": "Alcance", "impresionesTotales": 10200, "visualizaciones": 7900, "quartil25": 7450, "quartil50": 6600, "quartil75": 5650, "quartil100": 4950, "vtr": 61 },
+    { "fecha": "2026-08-01", "publisher": "PubMatic", "motivo": "Conversión", "impresionesTotales": 7300, "visualizaciones": 5600, "quartil25": 5250, "quartil50": 4650, "quartil75": 3950, "quartil100": 3450, "vtr": 59 },
+    { "fecha": "2026-08-01", "publisher": "Xandr", "motivo": "Awareness", "impresionesTotales": 5900, "visualizaciones": 4500, "quartil25": 4200, "quartil50": 3700, "quartil75": 3150, "quartil100": 2750, "vtr": 58 },
+    { "fecha": "2026-08-02", "publisher": "Google Ad Manager", "motivo": "Alcance", "impresionesTotales": 10450, "visualizaciones": 8100, "quartil25": 7650, "quartil50": 6800, "quartil75": 5800, "quartil100": 5100, "vtr": 62 },
+    { "fecha": "2026-08-02", "publisher": "PubMatic", "motivo": "Conversión", "impresionesTotales": 7450, "visualizaciones": 5700, "quartil25": 5350, "quartil50": 4750, "quartil75": 4050, "quartil100": 3550, "vtr": 59 },
+    { "fecha": "2026-08-03", "publisher": "Xandr", "motivo": "Awareness", "impresionesTotales": 6050, "visualizaciones": 4620, "quartil25": 4320, "quartil50": 3800, "quartil75": 3230, "quartil100": 2820, "vtr": 58 },
+    { "fecha": "2026-08-03", "publisher": "Google Ad Manager", "motivo": "Alcance", "impresionesTotales": 9950, "visualizaciones": 7700, "quartil25": 7250, "quartil50": 6450, "quartil75": 5500, "quartil100": 4820, "vtr": 61 },
+    { "fecha": "2026-08-04", "publisher": "PubMatic", "motivo": "Conversión", "impresionesTotales": 7600, "visualizaciones": 5820, "quartil25": 5460, "quartil50": 4840, "quartil75": 4120, "quartil100": 3600, "vtr": 60 },
+    { "fecha": "2026-08-04", "publisher": "Xandr", "motivo": "Awareness", "impresionesTotales": 6150, "visualizaciones": 4700, "quartil25": 4400, "quartil50": 3880, "quartil75": 3290, "quartil100": 2870, "vtr": 58 }
+  ],
+  "testigo": [
+    { "fecha": "2026-08-01", "campana": "Pacífico Tarjeta Digital", "publisher": "Google Ad Manager", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoPacifico0801/view" },
+    { "fecha": "2026-08-02", "campana": "Mr. Pollo Campaña Nacional", "publisher": "PubMatic", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoPronaca0802/view" },
+    { "fecha": "2026-08-02", "campana": "BI Cuenta Digital", "publisher": "Xandr", "estado": "Pendiente", "testigoUrl": "" },
+    { "fecha": "2026-08-03", "campana": "Pacífico Tarjeta Digital", "publisher": "Google Ad Manager", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoPacifico0803/view" },
+    { "fecha": "2026-08-04", "campana": "Mr. Pollo Campaña Nacional", "publisher": "PubMatic", "estado": "Pendiente", "testigoUrl": "" }
+  ]
+}

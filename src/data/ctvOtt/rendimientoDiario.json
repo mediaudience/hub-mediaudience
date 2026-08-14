@@ -1,0 +1,38 @@
+{
+  "porCampana": [
+    { "fecha": "2026-08-01", "campana": "Claro 5G Lanzamiento", "motivo": "Alcance", "impresionesTotales": 5200, "visualizaciones": 4100, "quartil25": 3900, "quartil50": 3400, "quartil75": 2900, "quartil100": 2500, "vtr": 61 },
+    { "fecha": "2026-08-01", "campana": "Banco Guayaquil App Móvil", "motivo": "Conversión", "impresionesTotales": 3100, "visualizaciones": 2600, "quartil25": 2400, "quartil50": 2100, "quartil75": 1800, "quartil100": 1600, "vtr": 62 },
+    { "fecha": "2026-08-01", "campana": "Toyota Hilux 2026", "motivo": "Awareness", "impresionesTotales": 6800, "visualizaciones": 5900, "quartil25": 5600, "quartil50": 5000, "quartil75": 4300, "quartil100": 3800, "vtr": 64 },
+    { "fecha": "2026-08-02", "campana": "Claro 5G Lanzamiento", "motivo": "Alcance", "impresionesTotales": 5450, "visualizaciones": 4300, "quartil25": 4050, "quartil50": 3550, "quartil75": 3050, "quartil100": 2650, "vtr": 62 },
+    { "fecha": "2026-08-02", "campana": "Banco Guayaquil App Móvil", "motivo": "Conversión", "impresionesTotales": 3250, "visualizaciones": 2700, "quartil25": 2500, "quartil50": 2200, "quartil75": 1900, "quartil100": 1650, "vtr": 61 },
+    { "fecha": "2026-08-02", "campana": "Toyota Hilux 2026", "motivo": "Awareness", "impresionesTotales": 7100, "visualizaciones": 6200, "quartil25": 5900, "quartil50": 5300, "quartil75": 4600, "quartil100": 4000, "vtr": 65 },
+    { "fecha": "2026-08-03", "campana": "Claro 5G Lanzamiento", "motivo": "Alcance", "impresionesTotales": 4980, "visualizaciones": 3950, "quartil25": 3700, "quartil50": 3250, "quartil75": 2800, "quartil100": 2400, "vtr": 61 },
+    { "fecha": "2026-08-03", "campana": "Banco Guayaquil App Móvil", "motivo": "Conversión", "impresionesTotales": 2980, "visualizaciones": 2450, "quartil25": 2280, "quartil50": 2000, "quartil75": 1700, "quartil100": 1480, "vtr": 60 },
+    { "fecha": "2026-08-03", "campana": "Toyota Hilux 2026", "motivo": "Awareness", "impresionesTotales": 6950, "visualizaciones": 6050, "quartil25": 5750, "quartil50": 5150, "quartil75": 4450, "quartil100": 3900, "vtr": 64 },
+    { "fecha": "2026-08-04", "campana": "Claro 5G Lanzamiento", "motivo": "Alcance", "impresionesTotales": 5300, "visualizaciones": 4180, "quartil25": 3920, "quartil50": 3420, "quartil75": 2950, "quartil100": 2550, "vtr": 62 },
+    { "fecha": "2026-08-04", "campana": "Banco Guayaquil App Móvil", "motivo": "Conversión", "impresionesTotales": 3150, "visualizaciones": 2620, "quartil25": 2430, "quartil50": 2130, "quartil75": 1820, "quartil100": 1590, "vtr": 61 },
+    { "fecha": "2026-08-04", "campana": "Toyota Hilux 2026", "motivo": "Awareness", "impresionesTotales": 7300, "visualizaciones": 6380, "quartil25": 6050, "quartil50": 5420, "quartil75": 4700, "quartil100": 4120, "vtr": 65 }
+  ],
+  "porPublisher": [
+    { "fecha": "2026-08-01", "publisher": "Roku", "motivo": "Alcance", "impresionesTotales": 4200, "visualizaciones": 3400, "quartil25": 3200, "quartil50": 2800, "quartil75": 2400, "quartil100": 2100, "vtr": 62 },
+    { "fecha": "2026-08-01", "publisher": "Samsung TV Plus", "motivo": "Awareness", "impresionesTotales": 3800, "visualizaciones": 3100, "quartil25": 2900, "quartil50": 2550, "quartil75": 2200, "quartil100": 1900, "vtr": 61 },
+    { "fecha": "2026-08-01", "publisher": "Pluto TV", "motivo": "Conversión", "impresionesTotales": 2900, "visualizaciones": 2350, "quartil25": 2180, "quartil50": 1920, "quartil75": 1650, "quartil100": 1440, "vtr": 60 },
+    { "fecha": "2026-08-02", "publisher": "Roku", "motivo": "Alcance", "impresionesTotales": 4350, "visualizaciones": 3520, "quartil25": 3320, "quartil50": 2900, "quartil75": 2500, "quartil100": 2180, "vtr": 63 },
+    { "fecha": "2026-08-02", "publisher": "Samsung TV Plus", "motivo": "Awareness", "impresionesTotales": 3950, "visualizaciones": 3230, "quartil25": 3020, "quartil50": 2650, "quartil75": 2280, "quartil100": 1980, "vtr": 62 },
+    { "fecha": "2026-08-02", "publisher": "Pluto TV", "motivo": "Conversión", "impresionesTotales": 3020, "visualizaciones": 2450, "quartil25": 2280, "quartil50": 2000, "quartil75": 1720, "quartil100": 1500, "vtr": 61 },
+    { "fecha": "2026-08-03", "publisher": "LG Channels", "motivo": "Alcance", "impresionesTotales": 2600, "visualizaciones": 2080, "quartil25": 1950, "quartil50": 1700, "quartil75": 1460, "quartil100": 1270, "vtr": 60 },
+    { "fecha": "2026-08-03", "publisher": "Amazon Fire TV", "motivo": "Awareness", "impresionesTotales": 3300, "visualizaciones": 2680, "quartil25": 2500, "quartil50": 2200, "quartil75": 1890, "quartil100": 1640, "vtr": 61 },
+    { "fecha": "2026-08-04", "publisher": "Roku", "motivo": "Alcance", "impresionesTotales": 4500, "visualizaciones": 3670, "quartil25": 3460, "quartil50": 3030, "quartil75": 2610, "quartil100": 2280, "vtr": 64 },
+    { "fecha": "2026-08-04", "publisher": "YouTube TV", "motivo": "Conversión", "impresionesTotales": 2750, "visualizaciones": 2230, "quartil25": 2080, "quartil50": 1820, "quartil75": 1560, "quartil100": 1360, "vtr": 61 }
+  ],
+  "testigo": [
+    { "fecha": "2026-08-01", "campana": "Claro 5G Lanzamiento", "publisher": "Roku", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoClaro0801/view" },
+    { "fecha": "2026-08-01", "campana": "Toyota Hilux 2026", "publisher": "Samsung TV Plus", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoToyota0801/view" },
+    { "fecha": "2026-08-02", "campana": "Banco Guayaquil App Móvil", "publisher": "Pluto TV", "estado": "Pendiente", "testigoUrl": "" },
+    { "fecha": "2026-08-02", "campana": "Claro 5G Lanzamiento", "publisher": "Roku", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoClaro0802/view" },
+    { "fecha": "2026-08-03", "campana": "Toyota Hilux 2026", "publisher": "LG Channels", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoToyota0803/view" },
+    { "fecha": "2026-08-03", "campana": "Banco Guayaquil App Móvil", "publisher": "Amazon Fire TV", "estado": "Pendiente", "testigoUrl": "" },
+    { "fecha": "2026-08-04", "campana": "Claro 5G Lanzamiento", "publisher": "Roku", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoClaro0804/view" },
+    { "fecha": "2026-08-04", "campana": "Toyota Hilux 2026", "publisher": "YouTube TV", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoToyota0804/view" }
+  ]
+}

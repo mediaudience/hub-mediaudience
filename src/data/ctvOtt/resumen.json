@@ -1,0 +1,21 @@
+{
+  "kpis": {
+    "impresionesTotales": 185318,
+    "visualizaciones": 146402,
+    "vtr": 79
+  },
+  "mensual": [
+    { "mes": "Enero", "visualizaciones": 9800, "impresionesTotales": 12400 },
+    { "mes": "Febrero", "visualizaciones": 10200, "impresionesTotales": 13100 },
+    { "mes": "Marzo", "visualizaciones": 11500, "impresionesTotales": 14600 },
+    { "mes": "Abril", "visualizaciones": 12100, "impresionesTotales": 15200 },
+    { "mes": "Mayo", "visualizaciones": 13400, "impresionesTotales": 16800 },
+    { "mes": "Junio", "visualizaciones": 14900, "impresionesTotales": 18500 },
+    { "mes": "Julio", "visualizaciones": 16800, "impresionesTotales": 20900 },
+    { "mes": "Agosto", "visualizaciones": 12300, "impresionesTotales": 15600 },
+    { "mes": "Septiembre", "visualizaciones": 0, "impresionesTotales": 0 },
+    { "mes": "Octubre", "visualizaciones": 0, "impresionesTotales": 0 },
+    { "mes": "Noviembre", "visualizaciones": 0, "impresionesTotales": 0 },
+    { "mes": "Diciembre", "visualizaciones": 0, "impresionesTotales": 0 }
+  ]
+}

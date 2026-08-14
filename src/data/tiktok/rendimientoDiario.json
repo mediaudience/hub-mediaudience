@@ -1,0 +1,34 @@
+{
+  "porCampana": [
+    { "fecha": "2026-08-01", "campana": "Yanbal Nueva Colección", "motivo": "Awareness", "impresionesTotales": 5600, "visualizaciones": 4850, "quartil25": 4600, "quartil50": 4100, "quartil75": 3550, "quartil100": 3100, "vtr": 87 },
+    { "fecha": "2026-08-01", "campana": "Coca-Cola Verano sin Fin", "motivo": "Alcance", "impresionesTotales": 7200, "visualizaciones": 6200, "quartil25": 5900, "quartil50": 5300, "quartil75": 4600, "quartil100": 4050, "vtr": 86 },
+    { "fecha": "2026-08-01", "campana": "Kia Sportage 2026", "motivo": "Conversión", "impresionesTotales": 4300, "visualizaciones": 3650, "quartil25": 3450, "quartil50": 3050, "quartil75": 2630, "quartil100": 2300, "vtr": 85 },
+    { "fecha": "2026-08-02", "campana": "Yanbal Nueva Colección", "motivo": "Awareness", "impresionesTotales": 5750, "visualizaciones": 4980, "quartil25": 4720, "quartil50": 4210, "quartil75": 3650, "quartil100": 3190, "vtr": 87 },
+    { "fecha": "2026-08-02", "campana": "Coca-Cola Verano sin Fin", "motivo": "Alcance", "impresionesTotales": 7400, "visualizaciones": 6370, "quartil25": 6060, "quartil50": 5440, "quartil75": 4720, "quartil100": 4160, "vtr": 86 },
+    { "fecha": "2026-08-02", "campana": "Kia Sportage 2026", "motivo": "Conversión", "impresionesTotales": 4420, "visualizaciones": 3750, "quartil25": 3550, "quartil50": 3140, "quartil75": 2710, "quartil100": 2370, "vtr": 85 },
+    { "fecha": "2026-08-03", "campana": "Yanbal Nueva Colección", "motivo": "Awareness", "impresionesTotales": 5500, "visualizaciones": 4760, "quartil25": 4510, "quartil50": 4020, "quartil75": 3480, "quartil100": 3040, "vtr": 87 },
+    { "fecha": "2026-08-03", "campana": "Coca-Cola Verano sin Fin", "motivo": "Alcance", "impresionesTotales": 7050, "visualizaciones": 6060, "quartil25": 5760, "quartil50": 5170, "quartil75": 4490, "quartil100": 3960, "vtr": 86 },
+    { "fecha": "2026-08-03", "campana": "Kia Sportage 2026", "motivo": "Conversión", "impresionesTotales": 4210, "visualizaciones": 3570, "quartil25": 3380, "quartil50": 2990, "quartil75": 2580, "quartil100": 2260, "vtr": 85 },
+    { "fecha": "2026-08-04", "campana": "Yanbal Nueva Colección", "motivo": "Awareness", "impresionesTotales": 5820, "visualizaciones": 5040, "quartil25": 4780, "quartil50": 4260, "quartil75": 3700, "quartil100": 3230, "vtr": 87 },
+    { "fecha": "2026-08-04", "campana": "Coca-Cola Verano sin Fin", "motivo": "Alcance", "impresionesTotales": 7500, "visualizaciones": 6450, "quartil25": 6140, "quartil50": 5510, "quartil75": 4780, "quartil100": 4220, "vtr": 86 },
+    { "fecha": "2026-08-04", "campana": "Kia Sportage 2026", "motivo": "Conversión", "impresionesTotales": 4480, "visualizaciones": 3800, "quartil25": 3600, "quartil50": 3180, "quartil75": 2750, "quartil100": 2400, "vtr": 85 }
+  ],
+  "porPublisher": [
+    { "fecha": "2026-08-01", "publisher": "TikTok For You Feed", "motivo": "Alcance", "impresionesTotales": 8600, "visualizaciones": 7450, "quartil25": 7080, "quartil50": 6330, "quartil75": 5480, "quartil100": 4820, "vtr": 87 },
+    { "fecha": "2026-08-01", "publisher": "TikTok TopView", "motivo": "Awareness", "impresionesTotales": 5200, "visualizaciones": 4460, "quartil25": 4230, "quartil50": 3770, "quartil75": 3260, "quartil100": 2850, "vtr": 86 },
+    { "fecha": "2026-08-01", "publisher": "TikTok Spark Ads", "motivo": "Conversión", "impresionesTotales": 3900, "visualizaciones": 3300, "quartil25": 3110, "quartil50": 2740, "quartil75": 2350, "quartil100": 2050, "vtr": 85 },
+    { "fecha": "2026-08-02", "publisher": "TikTok For You Feed", "motivo": "Alcance", "impresionesTotales": 8750, "visualizaciones": 7600, "quartil25": 7220, "quartil50": 6460, "quartil75": 5590, "quartil100": 4930, "vtr": 87 },
+    { "fecha": "2026-08-02", "publisher": "TikTok TopView", "motivo": "Awareness", "impresionesTotales": 5320, "visualizaciones": 4570, "quartil25": 4330, "quartil50": 3860, "quartil75": 3340, "quartil100": 2920, "vtr": 86 },
+    { "fecha": "2026-08-03", "publisher": "TikTok Spark Ads", "motivo": "Conversión", "impresionesTotales": 3850, "visualizaciones": 3260, "quartil25": 3070, "quartil50": 2700, "quartil75": 2320, "quartil100": 2020, "vtr": 85 },
+    { "fecha": "2026-08-03", "publisher": "TikTok For You Feed", "motivo": "Alcance", "impresionesTotales": 8500, "visualizaciones": 7370, "quartil25": 7000, "quartil50": 6260, "quartil75": 5420, "quartil100": 4770, "vtr": 87 },
+    { "fecha": "2026-08-04", "publisher": "TikTok TopView", "motivo": "Awareness", "impresionesTotales": 5400, "visualizaciones": 4640, "quartil25": 4400, "quartil50": 3920, "quartil75": 3390, "quartil100": 2970, "vtr": 86 },
+    { "fecha": "2026-08-04", "publisher": "TikTok Spark Ads", "motivo": "Conversión", "impresionesTotales": 3980, "visualizaciones": 3370, "quartil25": 3180, "quartil50": 2800, "quartil75": 2410, "quartil100": 2100, "vtr": 85 }
+  ],
+  "testigo": [
+    { "fecha": "2026-08-01", "campana": "Coca-Cola Verano sin Fin", "publisher": "TikTok For You Feed", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoCocaCola0801/view" },
+    { "fecha": "2026-08-02", "campana": "Yanbal Nueva Colección", "publisher": "TikTok TopView", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoYanbal0802/view" },
+    { "fecha": "2026-08-02", "campana": "Kia Sportage 2026", "publisher": "TikTok Spark Ads", "estado": "Pendiente", "testigoUrl": "" },
+    { "fecha": "2026-08-03", "campana": "Coca-Cola Verano sin Fin", "publisher": "TikTok For You Feed", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoCocaCola0803/view" },
+    { "fecha": "2026-08-04", "campana": "Yanbal Nueva Colección", "publisher": "TikTok TopView", "estado": "Pendiente", "testigoUrl": "" }
+  ]
+}

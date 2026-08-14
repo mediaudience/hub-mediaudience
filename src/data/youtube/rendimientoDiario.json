@@ -1,0 +1,34 @@
+{
+  "porCampana": [
+    { "fecha": "2026-08-01", "campana": "Movistar Plan Familia", "motivo": "Awareness", "impresionesTotales": 6800, "visualizaciones": 5900, "quartil25": 5600, "quartil50": 5000, "quartil75": 4300, "quartil100": 3800, "vtr": 87 },
+    { "fecha": "2026-08-01", "campana": "Pilsener Verano 2026", "motivo": "Alcance", "impresionesTotales": 8200, "visualizaciones": 7100, "quartil25": 6800, "quartil50": 6100, "quartil75": 5300, "quartil100": 4700, "vtr": 87 },
+    { "fecha": "2026-08-01", "campana": "Chevrolet Tracker Lanzamiento", "motivo": "Conversión", "impresionesTotales": 5100, "visualizaciones": 4350, "quartil25": 4100, "quartil50": 3650, "quartil75": 3150, "quartil100": 2800, "vtr": 85 },
+    { "fecha": "2026-08-02", "campana": "Movistar Plan Familia", "motivo": "Awareness", "impresionesTotales": 6950, "visualizaciones": 6050, "quartil25": 5750, "quartil50": 5150, "quartil75": 4450, "quartil100": 3950, "vtr": 87 },
+    { "fecha": "2026-08-02", "campana": "Pilsener Verano 2026", "motivo": "Alcance", "impresionesTotales": 8400, "visualizaciones": 7300, "quartil25": 6980, "quartil50": 6280, "quartil75": 5450, "quartil100": 4850, "vtr": 87 },
+    { "fecha": "2026-08-02", "campana": "Chevrolet Tracker Lanzamiento", "motivo": "Conversión", "impresionesTotales": 5250, "visualizaciones": 4470, "quartil25": 4220, "quartil50": 3760, "quartil75": 3240, "quartil100": 2880, "vtr": 85 },
+    { "fecha": "2026-08-03", "campana": "Movistar Plan Familia", "motivo": "Awareness", "impresionesTotales": 6700, "visualizaciones": 5820, "quartil25": 5530, "quartil50": 4950, "quartil75": 4270, "quartil100": 3780, "vtr": 87 },
+    { "fecha": "2026-08-03", "campana": "Pilsener Verano 2026", "motivo": "Alcance", "impresionesTotales": 8000, "visualizaciones": 6950, "quartil25": 6650, "quartil50": 5980, "quartil75": 5180, "quartil100": 4600, "vtr": 87 },
+    { "fecha": "2026-08-03", "campana": "Chevrolet Tracker Lanzamiento", "motivo": "Conversión", "impresionesTotales": 4980, "visualizaciones": 4230, "quartil25": 3990, "quartil50": 3550, "quartil75": 3060, "quartil100": 2720, "vtr": 85 },
+    { "fecha": "2026-08-04", "campana": "Movistar Plan Familia", "motivo": "Awareness", "impresionesTotales": 7100, "visualizaciones": 6180, "quartil25": 5870, "quartil50": 5260, "quartil75": 4540, "quartil100": 4030, "vtr": 87 },
+    { "fecha": "2026-08-04", "campana": "Pilsener Verano 2026", "motivo": "Alcance", "impresionesTotales": 8550, "visualizaciones": 7450, "quartil25": 7130, "quartil50": 6410, "quartil75": 5560, "quartil100": 4950, "vtr": 87 },
+    { "fecha": "2026-08-04", "campana": "Chevrolet Tracker Lanzamiento", "motivo": "Conversión", "impresionesTotales": 5350, "visualizaciones": 4550, "quartil25": 4290, "quartil50": 3820, "quartil75": 3300, "quartil100": 2930, "vtr": 85 }
+  ],
+  "porPublisher": [
+    { "fecha": "2026-08-01", "publisher": "YouTube In-Stream", "motivo": "Alcance", "impresionesTotales": 9200, "visualizaciones": 8000, "quartil25": 7600, "quartil50": 6800, "quartil75": 5900, "quartil100": 5200, "vtr": 87 },
+    { "fecha": "2026-08-01", "publisher": "YouTube Shorts", "motivo": "Awareness", "impresionesTotales": 7400, "visualizaciones": 6300, "quartil25": 5950, "quartil50": 5300, "quartil75": 4550, "quartil100": 4000, "vtr": 85 },
+    { "fecha": "2026-08-01", "publisher": "YouTube Discovery", "motivo": "Conversión", "impresionesTotales": 4600, "visualizaciones": 3850, "quartil25": 3600, "quartil50": 3180, "quartil75": 2720, "quartil100": 2400, "vtr": 84 },
+    { "fecha": "2026-08-02", "publisher": "YouTube In-Stream", "motivo": "Alcance", "impresionesTotales": 9400, "visualizaciones": 8200, "quartil25": 7800, "quartil50": 7000, "quartil75": 6100, "quartil100": 5400, "vtr": 87 },
+    { "fecha": "2026-08-02", "publisher": "YouTube Shorts", "motivo": "Awareness", "impresionesTotales": 7600, "visualizaciones": 6480, "quartil25": 6120, "quartil50": 5460, "quartil75": 4700, "quartil100": 4140, "vtr": 85 },
+    { "fecha": "2026-08-03", "publisher": "YouTube Discovery", "motivo": "Conversión", "impresionesTotales": 4450, "visualizaciones": 3720, "quartil25": 3480, "quartil50": 3070, "quartil75": 2630, "quartil100": 2320, "vtr": 84 },
+    { "fecha": "2026-08-03", "publisher": "YouTube In-Stream", "motivo": "Alcance", "impresionesTotales": 9050, "visualizaciones": 7900, "quartil25": 7500, "quartil50": 6720, "quartil75": 5850, "quartil100": 5170, "vtr": 87 },
+    { "fecha": "2026-08-04", "publisher": "YouTube Shorts", "motivo": "Awareness", "impresionesTotales": 7750, "visualizaciones": 6610, "quartil25": 6240, "quartil50": 5560, "quartil75": 4790, "quartil100": 4220, "vtr": 85 },
+    { "fecha": "2026-08-04", "publisher": "YouTube Discovery", "motivo": "Conversión", "impresionesTotales": 4700, "visualizaciones": 3930, "quartil25": 3680, "quartil50": 3250, "quartil75": 2780, "quartil100": 2450, "vtr": 84 }
+  ],
+  "testigo": [
+    { "fecha": "2026-08-01", "campana": "Movistar Plan Familia", "publisher": "YouTube In-Stream", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoMovistar0801/view" },
+    { "fecha": "2026-08-02", "campana": "Pilsener Verano 2026", "publisher": "YouTube Shorts", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoPilsener0802/view" },
+    { "fecha": "2026-08-02", "campana": "Chevrolet Tracker Lanzamiento", "publisher": "YouTube Discovery", "estado": "Pendiente", "testigoUrl": "" },
+    { "fecha": "2026-08-03", "campana": "Movistar Plan Familia", "publisher": "YouTube In-Stream", "estado": "Verificado", "testigoUrl": "https://drive.google.com/file/d/1TestigoMovistar0803/view" },
+    { "fecha": "2026-08-04", "campana": "Pilsener Verano 2026", "publisher": "YouTube Shorts", "estado": "Pendiente", "testigoUrl": "" }
+  ]
+}

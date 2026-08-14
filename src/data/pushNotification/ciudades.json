@@ -1,0 +1,8 @@
+[
+  { "ubicacion": "Quito", "impresionesTotales": 52400 },
+  { "ubicacion": "Guayaquil", "impresionesTotales": 46800 },
+  { "ubicacion": "Cuenca", "impresionesTotales": 21300 },
+  { "ubicacion": "Manta", "impresionesTotales": 12600 },
+  { "ubicacion": "Ambato", "impresionesTotales": 9800 },
+  { "ubicacion": "Santo Domingo", "impresionesTotales": 2700 }
+]

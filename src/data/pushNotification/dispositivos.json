@@ -1,0 +1,5 @@
+[
+  { "dispositivo": "Mobile", "impresionesTotales": 121200 },
+  { "dispositivo": "Tablet", "impresionesTotales": 16800 },
+  { "dispositivo": "Desktop", "impresionesTotales": 7600 }
+]
