@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import GradientHeader from "../../components/common/GradientHeader";
 import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
+import EmptyState from "../../components/common/EmptyState";
 
 async function apiFetch(url, options) {
   const res = await fetch(url, {
@@ -12,6 +13,30 @@ async function apiFetch(url, options) {
   const data = await res.json().catch(() => null);
   if (!res.ok) throw new Error(data?.error || "Ocurrió un error");
   return data;
+}
+
+const MAX_CHIPS_VISIBLES = 3;
+
+function AnunciantesChips({ anunciantes }) {
+  if (anunciantes.length === 0) return <span className="text-slate-label">—</span>;
+
+  const visibles = anunciantes.slice(0, MAX_CHIPS_VISIBLES);
+  const restantes = anunciantes.length - visibles.length;
+
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {visibles.map((a) => (
+        <span key={a} className="px-2 py-0.5 rounded-full text-xs font-medium bg-brand-purple/10 text-brand-purple">
+          {a}
+        </span>
+      ))}
+      {restantes > 0 && (
+        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-label">
+          +{restantes} más
+        </span>
+      )}
+    </div>
+  );
 }
 
 const EMPTY_FORM = { id: null, nombre: "", sheetId: "", anunciantes: [], activo: true };
@@ -76,9 +101,22 @@ export default function AdminClientes() {
     }
   }
 
+  async function toggleActivo(c) {
+    if (c.activo && !window.confirm(`¿Desactivar a ${c.nombre}? Sus usuarios no podrán iniciar sesión mientras esté inactivo.`)) {
+      return;
+    }
+    setError("");
+    try {
+      await apiFetch(`/api/admin/clientes/${c.id}`, { method: "PUT", body: JSON.stringify({ activo: !c.activo }) });
+      await cargar();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
   return (
     <div>
-      <GradientHeader title="Administración: Clientes" />
+      <GradientHeader title="Administración: Clientes" showDownload={false} />
 
       {error && (
         <div role="alert" className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
@@ -98,6 +136,8 @@ export default function AdminClientes() {
 
           {loading ? (
             <Spinner label="Cargando clientes..." />
+          ) : clientes.length === 0 ? (
+            <EmptyState message="No hay clientes creados todavía. Usa '+ Nuevo Cliente' para dar de alta el primero." />
           ) : (
             <Card className="overflow-x-auto">
               <table className="w-full text-sm min-w-[700px]">
@@ -114,7 +154,9 @@ export default function AdminClientes() {
                   {clientes.map((c, i) => (
                     <tr key={c.id} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
                       <td className="px-4 py-2.5 text-gray-800">{c.nombre}</td>
-                      <td className="px-4 py-2.5 text-gray-600">{c.anunciantes.join(", ") || "—"}</td>
+                      <td className="px-4 py-2.5">
+                        <AnunciantesChips anunciantes={c.anunciantes} />
+                      </td>
                       <td className="px-4 py-2.5 text-gray-600 font-mono text-xs">
                         {c.sheetId || "sin configurar"}
                       </td>
@@ -127,7 +169,7 @@ export default function AdminClientes() {
                           {c.activo ? "Activo" : "Inactivo"}
                         </span>
                       </td>
-                      <td className="px-4 py-2.5 text-right">
+                      <td className="px-4 py-2.5 text-right whitespace-nowrap">
                         <button
                           type="button"
                           onClick={() =>
@@ -139,20 +181,20 @@ export default function AdminClientes() {
                               activo: c.activo,
                             })
                           }
-                          className="text-brand-purple hover:underline text-sm font-medium"
+                          className="text-brand-purple hover:underline text-sm font-medium mr-3"
                         >
                           Editar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => toggleActivo(c)}
+                          className="text-brand-purple hover:underline text-sm font-medium"
+                        >
+                          {c.activo ? "Desactivar" : "Activar"}
                         </button>
                       </td>
                     </tr>
                   ))}
-                  {clientes.length === 0 && (
-                    <tr>
-                      <td colSpan={5} className="px-4 py-6 text-center text-slate-label">
-                        No hay clientes creados todavía.
-                      </td>
-                    </tr>
-                  )}
                 </tbody>
               </table>
             </Card>

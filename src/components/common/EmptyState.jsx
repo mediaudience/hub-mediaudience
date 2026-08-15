@@ -1,4 +1,4 @@
-export default function EmptyState({ message = "Selecciona un periodo para ver la información" }) {
+export default function EmptyState({ message = "Selecciona un periodo para ver la información", action }) {
   return (
     <div className="relative flex flex-col items-center justify-center py-16 min-h-[280px]">
       <svg
@@ -25,6 +25,7 @@ export default function EmptyState({ message = "Selecciona un periodo para ver l
         <line x1="4" y1="80" x2="112" y2="80" stroke="currentColor" strokeWidth="2" />
       </svg>
       <p className="mt-4 text-sm text-slate-label text-center max-w-xs">{message}</p>
+      {action && <div className="mt-4">{action}</div>}
     </div>
   );
 }

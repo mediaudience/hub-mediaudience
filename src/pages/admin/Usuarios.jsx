@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import GradientHeader from "../../components/common/GradientHeader";
 import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
+import EmptyState from "../../components/common/EmptyState";
 import { useAuth } from "../../context/AuthContext";
 
 async function apiFetch(url, options) {
@@ -13,6 +14,46 @@ async function apiFetch(url, options) {
   const data = await res.json().catch(() => null);
   if (!res.ok) throw new Error(data?.error || "Ocurrió un error");
   return data;
+}
+
+const ROL_LABEL = { admin: "Admin", cliente: "Cliente" };
+
+function RolBadge({ rol }) {
+  const isAdmin = rol === "admin";
+  return (
+    <span
+      className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+        isAdmin ? "bg-brand-purple/10 text-brand-purple" : "bg-brand-magenta/10 text-brand-magenta"
+      }`}
+    >
+      {ROL_LABEL[rol] ?? rol}
+    </span>
+  );
+}
+
+function CopyButton({ value }) {
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // clipboard API bloqueada (permiso, contexto no seguro, etc.) -- el
+      // usuario igual puede seleccionar el texto a mano, no es fatal.
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="text-xs font-medium text-brand-purple hover:underline whitespace-nowrap"
+    >
+      {copied ? "¡Copiado!" : "Copiar"}
+    </button>
+  );
 }
 
 const EMPTY_FORM = { id: null, nombre: "", email: "", rol: "cliente", clienteId: "", activo: true };
@@ -98,6 +139,9 @@ export default function AdminUsuarios() {
   }
 
   async function toggleActivo(u) {
+    if (u.activo && !window.confirm(`¿Desactivar a ${u.nombre}? No podrá iniciar sesión hasta que lo reactives.`)) {
+      return;
+    }
     setError("");
     try {
       await apiFetch(`/api/admin/usuarios/${u.id}`, { method: "PUT", body: JSON.stringify({ activo: !u.activo }) });
@@ -109,7 +153,7 @@ export default function AdminUsuarios() {
 
   return (
     <div>
-      <GradientHeader title="Administración: Usuarios" />
+      <GradientHeader title="Administración: Usuarios" showDownload={false} />
 
       {error && (
         <div role="alert" className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
@@ -124,14 +168,17 @@ export default function AdminUsuarios() {
             <span className="font-mono font-bold text-brand-purple">{passwordGenerada.password}</span> — cópiala
             ahora, no se volverá a mostrar.
           </span>
-          <button
-            type="button"
-            onClick={() => setPasswordGenerada(null)}
-            className="text-slate-label hover:text-gray-700"
-            aria-label="Cerrar"
-          >
-            ✕
-          </button>
+          <div className="flex items-center gap-3 shrink-0">
+            <CopyButton value={passwordGenerada.password} />
+            <button
+              type="button"
+              onClick={() => setPasswordGenerada(null)}
+              className="text-slate-label hover:text-gray-700"
+              aria-label="Cerrar"
+            >
+              ✕
+            </button>
+          </div>
         </div>
       )}
 
@@ -147,6 +194,8 @@ export default function AdminUsuarios() {
 
           {loading ? (
             <Spinner label="Cargando usuarios..." />
+          ) : usuarios.length === 0 ? (
+            <EmptyState message="No hay usuarios creados todavía. Usa '+ Nuevo Usuario' para dar de alta el primero." />
           ) : (
             <Card className="overflow-x-auto">
               <table className="w-full text-sm min-w-[820px]">
@@ -165,7 +214,9 @@ export default function AdminUsuarios() {
                     <tr key={u.id} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
                       <td className="px-4 py-2.5 text-gray-800">{u.nombre}</td>
                       <td className="px-4 py-2.5 text-gray-600">{u.email}</td>
-                      <td className="px-4 py-2.5 text-gray-600 capitalize">{u.rol}</td>
+                      <td className="px-4 py-2.5">
+                        <RolBadge rol={u.rol} />
+                      </td>
                       <td className="px-4 py-2.5 text-gray-600">{u.clienteNombre || "—"}</td>
                       <td className="px-4 py-2.5">
                         <span
@@ -203,13 +254,6 @@ export default function AdminUsuarios() {
                       </td>
                     </tr>
                   ))}
-                  {usuarios.length === 0 && (
-                    <tr>
-                      <td colSpan={6} className="px-4 py-6 text-center text-slate-label">
-                        No hay usuarios creados todavía.
-                      </td>
-                    </tr>
-                  )}
                 </tbody>
               </table>
             </Card>
