@@ -3,29 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import LoginIllustration from "../components/common/LoginIllustration";
 import LoginBackgroundPattern from "../components/common/LoginBackgroundPattern";
-
-function RadarMark({ size = 40, ringColor = "white", ringOpacityBase = 0.5 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
-      <circle cx="20" cy="20" r="19" stroke={ringColor} strokeWidth="2" opacity={ringOpacityBase} />
-      <circle cx="20" cy="20" r="12" stroke={ringColor} strokeWidth="2" opacity={ringOpacityBase + 0.25} />
-      <circle cx="20" cy="20" r="5" fill={ringColor} />
-    </svg>
-  );
-}
+import mediaudienceLogo from "../assets/brand/mediaudience-logo.png";
 
 function BrandMark() {
-  return (
-    <div className="flex items-center gap-2.5">
-      <div className="flex items-center justify-center w-9 h-9 rounded-full bg-brand-purple shrink-0">
-        <RadarMark size={20} />
-      </div>
-      <span className="text-xl font-bold">
-        <span className="text-brand-purple">media</span>
-        <span className="text-brand-magenta">udience</span>
-      </span>
-    </div>
-  );
+  return <img src={mediaudienceLogo} alt="Mediaudience" className="h-16 w-auto" />;
 }
 
 export default function Login() {

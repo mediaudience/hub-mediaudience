@@ -48,7 +48,7 @@ export default function Shell() {
         onClick={toggleSidebar}
         aria-label={sidebarOpen ? "Colapsar menú" : "Expandir menú"}
         style={{ left: sidebarOpen ? SIDEBAR_WIDTH : 0 }}
-        className="hidden md:flex fixed top-24 z-40 w-7 h-7 -translate-x-1/2 items-center justify-center rounded-full bg-white border border-brand-purple/30 text-brand-purple shadow transition-all duration-200 hover:bg-brand-purple hover:text-white"
+        className="hidden md:flex fixed top-20 z-40 w-7 h-7 -translate-x-1/2 items-center justify-center rounded-full bg-white border border-brand-purple/30 text-brand-purple shadow transition-all duration-200 hover:bg-brand-purple hover:text-white"
       >
         <svg
           width="12"

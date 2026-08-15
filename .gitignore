@@ -34,3 +34,5 @@ server/*.sqlite-*
 # En server/.env, no en la raíz -- ahí Vite lo confundiría con sus propios
 # archivos .env por modo (.env.production, etc.) y lo metería en el build.
 server/.env
+# Logos originales subidos por el usuario (fuente: src/assets/brand/*.png ya extraidos de aca)
+Logo Mediaudience/
