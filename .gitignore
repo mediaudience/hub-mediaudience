@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Credenciales de Google Sheets sync
+secrets/
+
+# Base de datos y sesiones del backend
+server/*.sqlite
+server/*.sqlite-*
+
+# Secretos de entorno de producción del backend (SESSION_SECRET, etc.)
+# En server/.env, no en la raíz -- ahí Vite lo confundiría con sus propios
+# archivos .env por modo (.env.production, etc.) y lo metería en el build.
+server/.env
