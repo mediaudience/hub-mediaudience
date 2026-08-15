@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { NAV_GROUPS } from "../../navConfig";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NAV_GROUPS, ADMIN_NAV_GROUP } from "../../navConfig";
+import { useAuth } from "../../context/AuthContext";
 
 function ChevronDown({ className }) {
   return (
@@ -13,6 +14,8 @@ function ChevronDown({ className }) {
 function UserMenu() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     function onClickOutside(e) {
@@ -21,6 +24,11 @@ function UserMenu() {
     document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
+
+  async function handleLogout() {
+    await logout();
+    navigate("/login", { replace: true });
+  }
 
   return (
     <div className="relative" ref={ref}>
@@ -31,7 +39,7 @@ function UserMenu() {
         aria-expanded={open}
         className="w-full flex items-center justify-center gap-1.5 py-3 text-sm font-medium text-gray-700 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta"
       >
-        Nombre Usuario
+        {user?.nombre ?? "Usuario"}
         <ChevronDown className={`text-slate-label transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
@@ -42,10 +50,8 @@ function UserMenu() {
           <button
             type="button"
             role="menuitem"
-            disabled
-            aria-disabled="true"
-            title="Próximamente"
-            className="w-full text-left px-4 py-2 text-sm text-gray-400 cursor-not-allowed"
+            onClick={handleLogout}
+            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-slate-50"
           >
             Cerrar sesión
           </button>
@@ -71,7 +77,9 @@ function GroupArrow({ open }) {
 
 export default function Sidebar({ open, onNavigate }) {
   const location = useLocation();
-  const activeGroupId = NAV_GROUPS.find((g) =>
+  const { user } = useAuth();
+  const groups = user?.rol === "admin" ? [...NAV_GROUPS, ADMIN_NAV_GROUP] : NAV_GROUPS;
+  const activeGroupId = groups.find((g) =>
     g.items.some((i) => location.pathname.startsWith(i.path))
   )?.id;
   const [openGroups, setOpenGroups] = useState(() =>
@@ -112,7 +120,7 @@ export default function Sidebar({ open, onNavigate }) {
         <UserMenu />
 
         <nav className="px-2 pb-6">
-          {NAV_GROUPS.map((group) => {
+          {groups.map((group) => {
             const open = !!openGroups[group.id];
             return (
               <div key={group.id} className="mb-1">

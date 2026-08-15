@@ -1,25 +1,29 @@
 import ChannelResumenGeneral from "../ChannelResumenGeneral";
-import resumen from "../../data/programatico/resumen.json";
-import ciudades from "../../data/programatico/ciudades.json";
-import dispositivos from "../../data/programatico/dispositivos.json";
-import campanas from "../../data/campanasServidas.json";
-
-const CAMPAIGNS = campanas.filter((c) => c.formato === "Display Programático").map((c) => c.campana);
-const ANUNCIANTES = [...new Set(campanas.filter((c) => c.formato === "Display Programático").map((c) => c.anunciante))];
+import useApiData from "../../hooks/useApiData";
+import Spinner from "../../components/common/Spinner";
+import EmptyState from "../../components/common/EmptyState";
 
 export default function ProgramaticoResumenGeneral() {
+  const { data, loading, error } = useApiData("/api/canal/programatico/resumen-general");
+
+  if (loading) return <Spinner label="Cargando resumen..." />;
+  if (error || !data) return <EmptyState message="No se pudo cargar la información de este canal." />;
+  if (data.sinDatos) {
+    return <EmptyState message="Aún no hay datos sincronizados para tu cuenta en este canal." />;
+  }
+
   return (
     <ChannelResumenGeneral
       filters={[
-        { label: "Anunciante", options: ANUNCIANTES },
-        { label: "Campañas", options: CAMPAIGNS },
+        { label: "Anunciante", options: data.anunciantes },
+        { label: "Campañas", options: data.campanas },
       ]}
       kpis={[
-        { label: "Impresiones Totales", value: resumen.kpis.impresionesTotales },
-        { label: "Visualizaciones", value: resumen.kpis.visualizaciones },
-        { label: "VTR", value: resumen.kpis.vtr, percent: true },
+        { label: "Impresiones Totales", value: data.kpis.impresionesTotales },
+        { label: "Visualizaciones", value: data.kpis.visualizaciones },
+        { label: "VTR", value: data.kpis.vtr, percent: true },
       ]}
-      chartData={resumen.mensual}
+      chartData={data.mensual}
       chartSeries={[
         { key: "impresionesTotales", label: "Impresiones Totales", color: "#C4216F", type: "bar", yAxisId: "left" },
         { key: "visualizaciones", label: "Visualizaciones", color: "#57007E", type: "line", yAxisId: "right" },
@@ -28,12 +32,12 @@ export default function ProgramaticoResumenGeneral() {
         {
           title: "Consumo por Ciudades",
           labelHeader: "Ubicación",
-          data: ciudades.map((c) => ({ label: c.ubicacion, value: c.impresionesTotales })),
+          data: data.ciudades.map((c) => ({ label: c.ubicacion, value: c.impresionesTotales })),
         },
         {
           title: "Consumo por Dispositivos",
           labelHeader: "Dispositivos",
-          data: dispositivos.map((d) => ({ label: d.dispositivo, value: d.impresionesTotales })),
+          data: data.dispositivos.map((d) => ({ label: d.dispositivo, value: d.impresionesTotales })),
         },
       ]}
     />

@@ -31,17 +31,21 @@ export default function GradientHeader({ title, filters = [], onApplyPeriod, onC
         <h1 className="text-white font-bold text-2xl md:text-3xl">{title}</h1>
 
         <div className="flex flex-wrap items-center gap-2">
-          <PeriodPicker onApply={onApplyPeriod} />
-          {filters.map((f) => (
-            <FilterPill key={f.label} label={f.label} options={f.options} resetKey={resetKey} />
-          ))}
-          <button
-            type="button"
-            onClick={handleClearFilters}
-            className="bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full border border-brand-purple whitespace-nowrap hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            Borrar Filtros
-          </button>
+          {filters.length > 0 && (
+            <>
+              <PeriodPicker onApply={onApplyPeriod} />
+              {filters.map((f) => (
+                <FilterPill key={f.label} label={f.label} options={f.options} resetKey={resetKey} />
+              ))}
+              <button
+                type="button"
+                onClick={handleClearFilters}
+                className="bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full border border-brand-purple whitespace-nowrap hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Borrar Filtros
+              </button>
+            </>
+          )}
           <button
             type="button"
             onClick={onDownload}

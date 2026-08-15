@@ -1,34 +1,13 @@
-import { useState } from "react";
-import GradientHeader from "../../components/common/GradientHeader";
-import Tabs from "../../components/common/Tabs";
-import DailyPerformanceTable from "../../components/common/DailyPerformanceTable";
-import TestigoTable from "../../components/common/TestigoTable";
-import data from "../../data/ctvOtt/rendimientoDiario.json";
-
-const TABS = [
-  { key: "campana", label: "Rendimiento por Campañas", icon: "megaphone" },
-  { key: "publisher", label: "Rendimiento por Publisher", icon: "megaphone" },
-  { key: "testigo", label: "Testigo", icon: "clip" },
-];
+import ChannelRendimientoDiario from "../ChannelRendimientoDiario";
+import useApiData from "../../hooks/useApiData";
+import Spinner from "../../components/common/Spinner";
+import EmptyState from "../../components/common/EmptyState";
 
 export default function CtvOttRendimientoDiario() {
-  const [tab, setTab] = useState("campana");
+  const { data, loading, error } = useApiData("/api/canal/ctv-ott/rendimiento-diario");
 
-  return (
-    <div>
-      <GradientHeader title="Rendimiento Diario" filters={[{ label: "Campaña", options: [] }]} />
+  if (loading) return <Spinner label="Cargando rendimiento diario..." />;
+  if (error || !data) return <EmptyState message="No se pudo cargar la información de este canal." />;
 
-      <Tabs tabs={TABS} active={tab} onChange={setTab} />
-
-      <div className="pt-4">
-        {tab === "campana" && (
-          <DailyPerformanceTable rows={data.porCampana} entityKey="campana" entityLabel="Campaña" />
-        )}
-        {tab === "publisher" && (
-          <DailyPerformanceTable rows={data.porPublisher} entityKey="publisher" entityLabel="Publisher" />
-        )}
-        {tab === "testigo" && <TestigoTable rows={data.testigo} />}
-      </div>
-    </div>
-  );
+  return <ChannelRendimientoDiario data={data} filters={[{ label: "Campaña", options: data.campanas }]} />;
 }

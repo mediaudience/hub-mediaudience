@@ -1,18 +1,29 @@
 import ChannelResumenGeneral from "../ChannelResumenGeneral";
-import resumen from "../../data/pushNotification/resumen.json";
-import ciudades from "../../data/pushNotification/ciudades.json";
-import dispositivos from "../../data/pushNotification/dispositivos.json";
+import useApiData from "../../hooks/useApiData";
+import Spinner from "../../components/common/Spinner";
+import EmptyState from "../../components/common/EmptyState";
 
 export default function PushNotificationResumenGeneral() {
+  const { data, loading, error } = useApiData("/api/canal/push-notification/resumen-general");
+
+  if (loading) return <Spinner label="Cargando resumen..." />;
+  if (error || !data) return <EmptyState message="No se pudo cargar la información de este canal." />;
+  if (data.sinDatos) {
+    return <EmptyState message="Aún no hay datos sincronizados para tu cuenta en este canal." />;
+  }
+
   return (
     <ChannelResumenGeneral
-      filters={[{ label: "Campañas", options: ["Fybeca Salud Familiar", "TÍA Vuelta a Clases", "De Prati Rebajas de Julio"] }]}
-      kpis={[
-        { label: "Impresiones Totales", value: resumen.kpis.impresionesTotales },
-        { label: "Visualizaciones", value: resumen.kpis.visualizaciones },
-        { label: "VTR", value: resumen.kpis.vtr, percent: true },
+      filters={[
+        { label: "Anunciante", options: data.anunciantes },
+        { label: "Campañas", options: data.campanas },
       ]}
-      chartData={resumen.mensual}
+      kpis={[
+        { label: "Impresiones Totales", value: data.kpis.impresionesTotales },
+        { label: "Visualizaciones", value: data.kpis.visualizaciones },
+        { label: "VTR", value: data.kpis.vtr, percent: true },
+      ]}
+      chartData={data.mensual}
       chartSeries={[
         { key: "impresionesTotales", label: "Impresiones Totales", color: "#C4216F", type: "bar", yAxisId: "left" },
         { key: "visualizaciones", label: "Visualizaciones", color: "#57007E", type: "line", yAxisId: "right" },
@@ -21,12 +32,12 @@ export default function PushNotificationResumenGeneral() {
         {
           title: "Consumo por Ciudades",
           labelHeader: "Ubicación",
-          data: ciudades.map((c) => ({ label: c.ubicacion, value: c.impresionesTotales })),
+          data: data.ciudades.map((c) => ({ label: c.ubicacion, value: c.impresionesTotales })),
         },
         {
           title: "Consumo por Dispositivos",
           labelHeader: "Dispositivos",
-          data: dispositivos.map((d) => ({ label: d.dispositivo, value: d.impresionesTotales })),
+          data: data.dispositivos.map((d) => ({ label: d.dispositivo, value: d.impresionesTotales })),
         },
       ]}
     />

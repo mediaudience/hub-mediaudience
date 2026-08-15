@@ -40,3 +40,13 @@ export const NAV_GROUPS = [
     ],
   },
 ];
+
+// Solo visible para rol admin -- Sidebar lo agrega aparte de NAV_GROUPS.
+export const ADMIN_NAV_GROUP = {
+  id: "admin",
+  label: "Administración",
+  items: [
+    { label: "Usuarios", path: "/admin/usuarios" },
+    { label: "Clientes", path: "/admin/clientes" },
+  ],
+};
