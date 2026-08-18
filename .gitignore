@@ -29,6 +29,7 @@ secrets/
 # Base de datos y sesiones del backend
 server/*.sqlite
 server/*.sqlite-*
+server/backups/
 
 # Secretos de entorno de producción del backend (SESSION_SECRET, etc.)
 # En server/.env, no en la raíz -- ahí Vite lo confundiría con sus propios

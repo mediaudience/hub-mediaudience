@@ -1,12 +1,16 @@
 import ChannelResumenGeneral from "../ChannelResumenGeneral";
 import useApiData from "../../hooks/useApiData";
-import Spinner from "../../components/common/Spinner";
+import PageSkeleton from "../../components/common/PageSkeleton";
+import useDelayedLoading from "../../hooks/useDelayedLoading";
 import EmptyState from "../../components/common/EmptyState";
 
 export default function YoutubeResumenGeneral() {
   const { data, loading, error } = useApiData("/api/canal/youtube/resumen-general");
 
-  if (loading) return <Spinner label="Cargando resumen..." />;
+  const showSkeleton = useDelayedLoading(loading);
+
+  if (showSkeleton) return <PageSkeleton />;
+  if (loading) return null;
   if (error || !data) return <EmptyState message="No se pudo cargar la información de este canal." />;
   if (data.sinDatos) {
     return <EmptyState message="Aún no hay datos sincronizados para tu cuenta en este canal." />;

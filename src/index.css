@@ -4,7 +4,7 @@
   --color-brand-purple: #57007e;
   --color-brand-magenta: #c4216f;
   --color-slate-label: rgb(118, 139, 158);
-  --color-bg-app: #eef5f9;
+  --color-bg-app: #f3f3f3;
   --color-semaphore-red: #f44336;
   --color-semaphore-orange: #ffa726;
   --color-semaphore-green: #4caf50;
@@ -46,6 +46,25 @@ body {
   }
 }
 
+.spinner-gradient {
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    var(--color-brand-purple),
+    var(--color-brand-magenta),
+    var(--color-brand-purple)
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
+  animation: spin-slow 0.9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner-gradient {
+    animation: none;
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: -400px 0;
@@ -56,7 +75,18 @@ body {
 }
 
 .skeleton-shimmer {
-  background: linear-gradient(90deg, #e2e8f0 25%, #eef2f6 37%, #e2e8f0 63%);
+  background: linear-gradient(90deg, #e7def0 25%, #f4eef9 37%, #e7def0 63%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.skeleton-shimmer-header {
+  background: linear-gradient(
+    90deg,
+    rgba(87, 0, 126, 0.35) 25%,
+    rgba(196, 33, 111, 0.45) 37%,
+    rgba(87, 0, 126, 0.35) 63%
+  );
   background-size: 400px 100%;
   animation: shimmer 1.4s ease-in-out infinite;
 }
@@ -79,7 +109,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .skeleton-shimmer {
     animation: none;
-    background: #e9eef2;
+    background: #ede6f2;
+  }
+  .skeleton-shimmer-header {
+    animation: none;
+    background: rgba(87, 0, 126, 0.35);
   }
   .page-fade-in {
     animation: none;

@@ -16,32 +16,59 @@ async function apiFetch(url, options) {
   return data;
 }
 
-const ROL_LABEL = { admin: "Admin", cliente: "Cliente" };
+const ROL_LABEL = {
+  super_admin: "Super Admin",
+  admin: "Admin",
+  usuario_interno: "Usuario Interno",
+  usuario_externo: "Usuario Externo",
+};
+
+const ROL_BADGE_CLASS = {
+  super_admin: "bg-brand-magenta text-white",
+  admin: "bg-brand-purple/10 text-brand-purple",
+  usuario_interno: "bg-slate-label/10 text-slate-label",
+  usuario_externo: "bg-brand-magenta/10 text-brand-magenta",
+};
 
 function RolBadge({ rol }) {
-  const isAdmin = rol === "admin";
   return (
-    <span
-      className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-        isAdmin ? "bg-brand-purple/10 text-brand-purple" : "bg-brand-magenta/10 text-brand-magenta"
-      }`}
-    >
+    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${ROL_BADGE_CLASS[rol] ?? "bg-slate-label/10 text-slate-label"}`}>
       {ROL_LABEL[rol] ?? rol}
     </span>
   );
 }
 
+// navigator.clipboard requiere "contexto seguro" (HTTPS) -- en este panel, que
+// hoy corre en HTTP plano, el navegador la deja undefined o la rechaza sin
+// avisar. Este fallback con execCommand sí funciona sobre HTTP.
+function copyConFallback(value) {
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+  const ok = document.execCommand("copy");
+  document.body.removeChild(textarea);
+  if (!ok) throw new Error("No se pudo copiar");
+}
+
 function CopyButton({ value }) {
-  const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState("idle");
 
   async function handleCopy() {
     try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        copyConFallback(value);
+      }
+      setStatus("copied");
+      setTimeout(() => setStatus("idle"), 1500);
     } catch {
-      // clipboard API bloqueada (permiso, contexto no seguro, etc.) -- el
-      // usuario igual puede seleccionar el texto a mano, no es fatal.
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 2500);
     }
   }
 
@@ -51,12 +78,31 @@ function CopyButton({ value }) {
       onClick={handleCopy}
       className="text-xs font-medium text-brand-purple hover:underline whitespace-nowrap"
     >
-      {copied ? "¡Copiado!" : "Copiar"}
+      {status === "copied" ? "¡Copiado!" : status === "error" ? "No se pudo copiar, selecciónala" : "Copiar"}
     </button>
   );
 }
 
-const EMPTY_FORM = { id: null, nombre: "", email: "", rol: "cliente", clienteId: "", activo: true };
+const EMPTY_FORM = { id: null, nombre: "", email: "", rol: "usuario_externo", clienteId: "", clienteIds: [], activo: true };
+
+const FILTROS_INVITACION = [
+  { key: "todos", label: "Todos" },
+  { key: "pendientes", label: "Pendientes por activar" },
+  { key: "activas", label: "Invitación activa" },
+];
+
+function InvitacionBadge({ ultimoLogin }) {
+  const pendiente = !ultimoLogin;
+  return (
+    <span
+      className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+        pendiente ? "bg-semaphore-orange/15 text-semaphore-orange" : "bg-semaphore-green/15 text-green-700"
+      }`}
+    >
+      {pendiente ? "Pendiente" : "Activa"}
+    </span>
+  );
+}
 
 export default function AdminUsuarios() {
   const { user: currentUser } = useAuth();
@@ -67,6 +113,15 @@ export default function AdminUsuarios() {
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
   const [passwordGenerada, setPasswordGenerada] = useState(null);
+  const [resetForm, setResetForm] = useState(null);
+  const [resetSaving, setResetSaving] = useState(false);
+  const [filtroInvitacion, setFiltroInvitacion] = useState("todos");
+
+  const usuariosFiltrados = usuarios.filter((u) => {
+    if (filtroInvitacion === "pendientes") return !u.ultimoLogin;
+    if (filtroInvitacion === "activas") return !!u.ultimoLogin;
+    return true;
+  });
 
   async function cargar() {
     setLoading(true);
@@ -94,7 +149,15 @@ export default function AdminUsuarios() {
   }
 
   function abrirEditar(u) {
-    setForm({ id: u.id, nombre: u.nombre, email: u.email, rol: u.rol, clienteId: u.clienteId || "", activo: u.activo });
+    setForm({
+      id: u.id,
+      nombre: u.nombre,
+      email: u.email,
+      rol: u.rol,
+      clienteId: u.clienteId || "",
+      clienteIds: u.clienteIds || [],
+      activo: u.activo,
+    });
     setPasswordGenerada(null);
   }
 
@@ -106,7 +169,8 @@ export default function AdminUsuarios() {
       const body = {
         nombre: form.nombre,
         rol: form.rol,
-        clienteId: form.rol === "cliente" ? Number(form.clienteId) || null : null,
+        clienteId: form.rol === "usuario_externo" ? Number(form.clienteId) || null : null,
+        clienteIds: form.rol === "usuario_interno" ? form.clienteIds : undefined,
         activo: form.activo,
       };
       if (form.id) {
@@ -117,7 +181,12 @@ export default function AdminUsuarios() {
           method: "POST",
           body: JSON.stringify({ ...body, email: form.email }),
         });
-        setPasswordGenerada({ email: form.email, password: res.passwordTemporal });
+        setPasswordGenerada({
+          email: form.email,
+          password: res.passwordTemporal,
+          invitacionEnviada: res.invitacionEnviada,
+          invitacionError: res.invitacionError,
+        });
         setForm(null);
       }
       await cargar();
@@ -128,13 +197,52 @@ export default function AdminUsuarios() {
     }
   }
 
-  async function resetearPassword(u) {
+  function abrirReset(u) {
+    setResetForm({ user: u, modo: "auto", passwordManual: "", enviarPorCorreo: true });
+  }
+
+  async function reenviarInvitacion(u) {
     setError("");
     try {
-      const res = await apiFetch(`/api/admin/usuarios/${u.id}/reset-password`, { method: "POST" });
-      setPasswordGenerada({ email: u.email, password: res.passwordTemporal });
+      const res = await apiFetch(`/api/admin/usuarios/${u.id}/reset-password`, {
+        method: "POST",
+        body: JSON.stringify({ enviarPorCorreo: true }),
+      });
+      setPasswordGenerada({
+        email: u.email,
+        password: res.passwordTemporal,
+        invitacionEnviada: res.invitacionEnviada,
+        invitacionError: res.invitacionError,
+      });
     } catch (err) {
       setError(err.message);
+    }
+  }
+
+  async function confirmarReset(e) {
+    e.preventDefault();
+    setResetSaving(true);
+    setError("");
+    try {
+      const body = {
+        ...(resetForm.modo === "manual" ? { password: resetForm.passwordManual } : {}),
+        enviarPorCorreo: resetForm.enviarPorCorreo,
+      };
+      const res = await apiFetch(`/api/admin/usuarios/${resetForm.user.id}/reset-password`, {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+      setPasswordGenerada({
+        email: resetForm.user.email,
+        password: res.passwordTemporal,
+        invitacionEnviada: res.invitacionEnviada,
+        invitacionError: res.invitacionError,
+      });
+      setResetForm(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setResetSaving(false);
     }
   }
 
@@ -163,11 +271,21 @@ export default function AdminUsuarios() {
 
       {passwordGenerada && (
         <div className="mb-4 rounded-lg bg-brand-purple/5 border border-brand-purple/20 px-4 py-3 text-sm text-gray-800 flex items-center justify-between gap-4">
-          <span>
-            Contraseña temporal para <strong>{passwordGenerada.email}</strong>:{" "}
-            <span className="font-mono font-bold text-brand-purple">{passwordGenerada.password}</span> — cópiala
-            ahora, no se volverá a mostrar.
-          </span>
+          <div className="flex flex-col gap-1">
+            <span>
+              Contraseña temporal para <strong>{passwordGenerada.email}</strong>:{" "}
+              <span className="font-mono font-bold text-brand-purple">{passwordGenerada.password}</span> — cópiala
+              ahora, no se volverá a mostrar.
+            </span>
+            {passwordGenerada.invitacionEnviada && (
+              <span className="text-xs text-green-700">✓ Invitación enviada por correo a {passwordGenerada.email}</span>
+            )}
+            {!passwordGenerada.invitacionEnviada && passwordGenerada.invitacionError && (
+              <span className="text-xs text-semaphore-orange">
+                No se pudo enviar el correo ({passwordGenerada.invitacionError}) — compártela manualmente.
+              </span>
+            )}
+          </div>
           <div className="flex items-center gap-3 shrink-0">
             <CopyButton value={passwordGenerada.password} />
             <button
@@ -197,8 +315,29 @@ export default function AdminUsuarios() {
           ) : usuarios.length === 0 ? (
             <EmptyState message="No hay usuarios creados todavía. Usa '+ Nuevo Usuario' para dar de alta el primero." />
           ) : (
-            <Card className="overflow-x-auto">
-              <table className="w-full text-sm min-w-[820px]">
+            <>
+              <div className="flex gap-2 mb-3">
+                {FILTROS_INVITACION.map((f) => (
+                  <button
+                    key={f.key}
+                    type="button"
+                    onClick={() => setFiltroInvitacion(f.key)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                      filtroInvitacion === f.key
+                        ? "bg-brand-magenta text-white"
+                        : "bg-slate-100 text-gray-600 hover:bg-slate-200"
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+
+              {usuariosFiltrados.length === 0 ? (
+                <EmptyState message="No hay usuarios que coincidan con este filtro." />
+              ) : (
+              <Card className="overflow-x-auto">
+              <table className="w-full text-sm min-w-[900px]">
                 <thead>
                   <tr className="bg-brand-purple text-white text-left">
                     <th className="px-4 py-3 font-semibold">Nombre</th>
@@ -206,18 +345,25 @@ export default function AdminUsuarios() {
                     <th className="px-4 py-3 font-semibold">Rol</th>
                     <th className="px-4 py-3 font-semibold">Cliente</th>
                     <th className="px-4 py-3 font-semibold">Estado</th>
+                    <th className="px-4 py-3 font-semibold">Invitación</th>
                     <th className="px-4 py-3 font-semibold" />
                   </tr>
                 </thead>
                 <tbody>
-                  {usuarios.map((u, i) => (
+                  {usuariosFiltrados.map((u, i) => (
                     <tr key={u.id} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
                       <td className="px-4 py-2.5 text-gray-800">{u.nombre}</td>
                       <td className="px-4 py-2.5 text-gray-600">{u.email}</td>
                       <td className="px-4 py-2.5">
                         <RolBadge rol={u.rol} />
                       </td>
-                      <td className="px-4 py-2.5 text-gray-600">{u.clienteNombre || "—"}</td>
+                      <td className="px-4 py-2.5 text-gray-600">
+                        {u.rol === "usuario_interno"
+                          ? u.clienteNombres.length
+                            ? u.clienteNombres.join(", ")
+                            : "— (sin asignar)"
+                          : u.clienteNombre || "—"}
+                      </td>
                       <td className="px-4 py-2.5">
                         <span
                           className={`px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -227,29 +373,47 @@ export default function AdminUsuarios() {
                           {u.activo ? "Activo" : "Inactivo"}
                         </span>
                       </td>
+                      <td className="px-4 py-2.5">
+                        <InvitacionBadge ultimoLogin={u.ultimoLogin} />
+                      </td>
                       <td className="px-4 py-2.5 text-right whitespace-nowrap">
-                        <button
-                          type="button"
-                          onClick={() => abrirEditar(u)}
-                          className="text-brand-purple hover:underline text-sm font-medium mr-3"
-                        >
-                          Editar
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => resetearPassword(u)}
-                          className="text-brand-purple hover:underline text-sm font-medium mr-3"
-                        >
-                          Resetear contraseña
-                        </button>
-                        {u.id !== currentUser.id && (
-                          <button
-                            type="button"
-                            onClick={() => toggleActivo(u)}
-                            className="text-brand-purple hover:underline text-sm font-medium"
-                          >
-                            {u.activo ? "Desactivar" : "Activar"}
-                          </button>
+                        {u.rol === "super_admin" && currentUser.rol !== "super_admin" ? (
+                          <span className="text-slate-label text-sm">—</span>
+                        ) : (
+                          <>
+                            {!u.ultimoLogin && (
+                              <button
+                                type="button"
+                                onClick={() => reenviarInvitacion(u)}
+                                className="text-brand-purple hover:underline text-sm font-medium mr-3"
+                              >
+                                Reenviar invitación
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => abrirEditar(u)}
+                              className="text-brand-purple hover:underline text-sm font-medium mr-3"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => abrirReset(u)}
+                              className="text-brand-purple hover:underline text-sm font-medium mr-3"
+                            >
+                              Resetear contraseña
+                            </button>
+                            {u.id !== currentUser.id && (
+                              <button
+                                type="button"
+                                onClick={() => toggleActivo(u)}
+                                className="text-brand-purple hover:underline text-sm font-medium"
+                              >
+                                {u.activo ? "Desactivar" : "Activar"}
+                              </button>
+                            )}
+                          </>
                         )}
                       </td>
                     </tr>
@@ -257,6 +421,8 @@ export default function AdminUsuarios() {
                 </tbody>
               </table>
             </Card>
+              )}
+            </>
           )}
         </>
       )}
@@ -297,18 +463,24 @@ export default function AdminUsuarios() {
                   setForm((f) => ({
                     ...f,
                     rol: e.target.value,
-                    clienteId: e.target.value === "admin" ? "" : f.clienteId,
+                    clienteId: e.target.value === "usuario_externo" ? f.clienteId : "",
+                    clienteIds: e.target.value === "usuario_interno" ? f.clienteIds : [],
                   }))
                 }
-                disabled={form.id === currentUser.id && form.rol === "admin"}
+                disabled={
+                  (form.id === currentUser.id && ["super_admin", "admin"].includes(form.rol)) ||
+                  (form.rol === "super_admin" && currentUser.rol !== "super_admin")
+                }
                 className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-magenta disabled:bg-slate-50"
               >
+                {currentUser.rol === "super_admin" && <option value="super_admin">Super Admin</option>}
                 <option value="admin">Admin</option>
-                <option value="cliente">Cliente</option>
+                <option value="usuario_interno">Usuario Interno</option>
+                <option value="usuario_externo">Usuario Externo</option>
               </select>
             </div>
 
-            {form.rol === "cliente" && (
+            {form.rol === "usuario_externo" && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">Cliente</label>
                 <select
@@ -329,6 +501,39 @@ export default function AdminUsuarios() {
               </div>
             )}
 
+            {form.rol === "usuario_interno" && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Clientes visibles</label>
+                {clientes.length === 0 ? (
+                  <p className="text-sm text-slate-label">No hay clientes activos — crea uno primero.</p>
+                ) : (
+                  <div className="flex flex-col gap-1.5 max-h-48 overflow-y-auto rounded-lg border border-slate-200 p-3">
+                    {clientes.map((c) => (
+                      <label key={c.id} className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                          type="checkbox"
+                          checked={form.clienteIds.includes(c.id)}
+                          onChange={(e) =>
+                            setForm((f) => ({
+                              ...f,
+                              clienteIds: e.target.checked
+                                ? [...f.clienteIds, c.id]
+                                : f.clienteIds.filter((id) => id !== c.id),
+                            }))
+                          }
+                          className="accent-brand-magenta"
+                        />
+                        {c.nombre}
+                      </label>
+                    ))}
+                  </div>
+                )}
+                <p className="mt-1.5 text-xs text-slate-label">
+                  Si no marcas ningún cliente, este usuario no verá datos hasta que le asignes al menos uno.
+                </p>
+              </div>
+            )}
+
             {form.id && form.id !== currentUser.id && (
               <label className="flex items-center gap-2 text-sm text-gray-700">
                 <input
@@ -344,7 +549,7 @@ export default function AdminUsuarios() {
             <div className="flex gap-3 mt-2">
               <button
                 type="submit"
-                disabled={saving || (form.rol === "cliente" && clientes.length === 0)}
+                disabled={saving || (form.rol === "usuario_externo" && clientes.length === 0)}
                 className="bg-brand-magenta text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-brand-magenta/90 disabled:opacity-60"
               >
                 {saving ? "Guardando..." : "Guardar"}
@@ -359,6 +564,88 @@ export default function AdminUsuarios() {
             </div>
           </form>
         </Card>
+      )}
+
+      {resetForm && (
+        <div
+          className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
+          onClick={() => setResetForm(null)}
+        >
+          <div className="w-full max-w-md" onClick={(e) => e.stopPropagation()}>
+            <Card className="p-6">
+              <h2 className="text-lg font-bold text-brand-purple mb-1">Resetear contraseña</h2>
+              <p className="text-sm text-slate-label mb-4">
+                Para <strong className="text-gray-700">{resetForm.user.nombre}</strong> ({resetForm.user.email})
+              </p>
+              <form onSubmit={confirmarReset} className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2">
+                  <label className="flex items-center gap-2 text-sm text-gray-700">
+                    <input
+                      type="radio"
+                      name="modoReset"
+                      checked={resetForm.modo === "auto"}
+                      onChange={() => setResetForm((f) => ({ ...f, modo: "auto" }))}
+                      className="accent-brand-magenta"
+                    />
+                    Generar automáticamente
+                  </label>
+                  <label className="flex items-center gap-2 text-sm text-gray-700">
+                    <input
+                      type="radio"
+                      name="modoReset"
+                      checked={resetForm.modo === "manual"}
+                      onChange={() => setResetForm((f) => ({ ...f, modo: "manual" }))}
+                      className="accent-brand-magenta"
+                    />
+                    Escribir una manualmente
+                  </label>
+                </div>
+
+                {resetForm.modo === "manual" && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5">Nueva contraseña</label>
+                    <input
+                      type="text"
+                      required
+                      minLength={8}
+                      value={resetForm.passwordManual}
+                      onChange={(e) => setResetForm((f) => ({ ...f, passwordManual: e.target.value }))}
+                      className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                      placeholder="Mínimo 8 caracteres"
+                    />
+                  </div>
+                )}
+
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={resetForm.enviarPorCorreo}
+                    onChange={(e) => setResetForm((f) => ({ ...f, enviarPorCorreo: e.target.checked }))}
+                    className="accent-brand-magenta"
+                  />
+                  Enviarla también por correo al usuario
+                </label>
+
+                <div className="flex gap-3 mt-2">
+                  <button
+                    type="submit"
+                    disabled={resetSaving || (resetForm.modo === "manual" && resetForm.passwordManual.length < 8)}
+                    className="bg-brand-magenta text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-brand-magenta/90 disabled:opacity-60"
+                  >
+                    {resetSaving ? "Reseteando..." : "Resetear contraseña"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setResetForm(null)}
+                    className="text-sm font-medium text-gray-600 px-5 py-2.5 rounded-full hover:bg-slate-50"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </form>
+            </Card>
+          </div>
+        </div>
       )}
     </div>
   );

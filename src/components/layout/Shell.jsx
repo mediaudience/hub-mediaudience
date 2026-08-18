@@ -5,7 +5,6 @@ import Sidebar from "./Sidebar";
 import PageSkeleton from "../common/PageSkeleton";
 import usePageTransition from "../../hooks/usePageTransition";
 
-const SIDEBAR_WIDTH = 245;
 const DESKTOP_QUERY = "(min-width: 768px)";
 
 export default function Shell() {
@@ -42,24 +41,6 @@ export default function Shell() {
           aria-hidden="true"
         />
       )}
-
-      <button
-        type="button"
-        onClick={toggleSidebar}
-        aria-label={sidebarOpen ? "Colapsar menú" : "Expandir menú"}
-        style={{ left: sidebarOpen ? SIDEBAR_WIDTH : 0 }}
-        className="hidden md:flex fixed top-20 z-40 w-7 h-7 -translate-x-1/2 items-center justify-center rounded-full bg-white border border-brand-purple/30 text-brand-purple shadow transition-all duration-200 hover:bg-brand-purple hover:text-white"
-      >
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 24 24"
-          fill="none"
-          className={`transition-transform duration-200 ${sidebarOpen ? "" : "rotate-180"}`}
-        >
-          <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
 
       <main className={`pt-16 transition-all duration-200 pl-0 ${sidebarOpen ? "md:pl-[245px]" : "md:pl-0"}`}>
         <div className="p-4 sm:p-6">

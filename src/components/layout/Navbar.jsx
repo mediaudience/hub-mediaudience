@@ -3,7 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import mediaudienceLogoBlanco from "../../assets/brand/mediaudience-logo-blanco.png";
 
-const ROL_LABEL = { admin: "Admin", cliente: "Cliente" };
+const ROL_LABEL = {
+  super_admin: "Super Admin",
+  admin: "Admin",
+  usuario_interno: "Usuario Interno",
+  usuario_externo: "Usuario Externo",
+};
+
+function getInitials(nombre) {
+  const parts = nombre?.trim().split(/\s+/).filter(Boolean) ?? [];
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0][0].toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
 
 function AccountMenu() {
   const [open, setOpen] = useState(false);
@@ -24,7 +36,7 @@ function AccountMenu() {
     navigate("/login", { replace: true });
   }
 
-  const initial = user?.nombre?.trim()?.[0]?.toUpperCase() ?? "?";
+  const initials = getInitials(user?.nombre);
 
   return (
     <div className="relative" ref={ref}>
@@ -34,9 +46,9 @@ function AccountMenu() {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Cuenta"
-        className="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0 text-brand-purple font-bold text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        className="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0 text-brand-purple font-bold text-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
-        {initial}
+        {initials}
       </button>
 
       {open && (
@@ -54,7 +66,7 @@ function AccountMenu() {
             )}
           </div>
 
-          {user?.rol === "admin" && (
+          {(user?.rol === "super_admin" || user?.rol === "admin") && (
             <button
               type="button"
               role="menuitem"
@@ -84,20 +96,20 @@ function AccountMenu() {
 
 export default function Navbar({ onToggleSidebar, sidebarOpen }) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 h-16 bg-brand-purple flex items-center justify-between px-4">
-      <div className="flex items-center gap-4">
+    <header className="fixed top-0 left-0 right-0 z-40 h-16 bg-brand-purple flex items-center justify-between px-3">
+      <div className="flex items-center gap-1">
         <button
           type="button"
           onClick={onToggleSidebar}
           aria-label={sidebarOpen ? "Colapsar menú" : "Expandir menú"}
           aria-expanded={sidebarOpen}
-          className="text-white/90 hover:text-white p-2 rounded-md hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          className="text-white/90 hover:text-white p-1 rounded-md hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
             <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
-        <img src={mediaudienceLogoBlanco} alt="Mediaudience" className="h-9 w-auto" />
+        <img src={mediaudienceLogoBlanco} alt="Mediaudience" className="h-10 w-auto" />
       </div>
 
       <AccountMenu />

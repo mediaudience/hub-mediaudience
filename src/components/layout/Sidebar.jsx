@@ -20,7 +20,8 @@ function GroupArrow({ open }) {
 export default function Sidebar({ open, onNavigate }) {
   const location = useLocation();
   const { user } = useAuth();
-  const groups = user?.rol === "admin" ? [...NAV_GROUPS, ADMIN_NAV_GROUP] : NAV_GROUPS;
+  const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
+  const groups = esStaff ? [...NAV_GROUPS, ADMIN_NAV_GROUP] : NAV_GROUPS;
   const activeGroupId = groups.find((g) =>
     g.items.some((i) => location.pathname.startsWith(i.path))
   )?.id;
@@ -51,7 +52,7 @@ export default function Sidebar({ open, onNavigate }) {
                   type="button"
                   onClick={() => toggleGroup(group.id)}
                   aria-expanded={open}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold hover:bg-slate-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
                     isAdminGroup ? "text-brand-magenta" : "text-slate-label"
                   }`}
                 >
