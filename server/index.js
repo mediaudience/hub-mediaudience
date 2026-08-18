@@ -33,6 +33,7 @@ app.use(
       // la sesión nunca persiste. Cambiar a 'true' en el entorno el día que
       // haya HTTPS real.
       secure: process.env.SESSION_COOKIE_SECURE === 'true',
+      sameSite: 'strict',
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   })

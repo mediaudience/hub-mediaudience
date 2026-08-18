@@ -6,6 +6,7 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import db from './db.js';
 import { requireUser, requireAdmin } from './middleware.js';
+import { enviarInvitacion } from './email.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'data');
@@ -18,6 +19,14 @@ router.use(requireUser, requireAdmin);
 const PASSWORD_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
 function generatePassword(length = 10) {
   return Array.from(crypto.randomBytes(length), (b) => PASSWORD_ALPHABET[b % PASSWORD_ALPHABET.length]).join('');
+}
+
+const ROLES = ['super_admin', 'admin', 'usuario_interno', 'usuario_externo'];
+const STAFF_ROLES = ['super_admin', 'admin'];
+const ROL_CON_CLIENTE = 'usuario_externo';
+
+function contarSuperAdminsActivos() {
+  return db.prepare("SELECT COUNT(*) AS n FROM users WHERE rol = 'super_admin' AND activo = 1").get().n;
 }
 
 // ---------- Clientes ----------
@@ -95,7 +104,37 @@ router.put('/clientes/:id', (req, res) => {
 
 // ---------- Usuarios ----------
 
+const ROL_CON_CLIENTES_ASIGNADOS = 'usuario_interno';
+
+function getClientesDeUsuario(userId) {
+  return db
+    .prepare(
+      `SELECT clientes.id, clientes.nombre FROM usuario_clientes
+       JOIN clientes ON clientes.id = usuario_clientes.cliente_id
+       WHERE usuario_clientes.user_id = ? ORDER BY clientes.nombre`
+    )
+    .all(userId);
+}
+
+function setClientesDeUsuario(userId, clienteIds) {
+  const tx = db.transaction((ids) => {
+    db.prepare('DELETE FROM usuario_clientes WHERE user_id = ?').run(userId);
+    const ins = db.prepare('INSERT INTO usuario_clientes (user_id, cliente_id) VALUES (?, ?)');
+    for (const id of ids) ins.run(userId, id);
+  });
+  tx(clienteIds ?? []);
+}
+
+function clienteIdsValidosOError(clienteIds) {
+  if (!Array.isArray(clienteIds)) return 'clienteIds debe ser una lista';
+  for (const id of clienteIds) {
+    if (!db.prepare('SELECT id FROM clientes WHERE id = ?').get(id)) return `Cliente ${id} no encontrado`;
+  }
+  return null;
+}
+
 function toPublicUsuario(u) {
+  const clientesAsignados = u.rol === ROL_CON_CLIENTES_ASIGNADOS ? getClientesDeUsuario(u.id) : [];
   return {
     id: u.id,
     email: u.email,
@@ -103,6 +142,8 @@ function toPublicUsuario(u) {
     rol: u.rol,
     clienteId: u.cliente_id,
     clienteNombre: u.cliente_nombre ?? null,
+    clienteIds: clientesAsignados.map((c) => c.id),
+    clienteNombres: clientesAsignados.map((c) => c.nombre),
     activo: !!u.activo,
     createdAt: u.created_at,
     ultimoLogin: u.ultimo_login,
@@ -120,22 +161,29 @@ router.get('/usuarios', (req, res) => {
 });
 
 function clienteActivoOError(clienteId) {
-  if (!clienteId) return 'Selecciona un cliente para el rol Cliente';
+  if (!clienteId) return 'Selecciona un cliente para el rol Usuario Externo';
   const cliente = db.prepare('SELECT id FROM clientes WHERE id = ? AND activo = 1').get(clienteId);
   if (!cliente) return 'Cliente no encontrado o inactivo';
   return null;
 }
 
 router.post('/usuarios', async (req, res) => {
-  const { email, nombre, rol, clienteId } = req.body || {};
+  const { email, nombre, rol, clienteId, clienteIds } = req.body || {};
   if (!email || !nombre || !rol) {
     return res.status(400).json({ error: 'Email, nombre y rol son requeridos' });
   }
-  if (!['admin', 'cliente'].includes(rol)) {
+  if (!ROLES.includes(rol)) {
     return res.status(400).json({ error: 'Rol inválido' });
   }
-  if (rol === 'cliente') {
+  if (rol === 'super_admin' && req.user.rol !== 'super_admin') {
+    return res.status(403).json({ error: 'Solo un Super Admin puede crear otro Super Admin' });
+  }
+  if (rol === ROL_CON_CLIENTE) {
     const error = clienteActivoOError(clienteId);
+    if (error) return res.status(400).json({ error });
+  }
+  if (rol === ROL_CON_CLIENTES_ASIGNADOS && clienteIds !== undefined) {
+    const error = clienteIdsValidosOError(clienteIds);
     if (error) return res.status(400).json({ error });
   }
   if (db.prepare('SELECT id FROM users WHERE email = ?').get(email)) {
@@ -145,32 +193,62 @@ router.post('/usuarios', async (req, res) => {
   const password = generatePassword();
   const passwordHash = await bcrypt.hash(password, 12);
   const info = db
-    .prepare('INSERT INTO users (email, password_hash, nombre, rol, cliente_id) VALUES (?, ?, ?, ?, ?)')
-    .run(email, passwordHash, nombre, rol, rol === 'cliente' ? clienteId : null);
+    .prepare(
+      'INSERT INTO users (email, password_hash, nombre, rol, cliente_id, debe_cambiar_password) VALUES (?, ?, ?, ?, ?, 1)'
+    )
+    .run(email, passwordHash, nombre, rol, rol === ROL_CON_CLIENTE ? clienteId : null);
+
+  if (rol === ROL_CON_CLIENTES_ASIGNADOS) setClientesDeUsuario(info.lastInsertRowid, clienteIds);
+
+  const invitacion = await enviarInvitacion({ nombre, email, password, rol });
 
   const usuario = db.prepare(`${SELECT_USUARIOS} WHERE users.id = ?`).get(info.lastInsertRowid);
-  res.status(201).json({ usuario: toPublicUsuario(usuario), passwordTemporal: password });
+  res.status(201).json({
+    usuario: toPublicUsuario(usuario),
+    passwordTemporal: password,
+    invitacionEnviada: invitacion.enviado,
+    invitacionError: invitacion.motivo,
+  });
 });
 
 router.put('/usuarios/:id', (req, res) => {
   const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.params.id);
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-  const { nombre, rol, clienteId, activo } = req.body || {};
+  const { nombre, rol, clienteId, clienteIds, activo } = req.body || {};
   const esUnoMismo = user.id === req.user.id;
+
+  if (rol && !ROLES.includes(rol)) {
+    return res.status(400).json({ error: 'Rol inválido' });
+  }
+  // Solo un Super Admin puede tocar la cuenta de otro Super Admin (evita que un
+  // Admin común se auto-promueva o edite/desactive a quien sí tiene ese rol).
+  if ((user.rol === 'super_admin' || rol === 'super_admin') && req.user.rol !== 'super_admin') {
+    return res.status(403).json({ error: 'No autorizado a modificar un Super Admin' });
+  }
+  // Nunca puede quedar el sistema sin ningún Super Admin activo.
+  if (user.rol === 'super_admin' && (activo === false || (rol && rol !== 'super_admin'))) {
+    if (contarSuperAdminsActivos() <= 1) {
+      return res.status(400).json({ error: 'Debe quedar al menos un Super Admin activo' });
+    }
+  }
 
   if (esUnoMismo && activo === false) {
     return res.status(400).json({ error: 'No puedes desactivar tu propia cuenta' });
   }
-  if (esUnoMismo && rol && rol !== 'admin' && user.rol === 'admin') {
-    return res.status(400).json({ error: 'No puedes quitarte el rol de admin a ti mismo' });
+  if (esUnoMismo && rol && rol !== user.rol && STAFF_ROLES.includes(user.rol) && !STAFF_ROLES.includes(rol)) {
+    return res.status(400).json({ error: 'No puedes quitarte tu propio rol de administración' });
   }
 
   const nuevoRol = rol ?? user.rol;
   let nuevoClienteId = null;
-  if (nuevoRol === 'cliente') {
+  if (nuevoRol === ROL_CON_CLIENTE) {
     nuevoClienteId = clienteId ?? user.cliente_id;
     const error = clienteActivoOError(nuevoClienteId);
+    if (error) return res.status(400).json({ error });
+  }
+  if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS && clienteIds !== undefined) {
+    const error = clienteIdsValidosOError(clienteIds);
     if (error) return res.status(400).json({ error });
   }
 
@@ -182,18 +260,35 @@ router.put('/usuarios/:id', (req, res) => {
     user.id
   );
 
+  if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS) {
+    if (clienteIds !== undefined) setClientesDeUsuario(user.id, clienteIds);
+  } else if (user.rol === ROL_CON_CLIENTES_ASIGNADOS) {
+    // Dejó de ser usuario_interno: limpia asignaciones que ya no aplican.
+    setClientesDeUsuario(user.id, []);
+  }
+
   const updated = db.prepare(`${SELECT_USUARIOS} WHERE users.id = ?`).get(user.id);
   res.json({ usuario: toPublicUsuario(updated) });
 });
 
 router.post('/usuarios/:id/reset-password', async (req, res) => {
-  const user = db.prepare('SELECT id FROM users WHERE id = ?').get(req.params.id);
+  const user = db.prepare('SELECT id, email, nombre, rol FROM users WHERE id = ?').get(req.params.id);
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-  const password = generatePassword();
+  const { password: passwordManual, enviarPorCorreo } = req.body || {};
+  if (passwordManual !== undefined && passwordManual.length < 8) {
+    return res.status(400).json({ error: 'La contraseña debe tener al menos 8 caracteres' });
+  }
+
+  const password = passwordManual || generatePassword();
   const passwordHash = await bcrypt.hash(password, 12);
-  db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(passwordHash, user.id);
-  res.json({ passwordTemporal: password });
+  db.prepare('UPDATE users SET password_hash = ?, debe_cambiar_password = 1 WHERE id = ?').run(passwordHash, user.id);
+
+  if (!enviarPorCorreo) {
+    return res.json({ passwordTemporal: password, invitacionEnviada: false, invitacionError: null });
+  }
+  const invitacion = await enviarInvitacion({ nombre: user.nombre, email: user.email, password, rol: user.rol });
+  res.json({ passwordTemporal: password, invitacionEnviada: invitacion.enviado, invitacionError: invitacion.motivo });
 });
 
 export default router;
