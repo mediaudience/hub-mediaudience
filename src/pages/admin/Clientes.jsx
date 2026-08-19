@@ -78,16 +78,6 @@ function canalesFormToArray(canalesForm) {
     .map(([canal, v]) => ({ canal, sheetId: v.sheetId || null }));
 }
 
-// Países de operación de Mediaudience Latam -- mantener en sync con la lista
-// gemela PAISES en server/adminRoutes.js.
-const PAISES = [
-  { codigo: "PE", nombre: "Perú" },
-  { codigo: "EC", nombre: "Ecuador" },
-  { codigo: "CL", nombre: "Chile" },
-  { codigo: "MX", nombre: "México" },
-  { codigo: "CO", nombre: "Colombia" },
-];
-
 // El nombre completo del cliente siempre lleva el prefijo del país (ej.
 // PE_Alicorp) -- al editar, se le quita el prefijo para mostrar solo la parte
 // que el admin realmente escribió, y se lo compone de nuevo al guardar.
@@ -107,6 +97,7 @@ export default function AdminClientes() {
   const canalLabel = Object.fromEntries(canales.map((c) => [c.slug, c.nombre]));
   const [clientes, setClientes] = useState([]);
   const [anunciantesDisponibles, setAnunciantesDisponibles] = useState([]);
+  const [paises, setPaises] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [form, setForm] = useState(null);
@@ -116,12 +107,14 @@ export default function AdminClientes() {
   async function cargar() {
     setLoading(true);
     try {
-      const [clientesRes, anunciantesRes] = await Promise.all([
+      const [clientesRes, anunciantesRes, paisesRes] = await Promise.all([
         apiFetch("/api/admin/clientes"),
         apiFetch("/api/admin/anunciantes-disponibles"),
+        apiFetch("/api/admin/paises"),
       ]);
       setClientes(clientesRes.clientes);
       setAnunciantesDisponibles(anunciantesRes.anunciantes);
+      setPaises(paisesRes.paises.filter((p) => p.activo));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -318,7 +311,7 @@ export default function AdminClientes() {
                 <option value="" disabled={!form.id}>
                   {form.id ? "Sin país asignado" : "Selecciona un país"}
                 </option>
-                {PAISES.map((p) => (
+                {paises.map((p) => (
                   <option key={p.codigo} value={p.codigo}>
                     {p.nombre} ({p.codigo})
                   </option>

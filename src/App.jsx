@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import AdminUsuarios from "./pages/admin/Usuarios";
 import AdminClientes from "./pages/admin/Clientes";
 import AdminServicios from "./pages/admin/Servicios";
+import AdminPaises from "./pages/admin/Paises";
 import CanalResumenGeneral from "./pages/CanalResumenGeneral";
 import CanalRendimientoDiario from "./pages/CanalRendimientoDiario";
 import EmptyState from "./components/common/EmptyState";
@@ -43,6 +44,7 @@ export default function App() {
 
             <Route element={<RequireSuperAdmin />}>
               <Route path="admin/servicios" element={<AdminServicios />} />
+              <Route path="admin/paises" element={<AdminPaises />} />
             </Route>
           </Route>
 

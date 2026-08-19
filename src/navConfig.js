@@ -12,5 +12,6 @@ export const ADMIN_NAV_GROUP = {
     { label: "Clientes", path: "/admin/clientes" },
     { label: "Usuarios", path: "/admin/usuarios" },
     { label: "Servicios", path: "/admin/servicios", superAdminOnly: true },
+    { label: "Países", path: "/admin/paises", superAdminOnly: true },
   ],
 };

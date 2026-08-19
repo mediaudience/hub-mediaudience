@@ -112,12 +112,37 @@ if (clienteColumns.includes('sheet_id')) {
   db.exec('ALTER TABLE clientes DROP COLUMN sheet_id')
 }
 
-// País de operación del cliente (PE/EC/CL/MX/CO, ver PAISES en adminRoutes.js)
-// -- puramente informativo, para que Admin > Clientes arme `nombre` como
+// País de operación del cliente (código de la tabla `paises` de abajo) --
+// puramente informativo, para que Admin > Clientes arme `nombre` como
 // "{País}_{Nombre}" (ej. PE_Alicorp) sin que cada quien lo tipee a mano.
-// Nullable: clientes creados antes de esto (ej. Cartavio) no lo tienen.
+// Nullable: clientes creados antes de esto (ej. Cartavio) no lo tienen. Sin
+// FOREIGN KEY a propósito (columna nullable, de solo etiqueta -- no amerita
+// la migración de tabla completa que sí se justificó para cliente_canales).
 if (!clienteColumns.includes('pais')) {
   db.exec('ALTER TABLE clientes ADD COLUMN pais TEXT')
+}
+
+// Catálogo de países de operación (antes una lista fija de 5 en el código:
+// PE/EC/CL/MX/CO). Un Super Admin puede sumar uno nuevo cuando Mediaudience
+// abra una operación (ver server/adminRoutes.js), sin tocar código ni
+// redeployar -- mismo patrón que el catálogo de `canales` de abajo.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS paises (
+    codigo TEXT PRIMARY KEY,
+    nombre TEXT NOT NULL,
+    activo INTEGER NOT NULL DEFAULT 1
+  );
+`)
+
+const insertarPais = db.prepare('INSERT OR IGNORE INTO paises (codigo, nombre) VALUES (?, ?)')
+for (const [codigo, nombre] of [
+  ['PE', 'Perú'],
+  ['EC', 'Ecuador'],
+  ['CL', 'Chile'],
+  ['MX', 'México'],
+  ['CO', 'Colombia'],
+]) {
+  insertarPais.run(codigo, nombre)
 }
 
 // Catálogo de servicios (antes una lista fija de 5 en el código: CTV-OTT,

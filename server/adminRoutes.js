@@ -89,26 +89,56 @@ router.put('/canales/:slug', requireSuperAdmin, (req, res) => {
   res.json({ canal: updated });
 });
 
-// ---------- Clientes ----------
+// ---------- Países ----------
 
-// Países de operación de Mediaudience Latam -- el prefijo de `clientes.nombre`
-// (ej. PE_Alicorp) sale de acá para que quien crea un cliente no lo tipee a
-// mano. Agregar un país nuevo (ej. cuando abra Colombia) es editar esta
-// lista y la gemela en src/pages/admin/Clientes.jsx.
-const PAISES = [
-  { codigo: 'PE', nombre: 'Perú' },
-  { codigo: 'EC', nombre: 'Ecuador' },
-  { codigo: 'CL', nombre: 'Chile' },
-  { codigo: 'MX', nombre: 'México' },
-  { codigo: 'CO', nombre: 'Colombia' },
-];
-const PAISES_VALIDOS = PAISES.map((p) => p.codigo);
+// El prefijo de `clientes.nombre` (ej. PE_Alicorp) sale de este catálogo --
+// un Super Admin puede sumar un país nuevo cuando Mediaudience abra una
+// operación, sin tocar código ni redeployar (mismo patrón que canales).
+function paisesActivos() {
+  return db.prepare('SELECT codigo, nombre FROM paises WHERE activo = 1 ORDER BY rowid').all();
+}
 
 function paisValidoOError(pais, { requerido }) {
   if (!pais) return requerido ? 'Selecciona el país del cliente' : null;
-  if (!PAISES_VALIDOS.includes(pais)) return 'País inválido';
+  if (!paisesActivos().some((p) => p.codigo === pais)) return 'País inválido';
   return null;
 }
+
+router.get('/paises', (req, res) => {
+  res.json({ paises: db.prepare('SELECT codigo, nombre, activo FROM paises ORDER BY rowid').all() });
+});
+
+router.post('/paises', requireSuperAdmin, (req, res) => {
+  const { codigo, nombre } = req.body || {};
+  if (!nombre || !nombre.trim()) {
+    return res.status(400).json({ error: 'El nombre es requerido' });
+  }
+  const codigoNorm = (codigo || '').trim().toUpperCase();
+  if (!/^[A-Z]{2,3}$/.test(codigoNorm)) {
+    return res.status(400).json({ error: 'El código debe tener 2 o 3 letras (ej. PE, CO)' });
+  }
+  if (db.prepare('SELECT codigo FROM paises WHERE codigo = ?').get(codigoNorm)) {
+    return res.status(409).json({ error: 'Ya existe un país con ese código' });
+  }
+  db.prepare('INSERT INTO paises (codigo, nombre) VALUES (?, ?)').run(codigoNorm, nombre.trim());
+  const pais = db.prepare('SELECT codigo, nombre, activo FROM paises WHERE codigo = ?').get(codigoNorm);
+  res.status(201).json({ pais });
+});
+
+router.put('/paises/:codigo', requireSuperAdmin, (req, res) => {
+  const pais = db.prepare('SELECT * FROM paises WHERE codigo = ?').get(req.params.codigo);
+  if (!pais) return res.status(404).json({ error: 'País no encontrado' });
+  const { nombre, activo } = req.body || {};
+  db.prepare('UPDATE paises SET nombre = ?, activo = ? WHERE codigo = ?').run(
+    nombre?.trim() || pais.nombre,
+    activo === undefined ? pais.activo : activo ? 1 : 0,
+    pais.codigo
+  );
+  const updated = db.prepare('SELECT codigo, nombre, activo FROM paises WHERE codigo = ?').get(pais.codigo);
+  res.json({ pais: updated });
+});
+
+// ---------- Clientes ----------
 
 function toPublicCliente(cliente, anunciantes, canales) {
   return {
@@ -183,9 +213,9 @@ router.post('/clientes', (req, res) => {
   const errorPais = paisValidoOError(pais, { requerido: true });
   if (errorPais) return res.status(400).json({ error: errorPais });
   // Defensa en el server, no solo en el form: el nombre siempre debe llevar
-  // el prefijo del país (ver PAISES arriba) -- el frontend ya lo compone,
-  // esto evita que un cliente quede sin la convención por un bug o un
-  // llamado directo a la API.
+  // el prefijo del país (catálogo `paises` arriba) -- el frontend ya lo
+  // compone, esto evita que un cliente quede sin la convención por un bug o
+  // un llamado directo a la API.
   if (!nombre.trim().startsWith(`${pais}_`)) {
     return res.status(400).json({ error: `El nombre debe empezar con el prefijo del país (${pais}_)` });
   }
