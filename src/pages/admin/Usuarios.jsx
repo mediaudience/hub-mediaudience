@@ -91,6 +91,49 @@ const FILTROS_INVITACION = [
   { key: "activas", label: "Invitación activa" },
 ];
 
+function NotificacionInvitacion({ notif, onCerrar }) {
+  const mostrarPassword = !notif.invitacionEnviada;
+  return (
+    <div
+      className={`mb-2 rounded-lg border px-4 py-3 text-sm flex items-center justify-between gap-4 ${
+        mostrarPassword
+          ? "bg-brand-purple/5 border-brand-purple/20 text-gray-800"
+          : "bg-semaphore-green/10 border-semaphore-green/20 text-gray-800"
+      }`}
+    >
+      <div className="flex flex-col gap-1">
+        {mostrarPassword ? (
+          <>
+            <span>
+              Contraseña temporal para <strong>{notif.email}</strong>:{" "}
+              <span className="font-mono font-bold text-brand-purple">{notif.password}</span> — cópiala ahora, no se
+              volverá a mostrar.
+            </span>
+            <span className="text-xs text-semaphore-orange">
+              {notif.invitacionError
+                ? `No se pudo enviar el correo (${notif.invitacionError}) — compártela manualmente.`
+                : "No se envió por correo — compártela manualmente."}
+            </span>
+          </>
+        ) : (
+          <span className="text-green-700">✓ Invitación enviada por correo a {notif.email}</span>
+        )}
+      </div>
+      <div className="flex items-center gap-3 shrink-0">
+        {mostrarPassword && <CopyButton value={notif.password} />}
+        <button
+          type="button"
+          onClick={() => onCerrar(notif.id)}
+          className="text-slate-label hover:text-gray-700"
+          aria-label="Cerrar"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function InvitacionBadge({ ultimoLogin }) {
   const pendiente = !ultimoLogin;
   return (
@@ -112,10 +155,23 @@ export default function AdminUsuarios() {
   const [error, setError] = useState("");
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
-  const [passwordGenerada, setPasswordGenerada] = useState(null);
+  const [notificaciones, setNotificaciones] = useState([]);
+  const [reenviando, setReenviando] = useState({});
   const [resetForm, setResetForm] = useState(null);
   const [resetSaving, setResetSaving] = useState(false);
   const [filtroInvitacion, setFiltroInvitacion] = useState("todos");
+
+  function notificarInvitacion({ email, password, invitacionEnviada, invitacionError }) {
+    const id = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    setNotificaciones((prev) => [...prev, { id, email, password, invitacionEnviada, invitacionError }]);
+    if (invitacionEnviada) {
+      setTimeout(() => setNotificaciones((prev) => prev.filter((n) => n.id !== id)), 4000);
+    }
+  }
+
+  function cerrarNotificacion(id) {
+    setNotificaciones((prev) => prev.filter((n) => n.id !== id));
+  }
 
   const usuariosFiltrados = usuarios.filter((u) => {
     if (filtroInvitacion === "pendientes") return !u.ultimoLogin;
@@ -145,7 +201,6 @@ export default function AdminUsuarios() {
 
   function abrirNuevo() {
     setForm({ ...EMPTY_FORM });
-    setPasswordGenerada(null);
   }
 
   function abrirEditar(u) {
@@ -158,7 +213,6 @@ export default function AdminUsuarios() {
       clienteIds: u.clienteIds || [],
       activo: u.activo,
     });
-    setPasswordGenerada(null);
   }
 
   async function guardar(e) {
@@ -181,7 +235,7 @@ export default function AdminUsuarios() {
           method: "POST",
           body: JSON.stringify({ ...body, email: form.email }),
         });
-        setPasswordGenerada({
+        notificarInvitacion({
           email: form.email,
           password: res.passwordTemporal,
           invitacionEnviada: res.invitacionEnviada,
@@ -203,19 +257,35 @@ export default function AdminUsuarios() {
 
   async function reenviarInvitacion(u) {
     setError("");
+    setReenviando((r) => ({ ...r, [u.id]: "enviando" }));
     try {
       const res = await apiFetch(`/api/admin/usuarios/${u.id}/reset-password`, {
         method: "POST",
         body: JSON.stringify({ enviarPorCorreo: true }),
       });
-      setPasswordGenerada({
+      notificarInvitacion({
         email: u.email,
         password: res.passwordTemporal,
         invitacionEnviada: res.invitacionEnviada,
         invitacionError: res.invitacionError,
       });
+      setReenviando((r) => ({ ...r, [u.id]: "enviado" }));
+      setTimeout(
+        () =>
+          setReenviando((r) => {
+            const next = { ...r };
+            delete next[u.id];
+            return next;
+          }),
+        2000
+      );
     } catch (err) {
       setError(err.message);
+      setReenviando((r) => {
+        const next = { ...r };
+        delete next[u.id];
+        return next;
+      });
     }
   }
 
@@ -232,7 +302,7 @@ export default function AdminUsuarios() {
         method: "POST",
         body: JSON.stringify(body),
       });
-      setPasswordGenerada({
+      notificarInvitacion({
         email: resetForm.user.email,
         password: res.passwordTemporal,
         invitacionEnviada: res.invitacionEnviada,
@@ -269,36 +339,9 @@ export default function AdminUsuarios() {
         </div>
       )}
 
-      {passwordGenerada && (
-        <div className="mb-4 rounded-lg bg-brand-purple/5 border border-brand-purple/20 px-4 py-3 text-sm text-gray-800 flex items-center justify-between gap-4">
-          <div className="flex flex-col gap-1">
-            <span>
-              Contraseña temporal para <strong>{passwordGenerada.email}</strong>:{" "}
-              <span className="font-mono font-bold text-brand-purple">{passwordGenerada.password}</span> — cópiala
-              ahora, no se volverá a mostrar.
-            </span>
-            {passwordGenerada.invitacionEnviada && (
-              <span className="text-xs text-green-700">✓ Invitación enviada por correo a {passwordGenerada.email}</span>
-            )}
-            {!passwordGenerada.invitacionEnviada && passwordGenerada.invitacionError && (
-              <span className="text-xs text-semaphore-orange">
-                No se pudo enviar el correo ({passwordGenerada.invitacionError}) — compártela manualmente.
-              </span>
-            )}
-          </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <CopyButton value={passwordGenerada.password} />
-            <button
-              type="button"
-              onClick={() => setPasswordGenerada(null)}
-              className="text-slate-label hover:text-gray-700"
-              aria-label="Cerrar"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-      )}
+      {notificaciones.map((notif) => (
+        <NotificacionInvitacion key={notif.id} notif={notif} onCerrar={cerrarNotificacion} />
+      ))}
 
       {!form && (
         <>
@@ -385,9 +428,14 @@ export default function AdminUsuarios() {
                               <button
                                 type="button"
                                 onClick={() => reenviarInvitacion(u)}
-                                className="text-brand-purple hover:underline text-sm font-medium mr-3"
+                                disabled={reenviando[u.id] === "enviando"}
+                                className="text-brand-purple hover:underline text-sm font-medium mr-3 disabled:opacity-60 disabled:no-underline disabled:cursor-wait"
                               >
-                                Reenviar invitación
+                                {reenviando[u.id] === "enviando"
+                                  ? "Enviando..."
+                                  : reenviando[u.id] === "enviado"
+                                  ? "✓ Enviado"
+                                  : "Reenviar invitación"}
                               </button>
                             )}
                             <button
