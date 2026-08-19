@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import db from './db.js';
-import { requireUser, requireAdmin } from './middleware.js';
+import { requireUser, requireAdmin, requireSuperAdmin } from './middleware.js';
 import { enviarInvitacion } from './email.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -29,9 +29,67 @@ function contarSuperAdminsActivos() {
   return db.prepare("SELECT COUNT(*) AS n FROM users WHERE rol = 'super_admin' AND activo = 1").get().n;
 }
 
-// ---------- Clientes ----------
+// ---------- Servicios (canales) ----------
 
-const CANALES = ['ctv-ott', 'programatico', 'youtube', 'push-notification', 'tiktok'];
+// slugify básico: sin tildes, kebab-case. Para servicios nuevos, dir = slug
+// (los 5 canales originales heredan su carpeta camelCase ya sembrada en db.js).
+function slugify(nombre) {
+  return nombre
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function slugsCanalesActivos() {
+  return db.prepare('SELECT slug FROM canales WHERE activo = 1').all().map((r) => r.slug);
+}
+
+// Slugs que chocarían con rutas ya existentes del frontend (src/App.jsx) si
+// se usaran como slug de canal -- ver rutas /login y /admin/*.
+const SLUGS_RESERVADOS = ['admin', 'login'];
+
+router.get('/canales', (req, res) => {
+  res.json({ canales: db.prepare('SELECT slug, dir, nombre, activo FROM canales ORDER BY rowid').all() });
+});
+
+router.post('/canales', requireSuperAdmin, (req, res) => {
+  const { nombre } = req.body || {};
+  if (!nombre || !nombre.trim()) {
+    return res.status(400).json({ error: 'El nombre es requerido' });
+  }
+  const slug = slugify(nombre);
+  if (!slug) {
+    return res.status(400).json({ error: 'No se pudo derivar un identificador válido de ese nombre' });
+  }
+  if (SLUGS_RESERVADOS.includes(slug)) {
+    return res.status(400).json({ error: 'Ese nombre choca con una sección existente del panel, elige otro' });
+  }
+  if (db.prepare('SELECT slug FROM canales WHERE slug = ?').get(slug)) {
+    return res.status(409).json({ error: 'Ya existe un servicio con ese nombre' });
+  }
+  db.prepare('INSERT INTO canales (slug, dir, nombre) VALUES (?, ?, ?)').run(slug, slug, nombre.trim());
+  const canal = db.prepare('SELECT slug, dir, nombre, activo FROM canales WHERE slug = ?').get(slug);
+  res.status(201).json({ canal });
+});
+
+router.put('/canales/:slug', requireSuperAdmin, (req, res) => {
+  const canal = db.prepare('SELECT * FROM canales WHERE slug = ?').get(req.params.slug);
+  if (!canal) return res.status(404).json({ error: 'Servicio no encontrado' });
+
+  const { nombre, activo } = req.body || {};
+  db.prepare('UPDATE canales SET nombre = ?, activo = ? WHERE slug = ?').run(
+    nombre?.trim() || canal.nombre,
+    activo === undefined ? canal.activo : activo ? 1 : 0,
+    canal.slug
+  );
+  const updated = db.prepare('SELECT slug, dir, nombre, activo FROM canales WHERE slug = ?').get(canal.slug);
+  res.json({ canal: updated });
+});
+
+// ---------- Clientes ----------
 
 function toPublicCliente(cliente, anunciantes, canales) {
   return {
@@ -60,8 +118,9 @@ function setAnunciantesDeCliente(clienteId, anunciantes) {
   tx(anunciantes ?? []);
 }
 
-// Un cliente puede tener contratado cualquier subconjunto de CANALES; cada uno
-// con su propio Sheet de datos brutos. Solo existe fila para los contratados.
+// Un cliente puede tener contratado cualquier subconjunto de los servicios del
+// catálogo `canales`; cada uno con su propio Sheet de datos brutos. Solo
+// existe fila para los contratados.
 function getCanalesDeCliente(clienteId) {
   return db
     .prepare('SELECT canal, sheet_id FROM cliente_canales WHERE cliente_id = ? ORDER BY canal')
@@ -70,7 +129,8 @@ function getCanalesDeCliente(clienteId) {
 }
 
 function setCanalesDeCliente(clienteId, canales) {
-  const lista = (canales ?? []).filter((c) => CANALES.includes(c.canal));
+  const activos = slugsCanalesActivos();
+  const lista = (canales ?? []).filter((c) => activos.includes(c.canal));
   const tx = db.transaction((items) => {
     db.prepare('DELETE FROM cliente_canales WHERE cliente_id = ?').run(clienteId);
     const ins = db.prepare('INSERT INTO cliente_canales (cliente_id, canal, sheet_id) VALUES (?, ?, ?)');

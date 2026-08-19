@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { NAV_GROUPS, ADMIN_NAV_GROUP } from "../../navConfig";
+import { ADMIN_NAV_GROUP } from "../../navConfig";
 import { useAuth } from "../../context/AuthContext";
 
 function GroupArrow({ open }) {
@@ -19,11 +19,24 @@ function GroupArrow({ open }) {
 
 export default function Sidebar({ open, onNavigate }) {
   const location = useLocation();
-  const { user } = useAuth();
+  const { user, canales } = useAuth();
   const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
   const canalesContratados = user?.canalesContratados ?? [];
-  const canalesVisibles = NAV_GROUPS.filter((g) => canalesContratados.includes(g.id));
-  const groups = esStaff ? [...canalesVisibles, ADMIN_NAV_GROUP] : canalesVisibles;
+  const canalesVisibles = canales
+    .filter((c) => canalesContratados.includes(c.slug))
+    .map((c) => ({
+      id: c.slug,
+      label: c.nombre,
+      items: [
+        { label: "Resumen General", path: `/${c.slug}/resumen-general` },
+        { label: "Rendimiento Diario", path: `/${c.slug}/rendimiento-diario` },
+      ],
+    }));
+  const adminGroup = {
+    ...ADMIN_NAV_GROUP,
+    items: ADMIN_NAV_GROUP.items.filter((i) => !i.superAdminOnly || user?.rol === "super_admin"),
+  };
+  const groups = esStaff ? [...canalesVisibles, adminGroup] : canalesVisibles;
   const activeGroupId = groups.find((g) =>
     g.items.some((i) => location.pathname.startsWith(i.path))
   )?.id;

@@ -3,9 +3,7 @@ import GradientHeader from "../../components/common/GradientHeader";
 import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
 import EmptyState from "../../components/common/EmptyState";
-import { NAV_GROUPS } from "../../navConfig";
-
-const CANAL_LABEL = Object.fromEntries(NAV_GROUPS.map((g) => [g.id, g.label]));
+import { useAuth } from "../../context/AuthContext";
 
 async function apiFetch(url, options) {
   const res = await fetch(url, {
@@ -42,7 +40,7 @@ function AnunciantesChips({ anunciantes }) {
   );
 }
 
-function CanalesChips({ canales }) {
+function CanalesChips({ canales, canalLabel }) {
   if (canales.length === 0) return <span className="text-slate-label">Sin servicios contratados</span>;
   return (
     <div className="flex flex-wrap gap-1.5">
@@ -54,18 +52,22 @@ function CanalesChips({ canales }) {
             c.sheetId ? "bg-brand-purple/10 text-brand-purple" : "bg-semaphore-orange/10 text-semaphore-orange"
           }`}
         >
-          {CANAL_LABEL[c.canal] ?? c.canal}
+          {canalLabel[c.canal] ?? c.canal}
         </span>
       ))}
     </div>
   );
 }
 
-const EMPTY_CANALES = Object.fromEntries(NAV_GROUPS.map((g) => [g.id, { contratado: false, sheetId: "" }]));
+// El catálogo de servicios (`canales`) es dinámico -- viene de useAuth(), que
+// lo trae de /api/canal -- así que estos helpers ya no pueden ser constantes
+// de módulo como cuando salían del NAV_GROUPS estático.
+function canalesVacios(canales) {
+  return Object.fromEntries(canales.map((c) => [c.slug, { contratado: false, sheetId: "" }]));
+}
 
-function canalesArrayToForm(canalesArray) {
-  const map = { ...EMPTY_CANALES };
-  for (const g of NAV_GROUPS) map[g.id] = { contratado: false, sheetId: "" };
+function canalesArrayToForm(canalesArray, canales) {
+  const map = canalesVacios(canales);
   for (const c of canalesArray ?? []) map[c.canal] = { contratado: true, sheetId: c.sheetId || "" };
   return map;
 }
@@ -76,9 +78,9 @@ function canalesFormToArray(canalesForm) {
     .map(([canal, v]) => ({ canal, sheetId: v.sheetId || null }));
 }
 
-const EMPTY_FORM = { id: null, nombre: "", canales: EMPTY_CANALES, anunciantes: [], activo: true };
-
 export default function AdminClientes() {
+  const { canales } = useAuth();
+  const canalLabel = Object.fromEntries(canales.map((c) => [c.slug, c.nombre]));
   const [clientes, setClientes] = useState([]);
   const [anunciantesDisponibles, setAnunciantesDisponibles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -176,7 +178,9 @@ export default function AdminClientes() {
         <>
           <button
             type="button"
-            onClick={() => setForm({ ...EMPTY_FORM })}
+            onClick={() =>
+              setForm({ id: null, nombre: "", canales: canalesVacios(canales), anunciantes: [], activo: true })
+            }
             className="mb-4 bg-brand-magenta text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-brand-magenta/90"
           >
             + Nuevo Cliente
@@ -206,7 +210,7 @@ export default function AdminClientes() {
                         <AnunciantesChips anunciantes={c.anunciantes} />
                       </td>
                       <td className="px-4 py-2.5">
-                        <CanalesChips canales={c.canales} />
+                        <CanalesChips canales={c.canales} canalLabel={canalLabel} />
                       </td>
                       <td className="px-4 py-2.5">
                         <span
@@ -224,7 +228,7 @@ export default function AdminClientes() {
                             setForm({
                               id: c.id,
                               nombre: c.nombre,
-                              canales: canalesArrayToForm(c.canales),
+                              canales: canalesArrayToForm(c.canales, canales),
                               anunciantes: c.anunciantes,
                               activo: c.activo,
                             })
@@ -269,24 +273,27 @@ export default function AdminClientes() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Servicios contratados</label>
               <div className="flex flex-col gap-2.5 border border-slate-200 rounded-lg p-3">
-                {NAV_GROUPS.map((g) => {
-                  const canal = form.canales[g.id];
+                {canales.length === 0 && (
+                  <span className="text-sm text-slate-label">No hay servicios en el catálogo todavía.</span>
+                )}
+                {canales.map((c) => {
+                  const canal = form.canales[c.slug];
                   return (
-                    <div key={g.id} className="flex flex-col gap-1.5">
+                    <div key={c.slug} className="flex flex-col gap-1.5">
                       <label className="flex items-center gap-2 text-sm text-gray-700">
                         <input
                           type="checkbox"
                           checked={canal.contratado}
-                          onChange={() => toggleCanalContratado(g.id)}
+                          onChange={() => toggleCanalContratado(c.slug)}
                           className="accent-brand-magenta"
                         />
-                        {g.label}
+                        {c.nombre}
                       </label>
                       {canal.contratado && (
                         <input
                           value={canal.sheetId}
-                          onChange={(e) => setCanalSheetId(g.id, e.target.value)}
-                          placeholder={`ID del Sheet de ${g.label}`}
+                          onChange={(e) => setCanalSheetId(c.slug, e.target.value)}
+                          placeholder={`ID del Sheet de ${c.nombre}`}
                           className="ml-6 rounded-lg border border-slate-200 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-magenta"
                         />
                       )}

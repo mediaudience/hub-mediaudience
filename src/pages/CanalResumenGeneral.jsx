@@ -1,11 +1,18 @@
-import ChannelResumenGeneral from "../ChannelResumenGeneral";
-import useApiData from "../../hooks/useApiData";
-import PageSkeleton from "../../components/common/PageSkeleton";
-import useDelayedLoading from "../../hooks/useDelayedLoading";
-import EmptyState from "../../components/common/EmptyState";
+import { useParams } from "react-router-dom";
+import ChannelResumenGeneral from "./ChannelResumenGeneral";
+import useApiData from "../hooks/useApiData";
+import PageSkeleton from "../components/common/PageSkeleton";
+import useDelayedLoading from "../hooks/useDelayedLoading";
+import EmptyState from "../components/common/EmptyState";
 
-export default function YoutubeResumenGeneral() {
-  const { data, loading, error } = useApiData("/api/canal/youtube/resumen-general");
+// Página genérica de Resumen General para cualquier canal (CTV-OTT,
+// Programático, un servicio nuevo creado en Admin > Servicios, etc.) -- los
+// 5 canales originales usaban un archivo idéntico por canal salvo la URL de
+// la API, así que se consolidaron en esta única página parametrizada por
+// :canal (ver src/App.jsx).
+export default function CanalResumenGeneral() {
+  const { canal } = useParams();
+  const { data, loading, error } = useApiData(`/api/canal/${canal}/resumen-general`);
 
   const showSkeleton = useDelayedLoading(loading);
 

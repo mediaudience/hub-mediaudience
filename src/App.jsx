@@ -2,19 +2,28 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Shell from "./components/layout/Shell";
 import RequireAuth from "./components/layout/RequireAuth";
 import RequireAdmin from "./components/layout/RequireAdmin";
+import RequireSuperAdmin from "./components/layout/RequireSuperAdmin";
 import Login from "./pages/Login";
 import AdminUsuarios from "./pages/admin/Usuarios";
 import AdminClientes from "./pages/admin/Clientes";
-import CtvOttResumenGeneral from "./pages/ctvott/ResumenGeneral";
-import CtvOttRendimientoDiario from "./pages/ctvott/RendimientoDiario";
-import ProgramaticoResumenGeneral from "./pages/programatico/ResumenGeneral";
-import ProgramaticoRendimientoDiario from "./pages/programatico/RendimientoDiario";
-import YoutubeResumenGeneral from "./pages/youtube/ResumenGeneral";
-import YoutubeRendimientoDiario from "./pages/youtube/RendimientoDiario";
-import PushNotificationResumenGeneral from "./pages/pushNotification/ResumenGeneral";
-import PushNotificationRendimientoDiario from "./pages/pushNotification/RendimientoDiario";
-import TiktokResumenGeneral from "./pages/tiktok/ResumenGeneral";
-import TiktokRendimientoDiario from "./pages/tiktok/RendimientoDiario";
+import AdminServicios from "./pages/admin/Servicios";
+import CanalResumenGeneral from "./pages/CanalResumenGeneral";
+import CanalRendimientoDiario from "./pages/CanalRendimientoDiario";
+import EmptyState from "./components/common/EmptyState";
+import { useAuth } from "./context/AuthContext";
+
+const STAFF_ROLES = ["super_admin", "admin"];
+
+// A dónde mandar / e ír-no-encontrado: el primer canal contratado del
+// usuario. El catálogo de canales es dinámico (Admin > Servicios puede sumar
+// más), así que ya no hay un canal "por defecto" fijo como antes (ctv-ott).
+function RedirigirPorDefecto() {
+  const { user } = useAuth();
+  const primerCanal = user?.canalesContratados?.[0];
+  if (primerCanal) return <Navigate to={`/${primerCanal}/resumen-general`} replace />;
+  if (STAFF_ROLES.includes(user?.rol)) return <Navigate to="/admin/usuarios" replace />;
+  return <EmptyState message="Todavía no tienes ningún servicio asignado. Contacta a tu administrador." />;
+}
 
 export default function App() {
   return (
@@ -23,29 +32,21 @@ export default function App() {
 
       <Route element={<RequireAuth />}>
         <Route element={<Shell />}>
-          <Route index element={<Navigate to="/ctv-ott/resumen-general" replace />} />
+          <Route index element={<RedirigirPorDefecto />} />
 
-          <Route path="ctv-ott/resumen-general" element={<CtvOttResumenGeneral />} />
-          <Route path="ctv-ott/rendimiento-diario" element={<CtvOttRendimientoDiario />} />
-
-          <Route path="programatico/resumen-general" element={<ProgramaticoResumenGeneral />} />
-          <Route path="programatico/rendimiento-diario" element={<ProgramaticoRendimientoDiario />} />
-
-          <Route path="youtube/resumen-general" element={<YoutubeResumenGeneral />} />
-          <Route path="youtube/rendimiento-diario" element={<YoutubeRendimientoDiario />} />
-
-          <Route path="push-notification/resumen-general" element={<PushNotificationResumenGeneral />} />
-          <Route path="push-notification/rendimiento-diario" element={<PushNotificationRendimientoDiario />} />
-
-          <Route path="tiktok/resumen-general" element={<TiktokResumenGeneral />} />
-          <Route path="tiktok/rendimiento-diario" element={<TiktokRendimientoDiario />} />
+          <Route path=":canal/resumen-general" element={<CanalResumenGeneral />} />
+          <Route path=":canal/rendimiento-diario" element={<CanalRendimientoDiario />} />
 
           <Route element={<RequireAdmin />}>
             <Route path="admin/usuarios" element={<AdminUsuarios />} />
             <Route path="admin/clientes" element={<AdminClientes />} />
+
+            <Route element={<RequireSuperAdmin />}>
+              <Route path="admin/servicios" element={<AdminServicios />} />
+            </Route>
           </Route>
 
-          <Route path="*" element={<Navigate to="/ctv-ott/resumen-general" replace />} />
+          <Route path="*" element={<RedirigirPorDefecto />} />
         </Route>
       </Route>
     </Routes>

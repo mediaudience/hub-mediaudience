@@ -1,12 +1,18 @@
 import { Router } from 'express';
 import { requireUser } from './middleware.js';
-import { CANALES, getResumenGeneral, getRendimientoDiario } from './dataAccess.js';
+import { getCanalesPublicos, getDirDeCanal, getResumenGeneral, getRendimientoDiario } from './dataAccess.js';
 
 const router = Router();
 router.use(requireUser);
 
+// Catálogo de servicios activos -- alimenta Sidebar/rutas del frontend, que ya
+// no traen una lista hardcodeada de canales.
+router.get('/', (req, res) => {
+  res.json({ canales: getCanalesPublicos() });
+});
+
 router.param('canal', (req, res, next, canal) => {
-  const dir = CANALES[canal];
+  const dir = getDirDeCanal(canal);
   if (!dir) return res.status(404).json({ error: 'Canal no encontrado' });
   req.canalDir = dir;
   next();

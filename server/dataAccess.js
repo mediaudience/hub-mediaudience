@@ -6,15 +6,32 @@ import db from './db.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'data');
 
+// Catálogo de servicios/canales -- vive en la tabla `canales` (ver server/db.js)
+// para que un Super Admin pueda agregar nuevos sin tocar código. Se consulta
+// en vivo en cada llamada (no se cachea en memoria) para que un servicio
+// recién creado aparezca sin reiniciar el backend.
+function getCanalesActivos() {
+  return db.prepare('SELECT slug, dir, nombre FROM canales WHERE activo = 1 ORDER BY rowid').all();
+}
+
 // Slug de la URL (kebab-case, como aparece en las rutas de React Router) ->
-// nombre del directorio real bajo src/data (camelCase, heredado del proyecto).
-export const CANALES = {
-  'ctv-ott': 'ctvOtt',
-  programatico: 'programatico',
-  youtube: 'youtube',
-  'push-notification': 'pushNotification',
-  tiktok: 'tiktok',
-};
+// nombre del directorio real bajo src/data (heredado en camelCase para los 5
+// canales originales; slug = dir para los creados después).
+function getCanalesMap() {
+  return Object.fromEntries(getCanalesActivos().map((c) => [c.slug, c.dir]));
+}
+
+// Lista pública (slug + nombre) de servicios activos, para que el frontend
+// arme el Sidebar/rutas dinámicamente en vez de un navConfig.js hardcodeado.
+export function getCanalesPublicos() {
+  return getCanalesActivos().map((c) => ({ slug: c.slug, nombre: c.nombre }));
+}
+
+// Resuelve un slug de URL a su carpeta real, o undefined si no existe / está
+// inactivo (server/dataRoutes.js responde 404 en ese caso).
+export function getDirDeCanal(slug) {
+  return getCanalesMap()[slug];
+}
 
 async function readJson(filePath) {
   try {
@@ -58,7 +75,7 @@ const VE_TODO_SIN_FILTRO = ['super_admin', 'admin'];
 // sheet_id ya configurado) por los clientes visibles del usuario. Admin/Super
 // Admin ven todos los canales sin filtrar -- igual que el resto de la data.
 export function getCanalesContratados(user) {
-  if (VE_TODO_SIN_FILTRO.includes(user.rol)) return Object.keys(CANALES);
+  if (VE_TODO_SIN_FILTRO.includes(user.rol)) return getCanalesActivos().map((c) => c.slug);
 
   const clienteIds = getClienteIdsVisibles(user);
   if (clienteIds.length === 0) return [];
@@ -85,18 +102,18 @@ function getClienteIdsVisibles(user) {
   return [];
 }
 
-const SLUG_DE_CANAL_DIR = Object.fromEntries(Object.entries(CANALES).map(([slug, dir]) => [dir, slug]));
-
 // De los clientes visibles del usuario, deja solo los que contrataron este
 // canal en particular -- un usuario_interno puede tener un cliente con
 // CTV-OTT y otro solo con YouTube, y cada canal debe verse por separado.
 function getClienteIdsConCanal(clienteIds, canalDir) {
   if (clienteIds.length === 0) return [];
+  const slug = getCanalesActivos().find((c) => c.dir === canalDir)?.slug;
+  if (!slug) return [];
   const placeholders = clienteIds.map(() => '?').join(',');
   const conCanal = new Set(
     db
       .prepare(`SELECT cliente_id FROM cliente_canales WHERE canal = ? AND cliente_id IN (${placeholders})`)
-      .all(SLUG_DE_CANAL_DIR[canalDir], ...clienteIds)
+      .all(slug, ...clienteIds)
       .map((r) => r.cliente_id)
   );
   return clienteIds.filter((id) => conCanal.has(id));

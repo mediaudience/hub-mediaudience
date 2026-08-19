@@ -195,14 +195,13 @@ function getClientesConCanales() {
     .all();
 }
 
-// slug de canal (como en cliente_canales/navConfig) -> carpeta real bajo src/data
-const CANAL_DIR = {
-  'ctv-ott': 'ctvOtt',
-  programatico: 'programatico',
-  youtube: 'youtube',
-  'push-notification': 'pushNotification',
-  tiktok: 'tiktok',
-};
+// slug de canal (como en cliente_canales) -> carpeta real bajo src/data.
+// Viene de la tabla `canales` (ver server/db.js), no de una lista fija, para
+// que un servicio nuevo creado por un Super Admin se sincronice sin tocar
+// este script.
+const CANAL_DIR = Object.fromEntries(
+  db.prepare('SELECT slug, dir FROM canales').all().map((r) => [r.slug, r.dir])
+);
 
 async function syncClienteCanal({ clienteId, clienteNombre, canal, sheetId }) {
   const canalDir = CANAL_DIR[canal];

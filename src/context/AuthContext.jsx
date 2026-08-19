@@ -18,23 +18,34 @@ async function parseJsonSafe(response) {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [canales, setCanales] = useState([]);
   const [loading, setLoading] = useState(true);
   const [correoSesionExpirada, setCorreoSesionExpirada] = useState(null);
   const userRef = useRef(null);
   userRef.current = user;
+
+  // Catálogo de servicios activos (slug + nombre) -- alimenta Sidebar/rutas y
+  // los checkboxes de Admin > Clientes, que ya no traen una lista hardcodeada.
+  const refrescarCanales = useCallback(async () => {
+    const res = await fetch("/api/canal", { credentials: "include" });
+    const data = await parseJsonSafe(res);
+    setCanales(res.ok ? data?.canales ?? [] : []);
+  }, []);
 
   const refresh = useCallback(async () => {
     const res = await fetch("/api/auth/me", { credentials: "include" });
     const data = await parseJsonSafe(res);
     if (res.ok) {
       setUser(data?.user ?? null);
+      await refrescarCanales();
       return;
     }
     if (data?.code === "SESSION_EXPIRED" && userRef.current) {
       setCorreoSesionExpirada(userRef.current.email);
     }
     setUser(null);
-  }, []);
+    setCanales([]);
+  }, [refrescarCanales]);
 
   useEffect(() => {
     refresh().finally(() => setLoading(false));
@@ -85,7 +96,8 @@ export function AuthProvider({ children }) {
     }
     setCorreoSesionExpirada(null);
     setUser(data.user);
-  }, []);
+    await refrescarCanales();
+  }, [refrescarCanales]);
 
   const logout = useCallback(async () => {
     await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
@@ -115,7 +127,8 @@ export function AuthProvider({ children }) {
     if (!res.ok) throw new Error(data?.error || "Código inválido o vencido");
     setCorreoSesionExpirada(null);
     setUser(data.user);
-  }, []);
+    await refrescarCanales();
+  }, [refrescarCanales]);
 
   const cambiarPassword = useCallback(async (passwordActual, passwordNueva) => {
     const res = await fetch("/api/auth/cambiar-password", {
@@ -133,6 +146,8 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
+        canales,
+        refrescarCanales,
         loading,
         correoSesionExpirada,
         login,

@@ -98,10 +98,65 @@ if (clienteColumns.includes('sheet_id')) {
   db.exec('ALTER TABLE clientes DROP COLUMN sheet_id')
 }
 
+// Catálogo de servicios (antes una lista fija de 5 en el código: CTV-OTT,
+// Programático, Youtube, Push Notification, TikTok). `slug` es el id de URL
+// (usado también en cliente_canales.canal); `dir` es la carpeta real bajo
+// src/data donde vive su data sincronizada -- para los 5 originales hereda el
+// nombre de carpeta camelCase que ya existía en disco; para servicios nuevos
+// creados por un Super Admin (ver server/adminRoutes.js), dir = slug.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS canales (
+    slug TEXT PRIMARY KEY,
+    dir TEXT NOT NULL UNIQUE,
+    nombre TEXT NOT NULL,
+    activo INTEGER NOT NULL DEFAULT 1,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`)
+
+const insertarCanal = db.prepare(
+  'INSERT OR IGNORE INTO canales (slug, dir, nombre) VALUES (?, ?, ?)'
+)
+for (const [slug, dir, nombre] of [
+  ['ctv-ott', 'ctvOtt', 'CTV - OTT'],
+  ['programatico', 'programatico', 'Programático'],
+  ['youtube', 'youtube', 'Youtube'],
+  ['push-notification', 'pushNotification', 'Push Notification'],
+  ['tiktok', 'tiktok', 'TikTok'],
+]) {
+  insertarCanal.run(slug, dir, nombre)
+}
+
+// cliente_canales.canal tenía un CHECK con esos mismos 5 valores fijos --
+// ahora que el catálogo es dinámico (tabla `canales`), se reemplaza por una
+// FOREIGN KEY. SQLite no permite alterar un CHECK existente, así que si la
+// tabla ya existe con el esquema viejo se reconstruye copiando los datos
+// (mismo patrón que la migración de roles de arriba).
+const clienteCanalesTable = db
+  .prepare("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'cliente_canales'")
+  .get()
+if (clienteCanalesTable && clienteCanalesTable.sql.includes('CHECK (canal IN')) {
+  db.exec(`
+    ALTER TABLE cliente_canales RENAME TO cliente_canales_pre_canales_dinamicos;
+
+    CREATE TABLE cliente_canales (
+      cliente_id INTEGER NOT NULL REFERENCES clientes(id),
+      canal TEXT NOT NULL REFERENCES canales(slug),
+      sheet_id TEXT,
+      PRIMARY KEY (cliente_id, canal)
+    );
+
+    INSERT INTO cliente_canales (cliente_id, canal, sheet_id)
+    SELECT cliente_id, canal, sheet_id FROM cliente_canales_pre_canales_dinamicos;
+
+    DROP TABLE cliente_canales_pre_canales_dinamicos;
+  `)
+}
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS cliente_canales (
     cliente_id INTEGER NOT NULL REFERENCES clientes(id),
-    canal TEXT NOT NULL CHECK (canal IN ('ctv-ott', 'programatico', 'youtube', 'push-notification', 'tiktok')),
+    canal TEXT NOT NULL REFERENCES canales(slug),
     sheet_id TEXT,
     PRIMARY KEY (cliente_id, canal)
   );
