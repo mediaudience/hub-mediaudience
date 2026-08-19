@@ -90,12 +90,22 @@ db.exec(`
   );
 `)
 
-// sheet_id se agregó después de la migración inicial de `clientes`; se aplica
-// con ALTER en vez de estar en el CREATE TABLE para no romper bases ya creadas.
+// Un cliente puede contratar cualquier subconjunto de los 5 canales, cada uno
+// con su propio Sheet de datos brutos (reemplaza al `clientes.sheet_id` único
+// que asumía un solo Sheet por cliente para todos los canales).
 const clienteColumns = db.prepare("PRAGMA table_info(clientes)").all().map((c) => c.name)
-if (!clienteColumns.includes('sheet_id')) {
-  db.exec('ALTER TABLE clientes ADD COLUMN sheet_id TEXT')
+if (clienteColumns.includes('sheet_id')) {
+  db.exec('ALTER TABLE clientes DROP COLUMN sheet_id')
 }
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS cliente_canales (
+    cliente_id INTEGER NOT NULL REFERENCES clientes(id),
+    canal TEXT NOT NULL CHECK (canal IN ('ctv-ott', 'programatico', 'youtube', 'push-notification', 'tiktok')),
+    sheet_id TEXT,
+    PRIMARY KEY (cliente_id, canal)
+  );
+`)
 
 // Columnas de seguridad (cambio de password obligatorio + bloqueo por intentos
 // fallidos) agregadas después del esquema inicial de `users`.

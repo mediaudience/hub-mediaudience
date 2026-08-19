@@ -3,6 +3,9 @@ import GradientHeader from "../../components/common/GradientHeader";
 import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
 import EmptyState from "../../components/common/EmptyState";
+import { NAV_GROUPS } from "../../navConfig";
+
+const CANAL_LABEL = Object.fromEntries(NAV_GROUPS.map((g) => [g.id, g.label]));
 
 async function apiFetch(url, options) {
   const res = await fetch(url, {
@@ -39,7 +42,41 @@ function AnunciantesChips({ anunciantes }) {
   );
 }
 
-const EMPTY_FORM = { id: null, nombre: "", sheetId: "", anunciantes: [], activo: true };
+function CanalesChips({ canales }) {
+  if (canales.length === 0) return <span className="text-slate-label">Sin servicios contratados</span>;
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {canales.map((c) => (
+        <span
+          key={c.canal}
+          title={c.sheetId ? `Sheet: ${c.sheetId}` : "Falta configurar el Sheet ID"}
+          className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+            c.sheetId ? "bg-brand-purple/10 text-brand-purple" : "bg-semaphore-orange/10 text-semaphore-orange"
+          }`}
+        >
+          {CANAL_LABEL[c.canal] ?? c.canal}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+const EMPTY_CANALES = Object.fromEntries(NAV_GROUPS.map((g) => [g.id, { contratado: false, sheetId: "" }]));
+
+function canalesArrayToForm(canalesArray) {
+  const map = { ...EMPTY_CANALES };
+  for (const g of NAV_GROUPS) map[g.id] = { contratado: false, sheetId: "" };
+  for (const c of canalesArray ?? []) map[c.canal] = { contratado: true, sheetId: c.sheetId || "" };
+  return map;
+}
+
+function canalesFormToArray(canalesForm) {
+  return Object.entries(canalesForm)
+    .filter(([, v]) => v.contratado)
+    .map(([canal, v]) => ({ canal, sheetId: v.sheetId || null }));
+}
+
+const EMPTY_FORM = { id: null, nombre: "", canales: EMPTY_CANALES, anunciantes: [], activo: true };
 
 export default function AdminClientes() {
   const [clientes, setClientes] = useState([]);
@@ -76,6 +113,17 @@ export default function AdminClientes() {
     }));
   }
 
+  function toggleCanalContratado(canal) {
+    setForm((f) => ({
+      ...f,
+      canales: { ...f.canales, [canal]: { ...f.canales[canal], contratado: !f.canales[canal].contratado } },
+    }));
+  }
+
+  function setCanalSheetId(canal, sheetId) {
+    setForm((f) => ({ ...f, canales: { ...f.canales, [canal]: { ...f.canales[canal], sheetId } } }));
+  }
+
   async function guardar(e) {
     e.preventDefault();
     setSaving(true);
@@ -83,7 +131,7 @@ export default function AdminClientes() {
     try {
       const body = {
         nombre: form.nombre,
-        sheetId: form.sheetId || null,
+        canales: canalesFormToArray(form.canales),
         anunciantes: form.anunciantes,
         activo: form.activo,
       };
@@ -145,7 +193,7 @@ export default function AdminClientes() {
                   <tr className="bg-brand-purple text-white text-left">
                     <th className="px-4 py-3 font-semibold">Nombre</th>
                     <th className="px-4 py-3 font-semibold">Anunciantes</th>
-                    <th className="px-4 py-3 font-semibold">Sheet ID</th>
+                    <th className="px-4 py-3 font-semibold">Servicios contratados</th>
                     <th className="px-4 py-3 font-semibold">Estado</th>
                     <th className="px-4 py-3 font-semibold" />
                   </tr>
@@ -157,8 +205,8 @@ export default function AdminClientes() {
                       <td className="px-4 py-2.5">
                         <AnunciantesChips anunciantes={c.anunciantes} />
                       </td>
-                      <td className="px-4 py-2.5 text-gray-600 font-mono text-xs">
-                        {c.sheetId || "sin configurar"}
+                      <td className="px-4 py-2.5">
+                        <CanalesChips canales={c.canales} />
                       </td>
                       <td className="px-4 py-2.5">
                         <span
@@ -176,7 +224,7 @@ export default function AdminClientes() {
                             setForm({
                               id: c.id,
                               nombre: c.nombre,
-                              sheetId: c.sheetId || "",
+                              canales: canalesArrayToForm(c.canales),
                               anunciantes: c.anunciantes,
                               activo: c.activo,
                             })
@@ -219,15 +267,33 @@ export default function AdminClientes() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Google Sheet ID <span className="text-slate-label font-normal">(opcional por ahora)</span>
-              </label>
-              <input
-                value={form.sheetId}
-                onChange={(e) => setForm((f) => ({ ...f, sheetId: e.target.value }))}
-                placeholder="ID del Spreadsheet de este cliente"
-                className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-magenta"
-              />
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Servicios contratados</label>
+              <div className="flex flex-col gap-2.5 border border-slate-200 rounded-lg p-3">
+                {NAV_GROUPS.map((g) => {
+                  const canal = form.canales[g.id];
+                  return (
+                    <div key={g.id} className="flex flex-col gap-1.5">
+                      <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                          type="checkbox"
+                          checked={canal.contratado}
+                          onChange={() => toggleCanalContratado(g.id)}
+                          className="accent-brand-magenta"
+                        />
+                        {g.label}
+                      </label>
+                      {canal.contratado && (
+                        <input
+                          value={canal.sheetId}
+                          onChange={(e) => setCanalSheetId(g.id, e.target.value)}
+                          placeholder={`ID del Sheet de ${g.label}`}
+                          className="ml-6 rounded-lg border border-slate-200 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             <div>

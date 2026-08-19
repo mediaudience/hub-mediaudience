@@ -31,12 +31,14 @@ function contarSuperAdminsActivos() {
 
 // ---------- Clientes ----------
 
-function toPublicCliente(cliente, anunciantes) {
+const CANALES = ['ctv-ott', 'programatico', 'youtube', 'push-notification', 'tiktok'];
+
+function toPublicCliente(cliente, anunciantes, canales) {
   return {
     id: cliente.id,
     nombre: cliente.nombre,
     activo: !!cliente.activo,
-    sheetId: cliente.sheet_id,
+    canales,
     anunciantes,
     createdAt: cliente.created_at,
   };
@@ -58,9 +60,30 @@ function setAnunciantesDeCliente(clienteId, anunciantes) {
   tx(anunciantes ?? []);
 }
 
+// Un cliente puede tener contratado cualquier subconjunto de CANALES; cada uno
+// con su propio Sheet de datos brutos. Solo existe fila para los contratados.
+function getCanalesDeCliente(clienteId) {
+  return db
+    .prepare('SELECT canal, sheet_id FROM cliente_canales WHERE cliente_id = ? ORDER BY canal')
+    .all(clienteId)
+    .map((r) => ({ canal: r.canal, sheetId: r.sheet_id }));
+}
+
+function setCanalesDeCliente(clienteId, canales) {
+  const lista = (canales ?? []).filter((c) => CANALES.includes(c.canal));
+  const tx = db.transaction((items) => {
+    db.prepare('DELETE FROM cliente_canales WHERE cliente_id = ?').run(clienteId);
+    const ins = db.prepare('INSERT INTO cliente_canales (cliente_id, canal, sheet_id) VALUES (?, ?, ?)');
+    for (const c of items) ins.run(clienteId, c.canal, c.sheetId || null);
+  });
+  tx(lista);
+}
+
 router.get('/clientes', (req, res) => {
   const clientes = db.prepare('SELECT * FROM clientes ORDER BY nombre').all();
-  res.json({ clientes: clientes.map((c) => toPublicCliente(c, getAnunciantesDeCliente(c.id))) });
+  res.json({
+    clientes: clientes.map((c) => toPublicCliente(c, getAnunciantesDeCliente(c.id), getCanalesDeCliente(c.id))),
+  });
 });
 
 router.get('/anunciantes-disponibles', async (req, res) => {
@@ -73,33 +96,38 @@ router.get('/anunciantes-disponibles', async (req, res) => {
 });
 
 router.post('/clientes', (req, res) => {
-  const { nombre, sheetId, anunciantes } = req.body || {};
+  const { nombre, canales, anunciantes } = req.body || {};
   if (!nombre || !nombre.trim()) {
     return res.status(400).json({ error: 'El nombre es requerido' });
   }
 
-  const info = db.prepare('INSERT INTO clientes (nombre, sheet_id) VALUES (?, ?)').run(nombre.trim(), sheetId || null);
+  const info = db.prepare('INSERT INTO clientes (nombre) VALUES (?)').run(nombre.trim());
   setAnunciantesDeCliente(info.lastInsertRowid, anunciantes);
+  setCanalesDeCliente(info.lastInsertRowid, canales);
 
   const cliente = db.prepare('SELECT * FROM clientes WHERE id = ?').get(info.lastInsertRowid);
-  res.status(201).json({ cliente: toPublicCliente(cliente, getAnunciantesDeCliente(cliente.id)) });
+  res.status(201).json({
+    cliente: toPublicCliente(cliente, getAnunciantesDeCliente(cliente.id), getCanalesDeCliente(cliente.id)),
+  });
 });
 
 router.put('/clientes/:id', (req, res) => {
   const cliente = db.prepare('SELECT * FROM clientes WHERE id = ?').get(req.params.id);
   if (!cliente) return res.status(404).json({ error: 'Cliente no encontrado' });
 
-  const { nombre, sheetId, anunciantes, activo } = req.body || {};
-  db.prepare('UPDATE clientes SET nombre = ?, sheet_id = ?, activo = ? WHERE id = ?').run(
+  const { nombre, canales, anunciantes, activo } = req.body || {};
+  db.prepare('UPDATE clientes SET nombre = ?, activo = ? WHERE id = ?').run(
     nombre?.trim() || cliente.nombre,
-    sheetId === undefined ? cliente.sheet_id : sheetId || null,
     activo === undefined ? cliente.activo : activo ? 1 : 0,
     cliente.id
   );
   if (anunciantes !== undefined) setAnunciantesDeCliente(cliente.id, anunciantes);
+  if (canales !== undefined) setCanalesDeCliente(cliente.id, canales);
 
   const updated = db.prepare('SELECT * FROM clientes WHERE id = ?').get(cliente.id);
-  res.json({ cliente: toPublicCliente(updated, getAnunciantesDeCliente(cliente.id)) });
+  res.json({
+    cliente: toPublicCliente(updated, getAnunciantesDeCliente(updated.id), getCanalesDeCliente(updated.id)),
+  });
 });
 
 // ---------- Usuarios ----------

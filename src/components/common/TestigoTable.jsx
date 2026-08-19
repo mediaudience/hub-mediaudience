@@ -1,14 +1,28 @@
 import Card from "./Card";
 
+function EstadoBadge({ estado }) {
+  const esVerificado = estado === "Verificado";
+  return (
+    <span
+      className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+        esVerificado ? "bg-green-100 text-green-700" : "bg-semaphore-orange/10 text-semaphore-orange"
+      }`}
+    >
+      {estado}
+    </span>
+  );
+}
+
 export default function TestigoTable({ rows }) {
   return (
     <Card hover={false} className="overflow-x-auto">
       <table className="w-full text-sm min-w-[700px]">
         <thead>
           <tr className="bg-brand-purple text-white text-left">
-            <th className="px-4 py-3 font-semibold">Fecha</th>
+            <th className="px-4 py-3 font-semibold">Mes</th>
             <th className="px-4 py-3 font-semibold">Campaña</th>
-            <th className="px-4 py-3 font-semibold">Publisher</th>
+            <th className="px-4 py-3 font-semibold">Motivo</th>
+            <th className="px-4 py-3 font-semibold">Formato</th>
             <th className="px-4 py-3 font-semibold">Estado</th>
             <th className="px-4 py-3 font-semibold">Testigo</th>
           </tr>
@@ -19,10 +33,13 @@ export default function TestigoTable({ rows }) {
               key={i}
               className={`transition-colors hover:bg-brand-purple/5 ${i % 2 === 0 ? "bg-white" : "bg-slate-50"}`}
             >
-              <td className="px-4 py-2.5 text-gray-800 whitespace-nowrap">{r.fecha}</td>
+              <td className="px-4 py-2.5 text-gray-800 whitespace-nowrap">{r.mes}</td>
               <td className="px-4 py-2.5 text-gray-800">{r.campana}</td>
-              <td className="px-4 py-2.5 text-gray-800">{r.publisher}</td>
-              <td className="px-4 py-2.5 text-gray-800">{r.estado}</td>
+              <td className="px-4 py-2.5 text-gray-800">{r.motivo}</td>
+              <td className="px-4 py-2.5 text-gray-800">{r.formato}</td>
+              <td className="px-4 py-2.5">
+                <EstadoBadge estado={r.estado} />
+              </td>
               <td className="px-4 py-2.5">
                 {r.testigoUrl ? (
                   <a href={r.testigoUrl} className="text-blue-600 hover:underline truncate block max-w-[220px]">

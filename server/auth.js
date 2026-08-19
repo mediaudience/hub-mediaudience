@@ -4,6 +4,7 @@ import crypto from "node:crypto";
 import db from "./db.js";
 import { requireUser } from "./middleware.js";
 import { enviarCodigoAcceso } from "./email.js";
+import { getCanalesContratados } from "./dataAccess.js";
 
 const router = Router();
 
@@ -21,6 +22,7 @@ function toPublicUser(user) {
     rol: user.rol,
     clienteId: user.cliente_id,
     debeCambiarPassword: !!user.debe_cambiar_password,
+    canalesContratados: getCanalesContratados({ id: user.id, rol: user.rol, clienteId: user.cliente_id }),
   };
 }
 

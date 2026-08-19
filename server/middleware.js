@@ -1,4 +1,5 @@
 import db from './db.js';
+import { getCanalesContratados } from './dataAccess.js';
 
 const HORA = 1000 * 60 * 60;
 
@@ -46,6 +47,7 @@ export function requireUser(req, res, next) {
     rol: user.rol,
     clienteId: user.cliente_id,
     debeCambiarPassword: !!user.debe_cambiar_password,
+    canalesContratados: getCanalesContratados({ id: user.id, rol: user.rol, clienteId: user.cliente_id }),
   };
   next();
 }

@@ -54,6 +54,22 @@ function clienteDataDir(clienteId, canalDir) {
 // Admin para usuario_interno (ninguno asignado todavía = no ve nada).
 const VE_TODO_SIN_FILTRO = ['super_admin', 'admin'];
 
+// Union de los canales contratados (fila en `cliente_canales`, con o sin
+// sheet_id ya configurado) por los clientes visibles del usuario. Admin/Super
+// Admin ven todos los canales sin filtrar -- igual que el resto de la data.
+export function getCanalesContratados(user) {
+  if (VE_TODO_SIN_FILTRO.includes(user.rol)) return Object.keys(CANALES);
+
+  const clienteIds = getClienteIdsVisibles(user);
+  if (clienteIds.length === 0) return [];
+
+  const placeholders = clienteIds.map(() => '?').join(',');
+  return db
+    .prepare(`SELECT DISTINCT canal FROM cliente_canales WHERE cliente_id IN (${placeholders})`)
+    .all(...clienteIds)
+    .map((r) => r.canal);
+}
+
 function getClienteIdsVisibles(user) {
   if (user.rol === 'usuario_externo') return user.clienteId ? [user.clienteId] : [];
   if (user.rol === 'usuario_interno') {
@@ -67,6 +83,23 @@ function getClienteIdsVisibles(user) {
       .map((r) => r.id);
   }
   return [];
+}
+
+const SLUG_DE_CANAL_DIR = Object.fromEntries(Object.entries(CANALES).map(([slug, dir]) => [dir, slug]));
+
+// De los clientes visibles del usuario, deja solo los que contrataron este
+// canal en particular -- un usuario_interno puede tener un cliente con
+// CTV-OTT y otro solo con YouTube, y cada canal debe verse por separado.
+function getClienteIdsConCanal(clienteIds, canalDir) {
+  if (clienteIds.length === 0) return [];
+  const placeholders = clienteIds.map(() => '?').join(',');
+  const conCanal = new Set(
+    db
+      .prepare(`SELECT cliente_id FROM cliente_canales WHERE canal = ? AND cliente_id IN (${placeholders})`)
+      .all(SLUG_DE_CANAL_DIR[canalDir], ...clienteIds)
+      .map((r) => r.cliente_id)
+  );
+  return clienteIds.filter((id) => conCanal.has(id));
 }
 
 // Suma campos numéricos de items con la misma clave (p.ej. mismo mes o misma
@@ -118,10 +151,11 @@ export async function getResumenGeneral(canalDir, user) {
   }
 
   // usuario_externo / usuario_interno: KPIs/Mensual/Ciudades/Dispositivos vienen
-  // del Sheet propio de cada cliente visible (ya sincronizados aparte, sin
-  // necesidad de filtrar por fila); si hay más de un cliente visible (solo
-  // puede pasar con usuario_interno) se combinan sumando los valores.
-  const clienteIds = getClienteIdsVisibles(user);
+  // del Sheet propio de cada cliente visible que haya contratado este canal
+  // (ya sincronizados aparte, sin necesidad de filtrar por fila); si hay más
+  // de un cliente visible (solo puede pasar con usuario_interno) se combinan
+  // sumando los valores.
+  const clienteIds = getClienteIdsConCanal(getClienteIdsVisibles(user), canalDir);
   if (clienteIds.length === 0) {
     return {
       kpis: { impresionesTotales: 0, visualizaciones: 0, vtr: 0 },
@@ -188,7 +222,7 @@ export async function getRendimientoDiario(canalDir, user) {
   // `campana` -> `anunciante` contra campanasServidas.json; porPublisher no
   // tiene ese cruce posible (no trae campana por fila), así que sale del Sheet
   // propio de cada cliente visible, igual que ciudades/dispositivos arriba.
-  const clienteIds = getClienteIdsVisibles(user);
+  const clienteIds = getClienteIdsConCanal(getClienteIdsVisibles(user), canalDir);
   if (clienteIds.length === 0) {
     return { porCampana: [], porPublisher: [], testigo: [], campanas: [] };
   }

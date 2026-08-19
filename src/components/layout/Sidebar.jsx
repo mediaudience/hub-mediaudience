@@ -21,7 +21,9 @@ export default function Sidebar({ open, onNavigate }) {
   const location = useLocation();
   const { user } = useAuth();
   const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
-  const groups = esStaff ? [...NAV_GROUPS, ADMIN_NAV_GROUP] : NAV_GROUPS;
+  const canalesContratados = user?.canalesContratados ?? [];
+  const canalesVisibles = NAV_GROUPS.filter((g) => canalesContratados.includes(g.id));
+  const groups = esStaff ? [...canalesVisibles, ADMIN_NAV_GROUP] : canalesVisibles;
   const activeGroupId = groups.find((g) =>
     g.items.some((i) => location.pathname.startsWith(i.path))
   )?.id;

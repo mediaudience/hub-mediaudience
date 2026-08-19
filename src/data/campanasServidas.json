@@ -1,28 +1,10 @@
 [
-  { "anunciante": "CNT", "campana": "CNT Fibra Óptica Q3", "reporte": "No enviado", "ejecutivo": "María José Andrade", "formato": "In-Feed", "tipoVenta": "CPM", "fechaInicio": "2026-06-01", "fechaFin": "2026-08-31", "objetivo": 500000, "consumo": 462300 },
-  { "anunciante": "Banco del Pacífico", "campana": "Tarjeta Digital Pacífico", "reporte": "No enviado", "ejecutivo": "Carlos Espinoza", "formato": "Display Programático", "tipoVenta": "CPM", "fechaInicio": "2026-05-15", "fechaFin": "2026-08-15", "objetivo": 800000, "consumo": 815200 },
-  { "anunciante": "Claro Ecuador", "campana": "Claro 5G Lanzamiento", "reporte": "No enviado", "ejecutivo": "Daniela Vera", "formato": "CTV", "tipoVenta": "CPV", "fechaInicio": "2026-07-01", "fechaFin": "2026-09-30", "objetivo": 300000, "consumo": 118400 },
-  { "anunciante": "Banco Pichincha", "campana": "Pichincha Créditos PYME", "reporte": "No enviado", "ejecutivo": "Andrés Chávez", "formato": "ITT", "tipoVenta": "CPS", "fechaInicio": "2026-04-01", "fechaFin": "2026-07-31", "objetivo": 150000, "consumo": 149800 },
-  { "anunciante": "Diners Club", "campana": "Diners Millas Verano", "reporte": "No enviado", "ejecutivo": "Paola Ríos", "formato": "Rich Media", "tipoVenta": "CPM", "fechaInicio": "2026-06-15", "fechaFin": "2026-08-20", "objetivo": 400000, "consumo": 205600 },
-  { "anunciante": "Movistar Ecuador", "campana": "Movistar Plan Familia", "reporte": "No enviado", "ejecutivo": "María José Andrade", "formato": "YouTube", "tipoVenta": "CPV", "fechaInicio": "2026-05-01", "fechaFin": "2026-08-31", "objetivo": 600000, "consumo": 588900 },
-  { "anunciante": "Corporación Favorita", "campana": "Supermaxi Aniversario", "reporte": "No enviado", "ejecutivo": "Carlos Espinoza", "formato": "In-Feed", "tipoVenta": "CPM", "fechaInicio": "2026-07-10", "fechaFin": "2026-08-25", "objetivo": 250000, "consumo": 241000 },
-  { "anunciante": "Pronaca", "campana": "Mr. Pollo Campaña Nacional", "reporte": "No enviado", "ejecutivo": "Daniela Vera", "formato": "Display Programático", "tipoVenta": "CPM", "fechaInicio": "2026-03-01", "fechaFin": "2026-08-31", "objetivo": 700000, "consumo": 340200 },
-  { "anunciante": "Tiendas TÍA", "campana": "TÍA Vuelta a Clases", "reporte": "No enviado", "ejecutivo": "Andrés Chávez", "formato": "Rich Media", "tipoVenta": "CPM", "fechaInicio": "2026-08-01", "fechaFin": "2026-08-31", "objetivo": 180000, "consumo": 92400 },
-  { "anunciante": "De Prati", "campana": "De Prati Rebajas de Julio", "reporte": "No enviado", "ejecutivo": "Paola Ríos", "formato": "In-Feed", "tipoVenta": "CPM", "fechaInicio": "2026-07-01", "fechaFin": "2026-07-31", "objetivo": 220000, "consumo": 219500 },
-  { "anunciante": "Banco Guayaquil", "campana": "Guayaquil App Móvil", "reporte": "No enviado", "ejecutivo": "María José Andrade", "formato": "CTV", "tipoVenta": "CPV", "fechaInicio": "2026-06-01", "fechaFin": "2026-09-01", "objetivo": 350000, "consumo": 175300 },
-  { "anunciante": "Holcim Ecuador", "campana": "Holcim Construye Futuro", "reporte": "No enviado", "ejecutivo": "Carlos Espinoza", "formato": "ITT", "tipoVenta": "CPS", "fechaInicio": "2026-02-01", "fechaFin": "2026-08-15", "objetivo": 120000, "consumo": 121500 },
-  { "anunciante": "Cervecería Nacional", "campana": "Pilsener Verano 2026", "reporte": "No enviado", "ejecutivo": "Daniela Vera", "formato": "YouTube", "tipoVenta": "CPV", "fechaInicio": "2026-06-01", "fechaFin": "2026-08-31", "objetivo": 900000, "consumo": 843200 },
-  { "anunciante": "Pinturas Cóndor", "campana": "Cóndor Remodela tu Hogar", "reporte": "No enviado", "ejecutivo": "Andrés Chávez", "formato": "Display Programático", "tipoVenta": "CPM", "fechaInicio": "2026-05-01", "fechaFin": "2026-08-31", "objetivo": 260000, "consumo": 130800 },
-  { "anunciante": "Yanbal Ecuador", "campana": "Yanbal Nueva Colección", "reporte": "No enviado", "ejecutivo": "Paola Ríos", "formato": "In-Feed", "tipoVenta": "CPM", "fechaInicio": "2026-07-15", "fechaFin": "2026-08-30", "objetivo": 190000, "consumo": 168200 },
-  { "anunciante": "Farmacias Fybeca", "campana": "Fybeca Salud Familiar", "reporte": "No enviado", "ejecutivo": "María José Andrade", "formato": "Rich Media", "tipoVenta": "CPM", "fechaInicio": "2026-04-15", "fechaFin": "2026-08-31", "objetivo": 210000, "consumo": 205900 },
-  { "anunciante": "Toyota Ecuador", "campana": "Toyota Hilux 2026", "reporte": "No enviado", "ejecutivo": "Carlos Espinoza", "formato": "CTV", "tipoVenta": "CPV", "fechaInicio": "2026-06-01", "fechaFin": "2026-09-15", "objetivo": 500000, "consumo": 289100 },
-  { "anunciante": "Chevrolet Ecuador", "campana": "Chevrolet Tracker Lanzamiento", "reporte": "No enviado", "ejecutivo": "Daniela Vera", "formato": "YouTube", "tipoVenta": "CPV", "fechaInicio": "2026-05-01", "fechaFin": "2026-08-31", "objetivo": 480000, "consumo": 476300 },
-  { "anunciante": "Banco Internacional", "campana": "BI Cuenta Digital", "reporte": "No enviado", "ejecutivo": "Andrés Chávez", "formato": "Display Programático", "tipoVenta": "CPM", "fechaInicio": "2026-07-01", "fechaFin": "2026-08-31", "objetivo": 300000, "consumo": 271400 },
-  { "anunciante": "Seguros Equinoccial", "campana": "Equinoccial Seguro Vida", "reporte": "No enviado", "ejecutivo": "Paola Ríos", "formato": "ITT", "tipoVenta": "CPS", "fechaInicio": "2026-03-01", "fechaFin": "2026-08-31", "objetivo": 140000, "consumo": 63900 },
-  { "anunciante": "Coca-Cola Ecuador", "campana": "Coca-Cola Verano sin Fin", "reporte": "No enviado", "ejecutivo": "María José Andrade", "formato": "In-Feed", "tipoVenta": "CPM", "fechaInicio": "2026-06-15", "fechaFin": "2026-08-31", "objetivo": 950000, "consumo": 911200 },
-  { "anunciante": "Nestlé Ecuador", "campana": "Nestlé Nutrición Familiar", "reporte": "No enviado", "ejecutivo": "Carlos Espinoza", "formato": "Rich Media", "tipoVenta": "CPM", "fechaInicio": "2026-05-01", "fechaFin": "2026-08-15", "objetivo": 320000, "consumo": 156700 },
-  { "anunciante": "Automotores Continental", "campana": "Kia Sportage 2026", "reporte": "No enviado", "ejecutivo": "Daniela Vera", "formato": "CTV", "tipoVenta": "CPV", "fechaInicio": "2026-07-01", "fechaFin": "2026-09-30", "objetivo": 260000, "consumo": 51200 },
-  { "anunciante": "Claro Ecuador", "campana": "Claro Hogar Internet+TV", "reporte": "No enviado", "ejecutivo": "Andrés Chávez", "formato": "YouTube", "tipoVenta": "CPV", "fechaInicio": "2026-04-01", "fechaFin": "2026-08-31", "objetivo": 410000, "consumo": 402300 },
-  { "anunciante": "Supermaxi", "campana": "Supermaxi Ofertas de Agosto", "reporte": "No enviado", "ejecutivo": "Paola Ríos", "formato": "In-Feed", "tipoVenta": "CPM", "fechaInicio": "2026-08-01", "fechaFin": "2026-08-31", "objetivo": 175000, "consumo": 98600 },
-  { "anunciante": "Banco del Pacífico", "campana": "Pacífico Ahorro Programado", "reporte": "No enviado", "ejecutivo": "María José Andrade", "formato": "Display Programático", "tipoVenta": "CPM", "fechaInicio": "2026-06-01", "fechaFin": "2026-08-31", "objetivo": 220000, "consumo": 224500 }
+  {
+    "campana": "PE_Cartavio_AltaGama_Julio2026",
+    "anunciante": "Cartavio"
+  },
+  {
+    "campana": "PE_Cartavio_AltaGama_Agosto2026",
+    "anunciante": "Cartavio"
+  }
 ]

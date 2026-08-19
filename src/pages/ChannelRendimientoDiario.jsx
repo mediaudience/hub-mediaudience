@@ -2,6 +2,7 @@ import { useState } from "react";
 import GradientHeader from "../components/common/GradientHeader";
 import Tabs from "../components/common/Tabs";
 import DailyPerformanceTable from "../components/common/DailyPerformanceTable";
+import PublisherPerformanceTable from "../components/common/PublisherPerformanceTable";
 import TestigoTable from "../components/common/TestigoTable";
 import { downloadCSV } from "../utils/csv";
 
@@ -11,9 +12,9 @@ const TABS = [
   { key: "testigo", label: "Testigo", icon: "clip" },
 ];
 
-const PERFORMANCE_COLUMNS = (entityKey, entityLabel) => [
+const CAMPANA_COLUMNS = [
   { key: "fecha", label: "Fecha" },
-  { key: entityKey, label: entityLabel },
+  { key: "campana", label: "Campaña" },
   { key: "motivo", label: "Motivo" },
   { key: "impresionesTotales", label: "Impresiones Totales" },
   { key: "visualizaciones", label: "Visualizaciones" },
@@ -24,10 +25,19 @@ const PERFORMANCE_COLUMNS = (entityKey, entityLabel) => [
   { key: "vtr", label: "VTR" },
 ];
 
-const TESTIGO_COLUMNS = [
-  { key: "fecha", label: "Fecha" },
-  { key: "campana", label: "Campaña" },
+const PUBLISHER_COLUMNS = [
+  { key: "mes", label: "Mes" },
   { key: "publisher", label: "Publisher" },
+  { key: "motivo", label: "Motivo" },
+  { key: "impresionesTotales", label: "Impresiones Totales" },
+  { key: "visualizaciones", label: "Visualizaciones" },
+];
+
+const TESTIGO_COLUMNS = [
+  { key: "mes", label: "Mes" },
+  { key: "campana", label: "Campaña" },
+  { key: "motivo", label: "Motivo" },
+  { key: "formato", label: "Formato" },
   { key: "estado", label: "Estado" },
   { key: "testigoUrl", label: "Testigo" },
 ];
@@ -36,8 +46,8 @@ export default function ChannelRendimientoDiario({ data, filters = [{ label: "Ca
   const [tab, setTab] = useState("campana");
 
   const exportConfig = {
-    campana: { rows: data.porCampana, columns: PERFORMANCE_COLUMNS("campana", "Campaña"), filename: "rendimiento-por-campana" },
-    publisher: { rows: data.porPublisher, columns: PERFORMANCE_COLUMNS("publisher", "Publisher"), filename: "rendimiento-por-publisher" },
+    campana: { rows: data.porCampana, columns: CAMPANA_COLUMNS, filename: "rendimiento-por-campana" },
+    publisher: { rows: data.porPublisher, columns: PUBLISHER_COLUMNS, filename: "rendimiento-por-publisher" },
     testigo: { rows: data.testigo, columns: TESTIGO_COLUMNS, filename: "testigo" },
   }[tab];
 
@@ -57,9 +67,7 @@ export default function ChannelRendimientoDiario({ data, filters = [{ label: "Ca
         {tab === "campana" && (
           <DailyPerformanceTable rows={data.porCampana} entityKey="campana" entityLabel="Campaña" />
         )}
-        {tab === "publisher" && (
-          <DailyPerformanceTable rows={data.porPublisher} entityKey="publisher" entityLabel="Publisher" />
-        )}
+        {tab === "publisher" && <PublisherPerformanceTable rows={data.porPublisher} />}
         {tab === "testigo" && <TestigoTable rows={data.testigo} />}
       </div>
     </div>
