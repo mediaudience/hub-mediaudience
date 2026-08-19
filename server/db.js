@@ -88,6 +88,20 @@ db.exec(`
     cliente_id INTEGER NOT NULL REFERENCES clientes(id),
     PRIMARY KEY (user_id, cliente_id)
   );
+
+  -- Acota, dentro de un cliente ya visible para el usuario (usuario_externo o
+  -- usuario_interno), a qué anunciantes de ese cliente puede ver -- un cliente
+  -- puede agrupar varias marcas (ej. PE_Alicorp -> Alacena/Primor/Nicolini) y
+  -- no todos los usuarios de ese cliente deben ver todas. Sin filas para un
+  -- (usuario, cliente) = ve todos los anunciantes de ese cliente (default
+  -- retrocompatible: la restricción es opt-in, nunca le quita acceso a nadie
+  -- que ya tenía).
+  CREATE TABLE IF NOT EXISTS usuario_anunciantes (
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    cliente_id INTEGER NOT NULL REFERENCES clientes(id),
+    anunciante TEXT NOT NULL,
+    PRIMARY KEY (user_id, cliente_id, anunciante)
+  );
 `)
 
 // Un cliente puede contratar cualquier subconjunto de los 5 canales, cada uno
@@ -96,6 +110,14 @@ db.exec(`
 const clienteColumns = db.prepare("PRAGMA table_info(clientes)").all().map((c) => c.name)
 if (clienteColumns.includes('sheet_id')) {
   db.exec('ALTER TABLE clientes DROP COLUMN sheet_id')
+}
+
+// País de operación del cliente (PE/EC/CL/MX/CO, ver PAISES en adminRoutes.js)
+// -- puramente informativo, para que Admin > Clientes arme `nombre` como
+// "{País}_{Nombre}" (ej. PE_Alicorp) sin que cada quien lo tipee a mano.
+// Nullable: clientes creados antes de esto (ej. Cartavio) no lo tienen.
+if (!clienteColumns.includes('pais')) {
+  db.exec('ALTER TABLE clientes ADD COLUMN pais TEXT')
 }
 
 // Catálogo de servicios (antes una lista fija de 5 en el código: CTV-OTT,

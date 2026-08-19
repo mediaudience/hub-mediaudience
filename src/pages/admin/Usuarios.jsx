@@ -38,6 +38,29 @@ function RolBadge({ rol }) {
   );
 }
 
+// Checkboxes de anunciantes de UN cliente ya visible para el usuario -- todos
+// marcados equivale a "sin restricción" (ver anunciantesPayloadDeCliente).
+function AnunciantesCheckboxes({ cliente, seleccionados, onToggle }) {
+  if (!cliente || cliente.anunciantes.length === 0) {
+    return <p className="text-sm text-slate-label">Este cliente no tiene anunciantes asociados todavía.</p>;
+  }
+  return (
+    <div className="flex flex-col gap-1.5 max-h-40 overflow-y-auto rounded-lg border border-slate-200 p-3">
+      {cliente.anunciantes.map((a) => (
+        <label key={a} className="flex items-center gap-2 text-sm text-gray-700">
+          <input
+            type="checkbox"
+            checked={seleccionados.includes(a)}
+            onChange={(e) => onToggle(a, e.target.checked)}
+            className="accent-brand-magenta"
+          />
+          {a}
+        </label>
+      ))}
+    </div>
+  );
+}
+
 // navigator.clipboard requiere "contexto seguro" (HTTPS) -- en este panel, que
 // hoy corre en HTTP plano, el navegador la deja undefined o la rechaza sin
 // avisar. Este fallback con execCommand sí funciona sobre HTTP.
@@ -83,7 +106,16 @@ function CopyButton({ value }) {
   );
 }
 
-const EMPTY_FORM = { id: null, nombre: "", email: "", rol: "usuario_externo", clienteId: "", clienteIds: [], activo: true };
+const EMPTY_FORM = {
+  id: null,
+  nombre: "",
+  email: "",
+  rol: "usuario_externo",
+  clienteId: "",
+  clienteIds: [],
+  anunciantesPorCliente: {},
+  activo: true,
+};
 
 const FILTROS_INVITACION = [
   { key: "todos", label: "Todos" },
@@ -211,8 +243,36 @@ export default function AdminUsuarios() {
       rol: u.rol,
       clienteId: u.clienteId || "",
       clienteIds: u.clienteIds || [],
+      anunciantesPorCliente: u.anunciantesPorCliente || {},
       activo: u.activo,
     });
+  }
+
+  // Anunciantes marcados ahora mismo para `clienteId` en el form -- si no hay
+  // restricción explícita en curso, arranca con todos los del cliente (= ve
+  // todos, comportamiento default).
+  function anunciantesSeleccionados(clienteId) {
+    const cliente = clientes.find((c) => c.id === Number(clienteId));
+    if (!cliente) return [];
+    return form.anunciantesPorCliente[clienteId] ?? cliente.anunciantes;
+  }
+
+  function toggleAnunciante(clienteId, anunciante, checked) {
+    const actual = anunciantesSeleccionados(clienteId);
+    if (!checked && actual.length <= 1) return; // no dejar 0 anunciantes marcados
+    const nuevo = checked ? [...actual, anunciante] : actual.filter((a) => a !== anunciante);
+    setForm((f) => ({ ...f, anunciantesPorCliente: { ...f.anunciantesPorCliente, [clienteId]: nuevo } }));
+  }
+
+  // null = sin restricción (ve todos, incluidos los que se agreguen después);
+  // array = subconjunto explícito. Comparar contra el total del cliente en
+  // vez de confiar en si hubo un toggle, para que "todos marcados" siempre se
+  // guarde como "sin restricción".
+  function anunciantesPayloadDeCliente(clienteId) {
+    const cliente = clientes.find((c) => c.id === Number(clienteId));
+    if (!cliente) return null;
+    const seleccion = anunciantesSeleccionados(clienteId);
+    return seleccion.length >= cliente.anunciantes.length ? null : seleccion;
   }
 
   async function guardar(e) {
@@ -225,6 +285,18 @@ export default function AdminUsuarios() {
         rol: form.rol,
         clienteId: form.rol === "usuario_externo" ? Number(form.clienteId) || null : null,
         clienteIds: form.rol === "usuario_interno" ? form.clienteIds : undefined,
+        anunciantes:
+          form.rol === "usuario_externo" && form.clienteId
+            ? anunciantesPayloadDeCliente(form.clienteId)
+            : undefined,
+        anunciantesPorCliente:
+          form.rol === "usuario_interno"
+            ? Object.fromEntries(
+                form.clienteIds
+                  .map((id) => [id, anunciantesPayloadDeCliente(id)])
+                  .filter(([, v]) => v !== null)
+              )
+            : undefined,
         activo: form.activo,
       };
       if (form.id) {
@@ -406,6 +478,14 @@ export default function AdminUsuarios() {
                             ? u.clienteNombres.join(", ")
                             : "— (sin asignar)"
                           : u.clienteNombre || "—"}
+                        {Object.keys(u.anunciantesPorCliente || {}).length > 0 && (
+                          <span
+                            className="ml-1.5 text-xs text-brand-magenta"
+                            title="Ve solo algunos anunciantes de este/estos cliente(s)"
+                          >
+                            (acotado)
+                          </span>
+                        )}
                       </td>
                       <td className="px-4 py-2.5">
                         <span
@@ -513,6 +593,7 @@ export default function AdminUsuarios() {
                     rol: e.target.value,
                     clienteId: e.target.value === "usuario_externo" ? f.clienteId : "",
                     clienteIds: e.target.value === "usuario_interno" ? f.clienteIds : [],
+                    anunciantesPorCliente: {},
                   }))
                 }
                 disabled={
@@ -549,6 +630,21 @@ export default function AdminUsuarios() {
               </div>
             )}
 
+            {form.rol === "usuario_externo" && form.clienteId && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Anunciantes visibles</label>
+                <AnunciantesCheckboxes
+                  cliente={clientes.find((c) => c.id === Number(form.clienteId))}
+                  seleccionados={anunciantesSeleccionados(form.clienteId)}
+                  onToggle={(a, checked) => toggleAnunciante(form.clienteId, a, checked)}
+                />
+                <p className="mt-1.5 text-xs text-slate-label">
+                  Con todos marcados, este usuario ve todos los anunciantes de este cliente (incluidos los que se
+                  agreguen después).
+                </p>
+              </div>
+            )}
+
             {form.rol === "usuario_interno" && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">Clientes visibles</label>
@@ -578,6 +674,32 @@ export default function AdminUsuarios() {
                 )}
                 <p className="mt-1.5 text-xs text-slate-label">
                   Si no marcas ningún cliente, este usuario no verá datos hasta que le asignes al menos uno.
+                </p>
+              </div>
+            )}
+
+            {form.rol === "usuario_interno" && form.clienteIds.length > 0 && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Anunciantes visibles por cliente</label>
+                <div className="flex flex-col gap-3">
+                  {form.clienteIds.map((clienteId) => {
+                    const cliente = clientes.find((c) => c.id === clienteId);
+                    if (!cliente) return null;
+                    return (
+                      <div key={clienteId} className="rounded-lg border border-slate-200 p-3">
+                        <p className="text-sm font-medium text-gray-700 mb-1.5">{cliente.nombre}</p>
+                        <AnunciantesCheckboxes
+                          cliente={cliente}
+                          seleccionados={anunciantesSeleccionados(clienteId)}
+                          onToggle={(a, checked) => toggleAnunciante(clienteId, a, checked)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="mt-1.5 text-xs text-slate-label">
+                  Con todos los anunciantes de un cliente marcados, este usuario los ve todos (incluidos los que se
+                  agreguen después).
                 </p>
               </div>
             )}

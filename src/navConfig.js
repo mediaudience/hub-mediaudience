@@ -9,8 +9,8 @@ export const ADMIN_NAV_GROUP = {
   id: "admin",
   label: "Administración",
   items: [
-    { label: "Usuarios", path: "/admin/usuarios" },
     { label: "Clientes", path: "/admin/clientes" },
+    { label: "Usuarios", path: "/admin/usuarios" },
     { label: "Servicios", path: "/admin/servicios", superAdminOnly: true },
   ],
 };

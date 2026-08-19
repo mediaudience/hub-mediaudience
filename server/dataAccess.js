@@ -53,12 +53,24 @@ function anuncianteDeCampana(campanasServidas, campana) {
   return campanasServidas.find((c) => c.campana === campana)?.anunciante ?? null;
 }
 
-function getMisAnunciantes(clienteId) {
+function getAnunciantesDeCliente(clienteId) {
   if (!clienteId) return [];
   return db
     .prepare('SELECT anunciante FROM cliente_anunciantes WHERE cliente_id = ?')
     .all(clienteId)
     .map((r) => r.anunciante);
+}
+
+// Si un Admin/Super Admin restringió a este usuario a ciertos anunciantes de
+// este cliente (tabla usuario_anunciantes), devuelve solo esos. Sin
+// restricción explícita para ese (usuario, cliente) = ve todos los
+// anunciantes del cliente (default retrocompatible, ver server/db.js).
+function getAnunciantesVisibles(userId, clienteId) {
+  const restringidos = db
+    .prepare('SELECT anunciante FROM usuario_anunciantes WHERE user_id = ? AND cliente_id = ?')
+    .all(userId, clienteId)
+    .map((r) => r.anunciante);
+  return restringidos.length > 0 ? restringidos : getAnunciantesDeCliente(clienteId);
 }
 
 function clienteDataDir(clienteId, canalDir) {
@@ -185,7 +197,7 @@ export async function getResumenGeneral(canalDir, user) {
     };
   }
 
-  const misAnunciantes = [...new Set(clienteIds.flatMap((id) => getMisAnunciantes(id)))];
+  const misAnunciantes = [...new Set(clienteIds.flatMap((id) => getAnunciantesVisibles(user.id, id)))];
   const misCampanas = campanasDelCanal.filter((c) =>
     misAnunciantes.includes(anuncianteDeCampana(campanasServidas, c))
   );
@@ -245,7 +257,7 @@ export async function getRendimientoDiario(canalDir, user) {
   }
 
   const campanasServidas = await getCampanasServidas();
-  const misAnunciantes = [...new Set(clienteIds.flatMap((id) => getMisAnunciantes(id)))];
+  const misAnunciantes = [...new Set(clienteIds.flatMap((id) => getAnunciantesVisibles(user.id, id)))];
   const esDeMisAnunciantes = (campana) => misAnunciantes.includes(anuncianteDeCampana(campanasServidas, campana));
 
   const porCampana = rendimientoDiario.porCampana.filter((r) => esDeMisAnunciantes(r.campana));

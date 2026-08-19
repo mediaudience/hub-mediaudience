@@ -91,10 +91,30 @@ router.put('/canales/:slug', requireSuperAdmin, (req, res) => {
 
 // ---------- Clientes ----------
 
+// Países de operación de Mediaudience Latam -- el prefijo de `clientes.nombre`
+// (ej. PE_Alicorp) sale de acá para que quien crea un cliente no lo tipee a
+// mano. Agregar un país nuevo (ej. cuando abra Colombia) es editar esta
+// lista y la gemela en src/pages/admin/Clientes.jsx.
+const PAISES = [
+  { codigo: 'PE', nombre: 'Perú' },
+  { codigo: 'EC', nombre: 'Ecuador' },
+  { codigo: 'CL', nombre: 'Chile' },
+  { codigo: 'MX', nombre: 'México' },
+  { codigo: 'CO', nombre: 'Colombia' },
+];
+const PAISES_VALIDOS = PAISES.map((p) => p.codigo);
+
+function paisValidoOError(pais, { requerido }) {
+  if (!pais) return requerido ? 'Selecciona el país del cliente' : null;
+  if (!PAISES_VALIDOS.includes(pais)) return 'País inválido';
+  return null;
+}
+
 function toPublicCliente(cliente, anunciantes, canales) {
   return {
     id: cliente.id,
     nombre: cliente.nombre,
+    pais: cliente.pais ?? null,
     activo: !!cliente.activo,
     canales,
     anunciantes,
@@ -156,12 +176,21 @@ router.get('/anunciantes-disponibles', async (req, res) => {
 });
 
 router.post('/clientes', (req, res) => {
-  const { nombre, canales, anunciantes } = req.body || {};
+  const { nombre, pais, canales, anunciantes } = req.body || {};
   if (!nombre || !nombre.trim()) {
     return res.status(400).json({ error: 'El nombre es requerido' });
   }
+  const errorPais = paisValidoOError(pais, { requerido: true });
+  if (errorPais) return res.status(400).json({ error: errorPais });
+  // Defensa en el server, no solo en el form: el nombre siempre debe llevar
+  // el prefijo del país (ver PAISES arriba) -- el frontend ya lo compone,
+  // esto evita que un cliente quede sin la convención por un bug o un
+  // llamado directo a la API.
+  if (!nombre.trim().startsWith(`${pais}_`)) {
+    return res.status(400).json({ error: `El nombre debe empezar con el prefijo del país (${pais}_)` });
+  }
 
-  const info = db.prepare('INSERT INTO clientes (nombre) VALUES (?)').run(nombre.trim());
+  const info = db.prepare('INSERT INTO clientes (nombre, pais) VALUES (?, ?)').run(nombre.trim(), pais);
   setAnunciantesDeCliente(info.lastInsertRowid, anunciantes);
   setCanalesDeCliente(info.lastInsertRowid, canales);
 
@@ -175,9 +204,23 @@ router.put('/clientes/:id', (req, res) => {
   const cliente = db.prepare('SELECT * FROM clientes WHERE id = ?').get(req.params.id);
   if (!cliente) return res.status(404).json({ error: 'Cliente no encontrado' });
 
-  const { nombre, canales, anunciantes, activo } = req.body || {};
-  db.prepare('UPDATE clientes SET nombre = ?, activo = ? WHERE id = ?').run(
-    nombre?.trim() || cliente.nombre,
+  const { nombre, pais, canales, anunciantes, activo } = req.body || {};
+  if (pais !== undefined) {
+    const errorPais = paisValidoOError(pais, { requerido: false });
+    if (errorPais) return res.status(400).json({ error: errorPais });
+  }
+  const nuevoPais = pais !== undefined ? pais || null : cliente.pais;
+  const nuevoNombre = nombre?.trim() || cliente.nombre;
+  // Solo se exige el prefijo si el cliente ya tiene (o se le está asignando)
+  // un país -- uno legado sin país todavía puede seguir editándose sin
+  // forzar la convención de una.
+  if (nuevoPais && !nuevoNombre.startsWith(`${nuevoPais}_`)) {
+    return res.status(400).json({ error: `El nombre debe empezar con el prefijo del país (${nuevoPais}_)` });
+  }
+
+  db.prepare('UPDATE clientes SET nombre = ?, pais = ?, activo = ? WHERE id = ?').run(
+    nuevoNombre,
+    nuevoPais,
     activo === undefined ? cliente.activo : activo ? 1 : 0,
     cliente.id
   );
@@ -221,6 +264,61 @@ function clienteIdsValidosOError(clienteIds) {
   return null;
 }
 
+// Restringe, dentro de un cliente que ya ve este usuario (usuario_externo o
+// usuario_interno), a qué anunciantes de ese cliente puede ver -- ver
+// usuario_anunciantes en server/db.js. Ausencia de fila para un
+// (usuario, cliente) = ve todos los anunciantes de ese cliente.
+function getAnunciantesPorClienteDeUsuario(userId) {
+  const filas = db
+    .prepare('SELECT cliente_id AS clienteId, anunciante FROM usuario_anunciantes WHERE user_id = ?')
+    .all(userId);
+  const mapa = {};
+  for (const { clienteId, anunciante } of filas) {
+    (mapa[clienteId] ??= []).push(anunciante);
+  }
+  return mapa;
+}
+
+// Reemplaza TODA la restricción de anunciantes del usuario por lo que venga en
+// `mapa` ({ clienteId: [anunciante, ...] }); un clienteId ausente del mapa
+// queda sin restricción (ve todos), incluido el caso de un cliente que ya no
+// esté asignado al usuario.
+function setAnunciantesPorClienteDeUsuario(userId, mapa) {
+  const tx = db.transaction((m) => {
+    db.prepare('DELETE FROM usuario_anunciantes WHERE user_id = ?').run(userId);
+    const ins = db.prepare('INSERT INTO usuario_anunciantes (user_id, cliente_id, anunciante) VALUES (?, ?, ?)');
+    for (const [clienteId, anunciantes] of Object.entries(m ?? {})) {
+      for (const a of anunciantes) ins.run(userId, Number(clienteId), a);
+    }
+  });
+  tx(mapa ?? {});
+}
+
+// `clienteIdsPermitidos`: los clientes que el usuario puede ver (su único
+// cliente para usuario_externo, o los `clienteIds` que se le estén asignando
+// para usuario_interno) -- no se puede restringir anunciantes de un cliente
+// que el usuario ni siquiera ve.
+function anunciantesPorClienteValidosOError(mapa, clienteIdsPermitidos) {
+  if (mapa === undefined) return null;
+  if (typeof mapa !== 'object' || mapa === null || Array.isArray(mapa)) {
+    return 'anunciantesPorCliente debe ser un objeto { clienteId: [anunciante, ...] }';
+  }
+  for (const [clienteIdStr, anunciantes] of Object.entries(mapa)) {
+    const clienteId = Number(clienteIdStr);
+    if (!clienteIdsPermitidos.includes(clienteId)) {
+      return `El cliente ${clienteId} no está asignado a este usuario`;
+    }
+    if (!Array.isArray(anunciantes) || anunciantes.length === 0) {
+      return 'Selecciona al menos un anunciante por cliente, o déjalos todos marcados';
+    }
+    const validos = new Set(getAnunciantesDeCliente(clienteId));
+    for (const a of anunciantes) {
+      if (!validos.has(a)) return `"${a}" no es un anunciante asociado a ese cliente`;
+    }
+  }
+  return null;
+}
+
 function toPublicUsuario(u) {
   const clientesAsignados = u.rol === ROL_CON_CLIENTES_ASIGNADOS ? getClientesDeUsuario(u.id) : [];
   return {
@@ -232,6 +330,7 @@ function toPublicUsuario(u) {
     clienteNombre: u.cliente_nombre ?? null,
     clienteIds: clientesAsignados.map((c) => c.id),
     clienteNombres: clientesAsignados.map((c) => c.nombre),
+    anunciantesPorCliente: getAnunciantesPorClienteDeUsuario(u.id),
     activo: !!u.activo,
     createdAt: u.created_at,
     ultimoLogin: u.ultimo_login,
@@ -256,15 +355,15 @@ function clienteActivoOError(clienteId) {
 }
 
 router.post('/usuarios', async (req, res) => {
-  const { email, nombre, rol, clienteId, clienteIds } = req.body || {};
+  const { email, nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente } = req.body || {};
   if (!email || !nombre || !rol) {
     return res.status(400).json({ error: 'Email, nombre y rol son requeridos' });
   }
   if (!ROLES.includes(rol)) {
     return res.status(400).json({ error: 'Rol inválido' });
   }
-  if (rol === 'super_admin' && req.user.rol !== 'super_admin') {
-    return res.status(403).json({ error: 'Solo un Super Admin puede crear otro Super Admin' });
+  if (STAFF_ROLES.includes(rol) && req.user.rol !== 'super_admin') {
+    return res.status(403).json({ error: 'Solo un Super Admin puede crear una cuenta Admin o Super Admin' });
   }
   if (rol === ROL_CON_CLIENTE) {
     const error = clienteActivoOError(clienteId);
@@ -272,6 +371,19 @@ router.post('/usuarios', async (req, res) => {
   }
   if (rol === ROL_CON_CLIENTES_ASIGNADOS && clienteIds !== undefined) {
     const error = clienteIdsValidosOError(clienteIds);
+    if (error) return res.status(400).json({ error });
+  }
+  // Restricción de anunciantes: mismo mecanismo para ambos roles, expresado
+  // siempre como { clienteId: [anunciante, ...] } -- usuario_externo solo
+  // puede acotar dentro de su único cliente.
+  let anunciantesMapa;
+  if (rol === ROL_CON_CLIENTE) {
+    anunciantesMapa = anunciantes !== undefined ? { [clienteId]: anunciantes } : undefined;
+    const error = anunciantesPorClienteValidosOError(anunciantesMapa, [Number(clienteId)]);
+    if (error) return res.status(400).json({ error });
+  } else if (rol === ROL_CON_CLIENTES_ASIGNADOS) {
+    anunciantesMapa = anunciantesPorCliente;
+    const error = anunciantesPorClienteValidosOError(anunciantesMapa, clienteIds ?? []);
     if (error) return res.status(400).json({ error });
   }
   if (db.prepare('SELECT id FROM users WHERE email = ?').get(email)) {
@@ -287,6 +399,7 @@ router.post('/usuarios', async (req, res) => {
     .run(email, passwordHash, nombre, rol, rol === ROL_CON_CLIENTE ? clienteId : null);
 
   if (rol === ROL_CON_CLIENTES_ASIGNADOS) setClientesDeUsuario(info.lastInsertRowid, clienteIds);
+  if (anunciantesMapa !== undefined) setAnunciantesPorClienteDeUsuario(info.lastInsertRowid, anunciantesMapa);
 
   const invitacion = await enviarInvitacion({ nombre, email, password, rol });
 
@@ -303,7 +416,7 @@ router.put('/usuarios/:id', (req, res) => {
   const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.params.id);
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-  const { nombre, rol, clienteId, clienteIds, activo } = req.body || {};
+  const { nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, activo } = req.body || {};
   const esUnoMismo = user.id === req.user.id;
 
   if (rol && !ROLES.includes(rol)) {
@@ -313,6 +426,12 @@ router.put('/usuarios/:id', (req, res) => {
   // Admin común se auto-promueva o edite/desactive a quien sí tiene ese rol).
   if ((user.rol === 'super_admin' || rol === 'super_admin') && req.user.rol !== 'super_admin') {
     return res.status(403).json({ error: 'No autorizado a modificar un Super Admin' });
+  }
+  // Un Admin puede seguir gestionando su propia cuenta, pero no la de otro
+  // Admin (desactivar, resetear password, cambiar de rol) ni ascender a
+  // alguien más a Admin -- eso queda reservado a Super Admin.
+  if ((user.rol === 'admin' || rol === 'admin') && !esUnoMismo && req.user.rol !== 'super_admin') {
+    return res.status(403).json({ error: 'Solo un Super Admin puede modificar la cuenta de otro Admin' });
   }
   // Nunca puede quedar el sistema sin ningún Super Admin activo.
   if (user.rol === 'super_admin' && (activo === false || (rol && rol !== 'super_admin'))) {
@@ -340,6 +459,18 @@ router.put('/usuarios/:id', (req, res) => {
     if (error) return res.status(400).json({ error });
   }
 
+  let anunciantesMapa;
+  if (nuevoRol === ROL_CON_CLIENTE) {
+    anunciantesMapa = anunciantes !== undefined ? { [nuevoClienteId]: anunciantes } : undefined;
+    const error = anunciantesPorClienteValidosOError(anunciantesMapa, [Number(nuevoClienteId)]);
+    if (error) return res.status(400).json({ error });
+  } else if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS) {
+    anunciantesMapa = anunciantesPorCliente;
+    const clienteIdsVigentes = clienteIds ?? getClientesDeUsuario(user.id).map((c) => c.id);
+    const error = anunciantesPorClienteValidosOError(anunciantesMapa, clienteIdsVigentes);
+    if (error) return res.status(400).json({ error });
+  }
+
   db.prepare('UPDATE users SET nombre = ?, rol = ?, cliente_id = ?, activo = ? WHERE id = ?').run(
     nombre?.trim() || user.nombre,
     nuevoRol,
@@ -355,6 +486,13 @@ router.put('/usuarios/:id', (req, res) => {
     setClientesDeUsuario(user.id, []);
   }
 
+  if (nuevoRol === ROL_CON_CLIENTE || nuevoRol === ROL_CON_CLIENTES_ASIGNADOS) {
+    if (anunciantesMapa !== undefined) setAnunciantesPorClienteDeUsuario(user.id, anunciantesMapa);
+  } else {
+    // Dejó de tener clientes visibles: cualquier restricción de anunciantes deja de aplicar.
+    setAnunciantesPorClienteDeUsuario(user.id, {});
+  }
+
   const updated = db.prepare(`${SELECT_USUARIOS} WHERE users.id = ?`).get(user.id);
   res.json({ usuario: toPublicUsuario(updated) });
 });
@@ -362,6 +500,14 @@ router.put('/usuarios/:id', (req, res) => {
 router.post('/usuarios/:id/reset-password', async (req, res) => {
   const user = db.prepare('SELECT id, email, nombre, rol FROM users WHERE id = ?').get(req.params.id);
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+  // Mismo criterio que editar/desactivar: solo Super Admin puede resetear la
+  // password de otro miembro del staff (Admin o Super Admin); cada quien
+  // puede seguir reseteando la suya propia.
+  const esUnoMismo = user.id === req.user.id;
+  if (STAFF_ROLES.includes(user.rol) && !esUnoMismo && req.user.rol !== 'super_admin') {
+    return res.status(403).json({ error: 'Solo un Super Admin puede resetear la contraseña de otro Admin o Super Admin' });
+  }
 
   const { password: passwordManual, enviarPorCorreo } = req.body || {};
   if (passwordManual !== undefined && passwordManual.length < 8) {
