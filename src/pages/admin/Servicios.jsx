@@ -35,6 +35,8 @@ export default function AdminServicios() {
   const [error, setError] = useState("");
   const [nombreNuevo, setNombreNuevo] = useState("");
   const [creando, setCreando] = useState(false);
+  const [editando, setEditando] = useState(null);
+  const [nombreEditado, setNombreEditado] = useState("");
 
   async function cargar() {
     setLoading(true);
@@ -65,6 +67,33 @@ export default function AdminServicios() {
       setError(err.message);
     } finally {
       setCreando(false);
+    }
+  }
+
+  function iniciarEdicion(c) {
+    setEditando(c.slug);
+    setNombreEditado(c.nombre);
+  }
+
+  function cancelarEdicion() {
+    setEditando(null);
+    setNombreEditado("");
+  }
+
+  async function guardarNombre(c) {
+    const nuevo = nombreEditado.trim();
+    if (!nuevo || nuevo === c.nombre) {
+      cancelarEdicion();
+      return;
+    }
+    setError("");
+    try {
+      await apiFetch(`/api/admin/canales/${c.slug}`, { method: "PUT", body: JSON.stringify({ nombre: nuevo }) });
+      cancelarEdicion();
+      await cargar();
+      await refrescarCanales();
+    } catch (err) {
+      setError(err.message);
     }
   }
 
@@ -149,7 +178,22 @@ export default function AdminServicios() {
             <tbody>
               {canales.map((c, i) => (
                 <tr key={c.slug} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                  <td className="px-4 py-2.5 text-gray-800">{c.nombre}</td>
+                  <td className="px-4 py-2.5 text-gray-800">
+                    {editando === c.slug ? (
+                      <input
+                        autoFocus
+                        value={nombreEditado}
+                        onChange={(e) => setNombreEditado(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") guardarNombre(c);
+                          if (e.key === "Escape") cancelarEdicion();
+                        }}
+                        className="w-full rounded-lg border border-slate-200 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                      />
+                    ) : (
+                      c.nombre
+                    )}
+                  </td>
                   <td className="px-4 py-2.5 text-gray-600 font-mono text-xs">{c.slug}</td>
                   <td className="px-4 py-2.5">
                     <span
@@ -161,13 +205,41 @@ export default function AdminServicios() {
                     </span>
                   </td>
                   <td className="px-4 py-2.5 text-right whitespace-nowrap">
-                    <button
-                      type="button"
-                      onClick={() => toggleActivo(c)}
-                      className="text-brand-purple hover:underline text-sm font-medium"
-                    >
-                      {c.activo ? "Desactivar" : "Activar"}
-                    </button>
+                    {editando === c.slug ? (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => guardarNombre(c)}
+                          className="text-brand-purple hover:underline text-sm font-medium mr-3"
+                        >
+                          Guardar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={cancelarEdicion}
+                          className="text-slate-label hover:underline text-sm font-medium"
+                        >
+                          Cancelar
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => iniciarEdicion(c)}
+                          className="text-brand-purple hover:underline text-sm font-medium mr-3"
+                        >
+                          Editar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => toggleActivo(c)}
+                          className="text-brand-purple hover:underline text-sm font-medium"
+                        >
+                          {c.activo ? "Desactivar" : "Activar"}
+                        </button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))}
