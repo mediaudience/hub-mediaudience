@@ -3,23 +3,13 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import db from '../server/db.js';
+import { CANAL_METRICAS } from '../src/config/canalMetricas.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'data');
 
 const CREDENTIALS_PATH =
   process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH || path.join(__dirname, '..', 'secrets', 'google-service-account.json');
-
-// Cada Sheet (uno por cliente + canal contratado) tiene estas 5 pestañas fijas.
-// Ojo: "PUBLISHER." lleva un punto al final en la plantilla real -- si no
-// coincide el nombre exacto, Sheets devuelve en silencio la primera pestaña
-// en vez de un error, así que hay que ser exacto acá.
-const TABS = { diario: 'DIARIO', publisher: 'PUBLISHER.', device: 'DEVICE', testigo: 'TESTIGO', geo: 'GEO' };
-
-const MESES_ORDEN = [
-  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
-];
 
 // -------- Lectura de pestañas: cuenta de servicio si existe, si no CSV público --------
 
@@ -87,7 +77,8 @@ function rowsToObjects(rows) {
     .map((r) => Object.fromEntries(header.map((h, i) => [h.trim(), r[i] ?? ''])));
 }
 
-// -------- Parseo de números/fechas en formato es-PE que usan los Sheets --------
+// -------- Parseo de valores en formato es-PE que usan los Sheets, dirigido
+// por el `type` declarado en src/config/canalMetricas.js --------
 
 function parseNumeroEs(raw) {
   if (raw === undefined || raw === null || raw === '') return 0;
@@ -96,84 +87,42 @@ function parseNumeroEs(raw) {
   return parseInt(s.replace(/\./g, ''), 10) || 0;
 }
 
+// Distintos Sheets de cliente separan la fecha con "/" (ej. CTV-OTT/YouTube,
+// "2/06/2026") o con "-" (ej. Programático, "05-01-2026") -- ambos DD/MM/YYYY,
+// solo cambia el separador, así que se acepta cualquiera de los dos.
 function parseFechaEs(raw) {
-  const [d, m, y] = String(raw).trim().split('/');
+  const [d, m, y] = String(raw).trim().split(/[/-]/);
   if (!d || !m || !y) return '';
   return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
 }
 
-// -------- Transformación de cada pestaña a la forma que espera el panel --------
-
-function transformDiario(rows) {
-  return rowsToObjects(rows).map((r) => ({
-    fecha: parseFechaEs(r['Fecha']),
-    mes: r['Mes'],
-    campana: r['Campaña'],
-    motivo: r['Motivo'],
-    anunciante: r['Anunciante'],
-    impresionesTotales: parseNumeroEs(r['Impresiones Totales']),
-    visualizaciones: parseNumeroEs(r['Visualizaciones']),
-    quartil25: parseNumeroEs(r['Quartil 25%']),
-    quartil50: parseNumeroEs(r['Quartil 50%']),
-    quartil75: parseNumeroEs(r['Quartil 75%']),
-    quartil100: parseNumeroEs(r['Quartil 100%']),
-    vtr: Math.round(parseNumeroEs(r['VTR'])),
-  }));
-}
-
-function transformPublisher(rows) {
-  return rowsToObjects(rows).map((r) => ({
-    mes: r['Mes'],
-    publisher: r['Publisher'],
-    motivo: r['Motivo'],
-    impresionesTotales: parseNumeroEs(r['Impresiones Totales']),
-    visualizaciones: parseNumeroEs(r['Vistas Totales']),
-  }));
-}
-
-function transformDevice(rows) {
-  return rowsToObjects(rows).map((r) => ({
-    dispositivo: r['Dispositivos'],
-    impresionesTotales: parseNumeroEs(r['Impresiones Totales']),
-  }));
-}
-
-function transformGeo(rows) {
-  return rowsToObjects(rows).map((r) => ({
-    ubicacion: r['Ubicación'],
-    impresionesTotales: parseNumeroEs(r['Impresiones Totales']),
-  }));
-}
-
-function transformTestigo(rows) {
-  return rowsToObjects(rows).map((r) => ({
-    mes: r['Mes'],
-    campana: r['Campaña'],
-    motivo: r['Motivo'],
-    formato: r['Formato'],
-    estado: r['Link'] ? 'Verificado' : 'Pendiente',
-    testigoUrl: r['Link'] || '',
-  }));
-}
-
-function sumarPorClave(items, keyField, sumFields) {
-  const map = new Map();
-  for (const item of items) {
-    const key = item[keyField];
-    const acc = map.get(key) ?? { [keyField]: key, ...Object.fromEntries(sumFields.map((f) => [f, 0])) };
-    for (const f of sumFields) acc[f] += item[f] ?? 0;
-    map.set(key, acc);
+function parseValor(raw, type) {
+  switch (type) {
+    case 'numero':
+      return parseNumeroEs(raw);
+    case 'moneda':
+      return parseNumeroEs(String(raw ?? '').replace(/[^0-9.,-]/g, ''));
+    case 'porcentaje':
+      return Math.round(parseNumeroEs(raw));
+    case 'fecha':
+      return parseFechaEs(raw);
+    case 'link':
+      return raw || '';
+    case 'texto':
+    default:
+      return String(raw ?? '').trim();
   }
-  return [...map.values()];
 }
 
-function calcularResumen(diario) {
-  const impresionesTotales = diario.reduce((s, r) => s + r.impresionesTotales, 0);
-  const visualizaciones = diario.reduce((s, r) => s + r.visualizaciones, 0);
-  const vtr = impresionesTotales > 0 ? Math.round((visualizaciones / impresionesTotales) * 100) : 0;
-  const mensual = sumarPorClave(diario, 'mes', ['impresionesTotales', 'visualizaciones'])
-    .sort((a, b) => MESES_ORDEN.indexOf(a.mes) - MESES_ORDEN.indexOf(b.mes));
-  return { kpis: { impresionesTotales, visualizaciones, vtr }, mensual };
+// Convierte las filas crudas de una pestaña (ya con Object.fromEntries por
+// encabezado) a la forma declarada en `campos` -- reemplaza los
+// transformDiario/Publisher/Device/Geo/Testigo hardcodeados de antes: ahora
+// cada canal declara sus propios campos en src/config/canalMetricas.js y este
+// parser es el único que hace falta para los 5 servicios.
+function parseFilas(rows, campos) {
+  return rowsToObjects(rows).map((r) =>
+    Object.fromEntries(campos.map((c) => [c.key, parseValor(r[c.header], c.type)]))
+  );
 }
 
 // -------- Escritura de archivos --------
@@ -198,39 +147,44 @@ function getClientesConCanales() {
 // slug de canal (como en cliente_canales) -> carpeta real bajo src/data.
 // Viene de la tabla `canales` (ver server/db.js), no de una lista fija, para
 // que un servicio nuevo creado por un Super Admin se sincronice sin tocar
-// este script.
+// este script (siempre que también se le agregue su entrada en canalMetricas.js).
 const CANAL_DIR = Object.fromEntries(
   db.prepare('SELECT slug, dir FROM canales').all().map((r) => [r.slug, r.dir])
 );
 
 async function syncClienteCanal({ clienteId, clienteNombre, canal, sheetId }) {
   const canalDir = CANAL_DIR[canal];
+  const metricas = CANAL_METRICAS[canal];
+  if (!metricas) {
+    console.log(`Sin config en canalMetricas.js todavía para "${canal}" -- se omite ${clienteNombre}.`);
+    return null;
+  }
+
   console.log(`Sincronizando ${clienteNombre} / ${canal} (${sheetId})...`);
 
-  const [diarioRows, publisherRows, deviceRows, geoRows, testigoRows] = await Promise.all([
-    fetchTabRows(sheetId, TABS.diario),
-    fetchTabRows(sheetId, TABS.publisher),
-    fetchTabRows(sheetId, TABS.device),
-    fetchTabRows(sheetId, TABS.geo),
-    fetchTabRows(sheetId, TABS.testigo),
-  ]);
+  const tabKeys = Object.keys(metricas.sheetTabs);
+  const rowsPorTab = await Promise.all(
+    tabKeys.map((key) => fetchTabRows(sheetId, metricas.sheetTabs[key].nombre))
+  );
 
-  const diario = transformDiario(diarioRows);
-  const publisher = transformPublisher(publisherRows);
-  const dispositivos = sumarPorClave(transformDevice(deviceRows), 'dispositivo', ['impresionesTotales']);
-  const ciudades = sumarPorClave(transformGeo(geoRows), 'ubicacion', ['impresionesTotales']);
-  const testigo = transformTestigo(testigoRows);
-  const resumen = calcularResumen(diario);
+  // `cliente` se agrega a cada fila (no viene del Sheet) para que, en la
+  // vista agregada de Admin/Super Admin -- que combina todos los clientes de
+  // un canal en un solo dataset --, se pueda filtrar por cliente además de
+  // por anunciante/campaña. Necesario porque anunciante no siempre equivale
+  // a cliente (un cliente puede agrupar varias marcas, ver
+  // [[project_mediaudience_permisos_finos]]).
+  const datasets = {};
+  tabKeys.forEach((key, i) => {
+    datasets[key] = parseFilas(rowsPorTab[i], metricas.sheetTabs[key].campos).map((r) => ({
+      ...r,
+      cliente: clienteNombre,
+    }));
+  });
 
   const clienteDir = path.join(DATA_DIR, 'clientes', String(clienteId), canalDir);
-  await Promise.all([
-    writeJson(path.join(clienteDir, 'resumen.json'), resumen),
-    writeJson(path.join(clienteDir, 'ciudades.json'), ciudades),
-    writeJson(path.join(clienteDir, 'dispositivos.json'), dispositivos),
-    writeJson(path.join(clienteDir, 'porPublisher.json'), publisher),
-  ]);
+  await Promise.all(tabKeys.map((key) => writeJson(path.join(clienteDir, `${key}.json`), datasets[key])));
 
-  return { canalDir, diario, ciudades, dispositivos, testigo };
+  return { canalDir, tabKeys, datasets };
 }
 
 async function main() {
@@ -240,7 +194,7 @@ async function main() {
     return;
   }
 
-  const porCanal = new Map(); // canalDir -> { diario: [], ciudades: [], dispositivos: [], testigo: [] }
+  const porCanal = new Map(); // canalDir -> { tabKeys, datasets: { [tabKey]: [] } }
   const campanasServidas = new Map(); // campana -> anunciante
 
   for (const item of clientesConCanales) {
@@ -251,37 +205,23 @@ async function main() {
       console.error(`Falló ${item.clienteNombre} / ${item.canal}: ${err.message}`);
       continue; // no tocar lo ya sincronizado de este cliente/canal en un intento anterior
     }
+    if (!resultado) continue; // canal sin config en canalMetricas.js todavía
 
-    const acc = porCanal.get(resultado.canalDir) ?? { diario: [], ciudades: [], dispositivos: [], testigo: [] };
-    acc.diario.push(...resultado.diario);
-    acc.ciudades.push(...resultado.ciudades);
-    acc.dispositivos.push(...resultado.dispositivos);
-    acc.testigo.push(...resultado.testigo);
-    porCanal.set(resultado.canalDir, acc);
+    const { canalDir, tabKeys, datasets } = resultado;
+    const acc = porCanal.get(canalDir) ?? { tabKeys, datasets: Object.fromEntries(tabKeys.map((k) => [k, []])) };
+    for (const key of tabKeys) acc.datasets[key].push(...datasets[key]);
+    porCanal.set(canalDir, acc);
 
-    for (const r of resultado.diario) {
+    for (const r of datasets.diario ?? []) {
       if (r.campana && r.anunciante) campanasServidas.set(r.campana, r.anunciante);
     }
   }
 
   for (const [canalDir, acc] of porCanal) {
     const canalOutDir = path.join(DATA_DIR, canalDir);
-    const resumen = calcularResumen(acc.diario);
-    const ciudades = sumarPorClave(acc.ciudades, 'ubicacion', ['impresionesTotales']);
-    const dispositivos = sumarPorClave(acc.dispositivos, 'dispositivo', ['impresionesTotales']);
-    const porCampana = acc.diario.map((r) => ({
-      fecha: r.fecha, campana: r.campana, motivo: r.motivo,
-      impresionesTotales: r.impresionesTotales, visualizaciones: r.visualizaciones,
-      quartil25: r.quartil25, quartil50: r.quartil50, quartil75: r.quartil75, quartil100: r.quartil100,
-      vtr: r.vtr,
-    }));
-
-    await Promise.all([
-      writeJson(path.join(canalOutDir, 'resumen.json'), resumen),
-      writeJson(path.join(canalOutDir, 'ciudades.json'), ciudades),
-      writeJson(path.join(canalOutDir, 'dispositivos.json'), dispositivos),
-      writeJson(path.join(canalOutDir, 'rendimientoDiario.json'), { porCampana, porPublisher: [], testigo: acc.testigo }),
-    ]);
+    await Promise.all(
+      acc.tabKeys.map((key) => writeJson(path.join(canalOutDir, `${key}.json`), acc.datasets[key]))
+    );
   }
 
   await writeJson(
