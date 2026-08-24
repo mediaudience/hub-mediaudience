@@ -33,8 +33,9 @@ export function requireUser(req, res, next) {
 
   if (inactivo || expiroSesionMaxima) {
     req.session.userId = null;
+    db.prepare('UPDATE users SET requiere_otp = 1 WHERE id = ?').run(user.id);
     return res.status(401).json({
-      error: 'Tu sesión expiró por inactividad. Te enviamos un código a tu correo para reingresar.',
+      error: 'Tu sesión expiró por inactividad. Vuelve a ingresar con tu usuario y contraseña.',
       code: 'SESSION_EXPIRED',
     });
   }
@@ -46,6 +47,7 @@ export function requireUser(req, res, next) {
     nombre: user.nombre,
     rol: user.rol,
     clienteId: user.cliente_id,
+    pais: user.pais,
     debeCambiarPassword: !!user.debe_cambiar_password,
     canalesContratados: getCanalesContratados({ id: user.id, rol: user.rol, clienteId: user.cliente_id }),
   };

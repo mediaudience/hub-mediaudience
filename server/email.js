@@ -79,6 +79,23 @@ function plantillaInvitacion({ nombre, email, password, rol }) {
   `);
 }
 
+function plantillaRecuperacion({ nombre, enlace }) {
+  return envoltura(`
+    <p style="margin: 0 0 4px; color: ${INK}; font-size: 15px;">Hola ${nombre},</p>
+    <p style="margin: 0 0 20px; color: ${INK}; font-size: 15px; line-height: 1.5;">
+      Pediste restablecer tu contraseña del panel. Tocá el botón para elegir una nueva -- el enlace vence en 30 minutos y solo funciona una vez.
+    </p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin: 0 0 20px;">
+      <tr>
+        <td align="center">
+          <a href="${enlace}" style="display: inline-block; background-color: ${PURPLE}; color: #ffffff; font-size: 14px; font-weight: 700; text-decoration: none; padding: 11px 28px; border-radius: 999px;">Elegir nueva contraseña</a>
+        </td>
+      </tr>
+    </table>
+    <p style="margin: 0; color: ${SLATE}; font-size: 13px; line-height: 1.5;">Si no fuiste vos quien lo pidió, ignora este correo -- tu contraseña actual sigue funcionando.</p>
+  `);
+}
+
 function plantillaCodigoAcceso({ nombre, codigo }) {
   return envoltura(`
     <p style="margin: 0 0 4px; color: ${INK}; font-size: 15px;">Hola ${nombre},</p>
@@ -133,5 +150,14 @@ export async function enviarCodigoAcceso({ nombre, email, codigo }) {
     to: email,
     subject: 'Tu código para reingresar a Mediaudience Panel',
     html: plantillaCodigoAcceso({ nombre, codigo }),
+  });
+}
+
+export async function enviarRecuperacion({ nombre, email, token }) {
+  const enlace = `${PANEL_URL}restablecer-password?token=${token}`;
+  return enviarCorreo({
+    to: email,
+    subject: 'Restablecer tu contraseña de Mediaudience Panel',
+    html: plantillaRecuperacion({ nombre, enlace }),
   });
 }

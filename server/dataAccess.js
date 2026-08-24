@@ -41,18 +41,6 @@ async function readJson(filePath) {
   }
 }
 
-async function getCampanasServidas() {
-  // Se relee en cada llamada (no se cachea en memoria): el cron de sync
-  // sobrescribe este archivo cada cierto intervalo y el server Node es un
-  // proceso de larga duración, así que cachear indefinidamente serviría datos
-  // viejos hasta el próximo restart.
-  return (await readJson(path.join(DATA_DIR, 'campanasServidas.json'))) ?? [];
-}
-
-function anuncianteDeCampana(campanasServidas, campana) {
-  return campanasServidas.find((c) => c.campana === campana)?.anunciante ?? null;
-}
-
 function getAnunciantesDeCliente(clienteId) {
   if (!clienteId) return [];
   return db
@@ -99,10 +87,15 @@ export function getCanalesContratados(user) {
     .map((r) => r.canal);
 }
 
+// usuario_interno ve la unión de dos fuentes, nunca solo una: los clientes que
+// un Admin le marcó uno por uno en `usuario_clientes` (como siempre) MÁS,
+// si tiene un país asignado (Admin > Usuarios, ver [[project_mediaudience_pais_interno]]),
+// TODOS los clientes activos de ese país -- incluidos los que se creen
+// después, sin tener que volver a tocar los permisos de este usuario.
 function getClienteIdsVisibles(user) {
   if (user.rol === 'usuario_externo') return user.clienteId ? [user.clienteId] : [];
   if (user.rol === 'usuario_interno') {
-    return db
+    const porAsignacionManual = db
       .prepare(
         `SELECT uc.cliente_id AS id FROM usuario_clientes uc
          JOIN clientes c ON c.id = uc.cliente_id AND c.activo = 1
@@ -110,8 +103,48 @@ function getClienteIdsVisibles(user) {
       )
       .all(user.id)
       .map((r) => r.id);
+
+    const porPais = user.pais
+      ? db
+          .prepare('SELECT id FROM clientes WHERE activo = 1 AND pais = ?')
+          .all(user.pais)
+          .map((r) => r.id)
+      : [];
+
+    return [...new Set([...porAsignacionManual, ...porPais])];
   }
   return [];
+}
+
+// Lista de clientes visibles del usuario a nivel de cuenta (no por canal) --
+// alimenta el selector de "Cliente activo" del menú de la cuenta (Navbar),
+// que reemplaza al filtro "Cliente" que antes vivía dentro de cada canal.
+// Cada cliente trae además sus `canales` contratados, para que al elegir uno
+// el Sidebar pueda mostrar solo los servicios que ese cliente tiene (en vez
+// de los 5 servicios activos del catálogo, muchos sin datos para él).
+export function getClientesVisibles(user) {
+  const clientes = VE_TODO_SIN_FILTRO.includes(user.rol)
+    ? db.prepare('SELECT id, nombre FROM clientes WHERE activo = 1 ORDER BY nombre').all()
+    : (() => {
+        const clienteIds = getClienteIdsVisibles(user);
+        if (clienteIds.length === 0) return [];
+        const placeholders = clienteIds.map(() => '?').join(',');
+        return db
+          .prepare(`SELECT id, nombre FROM clientes WHERE id IN (${placeholders}) AND activo = 1 ORDER BY nombre`)
+          .all(...clienteIds);
+      })();
+  if (clientes.length === 0) return [];
+
+  const ids = clientes.map((c) => c.id);
+  const placeholders = ids.map(() => '?').join(',');
+  const canalesPorCliente = new Map();
+  for (const fila of db
+    .prepare(`SELECT cliente_id, canal FROM cliente_canales WHERE cliente_id IN (${placeholders})`)
+    .all(...ids)) {
+    if (!canalesPorCliente.has(fila.cliente_id)) canalesPorCliente.set(fila.cliente_id, []);
+    canalesPorCliente.get(fila.cliente_id).push(fila.canal);
+  }
+  return clientes.map((c) => ({ ...c, canales: canalesPorCliente.get(c.id) ?? [] }));
 }
 
 // De los clientes visibles del usuario, deja solo los que contrataron este
@@ -131,144 +164,64 @@ function getClienteIdsConCanal(clienteIds, canalDir) {
   return clienteIds.filter((id) => conCanal.has(id));
 }
 
-// Suma campos numéricos de items con la misma clave (p.ej. mismo mes o misma
-// ciudad) para combinar la vista de varios clientes en una sola serie.
-function mergeSeriesBy(items, keyField, sumFields) {
-  const map = new Map();
-  for (const item of items) {
-    const key = item[keyField];
-    const existing = map.get(key);
-    if (existing) {
-      for (const f of sumFields) existing[f] = (existing[f] ?? 0) + (item[f] ?? 0);
-    } else {
-      map.set(key, { ...item });
-    }
-  }
-  return [...map.values()];
+// Datasets que trae el Sheet de cada canal desde la reestructuración de
+// 2026-08-24 (ver src/config/canalMetricas.js). Cuando se sume TikTok esta
+// lista pasa a depender del canal (sin 'testigo', con 'interacciones') --
+// hoy los 2 canales ya migrados (ctvOtt, pushNotification) comparten el
+// mismo set de 3, así que se deja fijo por simplicidad hasta ese momento.
+const RENDIMIENTO_TAB_KEYS = ['diario', 'geo', 'testigo'];
+
+async function leerDatasets(dir) {
+  const valores = await Promise.all(
+    RENDIMIENTO_TAB_KEYS.map((key) => readJson(path.join(dir, `${key}.json`)))
+  );
+  return Object.fromEntries(RENDIMIENTO_TAB_KEYS.map((key, i) => [key, valores[i]]));
 }
 
-function mergeKpis(kpisList) {
-  const impresionesTotales = kpisList.reduce((s, k) => s + (k?.impresionesTotales ?? 0), 0);
-  const visualizaciones = kpisList.reduce((s, k) => s + (k?.visualizaciones ?? 0), 0);
-  const vtr = impresionesTotales > 0 ? Math.round((visualizaciones / impresionesTotales) * 100) : 0;
-  return { impresionesTotales, visualizaciones, vtr };
-}
-
-export async function getResumenGeneral(canalDir, user) {
-  const rendimientoDiario = await readJson(path.join(DATA_DIR, canalDir, 'rendimientoDiario.json'));
-  const campanasDelCanal = [...new Set((rendimientoDiario?.porCampana ?? []).map((r) => r.campana))];
-  const campanasServidas = await getCampanasServidas();
-
+// Cada fila de diario/geo/testigo ya trae su propio `anunciante` (columna del
+// Sheet, ver canalMetricas.js) -- ya no hace falta cruzar contra
+// campanasServidas.json como antes de esta reestructuración.
+export async function getRendimientoGeneral(canalDir, user) {
   if (VE_TODO_SIN_FILTRO.includes(user.rol)) {
-    const [resumen, ciudades, dispositivos] = await Promise.all([
-      readJson(path.join(DATA_DIR, canalDir, 'resumen.json')),
-      readJson(path.join(DATA_DIR, canalDir, 'ciudades.json')),
-      readJson(path.join(DATA_DIR, canalDir, 'dispositivos.json')),
-    ]);
-    const anunciantes = [
-      ...new Set(campanasDelCanal.map((c) => anuncianteDeCampana(campanasServidas, c)).filter(Boolean)),
-    ];
-    return {
-      kpis: resumen?.kpis ?? { impresionesTotales: 0, visualizaciones: 0, vtr: 0 },
-      mensual: resumen?.mensual ?? [],
-      ciudades: ciudades ?? [],
-      dispositivos: dispositivos ?? [],
-      anunciantes,
-      campanas: campanasDelCanal,
-      sinDatos: false,
-    };
+    const { diario, geo, testigo } = await leerDatasets(path.join(DATA_DIR, canalDir));
+    const diarioRows = diario ?? [];
+    const campanas = [...new Set(diarioRows.map((r) => r.campana))];
+    const anunciantes = [...new Set(diarioRows.map((r) => r.anunciante).filter(Boolean))];
+    const clientes = [...new Set(diarioRows.map((r) => r.cliente).filter(Boolean))];
+    return { diario: diarioRows, geo: geo ?? [], testigo: testigo ?? [], campanas, anunciantes, clientes, sinDatos: false };
   }
 
-  // usuario_externo / usuario_interno: KPIs/Mensual/Ciudades/Dispositivos vienen
-  // del Sheet propio de cada cliente visible que haya contratado este canal
-  // (ya sincronizados aparte, sin necesidad de filtrar por fila); si hay más
-  // de un cliente visible (solo puede pasar con usuario_interno) se combinan
-  // sumando los valores.
+  // usuario_externo / usuario_interno: cada cliente visible que haya
+  // contratado este canal aporta sus propias filas (ya sincronizadas aparte),
+  // filtradas por los anunciantes que este usuario puede ver DENTRO de ESE
+  // cliente -- filtrar el agregado del canal completo por nombre de
+  // anunciante sería incorrecto si dos clientes distintos comparten el mismo
+  // nombre de marca, así que se lee y filtra por cliente antes de combinar.
   const clienteIds = getClienteIdsConCanal(getClienteIdsVisibles(user), canalDir);
   if (clienteIds.length === 0) {
-    return {
-      kpis: { impresionesTotales: 0, visualizaciones: 0, vtr: 0 },
-      mensual: [],
-      ciudades: [],
-      dispositivos: [],
-      anunciantes: [],
-      campanas: [],
-      sinDatos: true,
-    };
+    return { diario: [], geo: [], testigo: [], campanas: [], anunciantes: [], clientes: [], sinDatos: true };
   }
-
-  const misAnunciantes = [...new Set(clienteIds.flatMap((id) => getAnunciantesVisibles(user.id, id)))];
-  const misCampanas = campanasDelCanal.filter((c) =>
-    misAnunciantes.includes(anuncianteDeCampana(campanasServidas, c))
-  );
 
   const porCliente = await Promise.all(
     clienteIds.map(async (id) => {
-      const dir = clienteDataDir(id, canalDir);
-      const [resumen, ciudades, dispositivos] = await Promise.all([
-        readJson(path.join(dir, 'resumen.json')),
-        readJson(path.join(dir, 'ciudades.json')),
-        readJson(path.join(dir, 'dispositivos.json')),
-      ]);
-      return { resumen, ciudades, dispositivos };
+      const misAnunciantes = getAnunciantesVisibles(user.id, id);
+      const datasets = await leerDatasets(clienteDataDir(id, canalDir));
+      const filtrar = (rows) => (rows ?? []).filter((r) => misAnunciantes.includes(r.anunciante));
+      return {
+        diario: filtrar(datasets.diario),
+        geo: filtrar(datasets.geo),
+        testigo: filtrar(datasets.testigo),
+        sinDatos: RENDIMIENTO_TAB_KEYS.every((key) => datasets[key] === null),
+      };
     })
   );
 
-  const kpis =
-    porCliente.length === 1
-      ? porCliente[0].resumen?.kpis ?? { impresionesTotales: 0, visualizaciones: 0, vtr: 0 }
-      : mergeKpis(porCliente.map((c) => c.resumen?.kpis));
+  const diario = porCliente.flatMap((c) => c.diario);
+  const geo = porCliente.flatMap((c) => c.geo);
+  const testigo = porCliente.flatMap((c) => c.testigo);
+  const campanas = [...new Set(diario.map((r) => r.campana))];
+  const anunciantes = [...new Set(diario.map((r) => r.anunciante).filter(Boolean))];
+  const clientes = [...new Set(diario.map((r) => r.cliente).filter(Boolean))];
 
-  return {
-    kpis,
-    mensual: mergeSeriesBy(porCliente.flatMap((c) => c.resumen?.mensual ?? []), 'mes', [
-      'visualizaciones',
-      'impresionesTotales',
-    ]),
-    ciudades: mergeSeriesBy(porCliente.flatMap((c) => c.ciudades ?? []), 'ubicacion', ['impresionesTotales']),
-    dispositivos: mergeSeriesBy(porCliente.flatMap((c) => c.dispositivos ?? []), 'dispositivo', [
-      'impresionesTotales',
-    ]),
-    anunciantes: misAnunciantes,
-    campanas: misCampanas,
-    sinDatos: porCliente.every((c) => c.resumen === null && c.ciudades === null && c.dispositivos === null),
-  };
-}
-
-export async function getRendimientoDiario(canalDir, user) {
-  const rendimientoDiario = (await readJson(path.join(DATA_DIR, canalDir, 'rendimientoDiario.json'))) ?? {
-    porCampana: [],
-    porPublisher: [],
-    testigo: [],
-  };
-
-  if (VE_TODO_SIN_FILTRO.includes(user.rol)) {
-    const campanas = [...new Set(rendimientoDiario.porCampana.map((r) => r.campana))];
-    return { ...rendimientoDiario, campanas };
-  }
-
-  // usuario_externo / usuario_interno: porCampana/testigo se filtran cruzando
-  // `campana` -> `anunciante` contra campanasServidas.json; porPublisher no
-  // tiene ese cruce posible (no trae campana por fila), así que sale del Sheet
-  // propio de cada cliente visible, igual que ciudades/dispositivos arriba.
-  const clienteIds = getClienteIdsConCanal(getClienteIdsVisibles(user), canalDir);
-  if (clienteIds.length === 0) {
-    return { porCampana: [], porPublisher: [], testigo: [], campanas: [] };
-  }
-
-  const campanasServidas = await getCampanasServidas();
-  const misAnunciantes = [...new Set(clienteIds.flatMap((id) => getAnunciantesVisibles(user.id, id)))];
-  const esDeMisAnunciantes = (campana) => misAnunciantes.includes(anuncianteDeCampana(campanasServidas, campana));
-
-  const porCampana = rendimientoDiario.porCampana.filter((r) => esDeMisAnunciantes(r.campana));
-  const testigo = rendimientoDiario.testigo.filter((r) => esDeMisAnunciantes(r.campana));
-  const campanas = [...new Set(porCampana.map((r) => r.campana))];
-
-  const porPublisher = (
-    await Promise.all(
-      clienteIds.map((id) => readJson(path.join(clienteDataDir(id, canalDir), 'porPublisher.json')))
-    )
-  ).flatMap((rows) => rows ?? []);
-
-  return { porCampana, porPublisher, testigo, campanas };
+  return { diario, geo, testigo, campanas, anunciantes, clientes, sinDatos: porCliente.every((c) => c.sinDatos) };
 }

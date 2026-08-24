@@ -7,6 +7,7 @@ import bcrypt from 'bcrypt';
 import db from './db.js';
 import { requireUser, requireAdmin, requireSuperAdmin } from './middleware.js';
 import { enviarInvitacion } from './email.js';
+import { registrarActividad } from './activityLog.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'data');
@@ -72,6 +73,7 @@ router.post('/canales', requireSuperAdmin, (req, res) => {
   }
   db.prepare('INSERT INTO canales (slug, dir, nombre) VALUES (?, ?, ?)').run(slug, slug, nombre.trim());
   const canal = db.prepare('SELECT slug, dir, nombre, activo FROM canales WHERE slug = ?').get(slug);
+  registrarActividad(req, { actor: req.user, accion: 'Servicio creado', detalle: `Creó el servicio "${canal.nombre}" (${canal.slug})` });
   res.status(201).json({ canal });
 });
 
@@ -86,6 +88,11 @@ router.put('/canales/:slug', requireSuperAdmin, (req, res) => {
     canal.slug
   );
   const updated = db.prepare('SELECT slug, dir, nombre, activo FROM canales WHERE slug = ?').get(canal.slug);
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Servicio editado',
+    detalle: `Editó el servicio "${canal.slug}" -> nombre "${updated.nombre}", activo=${updated.activo}`,
+  });
   res.json({ canal: updated });
 });
 
@@ -122,6 +129,7 @@ router.post('/paises', requireSuperAdmin, (req, res) => {
   }
   db.prepare('INSERT INTO paises (codigo, nombre) VALUES (?, ?)').run(codigoNorm, nombre.trim());
   const pais = db.prepare('SELECT codigo, nombre, activo FROM paises WHERE codigo = ?').get(codigoNorm);
+  registrarActividad(req, { actor: req.user, accion: 'País creado', detalle: `Creó el país "${pais.nombre}" (${pais.codigo})` });
   res.status(201).json({ pais });
 });
 
@@ -135,6 +143,11 @@ router.put('/paises/:codigo', requireSuperAdmin, (req, res) => {
     pais.codigo
   );
   const updated = db.prepare('SELECT codigo, nombre, activo FROM paises WHERE codigo = ?').get(pais.codigo);
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'País editado',
+    detalle: `Editó el país "${updated.codigo}" -> nombre "${updated.nombre}", activo=${updated.activo}`,
+  });
   res.json({ pais: updated });
 });
 
@@ -225,6 +238,7 @@ router.post('/clientes', (req, res) => {
   setCanalesDeCliente(info.lastInsertRowid, canales);
 
   const cliente = db.prepare('SELECT * FROM clientes WHERE id = ?').get(info.lastInsertRowid);
+  registrarActividad(req, { actor: req.user, accion: 'Cliente creado', detalle: `Creó el cliente "${cliente.nombre}"` });
   res.status(201).json({
     cliente: toPublicCliente(cliente, getAnunciantesDeCliente(cliente.id), getCanalesDeCliente(cliente.id)),
   });
@@ -258,9 +272,74 @@ router.put('/clientes/:id', (req, res) => {
   if (canales !== undefined) setCanalesDeCliente(cliente.id, canales);
 
   const updated = db.prepare('SELECT * FROM clientes WHERE id = ?').get(cliente.id);
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Cliente editado',
+    detalle: `Editó el cliente "${updated.nombre}" (activo=${updated.activo})`,
+  });
   res.json({
     cliente: toPublicCliente(updated, getAnunciantesDeCliente(updated.id), getCanalesDeCliente(updated.id)),
   });
+});
+
+// Renombrar/eliminar un anunciante puntual de un cliente -- acciones aparte
+// del guardado general del cliente (no van dentro del array `anunciantes` de
+// arriba) porque además de tocar `cliente_anunciantes` tienen que cascadear a
+// `usuario_anunciantes` (si algún usuario tenía este anunciante marcado como
+// restricción, ver server/dataAccess.js) para no dejar referencias huérfanas
+// a un nombre que ya no existe.
+router.put('/clientes/:id/anunciantes/:anunciante', (req, res) => {
+  const cliente = db.prepare('SELECT id FROM clientes WHERE id = ?').get(req.params.id);
+  if (!cliente) return res.status(404).json({ error: 'Cliente no encontrado' });
+  const actual = req.params.anunciante;
+  if (!db.prepare('SELECT 1 FROM cliente_anunciantes WHERE cliente_id = ? AND anunciante = ?').get(cliente.id, actual)) {
+    return res.status(404).json({ error: 'Ese anunciante no existe en este cliente' });
+  }
+
+  const nuevo = (req.body?.nombre || '').trim();
+  if (!nuevo) return res.status(400).json({ error: 'El nombre es requerido' });
+  if (nuevo === actual) return res.json({ anunciante: nuevo });
+  if (db.prepare('SELECT 1 FROM cliente_anunciantes WHERE cliente_id = ? AND anunciante = ?').get(cliente.id, nuevo)) {
+    return res.status(409).json({ error: 'Este cliente ya tiene un anunciante con ese nombre' });
+  }
+
+  const tx = db.transaction(() => {
+    db.prepare('UPDATE cliente_anunciantes SET anunciante = ? WHERE cliente_id = ? AND anunciante = ?').run(
+      nuevo,
+      cliente.id,
+      actual
+    );
+    db.prepare('UPDATE usuario_anunciantes SET anunciante = ? WHERE cliente_id = ? AND anunciante = ?').run(
+      nuevo,
+      cliente.id,
+      actual
+    );
+  });
+  tx();
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Anunciante renombrado',
+    detalle: `Renombró el anunciante "${actual}" -> "${nuevo}" (cliente #${cliente.id})`,
+  });
+  res.json({ anunciante: nuevo });
+});
+
+router.delete('/clientes/:id/anunciantes/:anunciante', (req, res) => {
+  const cliente = db.prepare('SELECT id FROM clientes WHERE id = ?').get(req.params.id);
+  if (!cliente) return res.status(404).json({ error: 'Cliente no encontrado' });
+  const nombre = req.params.anunciante;
+
+  const tx = db.transaction(() => {
+    db.prepare('DELETE FROM cliente_anunciantes WHERE cliente_id = ? AND anunciante = ?').run(cliente.id, nombre);
+    db.prepare('DELETE FROM usuario_anunciantes WHERE cliente_id = ? AND anunciante = ?').run(cliente.id, nombre);
+  });
+  tx();
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Anunciante eliminado',
+    detalle: `Eliminó el anunciante "${nombre}" (cliente #${cliente.id})`,
+  });
+  res.json({ ok: true });
 });
 
 // ---------- Usuarios ----------
@@ -360,6 +439,7 @@ function toPublicUsuario(u) {
     clienteNombre: u.cliente_nombre ?? null,
     clienteIds: clientesAsignados.map((c) => c.id),
     clienteNombres: clientesAsignados.map((c) => c.nombre),
+    pais: u.rol === ROL_CON_CLIENTES_ASIGNADOS ? u.pais ?? null : null,
     anunciantesPorCliente: getAnunciantesPorClienteDeUsuario(u.id),
     activo: !!u.activo,
     createdAt: u.created_at,
@@ -385,7 +465,7 @@ function clienteActivoOError(clienteId) {
 }
 
 router.post('/usuarios', async (req, res) => {
-  const { email, nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente } = req.body || {};
+  const { email, nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, pais } = req.body || {};
   if (!email || !nombre || !rol) {
     return res.status(400).json({ error: 'Email, nombre y rol son requeridos' });
   }
@@ -401,6 +481,13 @@ router.post('/usuarios', async (req, res) => {
   }
   if (rol === ROL_CON_CLIENTES_ASIGNADOS && clienteIds !== undefined) {
     const error = clienteIdsValidosOError(clienteIds);
+    if (error) return res.status(400).json({ error });
+  }
+  // País de un usuario_interno: opcional (se suma al checklist manual de
+  // clientes, no lo reemplaza -- ver [[project_mediaudience_pais_interno]]),
+  // pero si viene tiene que ser uno del catálogo activo.
+  if (rol === ROL_CON_CLIENTES_ASIGNADOS && pais) {
+    const error = paisValidoOError(pais, { requerido: false });
     if (error) return res.status(400).json({ error });
   }
   // Restricción de anunciantes: mismo mecanismo para ambos roles, expresado
@@ -424,9 +511,16 @@ router.post('/usuarios', async (req, res) => {
   const passwordHash = await bcrypt.hash(password, 12);
   const info = db
     .prepare(
-      'INSERT INTO users (email, password_hash, nombre, rol, cliente_id, debe_cambiar_password) VALUES (?, ?, ?, ?, ?, 1)'
+      'INSERT INTO users (email, password_hash, nombre, rol, cliente_id, pais, debe_cambiar_password) VALUES (?, ?, ?, ?, ?, ?, 1)'
     )
-    .run(email, passwordHash, nombre, rol, rol === ROL_CON_CLIENTE ? clienteId : null);
+    .run(
+      email,
+      passwordHash,
+      nombre,
+      rol,
+      rol === ROL_CON_CLIENTE ? clienteId : null,
+      rol === ROL_CON_CLIENTES_ASIGNADOS ? pais || null : null
+    );
 
   if (rol === ROL_CON_CLIENTES_ASIGNADOS) setClientesDeUsuario(info.lastInsertRowid, clienteIds);
   if (anunciantesMapa !== undefined) setAnunciantesPorClienteDeUsuario(info.lastInsertRowid, anunciantesMapa);
@@ -434,6 +528,11 @@ router.post('/usuarios', async (req, res) => {
   const invitacion = await enviarInvitacion({ nombre, email, password, rol });
 
   const usuario = db.prepare(`${SELECT_USUARIOS} WHERE users.id = ?`).get(info.lastInsertRowid);
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Usuario creado',
+    detalle: `Creó a ${email} con rol ${rol}`,
+  });
   res.status(201).json({
     usuario: toPublicUsuario(usuario),
     passwordTemporal: password,
@@ -446,7 +545,7 @@ router.put('/usuarios/:id', (req, res) => {
   const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.params.id);
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-  const { nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, activo } = req.body || {};
+  const { nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, activo, pais } = req.body || {};
   const esUnoMismo = user.id === req.user.id;
 
   if (rol && !ROLES.includes(rol)) {
@@ -489,6 +588,12 @@ router.put('/usuarios/:id', (req, res) => {
     if (error) return res.status(400).json({ error });
   }
 
+  const nuevoPais = nuevoRol === ROL_CON_CLIENTES_ASIGNADOS ? (pais !== undefined ? pais || null : user.pais) : null;
+  if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS && nuevoPais) {
+    const error = paisValidoOError(nuevoPais, { requerido: false });
+    if (error) return res.status(400).json({ error });
+  }
+
   let anunciantesMapa;
   if (nuevoRol === ROL_CON_CLIENTE) {
     anunciantesMapa = anunciantes !== undefined ? { [nuevoClienteId]: anunciantes } : undefined;
@@ -501,10 +606,11 @@ router.put('/usuarios/:id', (req, res) => {
     if (error) return res.status(400).json({ error });
   }
 
-  db.prepare('UPDATE users SET nombre = ?, rol = ?, cliente_id = ?, activo = ? WHERE id = ?').run(
+  db.prepare('UPDATE users SET nombre = ?, rol = ?, cliente_id = ?, pais = ?, activo = ? WHERE id = ?').run(
     nombre?.trim() || user.nombre,
     nuevoRol,
     nuevoClienteId,
+    nuevoPais,
     activo === undefined ? user.activo : activo ? 1 : 0,
     user.id
   );
@@ -524,6 +630,17 @@ router.put('/usuarios/:id', (req, res) => {
   }
 
   const updated = db.prepare(`${SELECT_USUARIOS} WHERE users.id = ?`).get(user.id);
+
+  const cambios = [];
+  if (nuevoRol !== user.rol) cambios.push(`rol ${user.rol} -> ${nuevoRol}`);
+  if (updated.activo !== user.activo) cambios.push(updated.activo ? 'reactivado' : 'desactivado');
+  if (nuevoPais !== user.pais) cambios.push(`país ${user.pais ?? '(ninguno)'} -> ${nuevoPais ?? '(ninguno)'}`);
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Usuario editado',
+    detalle: `Editó a ${updated.email}${cambios.length ? `: ${cambios.join(', ')}` : ''}`,
+  });
+
   res.json({ usuario: toPublicUsuario(updated) });
 });
 
@@ -547,12 +664,83 @@ router.post('/usuarios/:id/reset-password', async (req, res) => {
   const password = passwordManual || generatePassword();
   const passwordHash = await bcrypt.hash(password, 12);
   db.prepare('UPDATE users SET password_hash = ?, debe_cambiar_password = 1 WHERE id = ?').run(passwordHash, user.id);
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Contraseña reseteada por administrador',
+    detalle: esUnoMismo ? 'Reseteó su propia contraseña' : `Reseteó la contraseña de ${user.email}`,
+  });
 
   if (!enviarPorCorreo) {
     return res.json({ passwordTemporal: password, invitacionEnviada: false, invitacionError: null });
   }
   const invitacion = await enviarInvitacion({ nombre: user.nombre, email: user.email, password, rol: user.rol });
   res.json({ passwordTemporal: password, invitacionEnviada: invitacion.enviado, invitacionError: invitacion.motivo });
+});
+
+// ---------- Actividad ----------
+
+// Trazabilidad de qué hizo cada usuario (login/logout, incluidos fallidos, y
+// toda acción de gestión -- server/activityLog.js) -- solo Super Admin puede
+// verla, ni siquiera un Admin común.
+const PAGINA_TAMANO_DEFECTO = 50;
+
+router.get('/actividad', requireSuperAdmin, (req, res) => {
+  const { actorEmail, accion, desde, hasta } = req.query;
+  const pagina = Math.max(1, Number(req.query.pagina) || 1);
+  const porPagina = Math.min(200, Math.max(1, Number(req.query.porPagina) || PAGINA_TAMANO_DEFECTO));
+
+  const condiciones = [];
+  const params = [];
+  if (actorEmail) {
+    condiciones.push('activity_log.actor_email = ?');
+    params.push(actorEmail);
+  }
+  if (accion) {
+    condiciones.push('activity_log.accion = ?');
+    params.push(accion);
+  }
+  if (desde) {
+    condiciones.push('activity_log.created_at >= ?');
+    params.push(desde);
+  }
+  if (hasta) {
+    condiciones.push('activity_log.created_at <= ?');
+    params.push(hasta);
+  }
+  const where = condiciones.length ? `WHERE ${condiciones.join(' AND ')}` : '';
+
+  const total = db.prepare(`SELECT COUNT(*) AS n FROM activity_log ${where}`).get(...params).n;
+  const registros = db
+    .prepare(
+      `SELECT activity_log.*, users.nombre AS actor_nombre, users.rol AS actor_rol
+       FROM activity_log
+       LEFT JOIN users ON users.id = activity_log.actor_user_id
+       ${where}
+       ORDER BY activity_log.id DESC
+       LIMIT ? OFFSET ?`
+    )
+    .all(...params, porPagina, (pagina - 1) * porPagina);
+
+  res.json({
+    registros: registros.map((r) => ({
+      id: r.id,
+      fecha: r.created_at,
+      actorEmail: r.actor_email,
+      actorNombre: r.actor_nombre,
+      actorRol: r.actor_rol,
+      accion: r.accion,
+      detalle: r.detalle,
+      ip: r.ip,
+    })),
+    total,
+    pagina,
+    porPagina,
+  });
+});
+
+router.get('/actividad/acciones', requireSuperAdmin, (req, res) => {
+  const acciones = db.prepare('SELECT DISTINCT accion FROM activity_log ORDER BY accion').all().map((r) => r.accion);
+  res.json({ acciones });
 });
 
 export default router;

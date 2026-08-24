@@ -222,6 +222,25 @@ if (!userColumns.includes('bloqueado_hasta')) {
   db.exec('ALTER TABLE users ADD COLUMN bloqueado_hasta TEXT')
 }
 
+// Se marca en 1 cuando una sesión se cierra por inactividad/máximo de 24h
+// (ver server/middleware.js) -- el próximo POST /login con contraseña correcta
+// no inicia sesión de una, sino que manda el código OTP y exige verificarlo
+// (server/auth.js). Un logout manual no la activa: no hay nada anómalo que
+// justifique pedir un segundo factor en ese caso.
+if (!userColumns.includes('requiere_otp')) {
+  db.exec('ALTER TABLE users ADD COLUMN requiere_otp INTEGER NOT NULL DEFAULT 0')
+}
+
+// País asignado a un usuario_interno (código de `paises`, ver Admin > Países):
+// le da acceso automático a TODOS los clientes activos de ese país, sin
+// importar si se crean después -- se suma a (no reemplaza) la restricción
+// manual cliente-por-cliente de `usuario_clientes`, para no romper nada de lo
+// ya configurado. Nulo para el resto de los roles y para un usuario_interno
+// que todavía se maneja solo con el checklist manual.
+if (!userColumns.includes('pais')) {
+  db.exec('ALTER TABLE users ADD COLUMN pais TEXT')
+}
+
 // Códigos de reingreso enviados por correo cuando la sesión expira por
 // inactividad (ver server/middleware.js). Se guarda el hash del código, nunca
 // el valor en claro.
@@ -236,5 +255,38 @@ db.exec(`
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
 `)
+
+// Tokens del flujo self-service "¿Has olvidado tu contraseña?" (server/auth.js)
+// -- mismo patrón que login_otps: se guarda el hash del token, nunca el valor
+// en claro, de un solo uso y con vencimiento.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    token_hash TEXT NOT NULL,
+    usado INTEGER NOT NULL DEFAULT 0,
+    expira_en TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`)
+
+// Log de actividad -- solo lo puede ver Super Admin (server/adminRoutes.js).
+// `actor_user_id` puede ser null (ej. login fallido con un email que no
+// existe): el email igual queda para poder rastrear intentos contra cuentas
+// inexistentes. `detalle` es texto libre pensado para mostrarse tal cual en
+// la UI, no una estructura a parsear.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS activity_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    actor_user_id INTEGER REFERENCES users(id),
+    actor_email TEXT,
+    accion TEXT NOT NULL,
+    detalle TEXT,
+    ip TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`)
+db.exec('CREATE INDEX IF NOT EXISTS idx_activity_log_created_at ON activity_log (created_at)')
+db.exec('CREATE INDEX IF NOT EXISTS idx_activity_log_actor ON activity_log (actor_user_id)')
 
 export default db
