@@ -1,10 +1,70 @@
 [
   {
     "campana": "PE_Cartavio_AltaGama_Julio2026",
-    "anunciante": "Cartavio"
+    "anunciante": "PE_Cartavio"
   },
   {
     "campana": "PE_Cartavio_AltaGama_Agosto2026",
-    "anunciante": "Cartavio"
+    "anunciante": "PE_Cartavio"
+  },
+  {
+    "campana": "EC_Granasa_Chevrolet_Junio2026",
+    "anunciante": "EC_Chevrolet"
+  },
+  {
+    "campana": "EC_Granasa_BancoPichincha_Junio2026",
+    "anunciante": "EC_Banco Pichincha"
+  },
+  {
+    "campana": "EC_Granasa_Gigabytes_Julio2026",
+    "anunciante": "EC_Gigabytes"
+  },
+  {
+    "campana": "EC_Granasa_1xBet_Julio2026",
+    "anunciante": "EC_1xBet"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_PonleLoTuyo_YT_02Junio2026_CPV",
+    "anunciante": "EC_AlimentosLosAndes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_NuevaImagen_YT_01Julio2026_CPM",
+    "anunciante": "EC_AlimentosLosAndes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_NuevaImagen_YT_03Agosto2026_CPM",
+    "anunciante": "EC_AlimentosLosAndes"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Enero2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Febrero2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Marzo2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Abril2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Mayo2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Junio2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "anunciante": "EC_BancoDelPacífico"
   }
 ]

@@ -1,0 +1,50 @@
+[
+  {
+    "campana": "EC_Granasa_Chevrolet_Junio2026",
+    "anunciante": "EC_Chevrolet",
+    "motivo": "Chevrolet",
+    "mes": "Junio",
+    "formato": "Push Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 102972,
+    "clicsTotales": 1113,
+    "ctr": 1,
+    "cliente": "EC_Granasa"
+  },
+  {
+    "campana": "EC_Granasa_BancoPichincha_Junio2026",
+    "anunciante": "EC_Banco Pichincha",
+    "motivo": "Banco Pichincha",
+    "mes": "Junio",
+    "formato": "Push Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 99200,
+    "clicsTotales": 1045,
+    "ctr": 1,
+    "cliente": "EC_Granasa"
+  },
+  {
+    "campana": "EC_Granasa_Gigabytes_Julio2026",
+    "anunciante": "EC_Gigabytes",
+    "motivo": "Gigabytes",
+    "mes": "Julio",
+    "formato": "Push Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 95968,
+    "clicsTotales": 1017,
+    "ctr": 1,
+    "cliente": "EC_Granasa"
+  },
+  {
+    "campana": "EC_Granasa_1xBet_Julio2026",
+    "anunciante": "EC_1xBet",
+    "motivo": "1xBet",
+    "mes": "Julio",
+    "formato": "Push Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 110188,
+    "clicsTotales": 1163,
+    "ctr": 1,
+    "cliente": "EC_Granasa"
+  }
+]

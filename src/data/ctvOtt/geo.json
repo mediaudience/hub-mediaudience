@@ -1,0 +1,26 @@
+[
+  {
+    "campana": "PE_Cartavio_AltaGama_Julio2026",
+    "anunciante": "PE_Cartavio",
+    "motivo": "Alta Gama",
+    "mes": "Julio",
+    "formato": "CTV",
+    "ubicacion": "Perú",
+    "impresionesTotales": 185318,
+    "quartil100": 145679,
+    "vtr": 79,
+    "cliente": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_Cartavio_AltaGama_Agosto2026",
+    "anunciante": "PE_Cartavio",
+    "motivo": "Alta Gama",
+    "mes": "Agosto",
+    "formato": "CTV",
+    "ubicacion": "Perú",
+    "impresionesTotales": 117649,
+    "quartil100": 99286,
+    "vtr": 84,
+    "cliente": "PE_Cartavio"
+  }
+]

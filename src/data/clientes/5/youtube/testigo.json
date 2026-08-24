@@ -1,0 +1,29 @@
+[
+  {
+    "campana": "EC_AlimentosLosAndes_PonleLoTuyo_YT_02Junio2026_CPV",
+    "anunciante": "EC_AlimentosLosAndes",
+    "motivo": "Ponle Lo Tuyo",
+    "mes": "Junio",
+    "formato": "YouTube",
+    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "cliente": "EC_Alimentos los Andes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_NuevaImagen_YT_01Julio2026_CPM",
+    "anunciante": "EC_AlimentosLosAndes",
+    "motivo": "Nueva Imagen",
+    "mes": "Julio",
+    "formato": "YouTube",
+    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "cliente": "EC_Alimentos los Andes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_NuevaImagen_YT_03Agosto2026_CPM",
+    "anunciante": "EC_AlimentosLosAndes",
+    "motivo": "Nueva Imagen",
+    "mes": "Agosto",
+    "formato": "YouTube",
+    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "cliente": "EC_Alimentos los Andes"
+  }
+]
