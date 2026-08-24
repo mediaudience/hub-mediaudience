@@ -1,11 +1,10 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Spinner from "../common/Spinner";
-import VerificarCodigo from "../../pages/VerificarCodigo";
 import CambiarPassword from "../../pages/CambiarPassword";
 
 export default function RequireAuth() {
-  const { user, loading, correoSesionExpirada } = useAuth();
+  const { user, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
@@ -14,10 +13,6 @@ export default function RequireAuth() {
         <Spinner label="Verificando sesión..." />
       </div>
     );
-  }
-
-  if (correoSesionExpirada) {
-    return <VerificarCodigo email={correoSesionExpirada} />;
   }
 
   if (!user) {

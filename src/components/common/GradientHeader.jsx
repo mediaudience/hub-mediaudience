@@ -2,6 +2,13 @@ import { useState } from "react";
 import PeriodPicker from "./PeriodPicker";
 import FilterPill from "./FilterPill";
 
+// `filters`: [{ label, options, value, onChange }] -- el padre (la página del
+// canal) es quien guarda cuál está elegido y filtra sus propias filas/datos;
+// este componente solo se encarga de mostrar los pills. "Borrar Filtros"
+// limpia todo eso a través de `onClearFilters`, que el padre implementa
+// reseteando su propio estado (no hay estado local de filtro acá) -- salvo
+// PeriodPicker, que sigue siendo dueño de su propio calendario; se lo
+// remonta con `key` para que también se vea limpio visualmente.
 export default function GradientHeader({
   title,
   filters = [],
@@ -10,10 +17,10 @@ export default function GradientHeader({
   onDownload,
   showDownload = true,
 }) {
-  const [resetKey, setResetKey] = useState(0);
+  const [periodoResetKey, setPeriodoResetKey] = useState(0);
 
   const handleClearFilters = () => {
-    setResetKey((k) => k + 1);
+    setPeriodoResetKey((k) => k + 1);
     onClearFilters?.();
   };
 
@@ -40,9 +47,9 @@ export default function GradientHeader({
         <div className="flex flex-wrap items-center gap-2">
           {filters.length > 0 && (
             <>
-              <PeriodPicker onApply={onApplyPeriod} />
+              <PeriodPicker key={periodoResetKey} onApply={onApplyPeriod} />
               {filters.map((f) => (
-                <FilterPill key={f.label} label={f.label} options={f.options} resetKey={resetKey} />
+                <FilterPill key={f.label} label={f.label} options={f.options} value={f.value} onChange={f.onChange} />
               ))}
               <button
                 type="button"

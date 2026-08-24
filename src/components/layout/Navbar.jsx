@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useClienteActivo } from "../../context/ClienteActivoContext";
 import mediaudienceLogoBlanco from "../../assets/brand/mediaudience-logo-blanco.png";
 
 const ROL_LABEL = {
@@ -21,6 +22,7 @@ function AccountMenu() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const { user, logout } = useAuth();
+  const { clientes, clienteActivo, setClienteActivo } = useClienteActivo();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,6 +67,39 @@ function AccountMenu() {
               </span>
             )}
           </div>
+
+          {clientes.length > 1 && (
+            <div className="px-4 py-3 border-b border-slate-100">
+              <p className="text-xs font-medium text-slate-label mb-1.5">Cliente</p>
+              <div className="max-h-40 overflow-y-auto flex flex-col gap-0.5">
+                <button
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={clienteActivo === null}
+                  onClick={() => setClienteActivo(null)}
+                  className={`text-left px-2 py-1.5 rounded-md text-sm ${
+                    clienteActivo === null ? "bg-brand-purple/10 text-brand-purple font-medium" : "text-gray-700 hover:bg-slate-50"
+                  }`}
+                >
+                  Todos los clientes
+                </button>
+                {clientes.map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    role="menuitemradio"
+                    aria-checked={clienteActivo === c.nombre}
+                    onClick={() => setClienteActivo(c.nombre)}
+                    className={`text-left px-2 py-1.5 rounded-md text-sm truncate ${
+                      clienteActivo === c.nombre ? "bg-brand-purple/10 text-brand-purple font-medium" : "text-gray-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    {c.nombre}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           {(user?.rol === "super_admin" || user?.rol === "admin") && (
             <button

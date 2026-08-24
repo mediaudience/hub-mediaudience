@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { ADMIN_NAV_GROUP } from "../../navConfig";
+import { ADMIN_NAV_GROUP, GESTION_NAV_GROUP } from "../../navConfig";
 import { useAuth } from "../../context/AuthContext";
+import { useClienteActivo } from "../../context/ClienteActivoContext";
 
 function GroupArrow({ open }) {
   return (
@@ -20,23 +21,33 @@ function GroupArrow({ open }) {
 export default function Sidebar({ open, onNavigate }) {
   const location = useLocation();
   const { user, canales } = useAuth();
+  const { clienteActivo, canalesDelClienteActivo } = useClienteActivo();
   const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
-  const canalesContratados = user?.canalesContratados ?? [];
-  const canalesVisibles = canales
+  // Con un cliente activo elegido (ver ClienteActivoContext), el Sidebar solo
+  // muestra los servicios que ESE cliente contrató -- no los 5 del catálogo,
+  // muchos sin datos para él. "Todos los clientes" mantiene el comportamiento
+  // de siempre (unión de todos los canales contratados por el usuario).
+  const canalesContratados = clienteActivo ? canalesDelClienteActivo : user?.canalesContratados ?? [];
+  // Un solo grupo "Campañas" para todos los servicios (antes cada canal era
+  // su propio grupo top-level) -- agrupa cualquier servicio/cliente bajo un
+  // mismo título, con el mismo look and feel que "Administración" (ícono +
+  // label en negrita), pedido por Jose el 2026-08-25 para no repetir el
+  // patrón de grupo por cada canal contratado.
+  const campanasItems = canales
     .filter((c) => canalesContratados.includes(c.slug))
-    .map((c) => ({
-      id: c.slug,
-      label: c.nombre,
-      items: [
-        { label: "Resumen General", path: `/${c.slug}/resumen-general` },
-        { label: "Rendimiento Diario", path: `/${c.slug}/rendimiento-diario` },
-      ],
-    }));
+    .map((c) => ({ label: c.nombre, path: `/${c.slug}/rendimiento-general` }));
+  const campanasGroup = { id: "campanas", label: "Campañas", items: campanasItems };
   const adminGroup = {
     ...ADMIN_NAV_GROUP,
     items: ADMIN_NAV_GROUP.items.filter((i) => !i.superAdminOnly || user?.rol === "super_admin"),
   };
-  const groups = esStaff ? [...canalesVisibles, adminGroup] : canalesVisibles;
+  // "Gestión" -- solo Admin/Super Admin, mismo alcance que "Administración"
+  // (gestión interna del negocio, no algo que un usuario_interno/externo
+  // deba ver). Pedido por Jose el 2026-08-25.
+  const groups = [
+    ...(campanasItems.length > 0 ? [campanasGroup] : []),
+    ...(esStaff ? [GESTION_NAV_GROUP, adminGroup] : []),
+  ];
   const activeGroupId = groups.find((g) =>
     g.items.some((i) => location.pathname.startsWith(i.path))
   )?.id;
@@ -58,17 +69,19 @@ export default function Sidebar({ open, onNavigate }) {
           {groups.map((group) => {
             const open = !!openGroups[group.id];
             const isAdminGroup = group.id === ADMIN_NAV_GROUP.id;
+            const isCampanasGroup = group.id === "campanas";
+            const isGestionGroup = group.id === GESTION_NAV_GROUP.id;
             return (
               <div
                 key={group.id}
-                className={isAdminGroup ? "mb-1 mt-3 pt-3 border-t border-slate-100" : "mb-1"}
+                className={isAdminGroup || isGestionGroup ? "mb-1 mt-3 pt-3 border-t border-slate-100" : "mb-1"}
               >
                 <button
                   type="button"
                   onClick={() => toggleGroup(group.id)}
                   aria-expanded={open}
                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold hover:bg-slate-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
-                    isAdminGroup ? "text-brand-magenta" : "text-slate-label"
+                    isAdminGroup || isCampanasGroup || isGestionGroup ? "text-brand-magenta" : "text-slate-label"
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
@@ -80,6 +93,24 @@ export default function Sidebar({ open, onNavigate }) {
                           strokeWidth="2"
                           strokeLinejoin="round"
                         />
+                      </svg>
+                    )}
+                    {isCampanasGroup && (
+                      // Blanco de tiro / bullseye -- alude a "targetear" una
+                      // campaña, y retoma el mismo motivo de círculos
+                      // concéntricos que ya usa GradientHeader.jsx como marca.
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+                        <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2" />
+                        <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+                      </svg>
+                    )}
+                    {isGestionGroup && (
+                      // Clipboard con check -- gestión/seguimiento interno del negocio.
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <rect x="5" y="4" width="14" height="17" rx="2" stroke="currentColor" strokeWidth="2" />
+                        <path d="M9 4V3a1 1 0 011-1h4a1 1 0 011 1v1" stroke="currentColor" strokeWidth="2" />
+                        <path d="M9 12.5l2 2 4-4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     )}
                     {group.label}

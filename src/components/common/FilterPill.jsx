@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 
-export default function FilterPill({ label, options = [], resetKey }) {
+// Controlado por el padre (value/onChange) -- aplica de inmediato al elegir
+// una opción, sin paso de "Aplicar" aparte (ver ChannelRendimientoGeneral.jsx
+// para cómo se usa el valor elegido para filtrar filas de verdad).
+export default function FilterPill({ label, options = [], value, onChange }) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState("Todos");
   const ref = useRef(null);
 
   useEffect(() => {
@@ -13,9 +15,7 @@ export default function FilterPill({ label, options = [], resetKey }) {
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
 
-  useEffect(() => {
-    if (resetKey) setSelected("Todos");
-  }, [resetKey]);
+  const seleccionado = value ?? null;
 
   return (
     <div className="relative" ref={ref}>
@@ -26,7 +26,7 @@ export default function FilterPill({ label, options = [], resetKey }) {
         aria-expanded={open}
         className="flex items-center gap-2 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
       >
-        {selected === "Todos" ? label : `${label}: ${selected}`}
+        {seleccionado === null ? label : `${label}: ${seleccionado}`}
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
           <path d="M6 9l6 6 6-6" stroke="#57007E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -36,7 +36,7 @@ export default function FilterPill({ label, options = [], resetKey }) {
           <button
             type="button"
             onClick={() => {
-              setSelected("Todos");
+              onChange?.(null);
               setOpen(false);
             }}
             className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-slate-50"
@@ -48,7 +48,7 @@ export default function FilterPill({ label, options = [], resetKey }) {
               key={opt}
               type="button"
               onClick={() => {
-                setSelected(opt);
+                onChange?.(opt);
                 setOpen(false);
               }}
               className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-slate-50"

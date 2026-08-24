@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import LoginIllustration from "../components/common/LoginIllustration";
 import LoginBackgroundPattern from "../components/common/LoginBackgroundPattern";
@@ -12,14 +12,12 @@ export default function VerificarCodigo({ email }) {
   const [error, setError] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [espera, setEspera] = useState(0);
-  const yaEnviado = useRef(false);
 
+  // El primer código ya lo mandó /login (ver AuthContext.jsx) -- este efecto
+  // solo arranca la cuenta regresiva para habilitar "Reenviar código".
   useEffect(() => {
-    if (yaEnviado.current) return;
-    yaEnviado.current = true;
-    solicitarCodigo(email).catch(() => {});
     setEspera(REENVIO_ESPERA_SEGUNDOS);
-  }, [email, solicitarCodigo]);
+  }, [email]);
 
   useEffect(() => {
     if (espera <= 0) return;

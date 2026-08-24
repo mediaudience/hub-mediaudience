@@ -114,6 +114,7 @@ const EMPTY_FORM = {
   clienteId: "",
   clienteIds: [],
   anunciantesPorCliente: {},
+  pais: "",
   activo: true,
 };
 
@@ -183,6 +184,7 @@ export default function AdminUsuarios() {
   const { user: currentUser } = useAuth();
   const [usuarios, setUsuarios] = useState([]);
   const [clientes, setClientes] = useState([]);
+  const [paises, setPaises] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [form, setForm] = useState(null);
@@ -214,12 +216,14 @@ export default function AdminUsuarios() {
   async function cargar() {
     setLoading(true);
     try {
-      const [usuariosRes, clientesRes] = await Promise.all([
+      const [usuariosRes, clientesRes, paisesRes] = await Promise.all([
         apiFetch("/api/admin/usuarios"),
         apiFetch("/api/admin/clientes"),
+        apiFetch("/api/admin/paises"),
       ]);
       setUsuarios(usuariosRes.usuarios);
       setClientes(clientesRes.clientes.filter((c) => c.activo));
+      setPaises(paisesRes.paises.filter((p) => p.activo));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -244,6 +248,7 @@ export default function AdminUsuarios() {
       clienteId: u.clienteId || "",
       clienteIds: u.clienteIds || [],
       anunciantesPorCliente: u.anunciantesPorCliente || {},
+      pais: u.pais || "",
       activo: u.activo,
     });
   }
@@ -285,6 +290,7 @@ export default function AdminUsuarios() {
         rol: form.rol,
         clienteId: form.rol === "usuario_externo" ? Number(form.clienteId) || null : null,
         clienteIds: form.rol === "usuario_interno" ? form.clienteIds : undefined,
+        pais: form.rol === "usuario_interno" ? form.pais || null : null,
         anunciantes:
           form.rol === "usuario_externo" && form.clienteId
             ? anunciantesPayloadDeCliente(form.clienteId)
@@ -473,11 +479,18 @@ export default function AdminUsuarios() {
                         <RolBadge rol={u.rol} />
                       </td>
                       <td className="px-4 py-2.5 text-gray-600">
-                        {u.rol === "usuario_interno"
-                          ? u.clienteNombres.length
-                            ? u.clienteNombres.join(", ")
-                            : "— (sin asignar)"
-                          : u.clienteNombre || "—"}
+                        {u.rol === "usuario_interno" ? (
+                          <>
+                            {u.pais && (
+                              <span className="mr-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-brand-purple/10 text-brand-purple">
+                                {paises.find((p) => p.codigo === u.pais)?.nombre ?? u.pais} (todos)
+                              </span>
+                            )}
+                            {u.clienteNombres.length ? u.clienteNombres.join(", ") : !u.pais && "— (sin asignar)"}
+                          </>
+                        ) : (
+                          u.clienteNombre || "—"
+                        )}
                         {Object.keys(u.anunciantesPorCliente || {}).length > 0 && (
                           <span
                             className="ml-1.5 text-xs text-brand-magenta"
@@ -593,6 +606,7 @@ export default function AdminUsuarios() {
                     rol: e.target.value,
                     clienteId: e.target.value === "usuario_externo" ? f.clienteId : "",
                     clienteIds: e.target.value === "usuario_interno" ? f.clienteIds : [],
+                    pais: e.target.value === "usuario_interno" ? f.pais : "",
                     anunciantesPorCliente: {},
                   }))
                 }
@@ -647,7 +661,31 @@ export default function AdminUsuarios() {
 
             {form.rol === "usuario_interno" && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Clientes visibles</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">País</label>
+                <select
+                  value={form.pais}
+                  onChange={(e) => setForm((f) => ({ ...f, pais: e.target.value }))}
+                  className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                >
+                  <option value="">— Sin país (solo clientes marcados abajo)</option>
+                  {paises.map((p) => (
+                    <option key={p.codigo} value={p.codigo}>
+                      {p.nombre}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-1.5 text-xs text-slate-label">
+                  Le da acceso automático a todos los clientes activos de ese país, incluidos los que se creen
+                  después. Se suma a los clientes marcados abajo, no los reemplaza.
+                </p>
+              </div>
+            )}
+
+            {form.rol === "usuario_interno" && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Clientes puntuales adicionales
+                </label>
                 {clientes.length === 0 ? (
                   <p className="text-sm text-slate-label">No hay clientes activos — crea uno primero.</p>
                 ) : (
@@ -673,7 +711,9 @@ export default function AdminUsuarios() {
                   </div>
                 )}
                 <p className="mt-1.5 text-xs text-slate-label">
-                  Si no marcas ningún cliente, este usuario no verá datos hasta que le asignes al menos uno.
+                  {form.pais
+                    ? "Para sumar, además, algún cliente puntual de otro país."
+                    : "Si no marcas ningún cliente (ni un país arriba), este usuario no verá datos."}
                 </p>
               </div>
             )}

@@ -13,7 +13,7 @@ function ChannelBadge({ x, y, color, children }) {
 }
 
 // Ilustración a medida para el login: un mini-dashboard (barras + tendencia +
-// donut, el mismo lenguaje visual que ComboBarChart/DonutWithTable) conectado
+// donut, el mismo lenguaje visual que ComboBarChart) conectado
 // por líneas punteadas a los 5 canales del panel y a los dos extremos del
 // tagline "Conectamos marcas, Conectamos audiencias".
 export default function LoginIllustration() {

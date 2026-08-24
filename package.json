@@ -17,6 +17,7 @@
     "bcrypt": "^6.0.0",
     "better-sqlite3": "^13.0.3",
     "connect-sqlite3": "^0.9.18",
+    "d3-geo": "^3.1.1",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "postcss": "^8.5.26",
@@ -24,7 +25,9 @@
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.2",
     "recharts": "^3.10.1",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

@@ -103,6 +103,8 @@ export default function AdminClientes() {
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
   const [nuevoAnunciante, setNuevoAnunciante] = useState("");
+  const [editandoAnunciante, setEditandoAnunciante] = useState(null);
+  const [valorEditado, setValorEditado] = useState("");
 
   async function cargar() {
     setLoading(true);
@@ -142,6 +144,54 @@ export default function AdminClientes() {
     if (!nombre || form.anunciantes.includes(nombre)) return;
     setForm((f) => ({ ...f, anunciantes: [...f.anunciantes, nombre] }));
     setNuevoAnunciante("");
+  }
+
+  function iniciarEdicionAnunciante(a) {
+    setEditandoAnunciante(a);
+    setValorEditado(a);
+  }
+
+  // Renombrar/eliminar un anunciante YA guardado (ver anunciantesPersistidos)
+  // pega directo al backend en vez de esperar al "Guardar" general del
+  // cliente -- necesita cascadear a usuario_anunciantes (restricciones por
+  // usuario), algo que el guardado normal del cliente no puede inferir de un
+  // simple diff de arrays.
+  async function guardarEdicionAnunciante(actual) {
+    const nuevo = valorEditado.trim();
+    if (!nuevo || nuevo === actual) {
+      setEditandoAnunciante(null);
+      return;
+    }
+    setError("");
+    try {
+      await apiFetch(`/api/admin/clientes/${form.id}/anunciantes/${encodeURIComponent(actual)}`, {
+        method: "PUT",
+        body: JSON.stringify({ nombre: nuevo }),
+      });
+      setForm((f) => ({ ...f, anunciantes: f.anunciantes.map((x) => (x === actual ? nuevo : x)) }));
+      setEditandoAnunciante(null);
+      await cargar();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function eliminarAnunciante(a) {
+    if (
+      !window.confirm(
+        `¿Eliminar el anunciante "${a}" de este cliente? También se le quitará a cualquier usuario que lo tuviera marcado como restricción.`
+      )
+    ) {
+      return;
+    }
+    setError("");
+    try {
+      await apiFetch(`/api/admin/clientes/${form.id}/anunciantes/${encodeURIComponent(a)}`, { method: "DELETE" });
+      setForm((f) => ({ ...f, anunciantes: f.anunciantes.filter((x) => x !== a) }));
+      await cargar();
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   function toggleCanalContratado(canal) {
@@ -201,6 +251,14 @@ export default function AdminClientes() {
     ? [...new Set([...anunciantesDisponibles, ...form.anunciantes])].sort()
     : [];
 
+  // Editar/Eliminar solo tienen sentido sobre un anunciante que YA existe en
+  // `cliente_anunciantes` para este cliente (las rutas nuevas pegan directo
+  // por cliente+anunciante) -- uno recién tipeado en "+ Agregar" pero sin
+  // guardar todavía, o uno que viene del catálogo global pero aún no está
+  // asociado a este cliente, no tiene nada que renombrar/eliminar en el
+  // servidor hasta el primer "Guardar".
+  const anunciantesPersistidos = form?.id ? clientes.find((c) => c.id === form.id)?.anunciantes ?? [] : [];
+
   return (
     <div>
       <GradientHeader title="Administración: Clientes" showDownload={false} />
@@ -217,6 +275,7 @@ export default function AdminClientes() {
             type="button"
             onClick={() => {
               setNuevoAnunciante("");
+              setEditandoAnunciante(null);
               setForm({ id: null, nombre: "", pais: "", canales: canalesVacios(canales), anunciantes: [], activo: true });
             }}
             className="mb-4 bg-brand-magenta text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-brand-magenta/90"
@@ -264,6 +323,7 @@ export default function AdminClientes() {
                           type="button"
                           onClick={() => {
                             setNuevoAnunciante("");
+                            setEditandoAnunciante(null);
                             setForm({
                               id: c.id,
                               nombre: nombreSinPrefijo(c),
@@ -398,15 +458,69 @@ export default function AdminClientes() {
                   </span>
                 )}
                 {anunciantesParaMostrar.map((a) => (
-                  <label key={a} className="flex items-center gap-2 text-sm text-gray-700">
+                  <div key={a} className="flex items-center gap-2 text-sm text-gray-700">
                     <input
                       type="checkbox"
                       checked={form.anunciantes.includes(a)}
                       onChange={() => toggleAnunciante(a)}
                       className="accent-brand-magenta"
                     />
-                    {a}
-                  </label>
+                    {editandoAnunciante === a ? (
+                      <>
+                        <input
+                          autoFocus
+                          value={valorEditado}
+                          onChange={(e) => setValorEditado(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              guardarEdicionAnunciante(a);
+                            }
+                            if (e.key === "Escape") setEditandoAnunciante(null);
+                          }}
+                          className="flex-1 rounded border border-slate-200 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => guardarEdicionAnunciante(a)}
+                          className="text-xs font-medium text-brand-purple hover:underline shrink-0"
+                        >
+                          Guardar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditandoAnunciante(null)}
+                          className="text-xs text-slate-label hover:underline shrink-0"
+                        >
+                          Cancelar
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <span onClick={() => toggleAnunciante(a)} className="flex-1 cursor-pointer">
+                          {a}
+                        </span>
+                        {anunciantesPersistidos.includes(a) && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => iniciarEdicionAnunciante(a)}
+                              className="text-xs font-medium text-brand-purple hover:underline shrink-0"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => eliminarAnunciante(a)}
+                              className="text-xs font-medium text-red-600 hover:underline shrink-0"
+                            >
+                              Eliminar
+                            </button>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
                 ))}
               </div>
               <p className="mt-1.5 text-xs text-slate-label">

@@ -20,7 +20,10 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [canales, setCanales] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [correoSesionExpirada, setCorreoSesionExpirada] = useState(null);
+  // Email pendiente de código OTP tras un /login con contraseña correcta pero
+  // requiere_otp=1 (sesión anterior cerrada por inactividad, ver
+  // server/middleware.js) -- null cuando no hay ningún reingreso a mitad de camino.
+  const [otpPendiente, setOtpPendiente] = useState(null);
   const userRef = useRef(null);
   userRef.current = user;
 
@@ -34,14 +37,11 @@ export function AuthProvider({ children }) {
 
   const refresh = useCallback(async () => {
     const res = await fetch("/api/auth/me", { credentials: "include" });
-    const data = await parseJsonSafe(res);
     if (res.ok) {
+      const data = await parseJsonSafe(res);
       setUser(data?.user ?? null);
       await refrescarCanales();
       return;
-    }
-    if (data?.code === "SESSION_EXPIRED" && userRef.current) {
-      setCorreoSesionExpirada(userRef.current.email);
     }
     setUser(null);
     setCanales([]);
@@ -57,24 +57,15 @@ export function AuthProvider({ children }) {
     return () => clearInterval(id);
   }, [user, refresh]);
 
-  // Detecta SESSION_EXPIRED en cualquier llamada a la API (no solo el chequeo
-  // periódico de /me), para que la pantalla de código aparezca al instante en
-  // vez de esperar hasta el próximo sondeo.
+  // Detecta una sesión cortada por inactividad en cualquier llamada a la API
+  // (no solo el chequeo periódico de /me), para reflejar el logout al
+  // instante en vez de esperar hasta el próximo sondeo.
   useEffect(() => {
     const fetchOriginal = window.fetch;
     window.fetch = async (...args) => {
       const res = await fetchOriginal(...args);
       if (res.status === 401 && userRef.current) {
-        res
-          .clone()
-          .json()
-          .then((data) => {
-            if (data?.code === "SESSION_EXPIRED") {
-              setCorreoSesionExpirada(userRef.current.email);
-              setUser(null);
-            }
-          })
-          .catch(() => {});
+        setUser(null);
       }
       return res;
     };
@@ -94,14 +85,19 @@ export function AuthProvider({ children }) {
     if (!res.ok) {
       throw new Error(data?.error || "No se pudo iniciar sesión");
     }
-    setCorreoSesionExpirada(null);
+    if (data?.requiereOtp) {
+      setOtpPendiente(data.email);
+      return { requiereOtp: true };
+    }
+    setOtpPendiente(null);
     setUser(data.user);
     await refrescarCanales();
+    return { requiereOtp: false };
   }, [refrescarCanales]);
 
   const logout = useCallback(async () => {
     await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
-    setCorreoSesionExpirada(null);
+    setOtpPendiente(null);
     setUser(null);
   }, []);
 
@@ -125,10 +121,32 @@ export function AuthProvider({ children }) {
     });
     const data = await parseJsonSafe(res);
     if (!res.ok) throw new Error(data?.error || "Código inválido o vencido");
-    setCorreoSesionExpirada(null);
+    setOtpPendiente(null);
     setUser(data.user);
     await refrescarCanales();
   }, [refrescarCanales]);
+
+  const solicitarRecuperacion = useCallback(async (email) => {
+    const res = await fetch("/api/auth/olvide-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ email }),
+    });
+    const data = await parseJsonSafe(res);
+    if (!res.ok) throw new Error(data?.error || "No se pudo procesar la solicitud");
+  }, []);
+
+  const restablecerPassword = useCallback(async (token, passwordNueva) => {
+    const res = await fetch("/api/auth/restablecer-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ token, passwordNueva }),
+    });
+    const data = await parseJsonSafe(res);
+    if (!res.ok) throw new Error(data?.error || "No se pudo restablecer la contraseña");
+  }, []);
 
   const cambiarPassword = useCallback(async (passwordActual, passwordNueva) => {
     const res = await fetch("/api/auth/cambiar-password", {
@@ -149,13 +167,15 @@ export function AuthProvider({ children }) {
         canales,
         refrescarCanales,
         loading,
-        correoSesionExpirada,
+        otpPendiente,
         login,
         logout,
         refresh,
         solicitarCodigo,
         verificarCodigo,
         cambiarPassword,
+        solicitarRecuperacion,
+        restablecerPassword,
       }}
     >
       {children}

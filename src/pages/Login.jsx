@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import VerificarCodigo from "./VerificarCodigo";
 import LoginIllustration from "../components/common/LoginIllustration";
 import LoginBackgroundPattern from "../components/common/LoginBackgroundPattern";
 import mediaudienceLogo from "../assets/brand/mediaudience-logo.png";
@@ -10,7 +11,7 @@ function BrandMark() {
 }
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, otpPendiente, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [email, setEmail] = useState("");
@@ -20,18 +21,28 @@ export default function Login() {
 
   const from = location.state?.from?.pathname || "/";
 
+  // Cubre tanto el login directo como el que se completa un paso después, al
+  // verificar el código OTP (VerificarCodigo llama a un método de contexto
+  // distinto que también termina fijando `user`).
+  useEffect(() => {
+    if (user) navigate(from, { replace: true });
+  }, [user, from, navigate]);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
       await login(email, password);
-      navigate(from, { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
+  }
+
+  if (otpPendiente) {
+    return <VerificarCodigo email={otpPendiente} />;
   }
 
   return (
@@ -80,13 +91,15 @@ export default function Login() {
                 />
               </div>
 
-              <span
-                title="Próximamente"
-                aria-disabled="true"
-                className="text-sm text-brand-purple cursor-not-allowed select-none -mt-1"
-              >
+              <Link to="/olvide-password" className="text-sm text-brand-purple hover:underline -mt-1 self-start">
                 ¿Has olvidado tu contraseña?
-              </span>
+              </Link>
+
+              {location.state?.passwordRestablecida && (
+                <div className="rounded-lg bg-green-50 px-3.5 py-2.5 text-sm text-green-700">
+                  Tu contraseña quedó actualizada. Ya podés iniciar sesión.
+                </div>
+              )}
 
               {error && (
                 <div role="alert" className="rounded-lg bg-red-50 px-3.5 py-2.5 text-sm text-red-600">
