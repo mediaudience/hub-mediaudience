@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import ChannelRendimientoGeneral from "./ChannelRendimientoGeneral";
 import useApiData from "../hooks/useApiData";
 import PageSkeleton from "../components/common/PageSkeleton";
 import useDelayedLoading from "../hooks/useDelayedLoading";
 import EmptyState from "../components/common/EmptyState";
 import { getCanalMetricas } from "../config/canalMetricas";
+import { useClienteActivo } from "../context/ClienteActivoContext";
 
 // Página genérica de Rendimiento General para cualquier canal (reemplaza a
 // CanalResumenGeneral + CanalRendimientoDiario desde la reestructuración de
@@ -13,8 +14,17 @@ import { getCanalMetricas } from "../config/canalMetricas";
 export default function CanalRendimientoGeneral() {
   const { canal } = useParams();
   const { data, loading, error } = useApiData(`/api/canal/${canal}/rendimiento-general`);
+  const { clienteActivo, canalesDelClienteActivo } = useClienteActivo();
 
   const showSkeleton = useDelayedLoading(loading);
+
+  // Si el cliente activo elegido no contrató este canal (ej. se cambió de
+  // cliente estando parado en otro servicio), redirige al primer servicio
+  // que sí tenga en vez de dejar la tabla en 0 filas.
+  if (clienteActivo && canalesDelClienteActivo && !canalesDelClienteActivo.includes(canal)) {
+    const destino = canalesDelClienteActivo[0];
+    return <Navigate to={destino ? `/${destino}/rendimiento-general` : "/"} replace />;
+  }
 
   if (showSkeleton) return <PageSkeleton />;
   if (loading) return null;
