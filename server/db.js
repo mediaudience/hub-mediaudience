@@ -289,4 +289,90 @@ db.exec(`
 db.exec('CREATE INDEX IF NOT EXISTS idx_activity_log_created_at ON activity_log (created_at)')
 db.exec('CREATE INDEX IF NOT EXISTS idx_activity_log_actor ON activity_log (actor_user_id)')
 
+// Catálogo dinámico de etapas del pipeline de Prospección (Gestión), editable
+// desde Admin > Etapas de Prospección (Super Admin) -- mismo patrón que
+// `paises`/`canales` de arriba. `tipo` marca las etapas terminales: 'ganada'
+// es la única que habilita el botón "Convertir a Cliente" en el frontend,
+// 'perdida' cierra el prospecto sin conversión, 'abierta' es el resto.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS etapas_prospeccion (
+    codigo TEXT PRIMARY KEY,
+    nombre TEXT NOT NULL,
+    orden INTEGER NOT NULL,
+    tipo TEXT NOT NULL CHECK (tipo IN ('abierta', 'ganada', 'perdida')) DEFAULT 'abierta',
+    activo INTEGER NOT NULL DEFAULT 1
+  );
+`)
+
+const insertarEtapaProspeccion = db.prepare(
+  'INSERT OR IGNORE INTO etapas_prospeccion (codigo, nombre, orden, tipo) VALUES (?, ?, ?, ?)'
+)
+for (const [codigo, nombre, orden, tipo] of [
+  ['nuevo', 'Nuevo', 1, 'abierta'],
+  ['contactado', 'Contactado', 2, 'abierta'],
+  ['calificado', 'Calificado', 3, 'abierta'],
+  ['propuesta', 'Propuesta enviada', 4, 'abierta'],
+  ['negociacion', 'Negociación', 5, 'abierta'],
+  ['ganado', 'Ganado', 6, 'ganada'],
+  ['perdido', 'Perdido', 7, 'perdida'],
+]) {
+  insertarEtapaProspeccion.run(codigo, nombre, orden, tipo)
+}
+
+// Prospección de ventas (Gestión > Prospección) -- pipeline separado de
+// `clientes`, pensado para que el equipo comercial de cada país lo trabaje
+// antes de que un prospecto se convierta (o no) en cliente real. `pais` sigue
+// el mismo catálogo dinámico que `clientes.pais`, sin FOREIGN KEY real por el
+// mismo criterio (columna de solo etiqueta). `convertido_cliente_id` se llena
+// recién cuando un Admin/Super Admin confirma la conversión (ver
+// server/prospeccionAccess.js) -- nunca automático.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS prospectos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    pais TEXT NOT NULL,
+    etapa TEXT NOT NULL DEFAULT 'nuevo' REFERENCES etapas_prospeccion(codigo),
+    contacto_nombre TEXT,
+    contacto_email TEXT,
+    contacto_telefono TEXT,
+    valor_estimado REAL,
+    responsable_user_id INTEGER REFERENCES users(id),
+    proxima_accion_fecha TEXT,
+    proxima_accion_nota TEXT,
+    creado_por INTEGER REFERENCES users(id),
+    convertido_cliente_id INTEGER REFERENCES clientes(id),
+    activo INTEGER NOT NULL DEFAULT 1,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`)
+db.exec('CREATE INDEX IF NOT EXISTS idx_prospectos_pais ON prospectos (pais)')
+
+// Prospectos que un Admin/Super Admin le asigna manualmente a un
+// usuario_interno -- se SUMA (no reemplaza) a la visibilidad automática por
+// país, mismo patrón que `usuario_clientes`.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS usuario_prospectos (
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    prospecto_id INTEGER NOT NULL REFERENCES prospectos(id),
+    PRIMARY KEY (user_id, prospecto_id)
+  );
+`)
+
+// Registro manual de actividades por prospecto (llamada/correo/whatsapp/
+// reunión/nota) -- mismo patrón que `activity_log`, pero acá `detalle` es la
+// nota que carga el usuario_interno, no un texto generado por el sistema.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS prospecto_actividades (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    prospecto_id INTEGER NOT NULL REFERENCES prospectos(id),
+    tipo TEXT NOT NULL CHECK (tipo IN ('llamada', 'correo', 'whatsapp', 'reunion', 'nota')),
+    detalle TEXT,
+    actor_user_id INTEGER REFERENCES users(id),
+    actor_nombre TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`)
+db.exec('CREATE INDEX IF NOT EXISTS idx_prospecto_actividades_prospecto ON prospecto_actividades (prospecto_id)')
+
 export default db

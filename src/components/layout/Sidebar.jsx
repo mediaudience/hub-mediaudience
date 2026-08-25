@@ -41,12 +41,18 @@ export default function Sidebar({ open, onNavigate }) {
     ...ADMIN_NAV_GROUP,
     items: ADMIN_NAV_GROUP.items.filter((i) => !i.superAdminOnly || user?.rol === "super_admin"),
   };
-  // "Gestión" -- solo Admin/Super Admin, mismo alcance que "Administración"
-  // (gestión interna del negocio, no algo que un usuario_interno/externo
-  // deba ver). Pedido por Jose el 2026-08-25.
+  // "Gestión" -- Admin/Super Admin ven las 4 secciones; usuario_interno solo
+  // ve las marcadas `internoVisible` (hoy, solo Prospección: es su
+  // herramienta de trabajo diaria, el resto sigue siendo gestión interna del
+  // negocio). usuario_externo no ve nada de este grupo.
+  const gestionItems = esStaff
+    ? GESTION_NAV_GROUP.items
+    : GESTION_NAV_GROUP.items.filter((i) => i.internoVisible && user?.rol === "usuario_interno");
+  const gestionGroup = { ...GESTION_NAV_GROUP, items: gestionItems };
   const groups = [
     ...(campanasItems.length > 0 ? [campanasGroup] : []),
-    ...(esStaff ? [GESTION_NAV_GROUP, adminGroup] : []),
+    ...(gestionItems.length > 0 ? [gestionGroup] : []),
+    ...(esStaff ? [adminGroup] : []),
   ];
   const activeGroupId = groups.find((g) =>
     g.items.some((i) => location.pathname.startsWith(i.path))

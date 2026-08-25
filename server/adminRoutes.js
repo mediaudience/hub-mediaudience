@@ -151,6 +151,64 @@ router.put('/paises/:codigo', requireSuperAdmin, (req, res) => {
   res.json({ pais: updated });
 });
 
+// ---------- Etapas de Prospección ----------
+
+// Catálogo del pipeline de Gestión > Prospección (server/prospeccionRoutes.js
+// lo lee sin filtro de rol -- cualquier usuario_interno/admin/super_admin
+// puede VER las etapas, pero solo un Super Admin puede editarlas, mismo
+// criterio que Servicios/Países.
+router.get('/etapas-prospeccion', (req, res) => {
+  res.json({ etapas: db.prepare('SELECT codigo, nombre, orden, tipo, activo FROM etapas_prospeccion ORDER BY orden').all() });
+});
+
+router.post('/etapas-prospeccion', requireSuperAdmin, (req, res) => {
+  const { codigo, nombre, orden, tipo } = req.body || {};
+  const codigoNorm = (codigo || '').trim().toLowerCase().replace(/\s+/g, '-');
+  if (!codigoNorm) return res.status(400).json({ error: 'El código es requerido' });
+  if (!nombre || !nombre.trim()) return res.status(400).json({ error: 'El nombre es requerido' });
+  if (!['abierta', 'ganada', 'perdida'].includes(tipo)) {
+    return res.status(400).json({ error: 'Tipo inválido (abierta, ganada o perdida)' });
+  }
+  if (db.prepare('SELECT codigo FROM etapas_prospeccion WHERE codigo = ?').get(codigoNorm)) {
+    return res.status(409).json({ error: 'Ya existe una etapa con ese código' });
+  }
+  const ordenNum = Number.isFinite(Number(orden))
+    ? Number(orden)
+    : (db.prepare('SELECT COALESCE(MAX(orden), 0) AS max FROM etapas_prospeccion').get().max + 1);
+  db.prepare('INSERT INTO etapas_prospeccion (codigo, nombre, orden, tipo) VALUES (?, ?, ?, ?)').run(
+    codigoNorm,
+    nombre.trim(),
+    ordenNum,
+    tipo
+  );
+  const etapa = db.prepare('SELECT codigo, nombre, orden, tipo, activo FROM etapas_prospeccion WHERE codigo = ?').get(codigoNorm);
+  registrarActividad(req, { actor: req.user, accion: 'Etapa de prospección creada', detalle: `Creó la etapa "${etapa.nombre}" (${etapa.codigo})` });
+  res.status(201).json({ etapa });
+});
+
+router.put('/etapas-prospeccion/:codigo', requireSuperAdmin, (req, res) => {
+  const etapa = db.prepare('SELECT * FROM etapas_prospeccion WHERE codigo = ?').get(req.params.codigo);
+  if (!etapa) return res.status(404).json({ error: 'Etapa no encontrada' });
+  const { nombre, orden, tipo, activo } = req.body || {};
+  if (tipo !== undefined && !['abierta', 'ganada', 'perdida'].includes(tipo)) {
+    return res.status(400).json({ error: 'Tipo inválido (abierta, ganada o perdida)' });
+  }
+  db.prepare('UPDATE etapas_prospeccion SET nombre = ?, orden = ?, tipo = ?, activo = ? WHERE codigo = ?').run(
+    nombre?.trim() || etapa.nombre,
+    orden !== undefined && Number.isFinite(Number(orden)) ? Number(orden) : etapa.orden,
+    tipo || etapa.tipo,
+    activo === undefined ? etapa.activo : activo ? 1 : 0,
+    etapa.codigo
+  );
+  const updated = db.prepare('SELECT codigo, nombre, orden, tipo, activo FROM etapas_prospeccion WHERE codigo = ?').get(etapa.codigo);
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Etapa de prospección editada',
+    detalle: `Editó la etapa "${updated.codigo}" -> nombre "${updated.nombre}", orden=${updated.orden}, tipo=${updated.tipo}, activo=${updated.activo}`,
+  });
+  res.json({ etapa: updated });
+});
+
 // ---------- Clientes ----------
 
 function toPublicCliente(cliente, anunciantes, canales) {
