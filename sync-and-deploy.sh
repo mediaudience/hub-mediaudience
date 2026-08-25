@@ -2,9 +2,11 @@
 set -e
 cd "$(dirname "$0")"
 
-# Requiere SHEETS_SPREADSHEET_ID (y opcionalmente GOOGLE_SERVICE_ACCOUNT_KEY_PATH)
-# en el entorno -- exportarlas antes de correr este script o definirlas en el
-# crontab. Ver scripts/syncSheets.js.
+# El sheet_id de cada cliente+canal vive en cliente_canales (BD), no en el
+# entorno. Lo único opcional acá es GOOGLE_SERVICE_ACCOUNT_KEY_PATH -- si no
+# se define, syncSheets.js usa secrets/google-service-account.json por
+# default, y si ese archivo no existe cae al CSV público como antes. Ver
+# scripts/syncSheets.js.
 
 if ! node scripts/syncSheets.js; then
   echo "sync-and-deploy: la sincronización con Google Sheets falló, se aborta antes del build/deploy."
