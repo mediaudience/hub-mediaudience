@@ -591,6 +591,13 @@ router.post('/usuarios', async (req, res) => {
     accion: 'Usuario creado',
     detalle: `Creó a ${email} con rol ${rol}`,
   });
+  if (!invitacion.enviado) {
+    registrarActividad(req, {
+      actor: req.user,
+      accion: 'Correo no enviado',
+      detalle: `Invitación a ${email}: ${invitacion.motivo}`,
+    });
+  }
   res.status(201).json({
     usuario: toPublicUsuario(usuario),
     passwordTemporal: password,
@@ -732,6 +739,13 @@ router.post('/usuarios/:id/reset-password', async (req, res) => {
     return res.json({ passwordTemporal: password, invitacionEnviada: false, invitacionError: null });
   }
   const invitacion = await enviarInvitacion({ nombre: user.nombre, email: user.email, password, rol: user.rol });
+  if (!invitacion.enviado) {
+    registrarActividad(req, {
+      actor: req.user,
+      accion: 'Correo no enviado',
+      detalle: `Contraseña reseteada a ${user.email}: ${invitacion.motivo}`,
+    });
+  }
   res.json({ passwordTemporal: password, invitacionEnviada: invitacion.enviado, invitacionError: invitacion.motivo });
 });
 

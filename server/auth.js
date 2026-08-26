@@ -55,8 +55,11 @@ function hashToken(token) {
 // Genera y manda un código nuevo salvo que ya se haya mandado uno hace menos
 // de OTP_REENVIO_MIN_MS -- en ese caso el código vigente sigue siendo válido,
 // no hace falta mandar otro. Usado tanto al completar /login con requiere_otp
-// como por el botón "Reenviar código".
-async function mandarCodigoSiCorresponde(user) {
+// como por el botón "Reenviar código". Si el correo falla, además del log de
+// servidor (server/email.js) queda una entrada en Admin > Actividad -- ambos
+// endpoints que llaman a esto responden éxito genérico al cliente a
+// propósito, así que sin esto un Super Admin no tenía forma de enterarse.
+async function mandarCodigoSiCorresponde(req, user) {
   const ultimo = db
     .prepare("SELECT created_at FROM login_otps WHERE user_id = ? ORDER BY id DESC LIMIT 1")
     .get(user.id);
@@ -69,7 +72,14 @@ async function mandarCodigoSiCorresponde(user) {
     "INSERT INTO login_otps (user_id, codigo_hash, expira_en) VALUES (?, ?, ?)"
   ).run(user.id, hashCodigo(codigo), new Date(Date.now() + OTP_EXPIRA_MS).toISOString());
 
-  await enviarCodigoAcceso({ nombre: user.nombre, email: user.email, codigo });
+  const resultado = await enviarCodigoAcceso({ nombre: user.nombre, email: user.email, codigo });
+  if (!resultado.enviado) {
+    registrarActividad(req, {
+      actor: user,
+      accion: "Correo no enviado",
+      detalle: `Código de reingreso a ${user.email}: ${resultado.motivo}`,
+    });
+  }
   return { enviado: true };
 }
 
@@ -115,7 +125,7 @@ router.post("/login", async (req, res) => {
   // por inactividad (server/middleware.js) -- en vez de entrar de una, se le
   // manda el código al correo y recién se completa el login en /otp/verificar.
   if (user.requiere_otp) {
-    await mandarCodigoSiCorresponde(user);
+    await mandarCodigoSiCorresponde(req, user);
     return res.json({ requiereOtp: true, email: user.email });
   }
 
@@ -179,7 +189,7 @@ router.post("/otp/solicitar", async (req, res) => {
   // pendiente), para no dar pistas de qué correos están registrados.
   if (!user || !user.requiere_otp) return res.json({ ok: true });
 
-  const { enviado } = await mandarCodigoSiCorresponde(user);
+  const { enviado } = await mandarCodigoSiCorresponde(req, user);
   if (!enviado) {
     return res.status(429).json({ error: "Espera unos segundos antes de pedir otro código" });
   }
@@ -246,7 +256,14 @@ router.post("/olvide-password", async (req, res) => {
     new Date(Date.now() + RESET_EXPIRA_MS).toISOString()
   );
 
-  await enviarRecuperacion({ nombre: user.nombre, email: user.email, token });
+  const resultado = await enviarRecuperacion({ nombre: user.nombre, email: user.email, token });
+  if (!resultado.enviado) {
+    registrarActividad(req, {
+      actor: user,
+      accion: "Correo no enviado",
+      detalle: `Enlace de recuperación a ${user.email}: ${resultado.motivo}`,
+    });
+  }
   res.json({ ok: true });
 });
 

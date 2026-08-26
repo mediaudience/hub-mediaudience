@@ -111,9 +111,13 @@ function plantillaCodigoAcceso({ nombre, codigo }) {
 
 // Hace el POST a la API REST de Resend (fetch directo, sin SDK -- Node 22 ya
 // trae fetch global). Si no hay API key configurada, no falla: devuelve
-// enviado:false para que quien llama pueda avisar en la UI.
+// enviado:false para que quien llama pueda avisar en la UI. Toda falla queda
+// en el log del servidor (journalctl -u mediaudience-backend) -- antes se
+// perdía en silencio porque /otp/solicitar y /olvide-password devuelven éxito
+// genérico al cliente a propósito (para no filtrar qué correos existen).
 async function enviarCorreo({ to, subject, html }) {
   if (!RESEND_API_KEY) {
+    console.error(`[email] No se pudo enviar "${subject}" a ${to}: falta RESEND_API_KEY`);
     return { enviado: false, motivo: 'No hay un proveedor de correo configurado (RESEND_API_KEY)' };
   }
 
@@ -129,10 +133,12 @@ async function enviarCorreo({ to, subject, html }) {
 
     if (!res.ok) {
       const detalle = await res.text().catch(() => '');
+      console.error(`[email] Resend rechazó "${subject}" a ${to}: ${res.status} ${detalle}`);
       return { enviado: false, motivo: `El proveedor de correo respondió ${res.status}: ${detalle}` };
     }
     return { enviado: true, motivo: null };
   } catch (err) {
+    console.error(`[email] No se pudo contactar a Resend para "${subject}" a ${to}: ${err.message}`);
     return { enviado: false, motivo: `No se pudo contactar al proveedor de correo: ${err.message}` };
   }
 }
