@@ -16,21 +16,7 @@ import AdminEtapasProspeccion from "./pages/admin/EtapasProspeccion";
 import EnDesarrollo from "./pages/gestion/EnDesarrollo";
 import Prospeccion from "./pages/gestion/Prospeccion";
 import CanalRendimientoGeneral from "./pages/CanalRendimientoGeneral";
-import EmptyState from "./components/common/EmptyState";
-import { useAuth } from "./context/AuthContext";
-
-const STAFF_ROLES = ["super_admin", "admin"];
-
-// A dónde mandar / e ír-no-encontrado: el primer canal contratado del
-// usuario. El catálogo de canales es dinámico (Admin > Servicios puede sumar
-// más), así que ya no hay un canal "por defecto" fijo como antes (ctv-ott).
-function RedirigirPorDefecto() {
-  const { user } = useAuth();
-  const primerCanal = user?.canalesContratados?.[0];
-  if (primerCanal) return <Navigate to={`/${primerCanal}/rendimiento-general`} replace />;
-  if (STAFF_ROLES.includes(user?.rol)) return <Navigate to="/admin/usuarios" replace />;
-  return <EmptyState message="Todavía no tienes ningún servicio asignado. Contacta a tu administrador." />;
-}
+import Home from "./pages/Home";
 
 export default function App() {
   return (
@@ -41,7 +27,7 @@ export default function App() {
 
       <Route element={<RequireAuth />}>
         <Route element={<Shell />}>
-          <Route index element={<RedirigirPorDefecto />} />
+          <Route index element={<Home />} />
 
           <Route path=":canal/rendimiento-general" element={<CanalRendimientoGeneral />} />
 
@@ -65,7 +51,7 @@ export default function App() {
             </Route>
           </Route>
 
-          <Route path="*" element={<RedirigirPorDefecto />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Route>
     </Routes>

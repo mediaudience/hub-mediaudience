@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { ADMIN_NAV_GROUP, GESTION_NAV_GROUP } from "../../navConfig";
-import { useAuth } from "../../context/AuthContext";
-import { useClienteActivo } from "../../context/ClienteActivoContext";
+import useNavGroups from "../../hooks/useNavGroups";
 
 function GroupArrow({ open }) {
   return (
@@ -20,40 +19,7 @@ function GroupArrow({ open }) {
 
 export default function Sidebar({ open, onNavigate }) {
   const location = useLocation();
-  const { user, canales } = useAuth();
-  const { clienteActivo, canalesDelClienteActivo } = useClienteActivo();
-  const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
-  // Con un cliente activo elegido (ver ClienteActivoContext), el Sidebar solo
-  // muestra los servicios que ESE cliente contrató -- no los 5 del catálogo,
-  // muchos sin datos para él. "Todos los clientes" mantiene el comportamiento
-  // de siempre (unión de todos los canales contratados por el usuario).
-  const canalesContratados = clienteActivo ? canalesDelClienteActivo : user?.canalesContratados ?? [];
-  // Un solo grupo "Campañas" para todos los servicios (antes cada canal era
-  // su propio grupo top-level) -- agrupa cualquier servicio/cliente bajo un
-  // mismo título, con el mismo look and feel que "Administración" (ícono +
-  // label en negrita), pedido por Jose el 2026-08-25 para no repetir el
-  // patrón de grupo por cada canal contratado.
-  const campanasItems = canales
-    .filter((c) => canalesContratados.includes(c.slug))
-    .map((c) => ({ label: c.nombre, path: `/${c.slug}/rendimiento-general` }));
-  const campanasGroup = { id: "campanas", label: "Campañas", items: campanasItems };
-  const adminGroup = {
-    ...ADMIN_NAV_GROUP,
-    items: ADMIN_NAV_GROUP.items.filter((i) => !i.superAdminOnly || user?.rol === "super_admin"),
-  };
-  // "Gestión" -- Admin/Super Admin ven las 4 secciones; usuario_interno solo
-  // ve las marcadas `internoVisible` (hoy, solo Prospección: es su
-  // herramienta de trabajo diaria, el resto sigue siendo gestión interna del
-  // negocio). usuario_externo no ve nada de este grupo.
-  const gestionItems = esStaff
-    ? GESTION_NAV_GROUP.items
-    : GESTION_NAV_GROUP.items.filter((i) => i.internoVisible && user?.rol === "usuario_interno");
-  const gestionGroup = { ...GESTION_NAV_GROUP, items: gestionItems };
-  const groups = [
-    ...(campanasItems.length > 0 ? [campanasGroup] : []),
-    ...(gestionItems.length > 0 ? [gestionGroup] : []),
-    ...(esStaff ? [adminGroup] : []),
-  ];
+  const { groups } = useNavGroups();
   const activeGroupId = groups.find((g) =>
     g.items.some((i) => location.pathname.startsWith(i.path))
   )?.id;
