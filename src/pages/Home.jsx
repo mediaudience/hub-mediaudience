@@ -36,7 +36,7 @@ export default function Home() {
             {primerNombre ? `Hola, ${primerNombre}` : "Bienvenido"}
           </h1>
           <p className="text-white/80 text-sm max-w-xl">
-            Este es el Hub de Mediaudience. Elige una sección del menú para empezar, o usa los accesos de acá abajo.
+            Este es el Hub de Mediaudience Latam. Elige una sección del menú para empezar, o usa los accesos de acá abajo.
           </p>
         </div>
       </div>
