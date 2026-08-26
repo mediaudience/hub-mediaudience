@@ -3,7 +3,6 @@ import { useAuth } from "../context/AuthContext";
 import useNavGroups from "../hooks/useNavGroups";
 import Card from "../components/common/Card";
 import EmptyState from "../components/common/EmptyState";
-import mediaudienceLogoBlanco from "../assets/brand/mediaudience-logo-blanco.png";
 
 // Descripción corta por grupo para la guía de "qué vas a encontrar" -- se
 // muestra solo para los grupos que useNavGroups ya filtró según el rol
@@ -33,12 +32,11 @@ export default function Home() {
           </svg>
         </div>
         <div className="relative flex flex-col items-start gap-3">
-          <img src={mediaudienceLogoBlanco} alt="Mediaudience" className="h-9 w-auto" />
           <h1 className="text-white font-bold text-2xl md:text-3xl">
             {primerNombre ? `Hola, ${primerNombre}` : "Bienvenido"}
           </h1>
           <p className="text-white/80 text-sm max-w-xl">
-            Este es tu panel de Mediaudience. Elegí una sección del menú para empezar, o usá los accesos de acá abajo.
+            Este es el Hub de Mediaudience. Elige una sección del menú para empezar, o usa los accesos de acá abajo.
           </p>
         </div>
       </div>

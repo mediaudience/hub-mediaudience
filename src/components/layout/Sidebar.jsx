@@ -38,6 +38,27 @@ export default function Sidebar({ open, onNavigate }) {
     >
       <div className="w-[245px]">
         <nav className="px-2 pt-4 pb-6">
+          {/* Acceso suelto, no colapsable -- es un solo destino (no una
+              categoría con sub-secciones como los grupos de abajo), pedido
+              por Jose el 2026-08-27 para volver a la Home sin depender del
+              logo del Navbar. */}
+          <NavLink
+            to="/"
+            end
+            onClick={onNavigate}
+            className={({ isActive }) =>
+              `flex items-center gap-1.5 px-3 py-2.5 mb-2 rounded-lg text-sm font-bold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
+                isActive ? "bg-brand-magenta/10 text-brand-magenta" : "text-slate-label hover:bg-slate-50"
+              }`
+            }
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M4 11.5L12 4l8 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M6 10v9a1 1 0 001 1h4v-6h2v6h4a1 1 0 001-1v-9" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+            </svg>
+            Página Principal
+          </NavLink>
+
           {groups.map((group) => {
             const open = !!openGroups[group.id];
             const isAdminGroup = group.id === ADMIN_NAV_GROUP.id;
