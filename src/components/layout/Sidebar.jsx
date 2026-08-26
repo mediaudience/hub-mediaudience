@@ -47,8 +47,8 @@ export default function Sidebar({ open, onNavigate }) {
             end
             onClick={onNavigate}
             className={({ isActive }) =>
-              `flex items-center gap-1.5 px-3 py-2.5 mb-2 rounded-lg text-sm font-bold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
-                isActive ? "bg-brand-magenta/10 text-brand-magenta" : "text-slate-label hover:bg-slate-50"
+              `flex items-center gap-1.5 px-3 py-2.5 mb-2 rounded-lg text-sm font-bold text-brand-magenta transition-colors hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
+                isActive ? "bg-brand-magenta/10" : ""
               }`
             }
           >
