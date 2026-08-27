@@ -124,6 +124,59 @@ function componerNombre(pais, nombreLimpio) {
   return pais ? `${pais}_${limpio}` : limpio;
 }
 
+// Menu de acciones por fila -- mismo patron que Admin > Usuarios: un solo
+// control igual en todas las filas en vez de varios links de texto sueltos.
+function AccionesMenuCliente({ cliente: c, abierto, onToggle, onEditar, onToggleActivo, onSincronizar, sincronizando }) {
+  const sinSheet = c.canales.every((canal) => !canal.sheetId);
+  return (
+    <div className="relative inline-block text-left" data-acciones-menu>
+      <button
+        type="button"
+        onClick={() => onToggle(c.id)}
+        aria-haspopup="true"
+        aria-expanded={abierto}
+        className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:border-brand-purple hover:text-brand-purple"
+      >
+        Acciones
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="shrink-0">
+          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      {abierto && (
+        <div className="absolute right-0 z-10 mt-1 w-56 rounded-lg border border-slate-200 bg-white py-1 shadow-lg text-left">
+          <button
+            type="button"
+            onClick={onEditar}
+            className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-slate-50"
+          >
+            Editar
+          </button>
+          <button
+            type="button"
+            onClick={onToggleActivo}
+            className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-slate-50"
+          >
+            {c.activo ? "Desactivar" : "Activar"}
+          </button>
+          <button
+            type="button"
+            disabled={sincronizando || sinSheet}
+            onClick={onSincronizar}
+            title={
+              sinSheet
+                ? "Este cliente no tiene ningún Sheet ID configurado"
+                : "Vuelve a leer los Sheets de este cliente ahora mismo, sin esperar al cron diario"
+            }
+            className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-slate-50 disabled:text-slate-300 disabled:cursor-not-allowed"
+          >
+            {sincronizando ? "Sincronizando..." : "Sincronizar ahora"}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminClientes() {
   const { canales } = useAuth();
   const canalLabel = Object.fromEntries(canales.map((c) => [c.slug, c.nombre]));
@@ -140,6 +193,16 @@ export default function AdminClientes() {
   const [syncInfo, setSyncInfo] = useState(null);
   const [sincronizandoId, setSincronizandoId] = useState(null);
   const [sincronizandoCanal, setSincronizandoCanal] = useState(null);
+  const [menuAbierto, setMenuAbierto] = useState(null);
+
+  useEffect(() => {
+    if (menuAbierto === null) return;
+    function cerrarSiEsAfuera(e) {
+      if (!e.target.closest("[data-acciones-menu]")) setMenuAbierto(null);
+    }
+    document.addEventListener("click", cerrarSiEsAfuera);
+    return () => document.removeEventListener("click", cerrarSiEsAfuera);
+  }, [menuAbierto]);
 
   async function cargar() {
     setLoading(true);
@@ -393,7 +456,7 @@ export default function AdminClientes() {
                     <th className="px-4 py-3 font-semibold">Anunciantes</th>
                     <th className="px-4 py-3 font-semibold">Servicios contratados</th>
                     <th className="px-4 py-3 font-semibold">Estado</th>
-                    <th className="px-4 py-3 font-semibold" />
+                    <th className="px-4 py-3 font-semibold text-right">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -415,10 +478,13 @@ export default function AdminClientes() {
                           {c.activo ? "Activo" : "Inactivo"}
                         </span>
                       </td>
-                      <td className="px-4 py-2.5 text-right whitespace-nowrap">
-                        <button
-                          type="button"
-                          onClick={() => {
+                      <td className="px-4 py-2.5 text-right">
+                        <AccionesMenuCliente
+                          cliente={c}
+                          abierto={menuAbierto === c.id}
+                          onToggle={(id) => setMenuAbierto((prev) => (prev === id ? null : id))}
+                          onEditar={() => {
+                            setMenuAbierto(null);
                             setNuevoAnunciante("");
                             setEditandoAnunciante(null);
                             setForm({
@@ -430,30 +496,16 @@ export default function AdminClientes() {
                               activo: c.activo,
                             });
                           }}
-                          className="text-brand-purple hover:underline text-sm font-medium mr-3"
-                        >
-                          Editar
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => toggleActivo(c)}
-                          className="text-brand-purple hover:underline text-sm font-medium mr-3"
-                        >
-                          {c.activo ? "Desactivar" : "Activar"}
-                        </button>
-                        <button
-                          type="button"
-                          disabled={sincronizandoId === c.id || c.canales.every((canal) => !canal.sheetId)}
-                          onClick={() => sincronizarAhora(c)}
-                          title={
-                            c.canales.every((canal) => !canal.sheetId)
-                              ? "Este cliente no tiene ningún Sheet ID configurado"
-                              : "Vuelve a leer los Sheets de este cliente ahora mismo, sin esperar al cron diario"
-                          }
-                          className="text-brand-purple hover:underline text-sm font-medium disabled:text-slate-label disabled:no-underline disabled:cursor-not-allowed"
-                        >
-                          {sincronizandoId === c.id ? "Sincronizando..." : "Sincronizar ahora"}
-                        </button>
+                          onToggleActivo={() => {
+                            setMenuAbierto(null);
+                            toggleActivo(c);
+                          }}
+                          onSincronizar={() => {
+                            setMenuAbierto(null);
+                            sincronizarAhora(c);
+                          }}
+                          sincronizando={sincronizandoId === c.id}
+                        />
                       </td>
                     </tr>
                   ))}
