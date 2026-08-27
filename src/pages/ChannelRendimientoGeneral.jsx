@@ -52,7 +52,7 @@ function calcularKpi(kpi, rows) {
 // componente -- así los 5 servicios comparten un solo componente aunque sus
 // datos sean bien distintos entre sí.
 export default function ChannelRendimientoGeneral({ data, uiTabs }) {
-  const { clienteActivo } = useClienteActivo();
+  const { clientes, clienteActivo, setClienteActivo } = useClienteActivo();
   const [tabKey, setTabKey] = useState(uiTabs[0].key);
   const [campana, setCampana] = useState(null);
   const [anunciante, setAnunciante] = useState(null);
@@ -103,12 +103,22 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
 
   const handleDownload = () => downloadCSV(tab.key, filas, tab.columns);
 
-  const filters = tieneCampanaAnunciante
-    ? [
-        { label: "Anunciante", options: anunciantesDisponibles, value: anunciante, onChange: setAnunciante },
-        { label: "Campaña", options: campanasDisponibles, value: campana, onChange: setCampana },
-      ]
-    : [];
+  // "Cliente" acá pega directo sobre el mismo estado global de "Cliente
+  // activo" (Navbar) -- no es un filtro local aparte -- para que elegirlo
+  // desde la barra de filtros o desde el menú de la cuenta sea intercambiable
+  // y nunca queden desincronizados. Se oculta si el usuario solo tiene un
+  // cliente visible, igual que en el Navbar (ver [[project_mediaudience_cliente_activo]]).
+  const filters = [
+    ...(clientes.length > 1
+      ? [{ label: "Cliente", options: clientes.map((c) => c.nombre), value: clienteActivo, onChange: setClienteActivo }]
+      : []),
+    ...(tieneCampanaAnunciante
+      ? [
+          { label: "Anunciante", options: anunciantesDisponibles, value: anunciante, onChange: setAnunciante },
+          { label: "Campaña", options: campanasDisponibles, value: campana, onChange: setCampana },
+        ]
+      : []),
+  ];
 
   return (
     <div>

@@ -92,7 +92,7 @@ export default function PeriodPicker({ onApply }) {
 
   const label = startDay && endDay
     ? `${startDay.day}/${startDay.month + 1} - ${endDay.day}/${endDay.month + 1}/${endDay.year}`
-    : "Selecciona un periodo";
+    : "Periodo";
 
   return (
     <div className="relative" ref={ref}>
