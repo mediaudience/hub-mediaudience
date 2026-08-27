@@ -607,9 +607,17 @@ router.post('/usuarios', async (req, res) => {
   // puede acotar dentro de su único cliente.
   let anunciantesMapa;
   if (rol === ROL_CON_CLIENTE) {
-    anunciantesMapa = anunciantes !== undefined ? { [clienteId]: anunciantes } : undefined;
-    const error = anunciantesPorClienteValidosOError(anunciantesMapa, [Number(clienteId)]);
-    if (error) return res.status(400).json({ error });
+    // anunciantes === null significa "sin restricción" (checklist con todos
+    // marcados) -- no es lo mismo que un array vacío explícito, que sí debe
+    // rechazarse. Antes se envolvía el null tal cual y la validación de abajo
+    // lo confundía con un array vacío, rechazando el guardado.
+    if (anunciantes !== undefined) {
+      anunciantesMapa = anunciantes === null ? {} : { [clienteId]: anunciantes };
+      if (anunciantes !== null) {
+        const error = anunciantesPorClienteValidosOError(anunciantesMapa, [Number(clienteId)]);
+        if (error) return res.status(400).json({ error });
+      }
+    }
   } else if (rol === ROL_CON_CLIENTES_ASIGNADOS) {
     anunciantesMapa = anunciantesPorCliente;
     const error = anunciantesPorClienteValidosOError(anunciantesMapa, clienteIds ?? []);
@@ -715,9 +723,14 @@ router.put('/usuarios/:id', (req, res) => {
 
   let anunciantesMapa;
   if (nuevoRol === ROL_CON_CLIENTE) {
-    anunciantesMapa = anunciantes !== undefined ? { [nuevoClienteId]: anunciantes } : undefined;
-    const error = anunciantesPorClienteValidosOError(anunciantesMapa, [Number(nuevoClienteId)]);
-    if (error) return res.status(400).json({ error });
+    // Ver el mismo comentario en POST /usuarios: null = sin restricción.
+    if (anunciantes !== undefined) {
+      anunciantesMapa = anunciantes === null ? {} : { [nuevoClienteId]: anunciantes };
+      if (anunciantes !== null) {
+        const error = anunciantesPorClienteValidosOError(anunciantesMapa, [Number(nuevoClienteId)]);
+        if (error) return res.status(400).json({ error });
+      }
+    }
   } else if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS) {
     anunciantesMapa = anunciantesPorCliente;
     const clienteIdsVigentes = clienteIds ?? getClientesDeUsuario(user.id).map((c) => c.id);
