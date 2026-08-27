@@ -540,7 +540,7 @@ export default function AdminUsuarios() {
                     <th className="px-4 py-3 font-semibold">Cliente</th>
                     <th className="px-4 py-3 font-semibold">Estado</th>
                     <th className="px-4 py-3 font-semibold">Invitación</th>
-                    <th className="px-4 py-3 font-semibold" />
+                    <th className="px-4 py-3 font-semibold text-right">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
