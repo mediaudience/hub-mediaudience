@@ -60,21 +60,33 @@ function AnunciantesChips({ anunciantes }) {
   );
 }
 
+// TikTok no trae un Sheet -- se conecta vía OAuth de su Marketing API, y el
+// mismo campo que en los demás canales guarda el Sheet ID guarda acá el
+// advertiser_id de la cuenta de ese cliente dentro del Business Center de
+// Mediaudience (ver [[project_mediaudience_tiktok_api]]). Un solo campo de
+// texto en la base para los 5 canales, solo cambia cómo se lo llama en la UI.
+function nombreIdentificadorCanal(canalSlug) {
+  return canalSlug === "tiktok" ? "ID de la cuenta de anunciante" : "ID del Sheet";
+}
+
 function CanalesChips({ canales, canalLabel }) {
   if (canales.length === 0) return <span className="text-slate-label">Sin servicios contratados</span>;
   return (
     <div className="flex flex-wrap gap-1.5">
-      {canales.map((c) => (
-        <span
-          key={c.canal}
-          title={c.sheetId ? `Sheet: ${c.sheetId}` : "Falta configurar el Sheet ID"}
-          className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-            c.sheetId ? "bg-brand-purple/10 text-brand-purple" : "bg-semaphore-orange/10 text-semaphore-orange"
-          }`}
-        >
-          {canalLabel[c.canal] ?? c.canal}
-        </span>
-      ))}
+      {canales.map((c) => {
+        const nombreId = nombreIdentificadorCanal(c.canal);
+        return (
+          <span
+            key={c.canal}
+            title={c.sheetId ? `${nombreId}: ${c.sheetId}` : `Falta configurar el ${nombreId.toLowerCase()}`}
+            className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+              c.sheetId ? "bg-brand-purple/10 text-brand-purple" : "bg-semaphore-orange/10 text-semaphore-orange"
+            }`}
+          >
+            {canalLabel[c.canal] ?? c.canal}
+          </span>
+        );
+      })}
     </div>
   );
 }
@@ -517,7 +529,7 @@ export default function AdminClientes() {
                           <input
                             value={canal.sheetId}
                             onChange={(e) => setCanalSheetId(c.slug, e.target.value)}
-                            placeholder={`ID del Sheet de ${c.nombre}`}
+                            placeholder={`${nombreIdentificadorCanal(c.slug)} de ${c.nombre}`}
                             className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-magenta"
                           />
                           {canalesPersistidosConSheet.has(c.slug) && (
@@ -525,7 +537,7 @@ export default function AdminClientes() {
                               type="button"
                               disabled={sincronizandoCanal === c.slug}
                               onClick={() => sincronizarCanal(c.slug, c.nombre)}
-                              title={`Vuelve a leer el Sheet de ${c.nombre} ahora mismo, sin esperar al cron diario`}
+                              title={`Vuelve a leer los datos de ${c.nombre} ahora mismo, sin esperar al cron diario`}
                               className="shrink-0 text-brand-purple hover:underline text-xs font-medium disabled:text-slate-label disabled:no-underline disabled:cursor-not-allowed"
                             >
                               {sincronizandoCanal === c.slug ? "Sincronizando..." : "Sincronizar"}
