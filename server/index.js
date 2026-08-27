@@ -19,6 +19,14 @@ if (!process.env.SESSION_SECRET) {
 }
 
 const app = express()
+// El sitio corre detrás de nginx, que termina el TLS real y reenvía por HTTP
+// plano a este proceso (ver X-Forwarded-Proto en la config de nginx) -- sin
+// esto, Express cree que toda conexión es insegura y express-session, al ver
+// `cookie.secure: true`, omite el Set-Cookie en silencio (ni error ni log):
+// el login "funciona" (200) pero la sesión nunca queda guardada en el
+// navegador. Confirmado y reproducido en un servidor de prueba aislado antes
+// de aplicar este fix (2026-08-27).
+app.set('trust proxy', 1)
 app.use(express.json())
 app.use(
   session({

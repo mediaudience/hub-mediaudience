@@ -18,6 +18,26 @@ async function apiFetch(url, options) {
 
 const MAX_CHIPS_VISIBLES = 3;
 
+// Traduce el resultado de un sync (ver server/adminRoutes.js) a un mensaje
+// corto para mostrar en el banner -- prioriza mostrar errores (ej. Sheet
+// todavía no compartido con la cuenta de servicio) porque son lo único que
+// requiere que Raiza haga algo antes de que la data aparezca.
+function resumenSync(sync) {
+  if (!sync) return null;
+  if (sync.errores.length > 0) {
+    return { tipo: "error", texto: `Se guardó, pero el sync falló: ${sync.errores.join("; ")}` };
+  }
+  if (sync.sincronizados.length > 0) {
+    return {
+      tipo: "ok",
+      texto: `Datos sincronizados ahora mismo (${sync.sincronizados.length} servicio${
+        sync.sincronizados.length === 1 ? "" : "s"
+      }).`,
+    };
+  }
+  return null;
+}
+
 function AnunciantesChips({ anunciantes }) {
   if (anunciantes.length === 0) return <span className="text-slate-label">—</span>;
 
@@ -105,6 +125,9 @@ export default function AdminClientes() {
   const [nuevoAnunciante, setNuevoAnunciante] = useState("");
   const [editandoAnunciante, setEditandoAnunciante] = useState(null);
   const [valorEditado, setValorEditado] = useState("");
+  const [syncInfo, setSyncInfo] = useState(null);
+  const [sincronizandoId, setSincronizandoId] = useState(null);
+  const [sincronizandoCanal, setSincronizandoCanal] = useState(null);
 
   async function cargar() {
     setLoading(true);
@@ -209,6 +232,7 @@ export default function AdminClientes() {
     e.preventDefault();
     setSaving(true);
     setError("");
+    setSyncInfo(null);
     try {
       const body = {
         nombre: componerNombre(form.pais, form.nombre),
@@ -217,17 +241,51 @@ export default function AdminClientes() {
         anunciantes: form.anunciantes,
         activo: form.activo,
       };
-      if (form.id) {
-        await apiFetch(`/api/admin/clientes/${form.id}`, { method: "PUT", body: JSON.stringify(body) });
-      } else {
-        await apiFetch("/api/admin/clientes", { method: "POST", body: JSON.stringify(body) });
-      }
+      const respuesta = form.id
+        ? await apiFetch(`/api/admin/clientes/${form.id}`, { method: "PUT", body: JSON.stringify(body) })
+        : await apiFetch("/api/admin/clientes", { method: "POST", body: JSON.stringify(body) });
       setForm(null);
+      setSyncInfo(resumenSync(respuesta.sync));
       await cargar();
     } catch (err) {
       setError(err.message);
     } finally {
       setSaving(false);
+    }
+  }
+
+  // Botón "Sincronizar ahora" por fila -- para cuando el Sheet de un cliente
+  // ya existente se actualizó y no se quiere esperar al cron diario.
+  async function sincronizarAhora(c) {
+    setError("");
+    setSyncInfo(null);
+    setSincronizandoId(c.id);
+    try {
+      const respuesta = await apiFetch(`/api/admin/clientes/${c.id}/sync`, { method: "POST" });
+      setSyncInfo(resumenSync(respuesta.sync) ?? { tipo: "info", texto: `${c.nombre} no tiene servicios con Sheet ID configurado todavía.` });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSincronizandoId(null);
+    }
+  }
+
+  // Botón "Sincronizar" por servicio, dentro del formulario de edición --
+  // junto al Sheet ID de cada canal, para forzar el re-sync de un servicio
+  // puntual (ej. el Sheet externo cambió) sin tocar los demás del cliente.
+  // Solo tiene sentido sobre un Sheet ID ya guardado (form.id existente) --
+  // uno recién tipeado en el formulario todavía no vive en la base.
+  async function sincronizarCanal(canalSlug, canalNombre) {
+    setError("");
+    setSyncInfo(null);
+    setSincronizandoCanal(canalSlug);
+    try {
+      const respuesta = await apiFetch(`/api/admin/clientes/${form.id}/canales/${canalSlug}/sync`, { method: "POST" });
+      setSyncInfo(resumenSync(respuesta.sync) ?? { tipo: "info", texto: `${canalNombre} no tiene datos para sincronizar.` });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSincronizandoCanal(null);
     }
   }
 
@@ -259,6 +317,18 @@ export default function AdminClientes() {
   // servidor hasta el primer "Guardar".
   const anunciantesPersistidos = form?.id ? clientes.find((c) => c.id === form.id)?.anunciantes ?? [] : [];
 
+  // El botón "Sincronizar" junto a un Sheet ID solo tiene sentido si ESE
+  // servicio ya está guardado en la base con un Sheet ID -- uno recién
+  // tipeado en el formulario (o cambiado) todavía no existe ahí hasta el
+  // próximo "Guardar", que de todos modos ya dispara el sync automático.
+  const canalesPersistidosConSheet = form?.id
+    ? new Set(
+        (clientes.find((c) => c.id === form.id)?.canales ?? [])
+          .filter((c) => c.sheetId)
+          .map((c) => c.canal)
+      )
+    : new Set();
+
   return (
     <div>
       <GradientHeader title="Administración: Clientes" showDownload={false} />
@@ -266,6 +336,21 @@ export default function AdminClientes() {
       {error && (
         <div role="alert" className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
           {error}
+        </div>
+      )}
+
+      {syncInfo && (
+        <div
+          role="status"
+          className={`mb-4 rounded-lg px-4 py-3 text-sm ${
+            syncInfo.tipo === "error"
+              ? "bg-semaphore-orange/10 text-semaphore-orange"
+              : syncInfo.tipo === "ok"
+              ? "bg-green-50 text-green-700"
+              : "bg-slate-100 text-slate-label"
+          }`}
+        >
+          {syncInfo.texto}
         </div>
       )}
 
@@ -340,9 +425,22 @@ export default function AdminClientes() {
                         <button
                           type="button"
                           onClick={() => toggleActivo(c)}
-                          className="text-brand-purple hover:underline text-sm font-medium"
+                          className="text-brand-purple hover:underline text-sm font-medium mr-3"
                         >
                           {c.activo ? "Desactivar" : "Activar"}
+                        </button>
+                        <button
+                          type="button"
+                          disabled={sincronizandoId === c.id || c.canales.every((canal) => !canal.sheetId)}
+                          onClick={() => sincronizarAhora(c)}
+                          title={
+                            c.canales.every((canal) => !canal.sheetId)
+                              ? "Este cliente no tiene ningún Sheet ID configurado"
+                              : "Vuelve a leer los Sheets de este cliente ahora mismo, sin esperar al cron diario"
+                          }
+                          className="text-brand-purple hover:underline text-sm font-medium disabled:text-slate-label disabled:no-underline disabled:cursor-not-allowed"
+                        >
+                          {sincronizandoId === c.id ? "Sincronizando..." : "Sincronizar ahora"}
                         </button>
                       </td>
                     </tr>
@@ -415,12 +513,25 @@ export default function AdminClientes() {
                         {c.nombre}
                       </label>
                       {canal.contratado && (
-                        <input
-                          value={canal.sheetId}
-                          onChange={(e) => setCanalSheetId(c.slug, e.target.value)}
-                          placeholder={`ID del Sheet de ${c.nombre}`}
-                          className="ml-6 rounded-lg border border-slate-200 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-magenta"
-                        />
+                        <div className="ml-6 flex items-center gap-2">
+                          <input
+                            value={canal.sheetId}
+                            onChange={(e) => setCanalSheetId(c.slug, e.target.value)}
+                            placeholder={`ID del Sheet de ${c.nombre}`}
+                            className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                          />
+                          {canalesPersistidosConSheet.has(c.slug) && (
+                            <button
+                              type="button"
+                              disabled={sincronizandoCanal === c.slug}
+                              onClick={() => sincronizarCanal(c.slug, c.nombre)}
+                              title={`Vuelve a leer el Sheet de ${c.nombre} ahora mismo, sin esperar al cron diario`}
+                              className="shrink-0 text-brand-purple hover:underline text-xs font-medium disabled:text-slate-label disabled:no-underline disabled:cursor-not-allowed"
+                            >
+                              {sincronizandoCanal === c.slug ? "Sincronizando..." : "Sincronizar"}
+                            </button>
+                          )}
+                        </div>
                       )}
                     </div>
                   );

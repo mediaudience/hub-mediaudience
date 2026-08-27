@@ -8,6 +8,7 @@ import db from './db.js';
 import { requireUser, requireAdmin, requireSuperAdmin } from './middleware.js';
 import { enviarInvitacion } from './email.js';
 import { registrarActividad } from './activityLog.js';
+import { syncCliente, syncClienteServicio } from '../scripts/syncSheets.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'data');
@@ -276,7 +277,22 @@ router.get('/anunciantes-disponibles', async (req, res) => {
   }
 });
 
-router.post('/clientes', (req, res) => {
+// Dispara un sync puntual justo después de guardar canales con Sheet ID --
+// así los datos del cliente (nuevo o recién editado) se ven reflejados de
+// inmediato en el panel sin esperar al cron diario. Si falla (ej. el Sheet
+// todavía no está compartido con la cuenta de servicio), no revienta el
+// guardado del cliente -- el error viaja en la respuesta para corregirlo ahí
+// mismo (ver [[project_mediaudience_google_sheets_api]]).
+async function syncSiHaceFalta(clienteId, canales) {
+  if (!canales?.some((c) => c.sheetId)) return null;
+  try {
+    return await syncCliente(clienteId);
+  } catch (err) {
+    return { sincronizados: [], omitidos: [], errores: [`Sync falló: ${err.message}`] };
+  }
+}
+
+router.post('/clientes', async (req, res) => {
   const { nombre, pais, canales, anunciantes } = req.body || {};
   if (!nombre || !nombre.trim()) {
     return res.status(400).json({ error: 'El nombre es requerido' });
@@ -297,12 +313,14 @@ router.post('/clientes', (req, res) => {
 
   const cliente = db.prepare('SELECT * FROM clientes WHERE id = ?').get(info.lastInsertRowid);
   registrarActividad(req, { actor: req.user, accion: 'Cliente creado', detalle: `Creó el cliente "${cliente.nombre}"` });
+  const sync = await syncSiHaceFalta(cliente.id, canales);
   res.status(201).json({
     cliente: toPublicCliente(cliente, getAnunciantesDeCliente(cliente.id), getCanalesDeCliente(cliente.id)),
+    sync,
   });
 });
 
-router.put('/clientes/:id', (req, res) => {
+router.put('/clientes/:id', async (req, res) => {
   const cliente = db.prepare('SELECT * FROM clientes WHERE id = ?').get(req.params.id);
   if (!cliente) return res.status(404).json({ error: 'Cliente no encontrado' });
 
@@ -335,9 +353,45 @@ router.put('/clientes/:id', (req, res) => {
     accion: 'Cliente editado',
     detalle: `Editó el cliente "${updated.nombre}" (activo=${updated.activo})`,
   });
+  const sync = canales !== undefined ? await syncSiHaceFalta(updated.id, canales) : null;
   res.json({
     cliente: toPublicCliente(updated, getAnunciantesDeCliente(updated.id), getCanalesDeCliente(updated.id)),
+    sync,
   });
+});
+
+// "Sincronizar ahora" manual desde Admin > Clientes -- para cuando ya se
+// actualizó el Sheet de un cliente existente y no se quiere esperar al cron
+// diario de las 6am (ver [[project_mediaudience_google_sheets_api]]).
+router.post('/clientes/:id/sync', async (req, res) => {
+  const cliente = db.prepare('SELECT id, nombre FROM clientes WHERE id = ?').get(req.params.id);
+  if (!cliente) return res.status(404).json({ error: 'Cliente no encontrado' });
+  try {
+    const sync = await syncCliente(cliente.id);
+    res.json({ sync });
+  } catch (err) {
+    res.status(500).json({ error: `Sync falló: ${err.message}` });
+  }
+});
+
+// Igual que arriba pero acotado a UN solo servicio -- botón "Sincronizar"
+// junto al Sheet ID de ese servicio dentro del formulario, para no tener que
+// re-sincronizar los demás servicios del cliente si solo cambió uno.
+router.post('/clientes/:id/canales/:canal/sync', async (req, res) => {
+  const cliente = db.prepare('SELECT id FROM clientes WHERE id = ?').get(req.params.id);
+  if (!cliente) return res.status(404).json({ error: 'Cliente no encontrado' });
+  const fila = db
+    .prepare('SELECT sheet_id FROM cliente_canales WHERE cliente_id = ? AND canal = ?')
+    .get(cliente.id, req.params.canal);
+  if (!fila?.sheet_id) {
+    return res.status(400).json({ error: 'Este cliente no tiene un Sheet ID guardado para ese servicio todavía' });
+  }
+  try {
+    const sync = await syncClienteServicio(cliente.id, req.params.canal);
+    res.json({ sync });
+  } catch (err) {
+    res.status(500).json({ error: `Sync falló: ${err.message}` });
+  }
 });
 
 // Renombrar/eliminar un anunciante puntual de un cliente -- acciones aparte

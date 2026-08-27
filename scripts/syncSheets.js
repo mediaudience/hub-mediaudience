@@ -1,4 +1,4 @@
-import { writeFile, mkdir } from 'node:fs/promises';
+import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -125,23 +125,32 @@ function parseFilas(rows, campos) {
   );
 }
 
-// -------- Escritura de archivos --------
+// -------- Escritura/lectura de archivos --------
 
 async function writeJson(filePath, data) {
   await mkdir(path.dirname(filePath), { recursive: true });
   await writeFile(filePath, JSON.stringify(data, null, 2) + '\n');
 }
 
-function getClientesConCanales() {
-  return db
-    .prepare(
-      `SELECT cliente_canales.cliente_id AS clienteId, clientes.nombre AS clienteNombre,
+async function leerJsonSiExiste(filePath) {
+  try {
+    return JSON.parse(await readFile(filePath, 'utf-8'));
+  } catch {
+    return [];
+  }
+}
+
+// `canal` es opcional -- sin filtro trae todos los cliente+canal con Sheet ID
+// configurado (uso del cron/sync completo); con filtro, solo los de ese canal
+// (uso de un sync puntual disparado por Admin > Clientes).
+function getClientesConCanales(canal) {
+  const base = `SELECT cliente_canales.cliente_id AS clienteId, clientes.nombre AS clienteNombre,
               cliente_canales.canal AS canal, cliente_canales.sheet_id AS sheetId
        FROM cliente_canales
        JOIN clientes ON clientes.id = cliente_canales.cliente_id
-       WHERE clientes.activo = 1 AND cliente_canales.sheet_id IS NOT NULL`
-    )
-    .all();
+       WHERE clientes.activo = 1 AND cliente_canales.sheet_id IS NOT NULL`;
+  if (canal) return db.prepare(`${base} AND cliente_canales.canal = ?`).all(canal);
+  return db.prepare(base).all();
 }
 
 // slug de canal (como en cliente_canales) -> carpeta real bajo src/data.
@@ -187,52 +196,126 @@ async function syncClienteCanal({ clienteId, clienteNombre, canal, sheetId }) {
   return { canalDir, tabKeys, datasets };
 }
 
-async function main() {
-  const clientesConCanales = getClientesConCanales();
-  if (clientesConCanales.length === 0) {
-    console.log('Ningún cliente tiene un canal contratado con Sheet ID configurado todavía. Nada que sincronizar.');
-    return;
+// Reconstruye el agregado de canal completo (todos sus clientes, para las
+// vistas de Admin/Super Admin) LEYENDO DEL DISCO lo que cada cliente ya tenga
+// sincronizado -- no vuelve a golpear la API de Sheets de clientes que no
+// cambiaron en esta corrida. Así, sincronizar un cliente puntual (al crearlo
+// o editarlo) cuesta 1 llamada a la API por su propio Sheet, no N llamadas
+// por cada cliente que ya comparte el mismo canal -- clave para que Raiza
+// pueda migrar muchos clientes seguidos sin disparar el consumo/costo de API.
+async function reconstruirAgregadoCanal(canal) {
+  const metricas = CANAL_METRICAS[canal];
+  const canalDir = CANAL_DIR[canal];
+  if (!metricas || !canalDir) return;
+
+  const tabKeys = Object.keys(metricas.sheetTabs);
+  const datasets = Object.fromEntries(tabKeys.map((k) => [k, []]));
+
+  for (const { clienteId } of getClientesConCanales(canal)) {
+    const clienteDir = path.join(DATA_DIR, 'clientes', String(clienteId), canalDir);
+    for (const key of tabKeys) {
+      datasets[key].push(...(await leerJsonSiExiste(path.join(clienteDir, `${key}.json`))));
+    }
   }
 
-  const porCanal = new Map(); // canalDir -> { tabKeys, datasets: { [tabKey]: [] } }
-  const campanasServidas = new Map(); // campana -> anunciante
+  const canalOutDir = path.join(DATA_DIR, canalDir);
+  await Promise.all(tabKeys.map((key) => writeJson(path.join(canalOutDir, `${key}.json`), datasets[key])));
+}
 
-  for (const item of clientesConCanales) {
-    let resultado;
-    try {
-      resultado = await syncClienteCanal(item);
-    } catch (err) {
-      console.error(`Falló ${item.clienteNombre} / ${item.canal}: ${err.message}`);
-      continue; // no tocar lo ya sincronizado de este cliente/canal en un intento anterior
-    }
-    if (!resultado) continue; // canal sin config en canalMetricas.js todavía
-
-    const { canalDir, tabKeys, datasets } = resultado;
-    const acc = porCanal.get(canalDir) ?? { tabKeys, datasets: Object.fromEntries(tabKeys.map((k) => [k, []])) };
-    for (const key of tabKeys) acc.datasets[key].push(...datasets[key]);
-    porCanal.set(canalDir, acc);
-
-    for (const r of datasets.diario ?? []) {
+// Igual que el agregado por canal: reconstruye campanasServidas.json (campaña
+// -> anunciante, global, cruza los 4 canales con Sheet real) leyendo del
+// disco el `diario.json` de cada cliente ya sincronizado, sin volver a llamar
+// a la API para los que no cambiaron en esta corrida.
+async function reconstruirCampanasServidas() {
+  const campanasServidas = new Map();
+  for (const { clienteId, canal } of getClientesConCanales()) {
+    const canalDir = CANAL_DIR[canal];
+    if (!canalDir || !CANAL_METRICAS[canal]?.sheetTabs?.diario) continue;
+    const diario = await leerJsonSiExiste(path.join(DATA_DIR, 'clientes', String(clienteId), canalDir, 'diario.json'));
+    for (const r of diario) {
       if (r.campana && r.anunciante) campanasServidas.set(r.campana, r.anunciante);
     }
   }
-
-  for (const [canalDir, acc] of porCanal) {
-    const canalOutDir = path.join(DATA_DIR, canalDir);
-    await Promise.all(
-      acc.tabKeys.map((key) => writeJson(path.join(canalOutDir, `${key}.json`), acc.datasets[key]))
-    );
-  }
-
   await writeJson(
     path.join(DATA_DIR, 'campanasServidas.json'),
     [...campanasServidas.entries()].map(([campana, anunciante]) => ({ campana, anunciante }))
   );
+}
 
+async function syncFilas(items) {
+  const resultado = { sincronizados: [], omitidos: [], errores: [] };
+  const canalesTocados = new Set();
+  for (const item of items) {
+    try {
+      const r = await syncClienteCanal(item);
+      if (r) {
+        resultado.sincronizados.push(`${item.clienteNombre}/${item.canal}`);
+        canalesTocados.add(item.canal);
+      } else {
+        resultado.omitidos.push(`${item.clienteNombre}/${item.canal}`);
+      }
+    } catch (err) {
+      resultado.errores.push(`${item.clienteNombre}/${item.canal}: ${err.message}`);
+    }
+  }
+  return { resultado, canalesTocados };
+}
+
+// Sync puntual de UN cliente -- lo dispara server/adminRoutes.js justo cuando
+// se crea o se edita un cliente con Sheet ID (y también el botón manual
+// "Sincronizar ahora"). Solo golpea la API de Sheets para los canales
+// contratados de ESTE cliente; el/los agregado(s) de canal y
+// campanasServidas.json se reconstruyen leyendo del disco para el resto.
+export async function syncCliente(clienteId) {
+  const items = getClientesConCanales().filter((i) => i.clienteId === clienteId);
+  const { resultado, canalesTocados } = await syncFilas(items);
+  for (const canal of canalesTocados) await reconstruirAgregadoCanal(canal);
+  if (canalesTocados.size > 0) await reconstruirCampanasServidas();
+  return resultado;
+}
+
+// Sync puntual de UN cliente + UN solo servicio -- para el botón "Sincronizar"
+// que vive junto a cada Sheet ID dentro del formulario de Admin > Clientes,
+// cuando se quiere forzar el re-lectura de un servicio puntual (ej. el Sheet
+// externo cambió) sin tocar los demás servicios de ese cliente.
+export async function syncClienteServicio(clienteId, canal) {
+  const items = getClientesConCanales(canal).filter((i) => i.clienteId === clienteId);
+  const { resultado, canalesTocados } = await syncFilas(items);
+  for (const c of canalesTocados) await reconstruirAgregadoCanal(c);
+  if (canalesTocados.size > 0) await reconstruirCampanasServidas();
+  return resultado;
+}
+
+// Sync completo -- el que usa el cron diario (o correr el script a mano sin
+// argumentos). Refresca todos los cliente+canal vía API y reconstruye todos
+// los agregados + campanasServidas.json.
+export async function syncTodo() {
+  const items = getClientesConCanales();
+  if (items.length === 0) {
+    console.log('Ningún cliente tiene un canal contratado con Sheet ID configurado todavía. Nada que sincronizar.');
+    return { sincronizados: [], omitidos: [], errores: [] };
+  }
+  const { resultado, canalesTocados } = await syncFilas(items);
+  for (const canal of canalesTocados) await reconstruirAgregadoCanal(canal);
+  await reconstruirCampanasServidas();
+  return resultado;
+}
+
+async function main() {
+  const resultado = await syncTodo();
+  if (resultado.errores.length > 0) {
+    console.error('Errores durante el sync:');
+    resultado.errores.forEach((e) => console.error(`  - ${e}`));
+  }
   console.log('Sync completo.');
 }
 
-main().catch((err) => {
-  console.error('Sync abortado:', err);
-  process.exit(1);
-});
+// Solo correr automáticamente si se invoca directo como script (cron / `node
+// scripts/syncSheets.js` a mano) -- no al importarse `syncCliente`/`syncTodo`
+// desde server/adminRoutes.js.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main().catch((err) => {
+    console.error('Sync abortado:', err);
+    process.exit(1);
+  });
+}
