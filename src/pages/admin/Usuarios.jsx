@@ -488,6 +488,8 @@ export default function AdminUsuarios() {
                             )}
                             {u.clienteNombres.length ? u.clienteNombres.join(", ") : !u.pais && "— (sin asignar)"}
                           </>
+                        ) : u.rol === "admin" || u.rol === "super_admin" ? (
+                          "Todos"
                         ) : (
                           u.clienteNombre || "—"
                         )}
