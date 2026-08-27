@@ -180,26 +180,44 @@ function InvitacionBadge({ ultimoLogin }) {
   );
 }
 
-// Menu de acciones por fila -- un solo icono igual en todas las filas (en vez
-// de una cantidad variable de links de texto segun que aplique para cada
+// Menu de acciones por fila -- un solo control igual en todas las filas (en
+// vez de una cantidad variable de links de texto segun que aplique para cada
 // usuario), para que la columna quede simetrica sin importar el caso.
-function AccionesMenu({ usuario: u, currentUser, abierto, onToggle, onEditar, onReset, onToggleActivo, onReenviar, reenviando }) {
+function AccionesMenu({
+  usuario: u,
+  currentUser,
+  abierto,
+  onToggle,
+  onEditar,
+  onReset,
+  onToggleActivo,
+  onReenviar,
+  onEliminar,
+  reenviando,
+}) {
+  const esStaff = u.rol === "admin" || u.rol === "super_admin";
   const sinAcciones = u.rol === "super_admin" && currentUser.rol !== "super_admin";
+  const esUnoMismo = u.id === currentUser.id;
+  // Mismo criterio que el backend: solo Super Admin elimina a otro Admin/Super
+  // Admin; nadie puede eliminarse a si mismo.
+  const puedeEliminar = !esUnoMismo && (!esStaff || currentUser.rol === "super_admin");
   return (
     <div className="relative inline-block text-left" data-acciones-menu>
       <button
         type="button"
         onClick={() => !sinAcciones && onToggle(u.id)}
         disabled={sinAcciones}
-        aria-label="Acciones"
-        className={`w-8 h-8 inline-flex items-center justify-center rounded-full ${
-          sinAcciones ? "opacity-30 cursor-not-allowed" : "text-slate-500 hover:bg-slate-100 hover:text-brand-purple"
+        aria-haspopup="true"
+        aria-expanded={abierto}
+        className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium ${
+          sinAcciones
+            ? "border-slate-200 text-slate-300 cursor-not-allowed"
+            : "border-slate-200 text-gray-700 hover:border-brand-purple hover:text-brand-purple"
         }`}
       >
-        <svg width="4" height="16" viewBox="0 0 4 16" fill="currentColor">
-          <circle cx="2" cy="2" r="2" />
-          <circle cx="2" cy="8" r="2" />
-          <circle cx="2" cy="14" r="2" />
+        Acciones
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="shrink-0">
+          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
       {abierto && !sinAcciones && (
@@ -228,13 +246,22 @@ function AccionesMenu({ usuario: u, currentUser, abierto, onToggle, onEditar, on
           >
             Resetear contraseña
           </button>
-          {u.id !== currentUser.id && (
+          {!esUnoMismo && (
             <button
               type="button"
               onClick={onToggleActivo}
               className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-slate-50"
             >
               {u.activo ? "Desactivar" : "Activar"}
+            </button>
+          )}
+          {puedeEliminar && (
+            <button
+              type="button"
+              onClick={onEliminar}
+              className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 border-t border-slate-100 mt-1"
+            >
+              Eliminar
             </button>
           )}
         </div>
@@ -480,6 +507,19 @@ export default function AdminUsuarios() {
     }
   }
 
+  async function eliminarUsuario(u) {
+    if (!window.confirm(`¿Eliminar a ${u.nombre} (${u.email}) definitivamente? Esta acción no se puede deshacer.`)) {
+      return;
+    }
+    setError("");
+    try {
+      await apiFetch(`/api/admin/usuarios/${u.id}`, { method: "DELETE" });
+      await cargar();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
   return (
     <div>
       <GradientHeader title="Administración: Usuarios" showDownload={false} />
@@ -606,6 +646,10 @@ export default function AdminUsuarios() {
                             toggleActivo(u);
                           }}
                           onReenviar={() => reenviarInvitacion(u)}
+                          onEliminar={() => {
+                            setMenuAbierto(null);
+                            eliminarUsuario(u);
+                          }}
                           reenviando={reenviando[u.id]}
                         />
                       </td>

@@ -776,6 +776,42 @@ router.put('/usuarios/:id', (req, res) => {
   res.json({ usuario: toPublicUsuario(updated) });
 });
 
+// Eliminar de verdad (no confundir con desactivar, que es reversible). Mismo
+// criterio de jerarquia que editar/desactivar/resetear: solo Super Admin
+// puede eliminar a otro miembro del staff.
+router.delete('/usuarios/:id', (req, res) => {
+  const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.params.id);
+  if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+  if (user.id === req.user.id) {
+    return res.status(400).json({ error: 'No puedes eliminar tu propia cuenta' });
+  }
+  if (STAFF_ROLES.includes(user.rol) && req.user.rol !== 'super_admin') {
+    return res.status(403).json({ error: 'Solo un Super Admin puede eliminar la cuenta de un Admin o Super Admin' });
+  }
+  if (user.rol === 'super_admin' && contarSuperAdminsActivos() <= 1) {
+    return res.status(400).json({ error: 'Debe quedar al menos un Super Admin activo' });
+  }
+
+  const tx = db.transaction(() => {
+    db.prepare('DELETE FROM usuario_clientes WHERE user_id = ?').run(user.id);
+    db.prepare('DELETE FROM usuario_anunciantes WHERE user_id = ?').run(user.id);
+    // El historial de actividad se conserva -- solo se desvincula del id que
+    // va a desaparecer (actor_email ya queda guardado aparte como texto).
+    db.prepare('UPDATE activity_log SET actor_user_id = NULL WHERE actor_user_id = ?').run(user.id);
+    db.prepare('DELETE FROM users WHERE id = ?').run(user.id);
+  });
+  tx();
+
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Usuario eliminado',
+    detalle: `Eliminó a ${user.email} (rol ${user.rol})`,
+  });
+
+  res.json({ ok: true });
+});
+
 router.post('/usuarios/:id/reset-password', async (req, res) => {
   const user = db.prepare('SELECT id, email, nombre, rol FROM users WHERE id = ?').get(req.params.id);
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
