@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import GradientHeader from "../components/common/GradientHeader";
 import Tabs from "../components/common/Tabs";
 import KPICard from "../components/common/KPICard";
@@ -62,24 +62,51 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
   const datasetCrudo = data[tab.source] ?? SIN_FILAS;
   const tieneCampanaAnunciante = datasetCrudo.length === 0 || "campana" in datasetCrudo[0];
 
+  // Un anunciante/campaña elegido puede dejar de existir para el cliente
+  // activo si se cambia de cliente arriba -- se limpia para no dejar un
+  // filtro "fantasma" que deja la tabla en 0 filas sin ninguna pista de por
+  // qué (ver más abajo, mismo problema que motivó este fix).
+  useEffect(() => {
+    setAnunciante(null);
+    setCampana(null);
+  }, [clienteActivo]);
+
+  // Solo el cliente activo, SIN los demás filtros -- son las opciones que
+  // debe ofrecer el desplegable de Anunciante/Campaña. Antes esos
+  // desplegables se armaban con `data.anunciantes`/`data.campanas` (el
+  // agregado completo del canal, de TODOS los clientes) sin importar cuál
+  // cliente estaba elegido arriba -- afectaba a Admin/Super Admin y a
+  // usuario_interno con más de un cliente visible.
+  const filasDelClienteActivo = useMemo(
+    () => datasetCrudo.filter((r) => !clienteActivo || r.cliente === clienteActivo),
+    [datasetCrudo, clienteActivo]
+  );
+  const anunciantesDisponibles = useMemo(
+    () => [...new Set(filasDelClienteActivo.map((r) => r.anunciante).filter(Boolean))].sort(),
+    [filasDelClienteActivo]
+  );
+  const campanasDisponibles = useMemo(
+    () => [...new Set(filasDelClienteActivo.map((r) => r.campana).filter(Boolean))].sort(),
+    [filasDelClienteActivo]
+  );
+
   const filas = useMemo(
     () =>
-      datasetCrudo.filter(
+      filasDelClienteActivo.filter(
         (r) =>
-          (!clienteActivo || r.cliente === clienteActivo) &&
           (!campana || r.campana === campana) &&
           (!anunciante || r.anunciante === anunciante) &&
           dentroDelPeriodo(r.fecha, periodo)
       ),
-    [datasetCrudo, clienteActivo, campana, anunciante, periodo]
+    [filasDelClienteActivo, campana, anunciante, periodo]
   );
 
   const handleDownload = () => downloadCSV(tab.key, filas, tab.columns);
 
   const filters = tieneCampanaAnunciante
     ? [
-        { label: "Anunciante", options: data.anunciantes, value: anunciante, onChange: setAnunciante },
-        { label: "Campaña", options: data.campanas, value: campana, onChange: setCampana },
+        { label: "Anunciante", options: anunciantesDisponibles, value: anunciante, onChange: setAnunciante },
+        { label: "Campaña", options: campanasDisponibles, value: campana, onChange: setCampana },
       ]
     : [];
 
