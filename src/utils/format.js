@@ -15,7 +15,7 @@ export function formatCurrency(value) {
 }
 
 export function formatPercent(value) {
-  return `${Math.round(value ?? 0)} %`;
+  return `${(value ?? 0).toFixed(2)} %`;
 }
 
 export function progressTier(pct) {

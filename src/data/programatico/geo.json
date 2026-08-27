@@ -8,7 +8,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 378429,
     "clicsTotales": 7606,
-    "ctr": 2,
+    "ctr": 2.01,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -20,7 +20,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 379611,
     "clicsTotales": 7315,
-    "ctr": 2,
+    "ctr": 1.93,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -32,7 +32,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 96520,
     "clicsTotales": 1201,
-    "ctr": 1,
+    "ctr": 1.24,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -44,7 +44,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 96011,
     "clicsTotales": 1449,
-    "ctr": 2,
+    "ctr": 1.51,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -56,7 +56,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 189494,
     "clicsTotales": 2937,
-    "ctr": 2,
+    "ctr": 1.55,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -68,7 +68,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 171183,
     "clicsTotales": 2337,
-    "ctr": 1,
+    "ctr": 1.37,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -80,7 +80,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 222921,
     "clicsTotales": 4035,
-    "ctr": 2,
+    "ctr": 1.81,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -92,7 +92,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 309410,
     "clicsTotales": 6652,
-    "ctr": 2,
+    "ctr": 2.15,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -104,7 +104,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 445623,
     "clicsTotales": 25906,
-    "ctr": 6,
+    "ctr": 5.81,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -116,7 +116,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 177996,
     "clicsTotales": 12282,
-    "ctr": 7,
+    "ctr": 6.9,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -128,7 +128,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 177272,
     "clicsTotales": 11851,
-    "ctr": 7,
+    "ctr": 6.69,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -140,7 +140,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 89885,
     "clicsTotales": 3673,
-    "ctr": 4,
+    "ctr": 4.09,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -152,7 +152,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 878647,
     "clicsTotales": 91142,
-    "ctr": 10,
+    "ctr": 10.37,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -164,7 +164,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 175445,
     "clicsTotales": 15985,
-    "ctr": 9,
+    "ctr": 9.11,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -176,7 +176,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 88291,
     "clicsTotales": 8906,
-    "ctr": 10,
+    "ctr": 10.09,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -188,7 +188,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 308761,
     "clicsTotales": 27494,
-    "ctr": 9,
+    "ctr": 8.9,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -200,7 +200,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 307600,
     "clicsTotales": 27248,
-    "ctr": 9,
+    "ctr": 8.86,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -212,7 +212,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 170048,
     "clicsTotales": 7170,
-    "ctr": 4,
+    "ctr": 4.22,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -224,7 +224,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 168562,
     "clicsTotales": 6791,
-    "ctr": 4,
+    "ctr": 4.03,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -236,7 +236,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 173965,
     "clicsTotales": 5845,
-    "ctr": 3,
+    "ctr": 3.36,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -248,7 +248,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 126243,
     "clicsTotales": 7247,
-    "ctr": 6,
+    "ctr": 5.74,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -260,7 +260,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 36278,
     "clicsTotales": 6869,
-    "ctr": 19,
+    "ctr": 18.93,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -272,7 +272,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 73695,
     "clicsTotales": 9539,
-    "ctr": 13,
+    "ctr": 12.94,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -284,7 +284,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 35891,
     "clicsTotales": 4965,
-    "ctr": 14,
+    "ctr": 13.83,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -296,7 +296,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 36579,
     "clicsTotales": 3921,
-    "ctr": 11,
+    "ctr": 10.72,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -308,7 +308,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 36425,
     "clicsTotales": 5122,
-    "ctr": 14,
+    "ctr": 14.06,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -320,7 +320,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 310912,
     "clicsTotales": 32431,
-    "ctr": 10,
+    "ctr": 10.43,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -332,7 +332,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 715556,
     "clicsTotales": 48538,
-    "ctr": 7,
+    "ctr": 6.78,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -344,7 +344,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 158719,
     "clicsTotales": 20779,
-    "ctr": 13,
+    "ctr": 13.09,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -356,7 +356,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 87468,
     "clicsTotales": 11466,
-    "ctr": 13,
+    "ctr": 13.11,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -368,7 +368,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 72513,
     "clicsTotales": 9248,
-    "ctr": 13,
+    "ctr": 12.75,
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -380,7 +380,19 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 218920,
     "clicsTotales": 27860,
-    "ctr": 13,
+    "ctr": 12.73,
     "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
+    "anunciante": "EC_Ferrisariato",
+    "motivo": "Mes de la Construcción",
+    "mes": "Agosto",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 262677,
+    "clicsTotales": 362,
+    "ctr": 0.14,
+    "cliente": "EC_La Destilería"
   }
 ]

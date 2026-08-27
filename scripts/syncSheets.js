@@ -103,7 +103,7 @@ function parseValor(raw, type) {
     case 'moneda':
       return parseNumeroEs(String(raw ?? '').replace(/[^0-9.,-]/g, ''));
     case 'porcentaje':
-      return Math.round(parseNumeroEs(raw));
+      return Math.round(parseNumeroEs(raw) * 100) / 100;
     case 'fecha':
       return parseFechaEs(raw);
     case 'link':

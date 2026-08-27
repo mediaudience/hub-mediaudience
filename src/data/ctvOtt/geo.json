@@ -8,7 +8,7 @@
     "ubicacion": "Perú",
     "impresionesTotales": 185318,
     "quartil100": 145679,
-    "vtr": 79,
+    "vtr": 78.61,
     "cliente": "PE_Cartavio"
   },
   {
@@ -20,7 +20,7 @@
     "ubicacion": "Perú",
     "impresionesTotales": 117649,
     "quartil100": 99286,
-    "vtr": 84,
+    "vtr": 84.39,
     "cliente": "PE_Cartavio"
   }
 ]

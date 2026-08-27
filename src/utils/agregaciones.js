@@ -13,9 +13,11 @@ export function calcularAgregado(col, rows) {
     if (col.numeradorKey && col.denominadorKey) {
       const numerador = rows.reduce((s, r) => s + (r[col.numeradorKey] ?? 0), 0);
       const denominador = rows.reduce((s, r) => s + (r[col.denominadorKey] ?? 0), 0);
-      return denominador > 0 ? Math.round((numerador / denominador) * 100) : 0;
+      return denominador > 0 ? Math.round((numerador / denominador) * 10000) / 100 : 0;
     }
-    return rows.length > 0 ? Math.round(rows.reduce((s, r) => s + (r[col.key] ?? 0), 0) / rows.length) : 0;
+    return rows.length > 0
+      ? Math.round((rows.reduce((s, r) => s + (r[col.key] ?? 0), 0) / rows.length) * 100) / 100
+      : 0;
   }
   return null;
 }

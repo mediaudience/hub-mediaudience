@@ -6,7 +6,7 @@ import Card from "./Card";
 const FORMATTERS = {
   numero: formatNumber,
   moneda: formatCurrency,
-  porcentaje: (v) => `${v ?? 0}%`,
+  porcentaje: (v) => `${(v ?? 0).toFixed(2)}%`,
 };
 
 // Tabla genérica de métricas: las columnas las define canalMetricas.js por

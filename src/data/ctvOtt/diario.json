@@ -12,7 +12,7 @@
     "quartil50": 3145,
     "quartil75": 3138,
     "quartil100": 3124,
-    "vtr": 61,
+    "vtr": 61.17,
     "inversion": 56.18,
     "cliente": "PE_Cartavio"
   },
@@ -29,7 +29,7 @@
     "quartil50": 5590,
     "quartil75": 5565,
     "quartil100": 5528,
-    "vtr": 77,
+    "vtr": 77.28,
     "inversion": 78.68,
     "cliente": "PE_Cartavio"
   },
@@ -46,7 +46,7 @@
     "quartil50": 4466,
     "quartil75": 4442,
     "quartil100": 4407,
-    "vtr": 68,
+    "vtr": 68.03,
     "inversion": 71.26,
     "cliente": "PE_Cartavio"
   },
@@ -63,7 +63,7 @@
     "quartil50": 3894,
     "quartil75": 3870,
     "quartil100": 3834,
-    "vtr": 74,
+    "vtr": 74.24,
     "inversion": 56.8,
     "cliente": "PE_Cartavio"
   },
@@ -80,7 +80,7 @@
     "quartil50": 1132,
     "quartil75": 1110,
     "quartil100": 1073,
-    "vtr": 28,
+    "vtr": 28.42,
     "inversion": 41.53,
     "cliente": "PE_Cartavio"
   },
@@ -97,7 +97,7 @@
     "quartil50": 5308,
     "quartil75": 5296,
     "quartil100": 5275,
-    "vtr": 72,
+    "vtr": 72.4,
     "inversion": 80.15,
     "cliente": "PE_Cartavio"
   },
@@ -114,7 +114,7 @@
     "quartil50": 5053,
     "quartil75": 5040,
     "quartil100": 5018,
-    "vtr": 74,
+    "vtr": 73.56,
     "inversion": 75.04,
     "cliente": "PE_Cartavio"
   },
@@ -131,7 +131,7 @@
     "quartil50": 5295,
     "quartil75": 5282,
     "quartil100": 5260,
-    "vtr": 75,
+    "vtr": 75.18,
     "inversion": 76.97,
     "cliente": "PE_Cartavio"
   },
@@ -148,7 +148,7 @@
     "quartil50": 5646,
     "quartil75": 5631,
     "quartil100": 5609,
-    "vtr": 76,
+    "vtr": 76.36,
     "inversion": 80.8,
     "cliente": "PE_Cartavio"
   },
@@ -165,7 +165,7 @@
     "quartil50": 5730,
     "quartil75": 5716,
     "quartil100": 5691,
-    "vtr": 77,
+    "vtr": 77.13,
     "inversion": 81.16,
     "cliente": "PE_Cartavio"
   },
@@ -182,7 +182,7 @@
     "quartil50": 6004,
     "quartil75": 5989,
     "quartil100": 5963,
-    "vtr": 78,
+    "vtr": 78.06,
     "inversion": 84.03,
     "cliente": "PE_Cartavio"
   },
@@ -199,7 +199,7 @@
     "quartil50": 5246,
     "quartil75": 5232,
     "quartil100": 5209,
-    "vtr": 79,
+    "vtr": 78.63,
     "inversion": 72.88,
     "cliente": "PE_Cartavio"
   },
@@ -216,7 +216,7 @@
     "quartil50": 5852,
     "quartil75": 5837,
     "quartil100": 5811,
-    "vtr": 80,
+    "vtr": 79.58,
     "inversion": 80.32,
     "cliente": "PE_Cartavio"
   },
@@ -233,7 +233,7 @@
     "quartil50": 6536,
     "quartil75": 6520,
     "quartil100": 6491,
-    "vtr": 81,
+    "vtr": 80.88,
     "inversion": 88.28,
     "cliente": "PE_Cartavio"
   },
@@ -250,7 +250,7 @@
     "quartil50": 67897,
     "quartil75": 5881,
     "quartil100": 5853,
-    "vtr": 81,
+    "vtr": 81.29,
     "inversion": 79.2,
     "cliente": "PE_Cartavio"
   },
@@ -267,7 +267,7 @@
     "quartil50": 6067,
     "quartil75": 6050,
     "quartil100": 6021,
-    "vtr": 82,
+    "vtr": 81.96,
     "inversion": 80.81,
     "cliente": "PE_Cartavio"
   },
@@ -284,7 +284,7 @@
     "quartil50": 4284,
     "quartil75": 4269,
     "quartil100": 4242,
-    "vtr": 77,
+    "vtr": 76.85,
     "inversion": 60.72,
     "cliente": "PE_Cartavio"
   },
@@ -301,7 +301,7 @@
     "quartil50": 5456,
     "quartil75": 5440,
     "quartil100": 5411,
-    "vtr": 95,
+    "vtr": 95.2,
     "inversion": 62.52,
     "cliente": "PE_Cartavio"
   },
@@ -318,7 +318,7 @@
     "quartil50": 5565,
     "quartil75": 5549,
     "quartil100": 5518,
-    "vtr": 81,
+    "vtr": 81.49,
     "inversion": 74.48,
     "cliente": "PE_Cartavio"
   },
@@ -335,7 +335,7 @@
     "quartil50": 5726,
     "quartil75": 5709,
     "quartil100": 5677,
-    "vtr": 82,
+    "vtr": 81.86,
     "inversion": 76.29,
     "cliente": "PE_Cartavio"
   },
@@ -352,7 +352,7 @@
     "quartil50": 5880,
     "quartil75": 5862,
     "quartil100": 5828,
-    "vtr": 82,
+    "vtr": 82.29,
     "inversion": 77.9,
     "cliente": "PE_Cartavio"
   },
@@ -369,7 +369,7 @@
     "quartil50": 5973,
     "quartil75": 5955,
     "quartil100": 5920,
-    "vtr": 83,
+    "vtr": 82.73,
     "inversion": 78.72,
     "cliente": "PE_Cartavio"
   },
@@ -386,7 +386,7 @@
     "quartil50": 7071,
     "quartil75": 7053,
     "quartil100": 7016,
-    "vtr": 85,
+    "vtr": 85.06,
     "inversion": 90.73,
     "cliente": "PE_Cartavio"
   },
@@ -403,7 +403,7 @@
     "quartil50": 7194,
     "quartil75": 7175,
     "quartil100": 7137,
-    "vtr": 85,
+    "vtr": 85.32,
     "inversion": 92.02,
     "cliente": "PE_Cartavio"
   },
@@ -420,7 +420,7 @@
     "quartil50": 7313,
     "quartil75": 7293,
     "quartil100": 7253,
-    "vtr": 86,
+    "vtr": 85.61,
     "inversion": 93.19,
     "cliente": "PE_Cartavio"
   },
@@ -437,7 +437,7 @@
     "quartil50": 7458,
     "quartil75": 7438,
     "quartil100": 7396,
-    "vtr": 86,
+    "vtr": 85.92,
     "inversion": 94.69,
     "cliente": "PE_Cartavio"
   },
@@ -454,7 +454,7 @@
     "quartil50": 934,
     "quartil75": 929,
     "quartil100": 922,
-    "vtr": 87,
+    "vtr": 86.56,
     "inversion": 11.95,
     "cliente": "PE_Cartavio"
   },
@@ -471,7 +471,7 @@
     "quartil50": 879,
     "quartil75": 873,
     "quartil100": 867,
-    "vtr": 86,
+    "vtr": 86.43,
     "inversion": 11.26,
     "cliente": "PE_Cartavio"
   },
@@ -505,7 +505,7 @@
     "quartil50": 787,
     "quartil75": 782,
     "quartil100": 776,
-    "vtr": 87,
+    "vtr": 86.95,
     "inversion": 10.03,
     "cliente": "PE_Cartavio"
   },
@@ -522,7 +522,7 @@
     "quartil50": 734,
     "quartil75": 729,
     "quartil100": 723,
-    "vtr": 87,
+    "vtr": 87.46,
     "inversion": 9.3,
     "cliente": "PE_Cartavio"
   },
@@ -539,7 +539,7 @@
     "quartil50": 7658,
     "quartil75": 7396,
     "quartil100": 6557,
-    "vtr": 83,
+    "vtr": 82.62,
     "inversion": 87.3,
     "cliente": "PE_Cartavio"
   },
@@ -556,7 +556,7 @@
     "quartil50": 6258,
     "quartil75": 5996,
     "quartil100": 5269,
-    "vtr": 81,
+    "vtr": 80.66,
     "inversion": 71.85,
     "cliente": "PE_Cartavio"
   },
@@ -573,7 +573,7 @@
     "quartil50": 6890,
     "quartil75": 6712,
     "quartil100": 6222,
-    "vtr": 88,
+    "vtr": 87.6,
     "inversion": 78.13,
     "cliente": "PE_Cartavio"
   },
@@ -590,7 +590,7 @@
     "quartil50": 6713,
     "quartil75": 6468,
     "quartil100": 5491,
-    "vtr": 79,
+    "vtr": 78.61,
     "inversion": 76.84,
     "cliente": "PE_Cartavio"
   },
@@ -607,7 +607,7 @@
     "quartil50": 7897,
     "quartil75": 7660,
     "quartil100": 7008,
-    "vtr": 86,
+    "vtr": 85.9,
     "inversion": 89.74,
     "cliente": "PE_Cartavio"
   },
@@ -624,7 +624,7 @@
     "quartil50": 7796,
     "quartil75": 7620,
     "quartil100": 7169,
-    "vtr": 89,
+    "vtr": 89.38,
     "inversion": 88.23,
     "cliente": "PE_Cartavio"
   },
@@ -641,7 +641,7 @@
     "quartil50": 8172,
     "quartil75": 7840,
     "quartil100": 7118,
-    "vtr": 84,
+    "vtr": 83.61,
     "inversion": 93.64,
     "cliente": "PE_Cartavio"
   },
@@ -658,7 +658,7 @@
     "quartil50": 6453,
     "quartil75": 6273,
     "quartil100": 5748,
-    "vtr": 86,
+    "vtr": 86.14,
     "inversion": 73.4,
     "cliente": "PE_Cartavio"
   },
@@ -675,7 +675,7 @@
     "quartil50": 7134,
     "quartil75": 6807,
     "quartil100": 5985,
-    "vtr": 80,
+    "vtr": 80.45,
     "inversion": 81.83,
     "cliente": "PE_Cartavio"
   },
@@ -692,7 +692,7 @@
     "quartil50": 6353,
     "quartil75": 6190,
     "quartil100": 5781,
-    "vtr": 88,
+    "vtr": 88.35,
     "inversion": 71.97,
     "cliente": "PE_Cartavio"
   },
@@ -709,7 +709,7 @@
     "quartil50": 6716,
     "quartil75": 6472,
     "quartil100": 5680,
-    "vtr": 81,
+    "vtr": 81.45,
     "inversion": 76.71,
     "cliente": "PE_Cartavio"
   },
@@ -726,7 +726,7 @@
     "quartil50": 7423,
     "quartil75": 7263,
     "quartil100": 6845,
-    "vtr": 90,
+    "vtr": 89.72,
     "inversion": 83.92,
     "cliente": "PE_Cartavio"
   },
@@ -743,7 +743,7 @@
     "quartil50": 6300,
     "quartil75": 6078,
     "quartil100": 5570,
-    "vtr": 85,
+    "vtr": 85.23,
     "inversion": 71.89,
     "cliente": "PE_Cartavio"
   },
@@ -760,7 +760,7 @@
     "quartil50": 6631,
     "quartil75": 6368,
     "quartil100": 5466,
-    "vtr": 79,
+    "vtr": 78.89,
     "inversion": 76.22,
     "cliente": "PE_Cartavio"
   },
@@ -777,7 +777,7 @@
     "quartil50": 7713,
     "quartil75": 7498,
     "quartil100": 7012,
-    "vtr": 88,
+    "vtr": 88.09,
     "inversion": 87.56,
     "cliente": "PE_Cartavio"
   },
@@ -794,7 +794,7 @@
     "quartil50": 7426,
     "quartil75": 7140,
     "quartil100": 6365,
-    "vtr": 82,
+    "vtr": 82.46,
     "inversion": 84.91,
     "cliente": "PE_Cartavio"
   }

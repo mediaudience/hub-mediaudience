@@ -8,7 +8,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 102972,
     "clicsTotales": 1113,
-    "ctr": 1,
+    "ctr": 1.08,
     "cliente": "EC_Granasa"
   },
   {
@@ -20,7 +20,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 99200,
     "clicsTotales": 1045,
-    "ctr": 1,
+    "ctr": 1.05,
     "cliente": "EC_Granasa"
   },
   {
@@ -32,7 +32,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 95968,
     "clicsTotales": 1017,
-    "ctr": 1,
+    "ctr": 1.06,
     "cliente": "EC_Granasa"
   },
   {
@@ -44,7 +44,7 @@
     "ubicacion": "Ecuador",
     "impresionesTotales": 110188,
     "clicsTotales": 1163,
-    "ctr": 1,
+    "ctr": 1.06,
     "cliente": "EC_Granasa"
   }
 ]

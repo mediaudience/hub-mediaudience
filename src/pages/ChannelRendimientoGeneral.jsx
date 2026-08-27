@@ -28,7 +28,7 @@ function dentroDelPeriodo(fecha, periodo) {
 const KPI_FORMATTERS = {
   numero: formatNumber,
   moneda: formatCurrency,
-  porcentaje: (v) => `${v}%`,
+  porcentaje: (v) => `${(v ?? 0).toFixed(2)}%`,
 };
 
 function calcularKpi(kpi, rows) {
@@ -39,11 +39,11 @@ function calcularKpi(kpi, rows) {
   if (kpi.formula === "ratio") {
     const numerador = rows.reduce((s, r) => s + (r[kpi.numeradorKey] ?? 0), 0);
     const denominador = rows.reduce((s, r) => s + (r[kpi.denominadorKey] ?? 0), 0);
-    return `${denominador > 0 ? Math.round((numerador / denominador) * 100) : 0}%`;
+    return `${denominador > 0 ? ((numerador / denominador) * 100).toFixed(2) : "0.00"}%`;
   }
   // "promedio": fallback para cuando el dataset no trae el numerador/denominador
   // crudo para calcular el ratio real (ver canalMetricas.js).
-  const promedio = rows.length > 0 ? Math.round(rows.reduce((s, r) => s + (r[kpi.key] ?? 0), 0) / rows.length) : 0;
+  const promedio = rows.length > 0 ? (rows.reduce((s, r) => s + (r[kpi.key] ?? 0), 0) / rows.length).toFixed(2) : "0.00";
   return `${promedio}%`;
 }
 
