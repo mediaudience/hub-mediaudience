@@ -25,6 +25,14 @@ function AccountMenu() {
   const { clientes, clienteActivo, setClienteActivo } = useClienteActivo();
   const navigate = useNavigate();
 
+  const clientesPorPais = [];
+  for (const c of clientes) {
+    const grupo = c.paisNombre ?? "Sin país";
+    const ultimo = clientesPorPais[clientesPorPais.length - 1];
+    if (ultimo && ultimo[0] === grupo) ultimo[1].push(c);
+    else clientesPorPais.push([grupo, [c]]);
+  }
+
   useEffect(() => {
     function onClickOutside(e) {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
@@ -71,31 +79,38 @@ function AccountMenu() {
           {clientes.length > 1 && (
             <div className="px-4 py-3 border-b border-slate-100">
               <p className="text-xs font-medium text-slate-label mb-1.5">Cliente</p>
-              <div className="max-h-40 overflow-y-auto flex flex-col gap-0.5">
+              <div className="max-h-56 overflow-y-auto flex flex-col gap-0.5">
                 <button
                   type="button"
                   role="menuitemradio"
                   aria-checked={clienteActivo === null}
                   onClick={() => setClienteActivo(null)}
-                  className={`text-left px-2 py-1.5 rounded-md text-sm ${
+                  className={`text-left px-2 py-1.5 rounded-md text-sm shrink-0 ${
                     clienteActivo === null ? "bg-brand-purple/10 text-brand-purple font-medium" : "text-gray-700 hover:bg-slate-50"
                   }`}
                 >
                   Todos los clientes
                 </button>
-                {clientes.map((c) => (
-                  <button
-                    key={c.id}
-                    type="button"
-                    role="menuitemradio"
-                    aria-checked={clienteActivo === c.nombre}
-                    onClick={() => setClienteActivo(c.nombre)}
-                    className={`text-left px-2 py-1.5 rounded-md text-sm truncate ${
-                      clienteActivo === c.nombre ? "bg-brand-purple/10 text-brand-purple font-medium" : "text-gray-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    {c.nombre}
-                  </button>
+                {clientesPorPais.map(([pais, lista]) => (
+                  <div key={pais} className="flex flex-col gap-0.5">
+                    <p className="px-2 pt-1.5 pb-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-label/70 shrink-0">
+                      {pais}
+                    </p>
+                    {lista.map((c) => (
+                      <button
+                        key={c.id}
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked={clienteActivo === c.nombre}
+                        onClick={() => setClienteActivo(c.nombre)}
+                        className={`text-left px-2 py-1.5 rounded-md text-sm truncate shrink-0 ${
+                          clienteActivo === c.nombre ? "bg-brand-purple/10 text-brand-purple font-medium" : "text-gray-700 hover:bg-slate-50"
+                        }`}
+                      >
+                        {c.nombre}
+                      </button>
+                    ))}
+                  </div>
                 ))}
               </div>
             </div>

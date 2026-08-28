@@ -123,14 +123,21 @@ function getClienteIdsVisibles(user) {
 // el Sidebar pueda mostrar solo los servicios que ese cliente tiene (en vez
 // de los 5 servicios activos del catálogo, muchos sin datos para él).
 export function getClientesVisibles(user) {
+  const SELECT_CON_PAIS = `
+    SELECT c.id, c.nombre, c.pais, p.nombre AS paisNombre
+    FROM clientes c
+    LEFT JOIN paises p ON p.codigo = c.pais
+  `;
   const clientes = VE_TODO_SIN_FILTRO.includes(user.rol)
-    ? db.prepare('SELECT id, nombre FROM clientes WHERE activo = 1 ORDER BY nombre').all()
+    ? db.prepare(`${SELECT_CON_PAIS} WHERE c.activo = 1 ORDER BY COALESCE(p.nombre, c.pais, ''), c.nombre`).all()
     : (() => {
         const clienteIds = getClienteIdsVisibles(user);
         if (clienteIds.length === 0) return [];
         const placeholders = clienteIds.map(() => '?').join(',');
         return db
-          .prepare(`SELECT id, nombre FROM clientes WHERE id IN (${placeholders}) AND activo = 1 ORDER BY nombre`)
+          .prepare(
+            `${SELECT_CON_PAIS} WHERE c.id IN (${placeholders}) AND c.activo = 1 ORDER BY COALESCE(p.nombre, c.pais, ''), c.nombre`
+          )
           .all(...clienteIds);
       })();
   if (clientes.length === 0) return [];

@@ -394,5 +394,101 @@
     "clicsTotales": 362,
     "ctr": 0.14,
     "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_LoteríaNacional_Mamá_06Abril2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Mamá 1",
+    "mes": "Abril",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 498935,
+    "clicsTotales": 3257,
+    "ctr": 0.65,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_Mamá_24Abril2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Mamá 2",
+    "mes": "Abril",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 331565,
+    "clicsTotales": 1837,
+    "ctr": 0.55,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_MamáAudio1_05Mayo2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Mamá 1",
+    "mes": "Mayo",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 155848,
+    "clicsTotales": 925,
+    "ctr": 0.59,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_MamáAudio2_05Mayo2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Mamá 2",
+    "mes": "Mayo",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 153038,
+    "clicsTotales": 947,
+    "ctr": 0.62,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoDamosTodo_25Mayo2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Lo Damos Todo",
+    "mes": "Mayo",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 256927,
+    "clicsTotales": 1446,
+    "ctr": 0.56,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoDamosTodo_18Junio2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Lo Damos Todo",
+    "mes": "Junio",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 528523,
+    "clicsTotales": 2983,
+    "ctr": 0.56,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoDamosTodo_22Julio2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Lo Damos Todo",
+    "mes": "Julio",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 230956,
+    "clicsTotales": 1718,
+    "ctr": 0.74,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoDamosTodo_13Agosto2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Lo Damos Todo",
+    "mes": "Agosto",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Lotería Nacional"
   }
 ]
