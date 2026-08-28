@@ -16,6 +16,8 @@ import AdminEtapasProspeccion from "./pages/admin/EtapasProspeccion";
 import AdminGestionSheets from "./pages/admin/GestionSheets";
 import EnDesarrollo from "./pages/gestion/EnDesarrollo";
 import Prospeccion from "./pages/gestion/Prospeccion";
+import CampanasServidas from "./pages/gestion/CampanasServidas";
+import Facturacion from "./pages/gestion/Facturacion";
 import CanalRendimientoGeneral from "./pages/CanalRendimientoGeneral";
 import Home from "./pages/Home";
 
@@ -42,8 +44,8 @@ export default function App() {
             <Route path="admin/gestion-sheets" element={<AdminGestionSheets />} />
 
             <Route path="gestion/metas-comerciales" element={<EnDesarrollo titulo="Metas Comerciales" />} />
-            <Route path="gestion/campanas-servidas" element={<EnDesarrollo titulo="Campañas Servidas" />} />
-            <Route path="gestion/facturacion" element={<EnDesarrollo titulo="Facturación" />} />
+            <Route path="gestion/campanas-servidas" element={<CampanasServidas />} />
+            <Route path="gestion/facturacion" element={<Facturacion />} />
 
             <Route element={<RequireSuperAdmin />}>
               <Route path="admin/servicios" element={<AdminServicios />} />

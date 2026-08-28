@@ -64,7 +64,7 @@ async function fetchTabRowsServiceAccount(spreadsheetId, tab) {
   return res.data.values || [];
 }
 
-async function fetchTabRows(spreadsheetId, tab) {
+export async function fetchTabRows(spreadsheetId, tab) {
   if (existsSync(CREDENTIALS_PATH)) return fetchTabRowsServiceAccount(spreadsheetId, tab);
   return fetchTabRowsPublicCsv(spreadsheetId, tab);
 }
@@ -96,7 +96,7 @@ function parseFechaEs(raw) {
   return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
 }
 
-function parseValor(raw, type) {
+export function parseValor(raw, type) {
   switch (type) {
     case 'numero':
       return parseNumeroEs(raw);
@@ -127,12 +127,12 @@ function parseFilas(rows, campos) {
 
 // -------- Escritura/lectura de archivos --------
 
-async function writeJson(filePath, data) {
+export async function writeJson(filePath, data) {
   await mkdir(path.dirname(filePath), { recursive: true });
   await writeFile(filePath, JSON.stringify(data, null, 2) + '\n');
 }
 
-async function leerJsonSiExiste(filePath) {
+export async function leerJsonSiExiste(filePath) {
   try {
     return JSON.parse(await readFile(filePath, 'utf-8'));
   } catch {

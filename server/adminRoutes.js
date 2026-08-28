@@ -9,6 +9,7 @@ import { requireUser, requireAdmin, requireSuperAdmin } from './middleware.js';
 import { enviarInvitacion } from './email.js';
 import { registrarActividad } from './activityLog.js';
 import { syncCliente, syncClienteServicio } from '../scripts/syncSheets.js';
+import { syncGestionPais } from '../scripts/syncGestionSheets.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'data');
@@ -165,7 +166,7 @@ router.get('/gestion-sheets', (req, res) => {
   res.json({ sheets: db.prepare('SELECT pais, sheet_id FROM gestion_sheets').all() });
 });
 
-router.put('/gestion-sheets/:pais', (req, res) => {
+router.put('/gestion-sheets/:pais', async (req, res) => {
   const { pais } = req.params;
   if (!paisesActivos().some((p) => p.codigo === pais)) {
     return res.status(400).json({ error: 'País inválido' });
@@ -180,7 +181,30 @@ router.put('/gestion-sheets/:pais', (req, res) => {
     accion: 'Sheet de Gestión actualizado',
     detalle: `Actualizó el Sheet ID de Gestión (Campañas Servidas + Facturación) para ${pais}`,
   });
-  res.json({ ok: true });
+  // Auto-sync al guardar, mismo patrón que clientes con Sheet ID (ver
+  // syncCliente en scripts/syncSheets.js) -- si falla, el ID igual queda
+  // guardado; el error de sync se informa aparte sin romper el guardado.
+  let sync = { sincronizado: false, motivo: 'Sin Sheet ID configurado para este país' };
+  if (sheetId) {
+    try {
+      sync = await syncGestionPais(pais);
+    } catch (err) {
+      sync = { sincronizado: false, error: err.message };
+    }
+  }
+  res.json({ ok: true, sync });
+});
+
+router.post('/gestion-sheets/:pais/sync', async (req, res) => {
+  const { pais } = req.params;
+  if (!paisesActivos().some((p) => p.codigo === pais)) {
+    return res.status(400).json({ error: 'País inválido' });
+  }
+  try {
+    res.json(await syncGestionPais(pais));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // ---------- Etapas de Prospección ----------
