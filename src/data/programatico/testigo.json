@@ -261,12 +261,75 @@
     "cliente": "EC_La Destilería"
   },
   {
-    "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
-    "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "campana": "EC_LoteríaNacional_Mamá_06Abril2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Mamá 1",
+    "mes": "Abril",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_Mamá_24Abril2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Mamá 2",
+    "mes": "Abril",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_MamáAudio1_05Mayo2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Mamá 1",
+    "mes": "Mayo",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_MamáAudio2_05Mayo2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Mamá 2",
+    "mes": "Mayo",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoDamosTodo_25Mayo2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Lo Damos Todo",
+    "mes": "Mayo",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoDamosTodo_18Junio2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Lo Damos Todo",
+    "mes": "Junio",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoDamosTodo_22Julio2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Lo Damos Todo",
+    "mes": "Julio",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoDamosTodo_13Agosto2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Lo Damos Todo",
     "mes": "Agosto",
-    "formato": "Display Programático",
-    "link": "https://drive.google.com/drive/folders/18soJESU0WxrFC3O1CqYRV_-tfAJ6Dyk9?usp=sharing",
+    "formato": "Rich Media",
+    "link": "",
     "cliente": "EC_Lotería Nacional"
   }
 ]

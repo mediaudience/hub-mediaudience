@@ -13,6 +13,7 @@ import AdminServicios from "./pages/admin/Servicios";
 import AdminPaises from "./pages/admin/Paises";
 import AdminActividad from "./pages/admin/Actividad";
 import AdminEtapasProspeccion from "./pages/admin/EtapasProspeccion";
+import AdminGestionSheets from "./pages/admin/GestionSheets";
 import EnDesarrollo from "./pages/gestion/EnDesarrollo";
 import Prospeccion from "./pages/gestion/Prospeccion";
 import CanalRendimientoGeneral from "./pages/CanalRendimientoGeneral";
@@ -38,6 +39,7 @@ export default function App() {
           <Route element={<RequireAdmin />}>
             <Route path="admin/usuarios" element={<AdminUsuarios />} />
             <Route path="admin/clientes" element={<AdminClientes />} />
+            <Route path="admin/gestion-sheets" element={<AdminGestionSheets />} />
 
             <Route path="gestion/metas-comerciales" element={<EnDesarrollo titulo="Metas Comerciales" />} />
             <Route path="gestion/campanas-servidas" element={<EnDesarrollo titulo="Campañas Servidas" />} />

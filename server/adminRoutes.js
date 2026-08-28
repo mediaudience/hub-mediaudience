@@ -152,6 +152,40 @@ router.put('/paises/:codigo', requireSuperAdmin, (req, res) => {
   res.json({ pais: updated });
 });
 
+// ---------- Sheets de Gestión (Campañas Servidas / Facturación) ----------
+
+// Config de Sheet ID por sección + país -- data puramente administrativa,
+// sin relación a clientes/anunciantes (a diferencia de cliente_canales).
+// A propósito SIN requireSuperAdmin: Jose pidió que tanto Admin como Super
+// Admin puedan cargar el Sheet ID acá, distinto del criterio de
+// Servicios/Países/Etapas (esos sí, solo Super Admin).
+const SECCIONES_GESTION = ['campanas_servidas', 'facturacion'];
+
+router.get('/gestion-sheets', (req, res) => {
+  res.json({ sheets: db.prepare('SELECT seccion, pais, sheet_id FROM gestion_sheets').all() });
+});
+
+router.put('/gestion-sheets/:seccion/:pais', (req, res) => {
+  const { seccion, pais } = req.params;
+  if (!SECCIONES_GESTION.includes(seccion)) {
+    return res.status(400).json({ error: 'Sección inválida' });
+  }
+  if (!paisesActivos().some((p) => p.codigo === pais)) {
+    return res.status(400).json({ error: 'País inválido' });
+  }
+  const sheetId = (req.body?.sheetId ?? '').trim();
+  db.prepare(
+    `INSERT INTO gestion_sheets (seccion, pais, sheet_id, updated_at) VALUES (?, ?, ?, datetime('now'))
+     ON CONFLICT(seccion, pais) DO UPDATE SET sheet_id = excluded.sheet_id, updated_at = excluded.updated_at`
+  ).run(seccion, pais, sheetId);
+  registrarActividad(req, {
+    actor: req.user,
+    accion: 'Sheet de Gestión actualizado',
+    detalle: `Actualizó el Sheet ID de "${seccion}" para ${pais}`,
+  });
+  res.json({ ok: true });
+});
+
 // ---------- Etapas de Prospección ----------
 
 // Catálogo del pipeline de Gestión > Prospección (server/prospeccionRoutes.js

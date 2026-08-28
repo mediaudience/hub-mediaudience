@@ -90,9 +90,9 @@
     "mes": "Agosto",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
-    "impresionesTotales": 0,
-    "clicsTotales": 0,
-    "ctr": 0,
+    "impresionesTotales": 153796,
+    "clicsTotales": 1240,
+    "ctr": 0.81,
     "cliente": "EC_Lotería Nacional"
   }
 ]

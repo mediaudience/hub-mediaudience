@@ -46,5 +46,41 @@
     "clicsTotales": 1163,
     "ctr": 1.06,
     "cliente": "EC_Granasa"
+  },
+  {
+    "campana": "EC_BET593_EcuatorianoPronostica_14Junio2026",
+    "anunciante": "EC_BET593",
+    "motivo": "Ecuatoriano Pronostica",
+    "mes": "Junio",
+    "formato": "Push Premium Video",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 32559,
+    "clicsTotales": 5074,
+    "ctr": 15.58,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_BET593_EcuatorianoPronostica_20Junio2026",
+    "anunciante": "EC_BET593",
+    "motivo": "Ecuatoriano Pronostica",
+    "mes": "Junio",
+    "formato": "Push Premium Video",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 33283,
+    "clicsTotales": 4678,
+    "ctr": 14.06,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_BET593_EcuatorianoPronostica_25Junio2026",
+    "anunciante": "EC_BET593",
+    "motivo": "Ecuatoriano Pronostica",
+    "mes": "Julio",
+    "formato": "Push Premium Video",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 38398,
+    "clicsTotales": 6025,
+    "ctr": 15.69,
+    "cliente": "EC_Lotería Nacional"
   }
 ]

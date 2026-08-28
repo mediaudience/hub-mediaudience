@@ -15,6 +15,7 @@ export const ADMIN_NAV_GROUP = {
     { label: "Países", path: "/admin/paises", superAdminOnly: true },
     { label: "Etapas de Prospección", path: "/admin/etapas-prospeccion", superAdminOnly: true },
     { label: "Actividad", path: "/admin/actividad", superAdminOnly: true },
+    { label: "Sheets de Gestión", path: "/admin/gestion-sheets" },
   ],
 };
 
