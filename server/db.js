@@ -145,19 +145,19 @@ for (const [codigo, nombre] of [
   insertarPais.run(codigo, nombre)
 }
 
-// Sheet ID por sección + país para las 2 subsecciones de Gestión que
-// muestran data administrativa sin ligarse a clientes/anunciantes
-// (Campañas Servidas, Facturación) -- Admin/Super Admin lo cargan desde
-// Admin > Sheets de Gestión (server/adminRoutes.js). No se pre-siembra una
-// fila por país: se crea/actualiza con INSERT ... ON CONFLICT recién cuando
+// Sheet ID por país para las 2 subsecciones de Gestión que muestran data
+// administrativa sin ligarse a clientes/anunciantes (Campañas Servidas,
+// Facturación) -- Admin/Super Admin lo cargan desde Admin > Sheets de
+// Gestión (server/adminRoutes.js). Un solo Sheet por país con AMBAS
+// secciones como pestañas fijas dentro ("Campañas Servidas" y
+// "Facturación") -- no son 2 Sheets separados. No se pre-siembra una fila
+// por país: se crea/actualiza con INSERT ... ON CONFLICT recién cuando
 // alguien guarda un Sheet ID.
 db.exec(`
   CREATE TABLE IF NOT EXISTS gestion_sheets (
-    seccion TEXT NOT NULL CHECK (seccion IN ('campanas_servidas', 'facturacion')),
-    pais TEXT NOT NULL REFERENCES paises(codigo),
+    pais TEXT PRIMARY KEY REFERENCES paises(codigo),
     sheet_id TEXT NOT NULL DEFAULT '',
-    updated_at TEXT NOT NULL DEFAULT (datetime('now')),
-    PRIMARY KEY (seccion, pais)
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
 `)
 
