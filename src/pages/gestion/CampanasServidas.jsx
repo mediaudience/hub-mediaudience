@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import GradientHeader from "../../components/common/GradientHeader";
 import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
@@ -19,6 +19,18 @@ function mesLabelDeFecha(fechaISO) {
   const nombre = new Date(y, m - 1, 1).toLocaleDateString("es-ES", { month: "long", year: "numeric" });
   return nombre.charAt(0).toUpperCase() + nombre.slice(1);
 }
+
+// Pedido por Jose 2026-08-29: al entrar (y al "Borrar Filtros") arrancar en
+// el mes en curso -- se recalcula en cada carga de la página (no hace falta
+// que reaccione a que pase la medianoche con el panel abierto). El pill
+// nunca muestra este valor (ver `hideValueInLabel` en el filtro "Mes" más
+// abajo), así que preseleccionar no alarga el botón ni descuadra los
+// filtros a 2 filas.
+function mesActualLabel() {
+  const hoy = new Date();
+  return mesLabelDeFecha(`${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-01`);
+}
+const MES_ACTUAL_LABEL = mesActualLabel();
 
 // `width` en %, suma 100 -- table-layout: fixed para que la tabla entre en el
 // ancho de la página sin scroll horizontal, en vez de min-width + scroll
@@ -46,10 +58,10 @@ export default function CampanasServidas() {
   const [anunciante, setAnunciante] = useState(null);
   const [formato, setFormato] = useState(null);
   const [ejecutivo, setEjecutivo] = useState(null);
-  // Sin preselección de mes -- Jose pidió 2026-08-29 que el pill arranque
-  // en "Mes" (sin valor) para no alargar el texto del botón y evitar que
-  // los filtros se descuadren a 2 filas.
-  const [mes, setMes] = useState(null);
+  // `undefined` = todavía sin decidir (esperando la primera carga de datos
+  // para saber si el mes actual tiene filas); `null` = "Todos" elegido a
+  // propósito -- mismo patrón que Facturacion.jsx.
+  const [mes, setMes] = useState(undefined);
 
   const filas = data?.filas ?? [];
 
@@ -74,6 +86,12 @@ export default function CampanasServidas() {
     return claves.map((clave) => mesLabelDeFecha(`${clave}-01`));
   }, [filasDelPais]);
 
+  useEffect(() => {
+    if (mes === undefined && mesesDisponibles.length > 0) {
+      setMes(mesesDisponibles.includes(MES_ACTUAL_LABEL) ? MES_ACTUAL_LABEL : null);
+    }
+  }, [mes, mesesDisponibles]);
+
   const filtradas = useMemo(
     () =>
       filasDelPais.filter(
@@ -93,7 +111,7 @@ export default function CampanasServidas() {
     { label: "Anunciante", options: anunciantesDisponibles, value: anunciante, onChange: setAnunciante },
     { label: "Formato", options: formatosDisponibles, value: formato, onChange: setFormato },
     { label: "Ejecutivo", options: ejecutivosDisponibles, value: ejecutivo, onChange: setEjecutivo },
-    { label: "Mes", options: mesesDisponibles, value: mes, onChange: setMes },
+    { label: "Mes", options: mesesDisponibles, value: mes, onChange: setMes, hideValueInLabel: true },
   ];
 
   return (
@@ -108,7 +126,7 @@ export default function CampanasServidas() {
           setAnunciante(null);
           setFormato(null);
           setEjecutivo(null);
-          setMes(null);
+          setMes(undefined);
         }}
         onDownload={filtradas.length > 0 ? () => downloadCSV("campanas-servidas", filtradas, COLUMNS) : undefined}
       />

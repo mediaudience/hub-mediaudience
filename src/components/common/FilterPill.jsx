@@ -3,7 +3,12 @@ import { useState, useRef, useEffect } from "react";
 // Controlado por el padre (value/onChange) -- aplica de inmediato al elegir
 // una opción, sin paso de "Aplicar" aparte (ver ChannelRendimientoGeneral.jsx
 // para cómo se usa el valor elegido para filtrar filas de verdad).
-export default function FilterPill({ label, options = [], value, onChange }) {
+// `hideValueInLabel`: el botón siempre muestra solo `label`, nunca
+// `label: valor` -- pedido por Jose 2026-08-29 en CampanasServidas.jsx para
+// que el pill de "Mes" no crezca al preseleccionar el mes en curso (eso
+// descuadraba los filtros a 2 filas). Por defecto false, no cambia el resto
+// de los filtros del panel.
+export default function FilterPill({ label, options = [], value, onChange, hideValueInLabel = false }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -26,7 +31,7 @@ export default function FilterPill({ label, options = [], value, onChange }) {
         aria-expanded={open}
         className="flex items-center gap-2 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
       >
-        {seleccionado === null ? label : `${label}: ${seleccionado}`}
+        {hideValueInLabel || seleccionado === null ? label : `${label}: ${seleccionado}`}
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
           <path d="M6 9l6 6 6-6" stroke="#57007E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>

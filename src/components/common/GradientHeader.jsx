@@ -61,7 +61,14 @@ export default function GradientHeader({
                 />
               )}
               {filters.map((f) => (
-                <FilterPill key={f.label} label={f.label} options={f.options} value={f.value} onChange={f.onChange} />
+                <FilterPill
+                  key={f.label}
+                  label={f.label}
+                  options={f.options}
+                  value={f.value}
+                  onChange={f.onChange}
+                  hideValueInLabel={f.hideValueInLabel}
+                />
               ))}
               <button
                 type="button"
