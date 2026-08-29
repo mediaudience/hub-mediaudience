@@ -1,5 +1,13 @@
+// Si el valor (viene de un Sheet o de un formulario editable, ej. nombre de
+// contacto en Prospección) empieza con uno de estos caracteres, Excel/Sheets
+// puede interpretarlo como fórmula al abrir el CSV exportado -- se antepone
+// un apóstrofe para forzarlo a texto plano (mitigación estándar de CSV/Formula
+// Injection).
+const FORMULA_TRIGGER = /^[=+\-@\t\r]/;
+
 function toCSVValue(value) {
-  const str = String(value ?? "");
+  let str = String(value ?? "");
+  if (FORMULA_TRIGGER.test(str)) str = `'${str}`;
   return /[",\n]/.test(str) ? `"${str.replace(/"/g, '""')}"` : str;
 }
 

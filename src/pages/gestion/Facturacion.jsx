@@ -8,6 +8,13 @@ import useApiData from "../../hooks/useApiData";
 import { formatCurrency } from "../../utils/format";
 import { downloadCSV } from "../../utils/csv";
 
+// El Sheet de Gestión lo edita Admin/Super Admin -- si alguna celda trajera
+// una URI no-http (ej. "javascript:...") no debe renderizarse como link
+// clickeable.
+function esUrlSegura(url) {
+  return /^https?:\/\//i.test(String(url ?? ""));
+}
+
 const COLUMNS = [
   { key: "mes", label: "Mes" },
   { key: "agencia", label: "Agencia" },
@@ -157,7 +164,7 @@ export default function Facturacion() {
                       </td>
                     ))}
                     <td className="px-4 py-2.5">
-                      {r.pdfOrden ? (
+                      {esUrlSegura(r.pdfOrden) ? (
                         <a href={r.pdfOrden} target="_blank" rel="noreferrer" className="text-brand-purple hover:underline">
                           Ver
                         </a>
@@ -166,7 +173,7 @@ export default function Facturacion() {
                       )}
                     </td>
                     <td className="px-4 py-2.5">
-                      {r.pdfFactura ? (
+                      {esUrlSegura(r.pdfFactura) ? (
                         <a href={r.pdfFactura} target="_blank" rel="noreferrer" className="text-brand-purple hover:underline">
                           Ver
                         </a>

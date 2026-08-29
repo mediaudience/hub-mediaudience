@@ -11,6 +11,16 @@ const ROL_LABEL = {
   usuario_externo: 'Usuario Externo',
 };
 
+// `nombre`/`email` los tipea un Admin al crear el usuario (texto libre, sin
+// validación de formato) -- se interpolan en HTML de correo, así que hay que
+// escaparlos para que no puedan romper el layout ni inyectar markup.
+function escapeHtml(str) {
+  return String(str ?? "").replace(
+    /[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+  );
+}
+
 const FONT = "'Poppins', Helvetica, Arial, sans-serif";
 const PURPLE = '#57007e';
 const MAGENTA = '#c4216f';
@@ -46,7 +56,7 @@ function envoltura(contenidoHtml) {
 
 function plantillaInvitacion({ nombre, email, password, rol }) {
   return envoltura(`
-    <p style="margin: 0 0 4px; color: ${INK}; font-size: 15px;">Hola ${nombre},</p>
+    <p style="margin: 0 0 4px; color: ${INK}; font-size: 15px;">Hola ${escapeHtml(nombre)},</p>
     <p style="margin: 0 0 20px; color: ${INK}; font-size: 15px; line-height: 1.5;">
       Se creó tu acceso al panel con el rol
       <span style="display: inline-block; background-color: #f3e8fb; color: ${PURPLE}; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; padding: 3px 10px; border-radius: 999px;">${ROL_LABEL[rol] ?? rol}</span>.
@@ -58,7 +68,7 @@ function plantillaInvitacion({ nombre, email, password, rol }) {
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td style="padding: 4px 12px 4px 0; color: ${SLATE}; font-size: 13px; white-space: nowrap;">Usuario</td>
-              <td style="padding: 4px 0; color: ${INK}; font-size: 14px; font-weight: 600;">${email}</td>
+              <td style="padding: 4px 0; color: ${INK}; font-size: 14px; font-weight: 600;">${escapeHtml(email)}</td>
             </tr>
             <tr>
               <td style="padding: 4px 12px 4px 0; color: ${SLATE}; font-size: 13px; white-space: nowrap;">Contraseña</td>
@@ -81,7 +91,7 @@ function plantillaInvitacion({ nombre, email, password, rol }) {
 
 function plantillaRecuperacion({ nombre, enlace }) {
   return envoltura(`
-    <p style="margin: 0 0 4px; color: ${INK}; font-size: 15px;">Hola ${nombre},</p>
+    <p style="margin: 0 0 4px; color: ${INK}; font-size: 15px;">Hola ${escapeHtml(nombre)},</p>
     <p style="margin: 0 0 20px; color: ${INK}; font-size: 15px; line-height: 1.5;">
       Pediste restablecer tu contraseña del panel. Tocá el botón para elegir una nueva -- el enlace vence en 30 minutos y solo funciona una vez.
     </p>
@@ -98,7 +108,7 @@ function plantillaRecuperacion({ nombre, enlace }) {
 
 function plantillaCodigoAcceso({ nombre, codigo }) {
   return envoltura(`
-    <p style="margin: 0 0 4px; color: ${INK}; font-size: 15px;">Hola ${nombre},</p>
+    <p style="margin: 0 0 4px; color: ${INK}; font-size: 15px;">Hola ${escapeHtml(nombre)},</p>
     <p style="margin: 0 0 20px; color: ${INK}; font-size: 15px; line-height: 1.5;">
       Tu sesión en el panel se cerró por inactividad. Usa este código para volver a ingresar:
     </p>

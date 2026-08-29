@@ -14,7 +14,14 @@ router.get('/', (req, res) => {
 
 // Clientes visibles del usuario a nivel de cuenta -- alimenta el selector de
 // "Cliente activo" en el menú de la cuenta (Navbar), no depende del canal.
+// Mismo gate que /:canal/rendimiento-general: Administrativo no tiene la
+// sección "Campañas" (ver shared/perfilesInterno.js), así que tampoco tiene
+// sentido que vea este selector -- el frontend ya trata un 403 acá como
+// lista vacía (ver ClienteActivoContext.jsx), no rompe nada.
 router.get('/clientes-visibles', (req, res) => {
+  if (req.user.rol === 'usuario_interno' && !perfilPuedeVer(req.user.perfil, 'campanas')) {
+    return res.status(403).json({ error: 'No autorizado' });
+  }
   res.json({ clientes: getClientesVisibles(req.user) });
 });
 
