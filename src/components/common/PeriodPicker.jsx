@@ -62,15 +62,15 @@ function Calendar({ label, year, month, onNav, selectedDay, onSelectDay }) {
   );
 }
 
-export default function PeriodPicker({ onApply }) {
+export default function PeriodPicker({ onApply, initialStartDay = null, initialEndDay = null }) {
   const [open, setOpen] = useState(false);
-  const [autoPeriod, setAutoPeriod] = useState("Personalizado");
+  const [autoPeriod, setAutoPeriod] = useState(initialStartDay ? "Este mes" : "Personalizado");
   const [autoOpen, setAutoOpen] = useState(false);
   const today = new Date();
   const [leftView, setLeftView] = useState({ year: today.getFullYear(), month: today.getMonth() });
   const [rightView, setRightView] = useState({ year: today.getFullYear(), month: today.getMonth() });
-  const [startDay, setStartDay] = useState(null);
-  const [endDay, setEndDay] = useState(null);
+  const [startDay, setStartDay] = useState(initialStartDay);
+  const [endDay, setEndDay] = useState(initialEndDay);
   const ref = useRef(null);
 
   useEffect(() => {

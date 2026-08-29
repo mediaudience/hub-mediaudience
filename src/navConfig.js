@@ -20,18 +20,19 @@ export const ADMIN_NAV_GROUP = {
 };
 
 // Visible para Admin/Super Admin (los 4 items) y además para usuario_interno
-// pero SOLO en los items marcados `internoVisible` -- Prospección es la
-// herramienta de trabajo diaria del equipo comercial, las otras 3 secciones
-// siguen siendo gestión interna del negocio que un usuario_interno no
-// necesita ver. Las 3 sin desarrollar todavía usan
-// src/pages/gestion/EnDesarrollo.jsx, solo reservan su lugar en el Sidebar.
+// pero SOLO en los items marcados `internoVisible` -- Prospección, Campañas
+// Servidas y Facturación son trabajo diario del equipo local (esta última
+// pareja acotada a su propio país en el backend, ver gestionRoutes.js);
+// Metas Comerciales sigue siendo gestión interna del negocio que un
+// usuario_interno no necesita ver, todavía sin desarrollar (usa
+// src/pages/gestion/EnDesarrollo.jsx, solo reserva su lugar en el Sidebar).
 export const GESTION_NAV_GROUP = {
   id: "gestion",
   label: "Gestión",
   items: [
     { label: "Metas Comerciales", path: "/gestion/metas-comerciales" },
     { label: "Prospección", path: "/gestion/prospeccion", internoVisible: true },
-    { label: "Campañas Servidas", path: "/gestion/campanas-servidas" },
-    { label: "Facturación", path: "/gestion/facturacion" },
+    { label: "Campañas Servidas", path: "/gestion/campanas-servidas", internoVisible: true },
+    { label: "Facturación", path: "/gestion/facturacion", internoVisible: true },
   ],
 };

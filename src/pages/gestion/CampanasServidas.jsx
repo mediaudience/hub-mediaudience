@@ -19,6 +19,19 @@ function dentroDelPeriodo(fecha, periodo) {
   return true;
 }
 
+// Filtro por defecto pedido por Jose 2026-08-29: al entrar (y al "Borrar
+// Filtros") solo se ve el mes en curso, no todo el histórico -- se calcula
+// una sola vez al cargar el módulo, no hace falta que reaccione a que pase
+// la medianoche con el panel abierto.
+function rangoMesActual() {
+  const hoy = new Date();
+  const inicio = { year: hoy.getFullYear(), month: hoy.getMonth(), day: 1 };
+  const ultimoDia = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0).getDate();
+  const fin = { year: hoy.getFullYear(), month: hoy.getMonth(), day: ultimoDia };
+  return { inicio: diaISO(inicio), fin: diaISO(fin), startDay: inicio, endDay: fin };
+}
+const MES_ACTUAL = rangoMesActual();
+
 // `width` en %, suma 100 -- table-layout: fixed para que la tabla entre en el
 // ancho de la página sin scroll horizontal, en vez de min-width + scroll
 // (mismo problema que ya se resolvió en MetricsTable.jsx para otras
@@ -45,7 +58,7 @@ export default function CampanasServidas() {
   const [anunciante, setAnunciante] = useState(null);
   const [formato, setFormato] = useState(null);
   const [ejecutivo, setEjecutivo] = useState(null);
-  const [periodo, setPeriodo] = useState(null);
+  const [periodo, setPeriodo] = useState({ inicio: MES_ACTUAL.inicio, fin: MES_ACTUAL.fin });
 
   const filas = data?.filas ?? [];
 
@@ -91,6 +104,7 @@ export default function CampanasServidas() {
         title="Campañas Servidas"
         noWrap
         filters={filters}
+        periodoInicial={{ startDay: MES_ACTUAL.startDay, endDay: MES_ACTUAL.endDay }}
         onApplyPeriod={({ startDay, endDay }) =>
           setPeriodo(startDay && endDay ? { inicio: diaISO(startDay), fin: diaISO(endDay) } : null)
         }
@@ -99,7 +113,7 @@ export default function CampanasServidas() {
           setAnunciante(null);
           setFormato(null);
           setEjecutivo(null);
-          setPeriodo(null);
+          setPeriodo({ inicio: MES_ACTUAL.inicio, fin: MES_ACTUAL.fin });
         }}
         onDownload={filtradas.length > 0 ? () => downloadCSV("campanas-servidas", filtradas, COLUMNS) : undefined}
       />

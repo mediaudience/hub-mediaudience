@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import GradientHeader from "../../components/common/GradientHeader";
 import Card from "../../components/common/Card";
 import KPICard from "../../components/common/KPICard";
@@ -18,8 +18,20 @@ const COLUMNS = [
   { key: "consumoNeto", label: "Consumo Neto", align: "right" },
 ];
 
-// Data administrativa por país (Admin/Super Admin únicamente), sin relación
-// a clientes/anunciantes -- ver [[project_mediaudience_gestion_sheets]].
+// Sheet no trae fecha exacta, solo el nombre del mes (ver
+// scripts/syncGestionSheets.js) -- el filtro por defecto pedido por Jose
+// 2026-08-29 (mostrar solo el mes en curso) se resuelve comparando contra
+// este nombre, capitalizado igual que en el Sheet ("Agosto", no "agosto").
+function mesActualNombre() {
+  const nombre = new Date().toLocaleDateString("es-ES", { month: "long" });
+  return nombre.charAt(0).toUpperCase() + nombre.slice(1);
+}
+const MES_ACTUAL_NOMBRE = mesActualNombre();
+
+// Data administrativa por país, sin relación a clientes/anunciantes -- ver
+// [[project_mediaudience_gestion_sheets]]. Visible para Admin/Super Admin
+// (todos los países) y usuario_interno (solo el suyo, filtrado en el
+// backend -- ver server/gestionRoutes.js).
 export default function Facturacion() {
   const { data, loading, error } = useApiData("/api/gestion/facturacion");
   const [pais, setPais] = useState(null);
@@ -27,7 +39,11 @@ export default function Facturacion() {
   const [agencia, setAgencia] = useState(null);
   const [producto, setProducto] = useState(null);
   const [estadoFactura, setEstadoFactura] = useState(null);
-  const [mes, setMes] = useState(null);
+  // `undefined` = todavía sin decidir (esperando la primera carga de datos
+  // para saber si el mes actual existe en el Sheet); `null` = "Todos"
+  // elegido a propósito por el usuario -- distinguir los dos es lo que evita
+  // que el efecto de abajo pise una elección explícita.
+  const [mes, setMes] = useState(undefined);
 
   const filas = data?.filas ?? [];
 
@@ -50,6 +66,12 @@ export default function Facturacion() {
     [filasDelPais]
   );
   const mesesDisponibles = useMemo(() => [...new Set(filasDelPais.map((r) => r.mes).filter(Boolean))], [filasDelPais]);
+
+  useEffect(() => {
+    if (mes === undefined && mesesDisponibles.length > 0) {
+      setMes(mesesDisponibles.includes(MES_ACTUAL_NOMBRE) ? MES_ACTUAL_NOMBRE : null);
+    }
+  }, [mes, mesesDisponibles]);
 
   const filtradas = useMemo(
     () =>
@@ -84,6 +106,7 @@ export default function Facturacion() {
       <GradientHeader
         title="Facturación"
         noWrap
+        showPeriodPicker={false}
         filters={filters}
         onClearFilters={() => {
           setPais(null);
@@ -91,7 +114,7 @@ export default function Facturacion() {
           setAgencia(null);
           setProducto(null);
           setEstadoFactura(null);
-          setMes(null);
+          setMes(undefined);
         }}
         onDownload={filtradas.length > 0 ? () => downloadCSV("facturacion", filtradas, COLUMNS) : undefined}
       />

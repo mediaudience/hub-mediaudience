@@ -17,6 +17,8 @@ export default function GradientHeader({
   onDownload,
   showDownload = true,
   noWrap = false,
+  showPeriodPicker = true,
+  periodoInicial,
 }) {
   const [periodoResetKey, setPeriodoResetKey] = useState(0);
 
@@ -50,7 +52,14 @@ export default function GradientHeader({
         <div className="flex flex-wrap items-center gap-2">
           {filters.length > 0 && (
             <>
-              <PeriodPicker key={periodoResetKey} onApply={onApplyPeriod} />
+              {showPeriodPicker && (
+                <PeriodPicker
+                  key={periodoResetKey}
+                  onApply={onApplyPeriod}
+                  initialStartDay={periodoInicial?.startDay}
+                  initialEndDay={periodoInicial?.endDay}
+                />
+              )}
               {filters.map((f) => (
                 <FilterPill key={f.label} label={f.label} options={f.options} value={f.value} onChange={f.onChange} />
               ))}
