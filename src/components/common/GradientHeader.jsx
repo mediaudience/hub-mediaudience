@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PeriodPicker from "./PeriodPicker";
+import PeriodFilterPill from "./PeriodFilterPill";
 import FilterPill from "./FilterPill";
 
 // `filters`: [{ label, options, value, onChange }] -- el padre (la página del
@@ -7,8 +8,12 @@ import FilterPill from "./FilterPill";
 // este componente solo se encarga de mostrar los pills. "Borrar Filtros"
 // limpia todo eso a través de `onClearFilters`, que el padre implementa
 // reseteando su propio estado (no hay estado local de filtro acá) -- salvo
-// PeriodPicker, que sigue siendo dueño de su propio calendario; se lo
-// remonta con `key` para que también se vea limpio visualmente.
+// PeriodPicker/PeriodFilterPill, que siguen siendo dueños de su propio
+// calendario; se los remonta con `key` para que también se vean limpios
+// visualmente.
+// `periodFilter`: { label, meses, onChange } -- filtro de periodo estilo GA4
+// (CampanasServidas.jsx), independiente de `showPeriodPicker`/PeriodPicker
+// (que siguen usando los 5 canales de campaña sin tocar).
 export default function GradientHeader({
   title,
   filters = [],
@@ -19,6 +24,7 @@ export default function GradientHeader({
   noWrap = false,
   showPeriodPicker = true,
   periodoInicial,
+  periodFilter,
 }) {
   const [periodoResetKey, setPeriodoResetKey] = useState(0);
 
@@ -50,7 +56,7 @@ export default function GradientHeader({
         <h1 className={`text-white font-bold text-2xl md:text-3xl ${noWrap ? "shrink-0" : ""}`}>{title}</h1>
 
         <div className="flex flex-wrap items-center gap-2">
-          {filters.length > 0 && (
+          {(filters.length > 0 || periodFilter) && (
             <>
               {showPeriodPicker && (
                 <PeriodPicker
@@ -58,6 +64,14 @@ export default function GradientHeader({
                   onApply={onApplyPeriod}
                   initialStartDay={periodoInicial?.startDay}
                   initialEndDay={periodoInicial?.endDay}
+                />
+              )}
+              {periodFilter && (
+                <PeriodFilterPill
+                  key={periodoResetKey}
+                  label={periodFilter.label}
+                  meses={periodFilter.meses}
+                  onChange={periodFilter.onChange}
                 />
               )}
               {filters.map((f) => (
