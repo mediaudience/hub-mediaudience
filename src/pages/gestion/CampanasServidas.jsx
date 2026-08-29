@@ -36,8 +36,8 @@ const COLUMNS = [
   { key: "ejecutivo", label: "Ejecutivo", width: 10 },
   { key: "formato", label: "Formato", width: 9 },
   { key: "tipoVenta", label: "Tipo", width: 6 },
-  { key: "fechaInicio", label: "Fecha Inicio", width: 8 },
-  { key: "fechaFin", label: "Fecha Fin", width: 7 },
+  { key: "fechaInicio", label: "Fecha Inicio", align: "center", width: 8 },
+  { key: "fechaFin", label: "Fecha Fin", align: "center", width: 7 },
   { key: "objetivo", label: "Objetivo", align: "right", width: 8 },
   { key: "consumo", label: "Consumo", align: "right", width: 7 },
   { key: "porcentajeConsumo", label: "Avance", align: "center", width: 7 },
@@ -74,13 +74,17 @@ export default function CampanasServidas() {
   );
   const filtradas = useMemo(
     () =>
-      filasDelPais.filter(
-        (r) =>
-          (!anunciante || r.anunciante === anunciante) &&
-          (!formato || r.formato === formato) &&
-          (!ejecutivo || r.ejecutivo === ejecutivo) &&
-          dentroDelPeriodo(r.fechaInicio, periodo)
-      ),
+      filasDelPais
+        .filter(
+          (r) =>
+            (!anunciante || r.anunciante === anunciante) &&
+            (!formato || r.formato === formato) &&
+            (!ejecutivo || r.ejecutivo === ejecutivo) &&
+            dentroDelPeriodo(r.fechaInicio, periodo)
+        )
+        // Fecha Inicio descendente (más reciente primero) -- mismo criterio
+        // por defecto que MetricsTable.jsx usa en los 5 canales de campaña.
+        .sort((a, b) => String(b.fechaInicio ?? "").localeCompare(String(a.fechaInicio ?? ""))),
     [filasDelPais, anunciante, formato, ejecutivo, periodo]
   );
 
@@ -165,7 +169,7 @@ export default function CampanasServidas() {
                         key={c.key}
                         title={!esNumerico ? String(esFecha ? r[c.key] ?? "" : valor) : undefined}
                         className={`px-2.5 py-2 text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis ${
-                          c.align === "right" ? "text-right" : ""
+                          c.align === "right" ? "text-right" : c.align === "center" ? "text-center" : ""
                         }`}
                       >
                         {valor}
