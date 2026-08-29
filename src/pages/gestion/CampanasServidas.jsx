@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import GradientHeader from "../../components/common/GradientHeader";
 import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
@@ -7,30 +7,27 @@ import useApiData from "../../hooks/useApiData";
 import { formatNumber, progressTier, TIER_COLORS } from "../../utils/format";
 import { downloadCSV } from "../../utils/csv";
 
-function diaISO(day) {
-  if (!day) return null;
-  return `${day.year}-${String(day.month + 1).padStart(2, "0")}-${String(day.day).padStart(2, "0")}`;
+// Se deriva de `fechaInicio` (ISO, ya parseada por el sync) en vez de leer
+// una columna "Mes" del Sheet -- evita el problema real que encontramos en
+// Facturación, donde el Sheet escribe el mes en curso abreviado ("Ago") y
+// no matchea contra el nombre completo que calcula el navegador. Acá el mes
+// se calcula siempre a partir de una fecha real, nunca de texto libre del
+// Sheet, así que es inmune a cómo esté escrito ahí.
+function mesLabelDeFecha(fechaISO) {
+  if (!fechaISO) return null;
+  const [y, m] = fechaISO.split("-").map(Number);
+  const nombre = new Date(y, m - 1, 1).toLocaleDateString("es-ES", { month: "long", year: "numeric" });
+  return nombre.charAt(0).toUpperCase() + nombre.slice(1);
 }
 
-function dentroDelPeriodo(fecha, periodo) {
-  if (!periodo || !fecha) return true;
-  if (periodo.inicio && fecha < periodo.inicio) return false;
-  if (periodo.fin && fecha > periodo.fin) return false;
-  return true;
-}
-
-// Filtro por defecto pedido por Jose 2026-08-29: al entrar (y al "Borrar
-// Filtros") solo se ve el mes en curso, no todo el histórico -- se calcula
-// una sola vez al cargar el módulo, no hace falta que reaccione a que pase
-// la medianoche con el panel abierto.
-function rangoMesActual() {
+// Pedido por Jose 2026-08-29: al entrar (y al "Borrar Filtros") arrancar en
+// el mes en curso -- se recalcula en cada carga de la página (no hace falta
+// que reaccione a que pase la medianoche con el panel abierto).
+function mesActualLabel() {
   const hoy = new Date();
-  const inicio = { year: hoy.getFullYear(), month: hoy.getMonth(), day: 1 };
-  const ultimoDia = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0).getDate();
-  const fin = { year: hoy.getFullYear(), month: hoy.getMonth(), day: ultimoDia };
-  return { inicio: diaISO(inicio), fin: diaISO(fin), startDay: inicio, endDay: fin };
+  return mesLabelDeFecha(`${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-01`);
 }
-const MES_ACTUAL = rangoMesActual();
+const MES_ACTUAL_LABEL = mesActualLabel();
 
 // `width` en %, suma 100 -- table-layout: fixed para que la tabla entre en el
 // ancho de la página sin scroll horizontal, en vez de min-width + scroll
@@ -58,7 +55,10 @@ export default function CampanasServidas() {
   const [anunciante, setAnunciante] = useState(null);
   const [formato, setFormato] = useState(null);
   const [ejecutivo, setEjecutivo] = useState(null);
-  const [periodo, setPeriodo] = useState({ inicio: MES_ACTUAL.inicio, fin: MES_ACTUAL.fin });
+  // `undefined` = todavía sin decidir (esperando la primera carga de datos
+  // para saber si el mes actual tiene filas); `null` = "Todos" elegido a
+  // propósito -- mismo patrón que Facturacion.jsx.
+  const [mes, setMes] = useState(undefined);
 
   const filas = data?.filas ?? [];
 
@@ -76,6 +76,18 @@ export default function CampanasServidas() {
     () => [...new Set(filasDelPais.map((r) => r.ejecutivo).filter(Boolean))].sort(),
     [filasDelPais]
   );
+  // Orden cronológico real (por fecha, no alfabético) -- evita que "Agosto"
+  // quede antes que "Julio" en el desplegable.
+  const mesesDisponibles = useMemo(() => {
+    const claves = [...new Set(filasDelPais.map((r) => r.fechaInicio?.slice(0, 7)).filter(Boolean))].sort();
+    return claves.map((clave) => mesLabelDeFecha(`${clave}-01`));
+  }, [filasDelPais]);
+
+  useEffect(() => {
+    if (mes === undefined && mesesDisponibles.length > 0) {
+      setMes(mesesDisponibles.includes(MES_ACTUAL_LABEL) ? MES_ACTUAL_LABEL : null);
+    }
+  }, [mes, mesesDisponibles]);
 
   const filtradas = useMemo(
     () =>
@@ -84,9 +96,9 @@ export default function CampanasServidas() {
           (!anunciante || r.anunciante === anunciante) &&
           (!formato || r.formato === formato) &&
           (!ejecutivo || r.ejecutivo === ejecutivo) &&
-          dentroDelPeriodo(r.fechaInicio, periodo)
+          (!mes || mesLabelDeFecha(r.fechaInicio) === mes)
       ),
-    [filasDelPais, anunciante, formato, ejecutivo, periodo]
+    [filasDelPais, anunciante, formato, ejecutivo, mes]
   );
 
   const filters = [
@@ -96,6 +108,7 @@ export default function CampanasServidas() {
     { label: "Anunciante", options: anunciantesDisponibles, value: anunciante, onChange: setAnunciante },
     { label: "Formato", options: formatosDisponibles, value: formato, onChange: setFormato },
     { label: "Ejecutivo", options: ejecutivosDisponibles, value: ejecutivo, onChange: setEjecutivo },
+    { label: "Mes", options: mesesDisponibles, value: mes, onChange: setMes },
   ];
 
   return (
@@ -103,17 +116,14 @@ export default function CampanasServidas() {
       <GradientHeader
         title="Campañas Servidas"
         noWrap
+        showPeriodPicker={false}
         filters={filters}
-        periodoInicial={{ startDay: MES_ACTUAL.startDay, endDay: MES_ACTUAL.endDay }}
-        onApplyPeriod={({ startDay, endDay }) =>
-          setPeriodo(startDay && endDay ? { inicio: diaISO(startDay), fin: diaISO(endDay) } : null)
-        }
         onClearFilters={() => {
           setPais(null);
           setAnunciante(null);
           setFormato(null);
           setEjecutivo(null);
-          setPeriodo({ inicio: MES_ACTUAL.inicio, fin: MES_ACTUAL.fin });
+          setMes(undefined);
         }}
         onDownload={filtradas.length > 0 ? () => downloadCSV("campanas-servidas", filtradas, COLUMNS) : undefined}
       />
