@@ -31,7 +31,11 @@ function formatFechaCorta(fechaISO) {
 // una paleta distinta copiada de otro panel.
 function AvanceLegend() {
   return (
-    <div className="flex flex-wrap items-center justify-end gap-5 text-sm font-semibold text-slate-label px-1 py-4">
+    // -mt-6 cancela el mb-6 del GradientHeader -- sin eso, el hueco de arriba
+    // (mb del header) más el padding de acá quedaba más grande que el de
+    // abajo (nada antes del Card) y el legend se veía pegado hacia abajo en
+    // vez de centrado en el espacio entre el banner y la tabla.
+    <div className="flex flex-wrap items-center justify-end gap-5 text-sm font-semibold text-slate-label px-1 py-6 -mt-6">
       <span className="uppercase tracking-wide text-brand-purple">Avance</span>
       <span className="flex items-center gap-2">
         <span className="w-3.5 h-3.5 rounded-full" style={{ backgroundColor: TIER_COLORS.red }} />
