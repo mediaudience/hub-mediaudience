@@ -98,7 +98,7 @@ export default function Facturacion() {
     { label: "Agencia", options: agenciasDisponibles, value: agencia, onChange: setAgencia },
     { label: "Producto", options: productosDisponibles, value: producto, onChange: setProducto },
     { label: "Estado Factura", options: estadosDisponibles, value: estadoFactura, onChange: setEstadoFactura },
-    { label: "Mes", options: mesesDisponibles, value: mes, onChange: setMes },
+    { label: "Mes", options: mesesDisponibles, value: mes, onChange: setMes, hideValueInLabel: true },
   ];
 
   return (
