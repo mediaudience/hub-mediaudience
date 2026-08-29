@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { requireUser } from './middleware.js';
+import { perfilPuedeVer } from '../shared/perfilesInterno.js';
 import {
   getEtapasProspeccion,
   listarProspectos,
@@ -19,6 +20,16 @@ router.use(requireUser);
 // vez de confiar solo en que la visibilidad devuelva vacío.
 router.use((req, res, next) => {
   if (req.user.rol === 'usuario_externo') return res.status(403).json({ error: 'No autorizado' });
+  next();
+});
+
+// Dentro de usuario_interno, solo Manager/Ejecutivo Comercial trabajan
+// Prospección (ver shared/perfilesInterno.js) -- Operaciones/Administrativo
+// no deben ni ver ni escribir nada acá.
+router.use((req, res, next) => {
+  if (req.user.rol === 'usuario_interno' && !perfilPuedeVer(req.user.perfil, 'prospeccion')) {
+    return res.status(403).json({ error: 'No autorizado' });
+  }
   next();
 });
 

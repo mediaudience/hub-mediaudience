@@ -48,6 +48,7 @@ export function requireUser(req, res, next) {
     rol: user.rol,
     clienteId: user.cliente_id,
     pais: user.pais,
+    perfil: user.perfil,
     debeCambiarPassword: !!user.debe_cambiar_password,
     canalesContratados: getCanalesContratados({ id: user.id, rol: user.rol, clienteId: user.cliente_id }),
   };

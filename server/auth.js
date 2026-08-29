@@ -24,6 +24,7 @@ function toPublicUser(user) {
     nombre: user.nombre,
     rol: user.rol,
     clienteId: user.cliente_id,
+    perfil: user.rol === "usuario_interno" ? user.perfil ?? null : null,
     debeCambiarPassword: !!user.debe_cambiar_password,
     canalesContratados: getCanalesContratados({ id: user.id, rol: user.rol, clienteId: user.cliente_id }),
   };

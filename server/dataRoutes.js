@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { requireUser } from './middleware.js';
+import { perfilPuedeVer } from '../shared/perfilesInterno.js';
 import { getCanalesPublicos, getDirDeCanal, getRendimientoGeneral, getClientesVisibles } from './dataAccess.js';
 
 const router = Router();
@@ -24,7 +25,13 @@ router.param('canal', (req, res, next, canal) => {
   next();
 });
 
+// Administrativo no tiene la sección "Campañas" (ver shared/perfilesInterno.js)
+// -- bloqueado acá además de escondido en el nav, para no depender solo de
+// que no le muestren el link.
 router.get('/:canal/rendimiento-general', async (req, res, next) => {
+  if (req.user.rol === 'usuario_interno' && !perfilPuedeVer(req.user.perfil, 'campanas')) {
+    return res.status(403).json({ error: 'No autorizado' });
+  }
   try {
     res.json(await getRendimientoGeneral(req.canalDir, req.user));
   } catch (err) {

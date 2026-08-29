@@ -19,20 +19,18 @@ export const ADMIN_NAV_GROUP = {
   ],
 };
 
-// Visible para Admin/Super Admin (los 4 items) y además para usuario_interno
-// pero SOLO en los items marcados `internoVisible` -- Prospección, Campañas
-// Servidas y Facturación son trabajo diario del equipo local (esta última
-// pareja acotada a su propio país en el backend, ver gestionRoutes.js);
-// Metas Comerciales sigue siendo gestión interna del negocio que un
-// usuario_interno no necesita ver, todavía sin desarrollar (usa
-// src/pages/gestion/EnDesarrollo.jsx, solo reserva su lugar en el Sidebar).
+// Visible para Admin/Super Admin (los 4 items) y además para usuario_interno,
+// acotado por `seccionInterno` según su perfil (Manager/Ejecutivo Comercial/
+// Operaciones/Administrativo -- ver shared/perfilesInterno.js y
+// useNavGroups.js, que aplica el filtro). Metas Comerciales sigue sin
+// desarrollar (usa src/pages/gestion/EnDesarrollo.jsx, solo reserva su lugar).
 export const GESTION_NAV_GROUP = {
   id: "gestion",
   label: "Gestión",
   items: [
-    { label: "Metas Comerciales", path: "/gestion/metas-comerciales" },
-    { label: "Prospección", path: "/gestion/prospeccion", internoVisible: true },
-    { label: "Campañas Servidas", path: "/gestion/campanas-servidas", internoVisible: true },
-    { label: "Facturación", path: "/gestion/facturacion", internoVisible: true },
+    { label: "Metas Comerciales", path: "/gestion/metas-comerciales", seccionInterno: "metasComerciales" },
+    { label: "Prospección", path: "/gestion/prospeccion", seccionInterno: "prospeccion" },
+    { label: "Campañas Servidas", path: "/gestion/campanas-servidas", seccionInterno: "campanasServidas" },
+    { label: "Facturación", path: "/gestion/facturacion", seccionInterno: "facturacion" },
   ],
 };

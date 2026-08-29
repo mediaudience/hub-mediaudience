@@ -38,14 +38,16 @@ export default function App() {
             <Route path="gestion/prospeccion" element={<Prospeccion />} />
             <Route path="gestion/campanas-servidas" element={<CampanasServidas />} />
             <Route path="gestion/facturacion" element={<Facturacion />} />
+            {/* Manager/Ejecutivo Comercial (ver shared/perfilesInterno.js) también
+                entran acá -- antes vivía bajo RequireAdmin, que se lo bloqueaba a
+                cualquier usuario_interno sin importar su perfil. */}
+            <Route path="gestion/metas-comerciales" element={<EnDesarrollo titulo="Metas Comerciales" />} />
           </Route>
 
           <Route element={<RequireAdmin />}>
             <Route path="admin/usuarios" element={<AdminUsuarios />} />
             <Route path="admin/clientes" element={<AdminClientes />} />
             <Route path="admin/gestion-sheets" element={<AdminGestionSheets />} />
-
-            <Route path="gestion/metas-comerciales" element={<EnDesarrollo titulo="Metas Comerciales" />} />
 
             <Route element={<RequireSuperAdmin />}>
               <Route path="admin/servicios" element={<AdminServicios />} />

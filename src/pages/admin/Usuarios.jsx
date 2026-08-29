@@ -4,6 +4,7 @@ import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
 import EmptyState from "../../components/common/EmptyState";
 import { useAuth } from "../../context/AuthContext";
+import { PERFILES_INTERNO } from "../../../shared/perfilesInterno";
 
 async function apiFetch(url, options) {
   const res = await fetch(url, {
@@ -115,6 +116,7 @@ const EMPTY_FORM = {
   clienteIds: [],
   anunciantesPorCliente: {},
   pais: "",
+  perfil: "",
   activo: true,
 };
 
@@ -349,6 +351,7 @@ export default function AdminUsuarios() {
       clienteIds: u.clienteIds || [],
       anunciantesPorCliente: u.anunciantesPorCliente || {},
       pais: u.pais || "",
+      perfil: u.perfil || "",
       activo: u.activo,
     });
   }
@@ -391,6 +394,7 @@ export default function AdminUsuarios() {
         clienteId: form.rol === "usuario_externo" ? Number(form.clienteId) || null : null,
         clienteIds: form.rol === "usuario_interno" ? form.clienteIds : undefined,
         pais: form.rol === "usuario_interno" ? form.pais || null : null,
+        perfil: form.rol === "usuario_interno" ? form.perfil || null : null,
         anunciantes:
           form.rol === "usuario_externo" && form.clienteId
             ? anunciantesPayloadDeCliente(form.clienteId)
@@ -594,6 +598,11 @@ export default function AdminUsuarios() {
                       <td className="px-4 py-2.5 text-gray-600">
                         {u.rol === "usuario_interno" ? (
                           <>
+                            {u.perfil && (
+                              <span className="mr-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-brand-magenta/10 text-brand-magenta">
+                                {PERFILES_INTERNO.find((p) => p.codigo === u.perfil)?.nombre ?? u.perfil}
+                              </span>
+                            )}
                             {u.pais && (
                               <span className="mr-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-brand-purple/10 text-brand-purple">
                                 {paises.find((p) => p.codigo === u.pais)?.nombre ?? u.pais} (todos)
@@ -703,6 +712,7 @@ export default function AdminUsuarios() {
                     clienteId: e.target.value === "usuario_externo" ? f.clienteId : "",
                     clienteIds: e.target.value === "usuario_interno" ? f.clienteIds : [],
                     pais: e.target.value === "usuario_interno" ? f.pais : "",
+                    perfil: e.target.value === "usuario_interno" ? f.perfil : "",
                     anunciantesPorCliente: {},
                   }))
                 }
@@ -773,6 +783,28 @@ export default function AdminUsuarios() {
                 <p className="mt-1.5 text-xs text-slate-label">
                   Le da acceso automático a todos los clientes activos de ese país, incluidos los que se creen
                   después. Se suma a los clientes marcados abajo, no los reemplaza.
+                </p>
+              </div>
+            )}
+
+            {form.rol === "usuario_interno" && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Perfil</label>
+                <select
+                  value={form.perfil}
+                  onChange={(e) => setForm((f) => ({ ...f, perfil: e.target.value }))}
+                  className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                >
+                  <option value="">— Sin perfil (ve todas las secciones)</option>
+                  {PERFILES_INTERNO.map((p) => (
+                    <option key={p.codigo} value={p.codigo}>
+                      {p.nombre}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-1.5 text-xs text-slate-label">
+                  Define qué secciones de Gestión/Campañas puede abrir (no qué datos ve: eso lo sigue decidiendo el
+                  país y los clientes de abajo).
                 </p>
               </div>
             )}

@@ -10,6 +10,7 @@ import { enviarInvitacion } from './email.js';
 import { registrarActividad } from './activityLog.js';
 import { syncCliente, syncClienteServicio } from '../scripts/syncSheets.js';
 import { syncGestionPais } from '../scripts/syncGestionSheets.js';
+import { PERFILES_INTERNO } from '../shared/perfilesInterno.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'data');
@@ -105,6 +106,12 @@ router.put('/canales/:slug', requireSuperAdmin, (req, res) => {
 // operación, sin tocar código ni redeployar (mismo patrón que canales).
 function paisesActivos() {
   return db.prepare('SELECT codigo, nombre FROM paises WHERE activo = 1 ORDER BY rowid').all();
+}
+
+function perfilValidoOError(perfil) {
+  if (!perfil) return null;
+  if (!PERFILES_INTERNO.some((p) => p.codigo === perfil)) return 'Perfil inválido';
+  return null;
 }
 
 function paisValidoOError(pais, { requerido }) {
@@ -607,6 +614,7 @@ function toPublicUsuario(u) {
     clienteIds: clientesAsignados.map((c) => c.id),
     clienteNombres: clientesAsignados.map((c) => c.nombre),
     pais: u.rol === ROL_CON_CLIENTES_ASIGNADOS ? u.pais ?? null : null,
+    perfil: u.rol === ROL_CON_CLIENTES_ASIGNADOS ? u.perfil ?? null : null,
     anunciantesPorCliente: getAnunciantesPorClienteDeUsuario(u.id),
     activo: !!u.activo,
     createdAt: u.created_at,
@@ -632,7 +640,7 @@ function clienteActivoOError(clienteId) {
 }
 
 router.post('/usuarios', async (req, res) => {
-  const { email, nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, pais } = req.body || {};
+  const { email, nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, pais, perfil } = req.body || {};
   if (!email || !nombre || !rol) {
     return res.status(400).json({ error: 'Email, nombre y rol son requeridos' });
   }
@@ -655,6 +663,10 @@ router.post('/usuarios', async (req, res) => {
   // pero si viene tiene que ser uno del catálogo activo.
   if (rol === ROL_CON_CLIENTES_ASIGNADOS && pais) {
     const error = paisValidoOError(pais, { requerido: false });
+    if (error) return res.status(400).json({ error });
+  }
+  if (rol === ROL_CON_CLIENTES_ASIGNADOS && perfil) {
+    const error = perfilValidoOError(perfil);
     if (error) return res.status(400).json({ error });
   }
   // Restricción de anunciantes: mismo mecanismo para ambos roles, expresado
@@ -686,7 +698,7 @@ router.post('/usuarios', async (req, res) => {
   const passwordHash = await bcrypt.hash(password, 12);
   const info = db
     .prepare(
-      'INSERT INTO users (email, password_hash, nombre, rol, cliente_id, pais, debe_cambiar_password) VALUES (?, ?, ?, ?, ?, ?, 1)'
+      'INSERT INTO users (email, password_hash, nombre, rol, cliente_id, pais, perfil, debe_cambiar_password) VALUES (?, ?, ?, ?, ?, ?, ?, 1)'
     )
     .run(
       email,
@@ -694,7 +706,8 @@ router.post('/usuarios', async (req, res) => {
       nombre,
       rol,
       rol === ROL_CON_CLIENTE ? clienteId : null,
-      rol === ROL_CON_CLIENTES_ASIGNADOS ? pais || null : null
+      rol === ROL_CON_CLIENTES_ASIGNADOS ? pais || null : null,
+      rol === ROL_CON_CLIENTES_ASIGNADOS ? perfil || null : null
     );
 
   if (rol === ROL_CON_CLIENTES_ASIGNADOS) setClientesDeUsuario(info.lastInsertRowid, clienteIds);
@@ -727,7 +740,7 @@ router.put('/usuarios/:id', (req, res) => {
   const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.params.id);
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-  const { nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, activo, pais } = req.body || {};
+  const { nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, activo, pais, perfil } = req.body || {};
   const esUnoMismo = user.id === req.user.id;
 
   if (rol && !ROLES.includes(rol)) {
@@ -776,6 +789,13 @@ router.put('/usuarios/:id', (req, res) => {
     if (error) return res.status(400).json({ error });
   }
 
+  const nuevoPerfil =
+    nuevoRol === ROL_CON_CLIENTES_ASIGNADOS ? (perfil !== undefined ? perfil || null : user.perfil) : null;
+  if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS && nuevoPerfil) {
+    const error = perfilValidoOError(nuevoPerfil);
+    if (error) return res.status(400).json({ error });
+  }
+
   let anunciantesMapa;
   if (nuevoRol === ROL_CON_CLIENTE) {
     // Ver el mismo comentario en POST /usuarios: null = sin restricción.
@@ -793,11 +813,12 @@ router.put('/usuarios/:id', (req, res) => {
     if (error) return res.status(400).json({ error });
   }
 
-  db.prepare('UPDATE users SET nombre = ?, rol = ?, cliente_id = ?, pais = ?, activo = ? WHERE id = ?').run(
+  db.prepare('UPDATE users SET nombre = ?, rol = ?, cliente_id = ?, pais = ?, perfil = ?, activo = ? WHERE id = ?').run(
     nombre?.trim() || user.nombre,
     nuevoRol,
     nuevoClienteId,
     nuevoPais,
+    nuevoPerfil,
     activo === undefined ? user.activo : activo ? 1 : 0,
     user.id
   );
@@ -822,6 +843,7 @@ router.put('/usuarios/:id', (req, res) => {
   if (nuevoRol !== user.rol) cambios.push(`rol ${user.rol} -> ${nuevoRol}`);
   if (updated.activo !== user.activo) cambios.push(updated.activo ? 'reactivado' : 'desactivado');
   if (nuevoPais !== user.pais) cambios.push(`país ${user.pais ?? '(ninguno)'} -> ${nuevoPais ?? '(ninguno)'}`);
+  if (nuevoPerfil !== user.perfil) cambios.push(`perfil ${user.perfil ?? '(ninguno)'} -> ${nuevoPerfil ?? '(ninguno)'}`);
   registrarActividad(req, {
     actor: req.user,
     accion: 'Usuario editado',

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFile } from 'node:fs/promises';
 import { requireUser } from './middleware.js';
+import { perfilPuedeVer } from '../shared/perfilesInterno.js';
 import db from './db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -47,7 +48,13 @@ router.get('/campanas-servidas', async (req, res) => {
   res.json({ filas: filasVisibles(req.user, await leerAgregado('campanas-servidas')) });
 });
 
+// Administrativo/Operaciones difieren en qué secciones de Gestión pueden
+// abrir (ver shared/perfilesInterno.js) -- Campañas Servidas la ven los 4
+// perfiles, así que solo Facturación necesita este check.
 router.get('/facturacion', async (req, res) => {
+  if (req.user.rol === 'usuario_interno' && !perfilPuedeVer(req.user.perfil, 'facturacion')) {
+    return res.status(403).json({ error: 'No autorizado' });
+  }
   res.json({ filas: filasVisibles(req.user, await leerAgregado('facturacion')) });
 });
 

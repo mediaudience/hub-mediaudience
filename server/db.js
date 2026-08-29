@@ -257,6 +257,15 @@ if (!userColumns.includes('pais')) {
   db.exec('ALTER TABLE users ADD COLUMN pais TEXT')
 }
 
+// Perfil dentro de usuario_interno (Manager/Ejecutivo Comercial/Operaciones/
+// Administrativo, ver shared/perfilesInterno.js) -- acota qué SECCIONES de
+// Gestión/Campañas puede abrir, no qué datos ve (eso lo sigue resolviendo
+// país/usuario_clientes de arriba). Nulo = ve todas las secciones
+// (retrocompatible con el usuario_interno que ya existía antes de esto).
+if (!userColumns.includes('perfil')) {
+  db.exec('ALTER TABLE users ADD COLUMN perfil TEXT')
+}
+
 // Códigos de reingreso enviados por correo cuando la sesión expira por
 // inactividad (ver server/middleware.js). Se guarda el hash del código, nunca
 // el valor en claro.
