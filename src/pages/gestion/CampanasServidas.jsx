@@ -15,6 +15,16 @@ function dentroDelPeriodo(fecha, periodo) {
   return true;
 }
 
+// Se filtra/ordena contra el ISO completo (arriba); esto es solo para no
+// mostrar el año en la tabla -- Jose pidió simplificar Fecha Inicio/Fecha
+// Fin a día/mes para efectos visuales, sin tocar el dato real.
+function formatFechaCorta(fechaISO) {
+  const partes = String(fechaISO ?? "").split("-");
+  if (partes.length !== 3) return fechaISO ?? "";
+  const [, mes, dia] = partes;
+  return `${dia}/${mes}`;
+}
+
 // `width` en %, suma 100 -- table-layout: fixed para que la tabla entre en el
 // ancho de la página sin scroll horizontal, en vez de min-width + scroll
 // (mismo problema que ya se resolvió en MetricsTable.jsx para otras
@@ -30,7 +40,7 @@ const COLUMNS = [
   { key: "fechaFin", label: "Fecha Fin", width: 8 },
   { key: "objetivo", label: "Objetivo", align: "right", width: 8 },
   { key: "consumo", label: "Consumo", align: "right", width: 8 },
-  { key: "porcentajeConsumo", label: "Avance", align: "right", width: 7 },
+  { key: "porcentajeConsumo", label: "Avance", align: "center", width: 7 },
 ];
 
 // Data administrativa por país (Admin/Super Admin únicamente), sin relación
@@ -120,7 +130,7 @@ export default function CampanasServidas() {
                 {COLUMNS.map((c) => (
                   <th
                     key={c.key}
-                    className={`px-2.5 py-2.5 font-semibold truncate ${c.align === "right" ? "text-right" : ""}`}
+                    className={`px-2.5 py-2.5 font-semibold truncate ${c.align === "right" ? "text-right" : c.align === "center" ? "text-center" : ""}`}
                   >
                     {c.label}
                   </th>
@@ -133,7 +143,7 @@ export default function CampanasServidas() {
                   {COLUMNS.map((c) => {
                     if (c.key === "porcentajeConsumo") {
                       return (
-                        <td key={c.key} className="px-2.5 py-2 text-right">
+                        <td key={c.key} className="px-2.5 py-2 text-center">
                           <span
                             className="inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold text-white"
                             style={{ backgroundColor: TIER_COLORS[progressTier(r.porcentajeConsumo)] }}
@@ -144,11 +154,16 @@ export default function CampanasServidas() {
                       );
                     }
                     const esNumerico = c.key === "objetivo" || c.key === "consumo";
-                    const valor = esNumerico ? formatNumber(r[c.key]) : r[c.key] ?? "";
+                    const esFecha = c.key === "fechaInicio" || c.key === "fechaFin";
+                    const valor = esNumerico
+                      ? formatNumber(r[c.key])
+                      : esFecha
+                      ? formatFechaCorta(r[c.key])
+                      : r[c.key] ?? "";
                     return (
                       <td
                         key={c.key}
-                        title={!esNumerico ? String(valor) : undefined}
+                        title={!esNumerico ? String(esFecha ? r[c.key] ?? "" : valor) : undefined}
                         className={`px-2.5 py-2 text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis ${
                           c.align === "right" ? "text-right" : ""
                         }`}
