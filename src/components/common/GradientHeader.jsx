@@ -47,9 +47,7 @@ export default function GradientHeader({
       >
         <h1 className={`text-white font-bold text-2xl md:text-3xl ${noWrap ? "shrink-0" : ""}`}>{title}</h1>
 
-        <div
-          className={`flex items-center gap-2 ${noWrap ? "flex-nowrap overflow-x-auto" : "flex-wrap"}`}
-        >
+        <div className="flex flex-wrap items-center gap-2">
           {filters.length > 0 && (
             <>
               <PeriodPicker key={periodoResetKey} onApply={onApplyPeriod} />

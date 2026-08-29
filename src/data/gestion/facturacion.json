@@ -1230,5 +1230,19 @@
     "montoFacturado": 0,
     "montoPendiente": 0,
     "pais": "Ecuador"
+  },
+  {
+    "mes": "Enero",
+    "agencia": "Paradais",
+    "cliente": "SEGCOM",
+    "producto": "YouTube",
+    "estadoFactura": "Facturado",
+    "ordenAgencia": "11896",
+    "pdfOrden": "https://drive.google.com/file/d/1KMECyEcdWyvb6d4EtEO2DyjXFcpHwU2Y/view",
+    "pdfFactura": "https://drive.google.com/file/d/19s2yhj7C5808jsSAWJ5jKWUJpzbIGUvu/view?usp=sharing",
+    "consumoNeto": 823.5,
+    "montoFacturado": 823.5,
+    "montoPendiente": 0,
+    "pais": "Perú"
   }
 ]

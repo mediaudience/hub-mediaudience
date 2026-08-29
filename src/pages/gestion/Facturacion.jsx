@@ -82,7 +82,8 @@ export default function Facturacion() {
   return (
     <div>
       <GradientHeader
-        title="Gestión: Facturación"
+        title="Facturación"
+        noWrap
         filters={filters}
         onClearFilters={() => {
           setPais(null);

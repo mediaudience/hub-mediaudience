@@ -88,7 +88,7 @@ export default function CampanasServidas() {
   return (
     <div>
       <GradientHeader
-        title="Gestión: Campañas Servidas"
+        title="Campañas Servidas"
         noWrap
         filters={filters}
         onApplyPeriod={({ startDay, endDay }) =>
