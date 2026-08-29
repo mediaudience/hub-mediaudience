@@ -19,18 +19,22 @@ function dentroDelPeriodo(fecha, periodo) {
   return true;
 }
 
+// `width` en %, suma 100 -- table-layout: fixed para que la tabla entre en el
+// ancho de la página sin scroll horizontal, en vez de min-width + scroll
+// (mismo problema que ya se resolvió en MetricsTable.jsx para otras
+// pestañas con texto largo, ver ese componente).
 const COLUMNS = [
-  { key: "anunciante", label: "Anunciante" },
-  { key: "campana", label: "Campaña" },
-  { key: "reporte", label: "Reporte" },
-  { key: "ejecutivo", label: "Ejecutivo" },
-  { key: "formato", label: "Formato" },
-  { key: "tipoVenta", label: "Tipo de Venta" },
-  { key: "fechaInicio", label: "Fecha Inicio" },
-  { key: "fechaFin", label: "Fecha Fin" },
-  { key: "objetivo", label: "Objetivo", align: "right" },
-  { key: "consumo", label: "Consumo", align: "right" },
-  { key: "porcentajeConsumo", label: "% Consumo", align: "right" },
+  { key: "anunciante", label: "Anunciante", width: 11 },
+  { key: "campana", label: "Campaña", width: 16 },
+  { key: "reporte", label: "Reporte", width: 7 },
+  { key: "ejecutivo", label: "Ejecutivo", width: 11 },
+  { key: "formato", label: "Formato", width: 9 },
+  { key: "tipoVenta", label: "Tipo de Venta", width: 7 },
+  { key: "fechaInicio", label: "Fecha Inicio", width: 8 },
+  { key: "fechaFin", label: "Fecha Fin", width: 8 },
+  { key: "objetivo", label: "Objetivo", align: "right", width: 8 },
+  { key: "consumo", label: "Consumo", align: "right", width: 8 },
+  { key: "porcentajeConsumo", label: "% Consumo", align: "right", width: 7 },
 ];
 
 // Data administrativa por país (Admin/Super Admin únicamente), sin relación
@@ -107,11 +111,19 @@ export default function CampanasServidas() {
         <EmptyState message="Todavía no hay ningún país con Sheet ID sincronizado. Cargalo desde Admin > Sheets de Gestión." />
       ) : (
         <Card className="overflow-x-auto">
-          <table className="w-full text-sm min-w-[1200px]">
+          <table className="text-xs" style={{ tableLayout: "fixed", width: "100%" }}>
+            <colgroup>
+              {COLUMNS.map((c) => (
+                <col key={c.key} style={{ width: `${c.width}%` }} />
+              ))}
+            </colgroup>
             <thead>
               <tr className="bg-brand-purple text-white text-left">
                 {COLUMNS.map((c) => (
-                  <th key={c.key} className={`px-4 py-3 font-semibold ${c.align === "right" ? "text-right" : ""}`}>
+                  <th
+                    key={c.key}
+                    className={`px-2.5 py-2.5 font-semibold truncate ${c.align === "right" ? "text-right" : ""}`}
+                  >
                     {c.label}
                   </th>
                 ))}
@@ -123,9 +135,9 @@ export default function CampanasServidas() {
                   {COLUMNS.map((c) => {
                     if (c.key === "porcentajeConsumo") {
                       return (
-                        <td key={c.key} className="px-4 py-2.5 text-right">
+                        <td key={c.key} className="px-2.5 py-2 text-right">
                           <span
-                            className="inline-block px-2.5 py-1 rounded-full text-xs font-semibold text-white"
+                            className="inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold text-white"
                             style={{ backgroundColor: TIER_COLORS[progressTier(r.porcentajeConsumo)] }}
                           >
                             {(r.porcentajeConsumo ?? 0).toFixed(2)}%
@@ -134,12 +146,16 @@ export default function CampanasServidas() {
                       );
                     }
                     const esNumerico = c.key === "objetivo" || c.key === "consumo";
+                    const valor = esNumerico ? formatNumber(r[c.key]) : r[c.key] ?? "";
                     return (
                       <td
                         key={c.key}
-                        className={`px-4 py-2.5 text-gray-800 whitespace-nowrap ${c.align === "right" ? "text-right" : ""}`}
+                        title={!esNumerico ? String(valor) : undefined}
+                        className={`px-2.5 py-2 text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis ${
+                          c.align === "right" ? "text-right" : ""
+                        }`}
                       >
-                        {esNumerico ? formatNumber(r[c.key]) : r[c.key] ?? ""}
+                        {valor}
                       </td>
                     );
                   })}
