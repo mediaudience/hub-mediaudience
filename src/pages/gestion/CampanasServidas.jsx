@@ -25,6 +25,30 @@ function formatFechaCorta(fechaISO) {
   return `${dia}/${mes}`;
 }
 
+// Semáforo del Avance -- mismos colores/umbrales que ya usa la columna
+// "Avance" más abajo (progressTier/TIER_COLORS de utils/format), para que
+// el legend tenga identidad con lo que ya se ve en esta misma tabla, y no
+// una paleta distinta copiada de otro panel.
+function AvanceLegend() {
+  return (
+    <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-label px-1 mb-3">
+      <span className="uppercase tracking-wide text-brand-purple">Avance</span>
+      <span className="flex items-center gap-1.5">
+        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: TIER_COLORS.red }} />
+        0% – 50%
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: TIER_COLORS.orange }} />
+        51% – 89%
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: TIER_COLORS.green }} />
+        90% – 100%
+      </span>
+    </div>
+  );
+}
+
 // `width` en %, suma 100 -- table-layout: fixed para que la tabla entre en el
 // ancho de la página sin scroll horizontal, en vez de min-width + scroll
 // (mismo problema que ya se resolvió en MetricsTable.jsx para otras
@@ -114,6 +138,8 @@ export default function CampanasServidas() {
         }}
         onDownload={filtradas.length > 0 ? () => downloadCSV("campanas-servidas", filtradas, COLUMNS) : undefined}
       />
+
+      <AvanceLegend />
 
       {loading ? (
         <Spinner label="Cargando campañas servidas..." />
