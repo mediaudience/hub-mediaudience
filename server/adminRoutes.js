@@ -10,7 +10,7 @@ import { enviarInvitacion } from './email.js';
 import { registrarActividad } from './activityLog.js';
 import { syncCliente, syncClienteServicio } from '../scripts/syncSheets.js';
 import { syncGestionPais } from '../scripts/syncGestionSheets.js';
-import { PERFILES_INTERNO } from '../shared/perfilesInterno.js';
+import { PERFILES_INTERNO, veTodosLosClientesDelPais } from '../shared/perfilesInterno.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'data');
@@ -661,13 +661,20 @@ router.post('/usuarios', async (req, res) => {
   // País de un usuario_interno: opcional (se suma al checklist manual de
   // clientes, no lo reemplaza -- ver [[project_mediaudience_pais_interno]]),
   // pero si viene tiene que ser uno del catálogo activo.
-  if (rol === ROL_CON_CLIENTES_ASIGNADOS && pais) {
-    const error = paisValidoOError(pais, { requerido: false });
-    if (error) return res.status(400).json({ error });
-  }
   if (rol === ROL_CON_CLIENTES_ASIGNADOS && perfil) {
     const error = perfilValidoOError(perfil);
     if (error) return res.status(400).json({ error });
+  }
+  if (rol === ROL_CON_CLIENTES_ASIGNADOS) {
+    // Manager/Ejecutivo Comercial ven todo el país, no clientes puntuales --
+    // sin país asignado no verían nada, así que acá sí es obligatorio.
+    if (veTodosLosClientesDelPais(perfil) && !pais) {
+      return res.status(400).json({ error: 'Selecciona un país para este perfil: es lo que le da acceso a todos sus clientes' });
+    }
+    if (pais) {
+      const error = paisValidoOError(pais, { requerido: false });
+      if (error) return res.status(400).json({ error });
+    }
   }
   // Restricción de anunciantes: mismo mecanismo para ambos roles, expresado
   // siempre como { clienteId: [anunciante, ...] } -- usuario_externo solo
@@ -783,17 +790,24 @@ router.put('/usuarios/:id', (req, res) => {
     if (error) return res.status(400).json({ error });
   }
 
-  const nuevoPais = nuevoRol === ROL_CON_CLIENTES_ASIGNADOS ? (pais !== undefined ? pais || null : user.pais) : null;
-  if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS && nuevoPais) {
-    const error = paisValidoOError(nuevoPais, { requerido: false });
-    if (error) return res.status(400).json({ error });
-  }
-
   const nuevoPerfil =
     nuevoRol === ROL_CON_CLIENTES_ASIGNADOS ? (perfil !== undefined ? perfil || null : user.perfil) : null;
   if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS && nuevoPerfil) {
     const error = perfilValidoOError(nuevoPerfil);
     if (error) return res.status(400).json({ error });
+  }
+
+  const nuevoPais = nuevoRol === ROL_CON_CLIENTES_ASIGNADOS ? (pais !== undefined ? pais || null : user.pais) : null;
+  if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS) {
+    // Manager/Ejecutivo Comercial ven todo el país, no clientes puntuales --
+    // sin país asignado no verían nada, así que acá sí es obligatorio.
+    if (veTodosLosClientesDelPais(nuevoPerfil) && !nuevoPais) {
+      return res.status(400).json({ error: 'Selecciona un país para este perfil: es lo que le da acceso a todos sus clientes' });
+    }
+    if (nuevoPais) {
+      const error = paisValidoOError(nuevoPais, { requerido: false });
+      if (error) return res.status(400).json({ error });
+    }
   }
 
   let anunciantesMapa;

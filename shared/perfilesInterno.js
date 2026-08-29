@@ -28,3 +28,14 @@ export function perfilPuedeVer(perfil, seccion) {
   if (!perfil) return true;
   return SECCIONES_POR_PERFIL[perfil]?.includes(seccion) ?? false;
 }
+
+// Manager y Ejecutivo Comercial ven TODOS los clientes/anunciantes del país
+// que se les asigne -- ofrecerles además el checklist manual de clientes
+// puntuales (Admin > Usuarios) queda redundante y solo agrega ruido. País
+// pasa a ser obligatorio para estos dos perfiles (es su única palanca de
+// acceso). Operaciones/Administrativo siguen con el mecanismo manual de
+// siempre.
+const PERFILES_PAIS_COMPLETO = ["manager", "ejecutivo_comercial"];
+export function veTodosLosClientesDelPais(perfil) {
+  return PERFILES_PAIS_COMPLETO.includes(perfil);
+}
