@@ -31,8 +31,8 @@ function formatFechaCorta(fechaISO) {
 // pestañas con texto largo, ver ese componente).
 const COLUMNS = [
   { key: "anunciante", label: "Anunciante", width: 10 },
-  { key: "campana", label: "Campaña", width: 21 },
-  { key: "reporte", label: "Reporte", width: 7 },
+  { key: "campana", label: "Campaña", width: 16 },
+  { key: "reporte", label: "Reporte", width: 12 },
   { key: "ejecutivo", label: "Ejecutivo", width: 10 },
   { key: "formato", label: "Formato", width: 9 },
   { key: "tipoVenta", label: "Tipo", width: 6 },
@@ -161,9 +161,11 @@ export default function CampanasServidas() {
                     const esFecha = c.key === "fechaInicio" || c.key === "fechaFin";
                     // Anunciante nunca se corta -- es el nombre del cliente, y Jose
                     // pidió mostrarlo completo por respeto a ellos, aunque la fila
-                    // crezca en alto. El resto de columnas sigue truncando con "..."
-                    // (Campaña incluida, a propósito).
-                    const esAnunciante = c.key === "anunciante";
+                    // crezca en alto. Reporte ("Enviado"/"No enviado") tampoco se
+                    // corta -- Jose pidió que ese estado se vea completo siempre,
+                    // sin depender del ancho. El resto de columnas sigue truncando
+                    // con "..." (Campaña incluida, a propósito).
+                    const noTruncar = c.key === "anunciante" || c.key === "reporte";
                     const valor = esNumerico
                       ? formatNumber(r[c.key])
                       : esFecha
@@ -172,9 +174,9 @@ export default function CampanasServidas() {
                     return (
                       <td
                         key={c.key}
-                        title={!esNumerico && !esAnunciante ? String(esFecha ? r[c.key] ?? "" : valor) : undefined}
+                        title={!esNumerico && !noTruncar ? String(esFecha ? r[c.key] ?? "" : valor) : undefined}
                         className={`px-2.5 py-2 text-gray-800 ${
-                          esAnunciante ? "whitespace-normal break-words" : "whitespace-nowrap overflow-hidden text-ellipsis"
+                          noTruncar ? "whitespace-normal break-words" : "whitespace-nowrap overflow-hidden text-ellipsis"
                         } ${c.align === "right" ? "text-right" : c.align === "center" ? "text-center" : ""}`}
                       >
                         {valor}
