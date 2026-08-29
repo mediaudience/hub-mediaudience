@@ -11,7 +11,7 @@ import FilterPill from "./FilterPill";
 // PeriodPicker/PeriodFilterPill, que siguen siendo dueños de su propio
 // calendario; se los remonta con `key` para que también se vean limpios
 // visualmente.
-// `periodFilter`: { label, meses, onChange } -- filtro de periodo estilo GA4
+// `periodFilter`: { label, onChange } -- filtro de periodo estilo GA4
 // (CampanasServidas.jsx), independiente de `showPeriodPicker`/PeriodPicker
 // (que siguen usando los 5 canales de campaña sin tocar).
 export default function GradientHeader({
@@ -67,12 +67,7 @@ export default function GradientHeader({
                 />
               )}
               {periodFilter && (
-                <PeriodFilterPill
-                  key={periodoResetKey}
-                  label={periodFilter.label}
-                  meses={periodFilter.meses}
-                  onChange={periodFilter.onChange}
-                />
+                <PeriodFilterPill key={periodoResetKey} label={periodFilter.label} onChange={periodFilter.onChange} />
               )}
               {filters.map((f) => (
                 <FilterPill

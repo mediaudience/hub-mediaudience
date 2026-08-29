@@ -15,16 +15,6 @@ function dentroDelPeriodo(fecha, periodo) {
   return true;
 }
 
-// Solo para generar las etiquetas de "meses con data" que ofrece el filtro
-// de periodo (PeriodFilterPill) -- el filtrado real usa fechas ISO, nunca
-// texto, así que es inmune a cómo esté escrito el mes en cualquier Sheet
-// (ver el bug real que encontramos en Facturación con "Ago" vs "Agosto").
-function mesLabelDeFecha(fechaISO) {
-  const [y, m] = fechaISO.split("-").map(Number);
-  const nombre = new Date(y, m - 1, 1).toLocaleDateString("es-ES", { month: "long", year: "numeric" });
-  return nombre.charAt(0).toUpperCase() + nombre.slice(1);
-}
-
 // `width` en %, suma 100 -- table-layout: fixed para que la tabla entre en el
 // ancho de la página sin scroll horizontal, en vez de min-width + scroll
 // (mismo problema que ya se resolvió en MetricsTable.jsx para otras
@@ -72,13 +62,6 @@ export default function CampanasServidas() {
     () => [...new Set(filasDelPais.map((r) => r.ejecutivo).filter(Boolean))].sort(),
     [filasDelPais]
   );
-  // Meses concretos que ya tienen data, para el atajo "Meses con data" del
-  // filtro de periodo -- orden cronológico real (por fecha, no alfabético).
-  const mesesConData = useMemo(() => {
-    const claves = [...new Set(filasDelPais.map((r) => r.fechaInicio?.slice(0, 7)).filter(Boolean))].sort();
-    return claves.map((clave) => ({ clave, label: mesLabelDeFecha(`${clave}-01`) }));
-  }, [filasDelPais]);
-
   const filtradas = useMemo(
     () =>
       filasDelPais.filter(
@@ -107,7 +90,7 @@ export default function CampanasServidas() {
         noWrap
         showPeriodPicker={false}
         filters={filters}
-        periodFilter={{ label: "Mes", meses: mesesConData, onChange: setPeriodo }}
+        periodFilter={{ label: "Mes", onChange: setPeriodo }}
         onClearFilters={() => {
           setPais(null);
           setAnunciante(null);

@@ -66,11 +66,6 @@ export function estePeriodoISO(nombrePreset) {
   return { inicio: diaObjISO(rango.inicio), fin: diaObjISO(rango.fin) };
 }
 
-function ultimoDiaDeClave(clave) {
-  const [y, m] = clave.split("-").map(Number);
-  return new Date(y, m, 0).getDate();
-}
-
 function daysGrid(year, month) {
   const first = new Date(year, month, 1);
   const startOffset = (first.getDay() + 6) % 7; // Lunes = 0
@@ -127,12 +122,14 @@ function Calendar({ label, year, month, onNav, selectedDay, onSelectDay }) {
 // Filtro de periodo estilo GA4: el botón siempre muestra solo `label` (igual
 // que FilterPill con hideValueInLabel -- ver CampanasServidas.jsx, pedido
 // por Jose 2026-08-29 para que no se descuadren los filtros a 2 filas), pero
-// al abrirlo da 3 formas de elegir rango: presets con fecha real (no solo
-// texto), los meses concretos que ya tienen data (`meses`, opcional), o un
-// calendario de rango manual ("Personalizado"). `onChange` siempre recibe
-// `{ inicio, fin }` en ISO, o `null` para "Todos" -- el padre no necesita
-// saber por cuál de las 3 formas se eligió.
-export default function PeriodFilterPill({ label = "Periodo", meses = [], onChange }) {
+// al abrirlo da 2 formas de elegir rango: presets con fecha real (no solo
+// texto) o un calendario de rango manual ("Personalizado"). A propósito NO
+// incluye una lista de los meses concretos que ya tienen data -- Jose pidió
+// 2026-08-29 que el filtro lo arme el usuario (presets/calendario), no que
+// se lo arme la tabla, para no llenar el desplegable de opciones con
+// scroll. `onChange` siempre recibe `{ inicio, fin }` en ISO, o `null` para
+// "Todos" -- el padre no necesita saber por cuál de las 2 formas se eligió.
+export default function PeriodFilterPill({ label = "Periodo", onChange }) {
   const [open, setOpen] = useState(false);
   const [modo, setModo] = useState("menu"); // 'menu' | 'personalizado'
   const today = new Date();
@@ -173,11 +170,6 @@ export default function PeriodFilterPill({ label = "Periodo", meses = [], onChan
     cerrar();
   };
 
-  const elegirMes = (clave) => {
-    onChange?.({ inicio: `${clave}-01`, fin: `${clave}-${pad(ultimoDiaDeClave(clave))}` });
-    cerrar();
-  };
-
   return (
     <div className="relative" ref={ref}>
       <button
@@ -196,7 +188,7 @@ export default function PeriodFilterPill({ label = "Periodo", meses = [], onChan
       {open && (
         <div
           className={`absolute z-20 mt-1 right-0 bg-white rounded-xl shadow-xl border border-slate-100 p-3 ${
-            modo === "menu" ? "w-64 max-h-80 overflow-y-auto" : "w-[92vw] max-w-[480px]"
+            modo === "menu" ? "w-64" : "w-[92vw] max-w-[480px]"
           }`}
         >
           {modo === "menu" ? (
@@ -218,23 +210,6 @@ export default function PeriodFilterPill({ label = "Periodo", meses = [], onChan
                   {opt}
                 </button>
               ))}
-              {meses.length > 0 && (
-                <>
-                  <p className="px-3 pt-2 pb-1 text-[11px] font-semibold text-slate-label border-t border-slate-100 mt-1">
-                    Meses con data
-                  </p>
-                  {meses.map((m) => (
-                    <button
-                      key={m.clave}
-                      type="button"
-                      onClick={() => elegirMes(m.clave)}
-                      className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-slate-50 rounded"
-                    >
-                      {m.label}
-                    </button>
-                  ))}
-                </>
-              )}
               <button
                 type="button"
                 onClick={() => setModo("personalizado")}
