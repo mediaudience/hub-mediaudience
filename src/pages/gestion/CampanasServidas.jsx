@@ -30,16 +30,16 @@ function formatFechaCorta(fechaISO) {
 // (mismo problema que ya se resolvió en MetricsTable.jsx para otras
 // pestañas con texto largo, ver ese componente).
 const COLUMNS = [
-  { key: "anunciante", label: "Anunciante", width: 11 },
-  { key: "campana", label: "Campaña", width: 17 },
+  { key: "anunciante", label: "Anunciante", width: 10 },
+  { key: "campana", label: "Campaña", width: 21 },
   { key: "reporte", label: "Reporte", width: 7 },
-  { key: "ejecutivo", label: "Ejecutivo", width: 11 },
+  { key: "ejecutivo", label: "Ejecutivo", width: 10 },
   { key: "formato", label: "Formato", width: 9 },
   { key: "tipoVenta", label: "Tipo", width: 6 },
   { key: "fechaInicio", label: "Fecha Inicio", width: 8 },
-  { key: "fechaFin", label: "Fecha Fin", width: 8 },
+  { key: "fechaFin", label: "Fecha Fin", width: 7 },
   { key: "objetivo", label: "Objetivo", align: "right", width: 8 },
-  { key: "consumo", label: "Consumo", align: "right", width: 8 },
+  { key: "consumo", label: "Consumo", align: "right", width: 7 },
   { key: "porcentajeConsumo", label: "Avance", align: "center", width: 7 },
 ];
 
