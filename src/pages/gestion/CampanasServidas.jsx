@@ -31,18 +31,18 @@ function formatFechaCorta(fechaISO) {
 // una paleta distinta copiada de otro panel.
 function AvanceLegend() {
   return (
-    <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-label px-1 mb-3">
+    <div className="flex flex-wrap items-center justify-end gap-5 text-sm font-semibold text-slate-label px-1 py-4">
       <span className="uppercase tracking-wide text-brand-purple">Avance</span>
-      <span className="flex items-center gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: TIER_COLORS.red }} />
+      <span className="flex items-center gap-2">
+        <span className="w-3.5 h-3.5 rounded-full" style={{ backgroundColor: TIER_COLORS.red }} />
         0% – 50%
       </span>
-      <span className="flex items-center gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: TIER_COLORS.orange }} />
+      <span className="flex items-center gap-2">
+        <span className="w-3.5 h-3.5 rounded-full" style={{ backgroundColor: TIER_COLORS.orange }} />
         51% – 89%
       </span>
-      <span className="flex items-center gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: TIER_COLORS.green }} />
+      <span className="flex items-center gap-2">
+        <span className="w-3.5 h-3.5 rounded-full" style={{ backgroundColor: TIER_COLORS.green }} />
         90% – 100%
       </span>
     </div>
