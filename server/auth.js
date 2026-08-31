@@ -85,7 +85,12 @@ async function mandarCodigoSiCorresponde(req, user) {
 }
 
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body || {};
+  // Recorta espacios accidentales (típico al copiar la contraseña de un
+  // correo de invitación) -- ninguna contraseña generada por el sistema
+  // (generatePassword en adminRoutes.js) trae espacios de verdad.
+  let { email, password } = req.body || {};
+  email = email?.trim();
+  password = password?.trim();
   if (!email || !password) {
     return res.status(400).json({ error: "Email y contraseña son requeridos" });
   }

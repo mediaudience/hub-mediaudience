@@ -69,8 +69,8 @@ function plantillaInvitacion({ nombre, email, password, rol }) {
               <td style="padding: 4px 0; color: ${INK}; font-size: 14px; font-weight: 600;">${escapeHtml(email)}</td>
             </tr>
             <tr>
-              <td style="padding: 4px 12px 4px 0; color: ${SLATE}; font-size: 13px; white-space: nowrap;">Contraseña</td>
-              <td style="padding: 4px 0; color: ${INK}; font-size: 14px; font-weight: 600;">${password}</td>
+              <td style="padding: 8px 12px 8px 0; color: ${SLATE}; font-size: 13px; white-space: nowrap; vertical-align: middle;">Contraseña</td>
+              <td style="padding: 7px 10px; color: ${INK}; font-size: 16px; font-weight: 700; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; letter-spacing: 1.5px; background-color: #efe3f5; border-radius: 6px;">${escapeHtml(password)}</td>
             </tr>
           </table>
         </td>
