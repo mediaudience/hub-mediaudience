@@ -133,18 +133,21 @@ export default function EvolucionDiariaChart({ rows, columns }) {
               strokeWidth={2.2}
               fill="url(#evolucionAreaFill)"
               activeDot={{ r: 6, fill: PURPLE, stroke: "#fff", strokeWidth: 2 }}
-              dot={({ cx, cy, payload, key }) =>
-                cx == null || cy == null ? null : (
-                  <circle
-                    key={key}
-                    cx={cx}
-                    cy={cy}
-                    r={radioDe(payload.clicsTotales ?? 0)}
-                    fill={MAGENTA}
-                    stroke="#fff"
-                    strokeWidth={1.6}
-                  />
-                )
+              dot={
+                !clicsCol
+                  ? false
+                  : ({ cx, cy, payload, key }) =>
+                      cx == null || cy == null ? null : (
+                        <circle
+                          key={key}
+                          cx={cx}
+                          cy={cy}
+                          r={radioDe(payload.clicsTotales ?? 0)}
+                          fill={MAGENTA}
+                          stroke="#fff"
+                          strokeWidth={1.6}
+                        />
+                      )
               }
             />
           </AreaChart>
