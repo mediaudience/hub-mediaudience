@@ -4,6 +4,7 @@ import { feature } from "topojson-client";
 import { calcularAgregado } from "../../utils/agregaciones";
 import { formatNumber, formatCurrency } from "../../utils/format";
 import { coordenadasDe, normalizarUbicacion } from "../../data/geoCoordenadas";
+import { indiceProvinciasDe, PAISES_CON_PROVINCIAS } from "../../data/provinciasIndex";
 import Card from "./Card";
 
 const FORMATTERS = {
@@ -135,6 +136,7 @@ const SIN_UBICACIONES = { paisesConDato: new Map(), ciudades: [], sinUbicar: [],
 export default function GeoMap({ rows, columns }) {
   const [activo, setActivo] = useState(null);
   const [topologia, setTopologia] = useState(null);
+  const [provincias, setProvincias] = useState(null);
   const gradId = useId();
 
   useEffect(() => {
@@ -147,11 +149,35 @@ export default function GeoMap({ rows, columns }) {
     };
   }, []);
 
+  // Provincias/estados/departamentos registrados (ver src/data/provinciasIndex.js)
+  // -- se cargan en paralelo al topojson mundial, uno por país registrado, y
+  // se mezclan en un solo índice antes de fusionarlo con el de países.
+  useEffect(() => {
+    let cancelado = false;
+    Promise.all(PAISES_CON_PROVINCIAS.map((pais) => indiceProvinciasDe(pais))).then((indices) => {
+      if (cancelado) return;
+      const combinado = new Map();
+      for (const indice of indices) {
+        if (!indice) continue;
+        for (const [clave, feat] of indice) combinado.set(clave, feat);
+      }
+      setProvincias(combinado);
+    });
+    return () => {
+      cancelado = true;
+    };
+  }, []);
+
+  // Países Y provincias comparten el mismo índice por nombre normalizado --
+  // resolverUbicaciones no necesita saber la diferencia entre un dato a nivel
+  // país o a nivel provincia, matchea igual en ambos casos.
   const featurePorNombre = useMemo(() => {
-    if (!topologia) return null;
+    if (!topologia || !provincias) return null;
     const mundo = feature(topologia, topologia.objects.countries);
-    return new Map(mundo.features.map((f) => [normalizarUbicacion(f.properties.name), f]));
-  }, [topologia]);
+    const mapa = new Map(mundo.features.map((f) => [normalizarUbicacion(f.properties.name), f]));
+    for (const [clave, feat] of provincias) mapa.set(clave, feat);
+    return mapa;
+  }, [topologia, provincias]);
 
   const grupos = useMemo(() => agruparPorUbicacion(rows, columns), [rows, columns]);
   const sizeCol = columns.find((c) => c.type === "numero") ?? columns.find((c) => c.type === "moneda");
@@ -194,7 +220,7 @@ export default function GeoMap({ rows, columns }) {
   const valorMax = valores.length ? Math.max(...valores) : 0;
   const normalizar01 = (valor) => (valorMax <= valorMin ? 0.65 : (valor - valorMin) / (valorMax - valorMin));
 
-  if (!topologia) {
+  if (!topologia || !provincias) {
     return (
       <Card hover={false} className="p-4 sm:p-5 mt-6 text-xs text-gray-400">
         Cargando mapa…
