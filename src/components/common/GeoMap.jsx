@@ -222,7 +222,7 @@ export default function GeoMap({ rows, columns }) {
 
   if (!topologia || !provincias) {
     return (
-      <Card hover={false} className="p-4 sm:p-5 mt-6 text-xs text-gray-400">
+      <Card hover={false} className="p-4 sm:p-5 text-xs text-gray-400">
         Cargando mapa…
       </Card>
     );
@@ -230,7 +230,7 @@ export default function GeoMap({ rows, columns }) {
   if (!proyeccion) return null;
 
   return (
-    <Card hover={false} className="p-4 sm:p-5 mt-6">
+    <Card hover={false} className="p-4 sm:p-5">
       <div className="relative w-full mx-auto" style={{ maxWidth: 480, aspectRatio: `${VIEW_W} / ${VIEW_H}` }}>
         <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="w-full h-full overflow-visible">
           <defs>

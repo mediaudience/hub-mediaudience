@@ -5,6 +5,7 @@ import KPICard from "../components/common/KPICard";
 import MetricsTable from "../components/common/MetricsTable";
 import TestigoTable from "../components/common/TestigoTable";
 import GeoMap from "../components/common/GeoMap";
+import GeoResumen from "../components/common/GeoResumen";
 import { formatNumber, formatCurrency } from "../utils/format";
 import { downloadCSV } from "../utils/csv";
 import { useClienteActivo } from "../context/ClienteActivoContext";
@@ -153,7 +154,16 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
           <MetricsTable rows={filas} columns={tab.columns} showTotals={!!tab.totales} />
         )}
 
-        {tab.key === "geo" && <GeoMap rows={filas} columns={tab.columns} />}
+        {tab.key === "geo" && (
+          <div className="flex flex-col lg:flex-row gap-4 items-start mt-6">
+            <div className="w-full lg:w-64 shrink-0">
+              <GeoResumen items={tab.kpis.map((kpi) => ({ label: kpi.label, value: calcularKpi(kpi, filas) }))} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <GeoMap rows={filas} columns={tab.columns} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
