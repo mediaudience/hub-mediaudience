@@ -22,13 +22,22 @@ function etiquetaCorta(label) {
   return label.replace(/\s*totales\s*$/i, "").trim();
 }
 
+// Ancho de columna de ubicación y de cada columna de métrica -- fijos los
+// dos (no solo las métricas) para que la tabla no quede con un hueco
+// asimétrico entre "Ubicación" y los datos cuando el nombre de la provincia
+// es corto (antes esa columna se estiraba para ocupar todo el ancho sobrante
+// del layout table-fixed). 108px le da aire de sobra a "Impresiones", el
+// label más largo tras acortar (ver etiquetaCorta).
+const ANCHO_UBICACION = 176;
+const ANCHO_METRICA = 108;
+
 // Tabla resumida por ubicación al lado del mapa de la pestaña Geo (mapa y
 // tabla a mitad de ancho cada uno): una fila por provincia/país/ciudad con
-// TODAS sus métricas. `table-fixed` + columnas de métrica a ancho fijo para
-// que todo entre en el ancho de la tarjeta sin scroll horizontal -- solo
-// scroll vertical si hay muchas filas (23 provincias, por ejemplo). Mismo
-// agrupamiento por `ubicacion` y misma agregación (`calcularAgregado`) que ya
-// usa GeoMap.jsx para colorear el mapa, para que ambos coincidan siempre.
+// TODAS sus métricas. Columnas a ancho fijo simétrico -- solo scroll
+// vertical si hay muchas filas (23 provincias, por ejemplo), nunca
+// horizontal. Mismo agrupamiento por `ubicacion` y misma agregación
+// (`calcularAgregado`) que ya usa GeoMap.jsx para colorear el mapa, para que
+// ambos coincidan siempre.
 export default function GeoResumen({ rows, columns }) {
   const metricCols = columns.filter((c) => c.type === "numero" || c.type === "moneda" || c.type === "porcentaje");
 
@@ -51,18 +60,21 @@ export default function GeoResumen({ rows, columns }) {
   return (
     <Card hover={false} className="overflow-hidden">
       <div className="max-h-[420px] overflow-y-auto">
-        <table className="w-full text-sm table-fixed">
+        <table className="text-sm table-fixed mx-auto">
           <colgroup>
-            <col />
+            <col style={{ width: ANCHO_UBICACION }} />
             {metricCols.map((col) => (
-              <col key={col.key} style={{ width: 84 }} />
+              <col key={col.key} style={{ width: ANCHO_METRICA }} />
             ))}
           </colgroup>
           <thead>
             <tr className="bg-brand-purple text-white text-left">
-              <th className="px-3 py-3 font-semibold sticky top-0 bg-brand-purple truncate">Ubicación</th>
+              <th className="px-4 py-3 font-semibold sticky top-0 bg-brand-purple">Ubicación</th>
               {metricCols.map((col) => (
-                <th key={col.key} className="px-3 py-3 font-semibold text-right sticky top-0 bg-brand-purple truncate">
+                <th
+                  key={col.key}
+                  className="px-4 py-3 font-semibold text-right sticky top-0 bg-brand-purple whitespace-nowrap"
+                >
                   {etiquetaCorta(col.label)}
                 </th>
               ))}
@@ -74,11 +86,11 @@ export default function GeoResumen({ rows, columns }) {
                 key={item.ubicacion}
                 className={`transition-colors hover:bg-brand-purple/5 ${i % 2 === 0 ? "bg-white" : "bg-slate-50"}`}
               >
-                <td className="px-3 py-2.5 text-gray-800 truncate" title={item.ubicacion}>
+                <td className="px-4 py-3 text-gray-800 truncate" title={item.ubicacion}>
                   {nombreCorto(item.ubicacion)}
                 </td>
                 {item.metricas.map((m) => (
-                  <td key={m.key} className="px-3 py-2.5 text-right font-medium text-gray-900 truncate">
+                  <td key={m.key} className="px-4 py-3 text-right font-medium text-gray-900 whitespace-nowrap">
                     {FORMATTERS[m.type] ? FORMATTERS[m.type](m.valor) : m.valor}
                   </td>
                 ))}
