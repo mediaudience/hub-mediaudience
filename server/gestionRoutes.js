@@ -35,9 +35,13 @@ async function leerAgregado(nombre) {
 // las filas sincronizadas traen el nombre completo (ej. "Perú", ver
 // scripts/syncGestionSheets.js) -- hay que resolver el nombre antes de
 // comparar. Sin país asignado, no ve nada (mismo criterio que
-// getClienteIdsVisibles en dataAccess.js).
+// getClienteIdsVisibles en dataAccess.js). `gestionVeTodosPaises` (Admin >
+// Usuarios) es una alternativa a asignar un solo país: ve todas las filas de
+// estas dos secciones sin importar el país, sin tocar dashboards de canal ni
+// clientes visibles en otras partes del panel.
 function filasVisibles(user, filas) {
   if (user.rol === 'super_admin' || user.rol === 'admin') return filas;
+  if (user.gestionVeTodosPaises) return filas;
   if (!user.pais) return [];
   const paisRow = db.prepare('SELECT nombre FROM paises WHERE codigo = ?').get(user.pais);
   if (!paisRow) return [];

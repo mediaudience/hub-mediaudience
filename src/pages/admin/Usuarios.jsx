@@ -117,6 +117,7 @@ const EMPTY_FORM = {
   anunciantesPorCliente: {},
   pais: "",
   perfil: "",
+  gestionVeTodosPaises: false,
   activo: true,
 };
 
@@ -352,6 +353,7 @@ export default function AdminUsuarios() {
       anunciantesPorCliente: u.anunciantesPorCliente || {},
       pais: u.pais || "",
       perfil: u.perfil || "",
+      gestionVeTodosPaises: u.gestionVeTodosPaises || false,
       activo: u.activo,
     });
   }
@@ -401,6 +403,7 @@ export default function AdminUsuarios() {
         clienteIds: form.rol === "usuario_interno" ? (paisCompleto ? [] : form.clienteIds) : undefined,
         pais: form.rol === "usuario_interno" ? form.pais || null : null,
         perfil: form.rol === "usuario_interno" ? form.perfil || null : null,
+        gestionVeTodosPaises: form.rol === "usuario_interno" ? !!form.gestionVeTodosPaises : false,
         anunciantes:
           form.rol === "usuario_externo" && form.clienteId
             ? anunciantesPayloadDeCliente(form.clienteId)
@@ -616,6 +619,11 @@ export default function AdminUsuarios() {
                                 {paises.find((p) => p.codigo === u.pais)?.nombre ?? u.pais} (todos)
                               </span>
                             )}
+                            {u.gestionVeTodosPaises && (
+                              <span className="mr-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
+                                Gestión: todos los países
+                              </span>
+                            )}
                             {u.clienteNombres.length ? u.clienteNombres.join(", ") : !u.pais && "— (sin asignar)"}
                           </>
                         ) : u.rol === "admin" || u.rol === "super_admin" ? (
@@ -794,6 +802,26 @@ export default function AdminUsuarios() {
                     ? "Le da acceso automático a todos los clientes y anunciantes activos de ese país, incluidos los que se creen después."
                     : "Le da acceso automático a todos los clientes activos de ese país, incluidos los que se creen después. Se suma a los clientes marcados abajo, no los reemplaza."}
                 </p>
+              </div>
+            )}
+
+            {form.rol === "usuario_interno" && (
+              <div className="flex items-start gap-2.5 rounded-lg border border-slate-200 px-3.5 py-3">
+                <input
+                  type="checkbox"
+                  id="gestionVeTodosPaises"
+                  checked={form.gestionVeTodosPaises}
+                  onChange={(e) => setForm((f) => ({ ...f, gestionVeTodosPaises: e.target.checked }))}
+                  className="mt-0.5 rounded border-slate-300 text-brand-magenta focus:ring-brand-magenta"
+                />
+                <label htmlFor="gestionVeTodosPaises" className="text-sm text-gray-700">
+                  <span className="font-medium">Ver Campañas Servidas y Facturación de todos los países</span>
+                  <p className="mt-0.5 text-xs text-slate-label">
+                    Alternativa a elegir un solo país arriba: ve las filas de esas dos secciones de Gestión sin
+                    importar el país. No afecta dashboards de canal ni los clientes/anunciantes visibles en el resto
+                    del panel.
+                  </p>
+                </label>
               </div>
             )}
 

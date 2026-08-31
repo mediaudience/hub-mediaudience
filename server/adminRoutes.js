@@ -615,6 +615,7 @@ function toPublicUsuario(u) {
     clienteNombres: clientesAsignados.map((c) => c.nombre),
     pais: u.rol === ROL_CON_CLIENTES_ASIGNADOS ? u.pais ?? null : null,
     perfil: u.rol === ROL_CON_CLIENTES_ASIGNADOS ? u.perfil ?? null : null,
+    gestionVeTodosPaises: u.rol === ROL_CON_CLIENTES_ASIGNADOS ? !!u.gestion_ve_todos_paises : false,
     anunciantesPorCliente: getAnunciantesPorClienteDeUsuario(u.id),
     activo: !!u.activo,
     createdAt: u.created_at,
@@ -640,7 +641,8 @@ function clienteActivoOError(clienteId) {
 }
 
 router.post('/usuarios', async (req, res) => {
-  const { email, nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, pais, perfil } = req.body || {};
+  const { email, nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, pais, perfil, gestionVeTodosPaises } =
+    req.body || {};
   if (!email || !nombre || !rol) {
     return res.status(400).json({ error: 'Email, nombre y rol son requeridos' });
   }
@@ -705,7 +707,7 @@ router.post('/usuarios', async (req, res) => {
   const passwordHash = await bcrypt.hash(password, 12);
   const info = db
     .prepare(
-      'INSERT INTO users (email, password_hash, nombre, rol, cliente_id, pais, perfil, debe_cambiar_password) VALUES (?, ?, ?, ?, ?, ?, ?, 1)'
+      'INSERT INTO users (email, password_hash, nombre, rol, cliente_id, pais, perfil, gestion_ve_todos_paises, debe_cambiar_password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)'
     )
     .run(
       email,
@@ -714,7 +716,8 @@ router.post('/usuarios', async (req, res) => {
       rol,
       rol === ROL_CON_CLIENTE ? clienteId : null,
       rol === ROL_CON_CLIENTES_ASIGNADOS ? pais || null : null,
-      rol === ROL_CON_CLIENTES_ASIGNADOS ? perfil || null : null
+      rol === ROL_CON_CLIENTES_ASIGNADOS ? perfil || null : null,
+      rol === ROL_CON_CLIENTES_ASIGNADOS && gestionVeTodosPaises ? 1 : 0
     );
 
   if (rol === ROL_CON_CLIENTES_ASIGNADOS) setClientesDeUsuario(info.lastInsertRowid, clienteIds);
@@ -747,7 +750,8 @@ router.put('/usuarios/:id', (req, res) => {
   const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.params.id);
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-  const { nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, activo, pais, perfil } = req.body || {};
+  const { nombre, rol, clienteId, clienteIds, anunciantes, anunciantesPorCliente, activo, pais, perfil, gestionVeTodosPaises } =
+    req.body || {};
   const esUnoMismo = user.id === req.user.id;
 
   if (rol && !ROLES.includes(rol)) {
@@ -798,6 +802,12 @@ router.put('/usuarios/:id', (req, res) => {
   }
 
   const nuevoPais = nuevoRol === ROL_CON_CLIENTES_ASIGNADOS ? (pais !== undefined ? pais || null : user.pais) : null;
+  const nuevoGestionVeTodosPaises =
+    nuevoRol === ROL_CON_CLIENTES_ASIGNADOS
+      ? gestionVeTodosPaises !== undefined
+        ? !!gestionVeTodosPaises
+        : !!user.gestion_ve_todos_paises
+      : false;
   if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS) {
     // Manager/Ejecutivo Comercial ven todo el país, no clientes puntuales --
     // sin país asignado no verían nada, así que acá sí es obligatorio.
@@ -827,12 +837,15 @@ router.put('/usuarios/:id', (req, res) => {
     if (error) return res.status(400).json({ error });
   }
 
-  db.prepare('UPDATE users SET nombre = ?, rol = ?, cliente_id = ?, pais = ?, perfil = ?, activo = ? WHERE id = ?').run(
+  db.prepare(
+    'UPDATE users SET nombre = ?, rol = ?, cliente_id = ?, pais = ?, perfil = ?, gestion_ve_todos_paises = ?, activo = ? WHERE id = ?'
+  ).run(
     nombre?.trim() || user.nombre,
     nuevoRol,
     nuevoClienteId,
     nuevoPais,
     nuevoPerfil,
+    nuevoGestionVeTodosPaises ? 1 : 0,
     activo === undefined ? user.activo : activo ? 1 : 0,
     user.id
   );
@@ -858,6 +871,11 @@ router.put('/usuarios/:id', (req, res) => {
   if (updated.activo !== user.activo) cambios.push(updated.activo ? 'reactivado' : 'desactivado');
   if (nuevoPais !== user.pais) cambios.push(`país ${user.pais ?? '(ninguno)'} -> ${nuevoPais ?? '(ninguno)'}`);
   if (nuevoPerfil !== user.perfil) cambios.push(`perfil ${user.perfil ?? '(ninguno)'} -> ${nuevoPerfil ?? '(ninguno)'}`);
+  if (nuevoGestionVeTodosPaises !== !!user.gestion_ve_todos_paises) {
+    cambios.push(
+      `gestión todos los países ${!!user.gestion_ve_todos_paises ? 'sí' : 'no'} -> ${nuevoGestionVeTodosPaises ? 'sí' : 'no'}`
+    );
+  }
   registrarActividad(req, {
     actor: req.user,
     accion: 'Usuario editado',

@@ -266,6 +266,15 @@ if (!userColumns.includes('perfil')) {
   db.exec('ALTER TABLE users ADD COLUMN perfil TEXT')
 }
 
+// Si un usuario_interno debe ver Campañas Servidas/Facturación de TODOS los
+// países en vez de estar acotado a su único país asignado (ver `pais` arriba)
+// -- caso típico: perfil Administrativo/Operaciones que necesita esa vista
+// consolidada sin ser Admin. Solo afecta esas dos secciones de Gestión
+// (server/gestionRoutes.js); no toca dashboards de canal ni clientes visibles.
+if (!userColumns.includes('gestion_ve_todos_paises')) {
+  db.exec('ALTER TABLE users ADD COLUMN gestion_ve_todos_paises INTEGER NOT NULL DEFAULT 0')
+}
+
 // Códigos de reingreso enviados por correo cuando la sesión expira por
 // inactividad (ver server/middleware.js). Se guarda el hash del código, nunca
 // el valor en claro.
