@@ -387,7 +387,7 @@ export default function AdminUsuarios() {
   // shared/perfilesInterno.js) -- el checklist manual de clientes puntuales
   // queda oculto para ellos, y el guardado siempre manda listas vacías para
   // no arrastrar una asignación manual de un perfil anterior.
-  const paisCompleto = form.rol === "usuario_interno" && veTodosLosClientesDelPais(form.perfil);
+  const paisCompleto = form?.rol === "usuario_interno" && veTodosLosClientesDelPais(form.perfil);
 
   async function guardar(e) {
     e.preventDefault();
