@@ -6,6 +6,7 @@ import MetricsTable from "../components/common/MetricsTable";
 import TestigoTable from "../components/common/TestigoTable";
 import GeoMap from "../components/common/GeoMap";
 import GeoResumen from "../components/common/GeoResumen";
+import EvolucionDiariaChart from "../components/common/EvolucionDiariaChart";
 import { formatNumber, formatCurrency } from "../utils/format";
 import { downloadCSV } from "../utils/csv";
 import { useClienteActivo } from "../context/ClienteActivoContext";
@@ -147,6 +148,8 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
             ))}
           </div>
         )}
+
+        {tab.key === "detalle-diario" && <EvolucionDiariaChart rows={filas} columns={tab.columns} />}
 
         {tab.key === "testigo" ? (
           <TestigoTable rows={filas} columns={tab.columns.filter((c) => c.key !== "link")} />
