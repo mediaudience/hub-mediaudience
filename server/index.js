@@ -53,6 +53,32 @@ app.get('/api/health', (req, res) => {
   res.json({ ok: true })
 })
 
+// El ErrorBoundary del frontend pega acá cuando atrapa una excepción de
+// render -- sin esto, un crash del lado del cliente no deja ningún rastro
+// server-side y solo se entera quien mire la consola del navegador. Sin auth
+// (puede ocurrir antes de loguearse) y con tope de volumen/tamaño para no
+// abrir una vía de abuso en un endpoint público.
+let clientErrorCount = 0
+let clientErrorWindowStart = Date.now()
+app.post('/api/client-error', (req, res) => {
+  const now = Date.now()
+  if (now - clientErrorWindowStart > 60_000) {
+    clientErrorWindowStart = now
+    clientErrorCount = 0
+  }
+  clientErrorCount += 1
+  if (clientErrorCount <= 50) {
+    const { message, stack, componentStack, url } = req.body || {}
+    console.error('[client-error]', JSON.stringify({
+      message: String(message || '').slice(0, 500),
+      url: String(url || '').slice(0, 300),
+      stack: String(stack || '').slice(0, 2000),
+      componentStack: String(componentStack || '').slice(0, 2000),
+    }))
+  }
+  res.status(204).end()
+})
+
 app.use('/api/auth', authRouter)
 app.use('/api/canal', dataRouter)
 app.use('/api/admin', adminRouter)

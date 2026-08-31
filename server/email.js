@@ -1,8 +1,6 @@
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const EMAIL_FROM = process.env.EMAIL_FROM || 'onboarding@resend.dev';
-// Temporal: mientras no haya dominio propio para el login, el botón del correo
-// apunta a la IP del servidor. Cambiar el día que el panel tenga su URL final.
-const PANEL_URL = process.env.PANEL_URL || 'http://169.58.118.177/';
+const PANEL_URL = process.env.PANEL_URL || 'https://hub.mediaudience.com/';
 
 const ROL_LABEL = {
   super_admin: 'Super Admin',
@@ -36,7 +34,7 @@ function envoltura(contenidoHtml) {
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 480px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #eaeaea;">
         <tr>
           <td style="background-color: ${PURPLE}; background-image: linear-gradient(135deg, ${PURPLE}, ${MAGENTA}); padding: 24px 32px;">
-            <img src="http://169.58.118.177/assets/mediaudience-logo-blanco-D_i5C9Ua.png" alt="Mediaudience" width="160" height="33" style="display: block; border: 0; outline: none;" />
+            <img src="${PANEL_URL}assets/mediaudience-logo-blanco-D_i5C9Ua.png" alt="Mediaudience" width="160" height="33" style="display: block; border: 0; outline: none;" />
           </td>
         </tr>
         <tr>
