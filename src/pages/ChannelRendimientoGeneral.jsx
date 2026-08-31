@@ -155,13 +155,9 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
         )}
 
         {tab.key === "geo" && (
-          <div className="flex flex-col lg:flex-row gap-4 items-start mt-6">
-            <div className="w-full lg:w-72 shrink-0">
-              <GeoResumen rows={filas} columns={tab.columns} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <GeoMap rows={filas} columns={tab.columns} />
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start mt-6">
+            <GeoResumen rows={filas} columns={tab.columns} />
+            <GeoMap rows={filas} columns={tab.columns} />
           </div>
         )}
       </div>
