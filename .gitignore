@@ -37,3 +37,6 @@ server/backups/
 server/.env
 # Logos originales subidos por el usuario (fuente: src/assets/brand/*.png ya extraidos de aca)
 Logo Mediaudience/
+
+# Estado local del monitor de salud (no versionar, se regenera solo)
+scripts/health-monitor-state.json
