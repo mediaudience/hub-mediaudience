@@ -1,13 +1,5 @@
 [
   {
-    "campana": "PE_Cartavio_AltaGama_Julio2026",
-    "anunciante": "PE_Cartavio"
-  },
-  {
-    "campana": "PE_Cartavio_AltaGama_Agosto2026",
-    "anunciante": "PE_Cartavio"
-  },
-  {
     "campana": "EC_Granasa_Chevrolet_Junio2026",
     "anunciante": "EC_Chevrolet"
   },
@@ -104,15 +96,39 @@
     "anunciante": "EC_LoteríaNacional"
   },
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_14Junio2026",
-    "anunciante": "EC_BET593"
+    "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
+    "anunciante": "EC_Bet593"
   },
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_20Junio2026",
-    "anunciante": "EC_BET593"
+    "campana": "EC_Bet593_EcuatorianoPronostica_20Junio2026",
+    "anunciante": "EC_Bet593"
   },
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_25Junio2026",
-    "anunciante": "EC_BET593"
+    "campana": "EC_Bet593_EcuatorianoPronostica_25Junio2026",
+    "anunciante": "EC_Bet593"
+  },
+  {
+    "campana": "EC_Bet593_BSCvsManta_28Agosto2026",
+    "anunciante": "EC_Bet593"
+  },
+  {
+    "campana": "PE_Cartavio_AltaGama_Julio2026",
+    "anunciante": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_Cartavio_AltaGama_Agosto2026",
+    "anunciante": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_RonCartavio_AltaGama_Junio2026",
+    "anunciante": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_RonCartavio_AltaGama_Julio2026",
+    "anunciante": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_RonCartavio_AltaGama_Agosto2026",
+    "anunciante": "PE_Cartavio"
   }
 ]

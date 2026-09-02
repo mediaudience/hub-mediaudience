@@ -1,29 +1,47 @@
 [
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_14Junio2026",
-    "anunciante": "EC_BET593",
+    "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
+    "anunciante": "EC_Bet593",
     "motivo": "Ecuatoriano Pronostica",
     "mes": "Junio",
     "formato": "Push Premium Video",
-    "link": "https://drive.google.com/file/d/17pKnvOSdx8q7gFPaD4g9WfLFR4KhomT1/view?usp=drive_link",
+    "link": "BET593 14-06 Testigo.mp4",
     "cliente": "EC_Lotería Nacional"
   },
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_20Junio2026",
-    "anunciante": "EC_BET593",
+    "campana": "EC_Bet593_EcuatorianoPronostica_20Junio2026",
+    "anunciante": "EC_Bet593",
     "motivo": "Ecuatoriano Pronostica",
     "mes": "Junio",
     "formato": "Push Premium Video",
-    "link": "https://drive.google.com/file/d/12Alm2MyUf3aFtlF50q9tkhxKeZb_1pVh/view?usp=drive_link",
+    "link": "BET593 20-06 Testigo.mp4",
     "cliente": "EC_Lotería Nacional"
   },
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_25Junio2026",
-    "anunciante": "EC_BET593",
+    "campana": "EC_Bet593_EcuatorianoPronostica_25Junio2026",
+    "anunciante": "EC_Bet593",
     "motivo": "Ecuatoriano Pronostica",
     "mes": "Julio",
     "formato": "Push Premium Video",
-    "link": "https://drive.google.com/file/d/1rmitGHf2lYcm6BhAvW0bFyHZSC__zDIC/view?usp=drive_link",
+    "link": "Bet593 25-06 Testigo.mp4",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_Bet593_BSCvsManta_28Agosto2026",
+    "anunciante": "EC_Bet593",
+    "motivo": "Barcelona VS Manta",
+    "mes": "Agosto",
+    "formato": "Push Premium Display",
+    "link": "Testigo Barcelona VS Manta Agosto.mp4",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_Bet593_BSCvsManta_01Septiembre2026",
+    "anunciante": "EC_Bet593",
+    "motivo": "Barcelona VS Independiente",
+    "mes": "Septiembre",
+    "formato": "Push Premium Display",
+    "link": "Testigo Barcelona VS Independiente Septiembre.mp4",
     "cliente": "EC_Lotería Nacional"
   }
 ]

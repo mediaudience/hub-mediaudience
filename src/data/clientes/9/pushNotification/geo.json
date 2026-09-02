@@ -1,7 +1,7 @@
 [
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_14Junio2026",
-    "anunciante": "EC_BET593",
+    "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
+    "anunciante": "EC_Bet593",
     "motivo": "Ecuatoriano Pronostica",
     "mes": "Junio",
     "formato": "Push Premium Video",
@@ -12,8 +12,8 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_20Junio2026",
-    "anunciante": "EC_BET593",
+    "campana": "EC_Bet593_EcuatorianoPronostica_20Junio2026",
+    "anunciante": "EC_Bet593",
     "motivo": "Ecuatoriano Pronostica",
     "mes": "Junio",
     "formato": "Push Premium Video",
@@ -24,8 +24,8 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_25Junio2026",
-    "anunciante": "EC_BET593",
+    "campana": "EC_Bet593_EcuatorianoPronostica_25Junio2026",
+    "anunciante": "EC_Bet593",
     "motivo": "Ecuatoriano Pronostica",
     "mes": "Julio",
     "formato": "Push Premium Video",
@@ -33,6 +33,18 @@
     "impresionesTotales": 38398,
     "clicsTotales": 6025,
     "ctr": 15.69,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_Bet593_BSCvsManta_28Agosto2026",
+    "anunciante": "EC_Bet593",
+    "motivo": "Barcelona VS Manta",
+    "mes": "Agosto",
+    "formato": "Push Premium Display",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 8135,
+    "clicsTotales": 757,
+    "ctr": 9.31,
     "cliente": "EC_Lotería Nacional"
   }
 ]

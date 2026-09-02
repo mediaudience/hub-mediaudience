@@ -1,7 +1,7 @@
 [
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_14Junio2026",
-    "anunciante": "EC_BET593",
+    "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
+    "anunciante": "EC_Bet593",
     "motivo": "Ecuatoriano Pronostica",
     "fecha": "2026-06-14",
     "mes": "Junio",
@@ -20,8 +20,8 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_20Junio2026",
-    "anunciante": "EC_BET593",
+    "campana": "EC_Bet593_EcuatorianoPronostica_20Junio2026",
+    "anunciante": "EC_Bet593",
     "motivo": "Ecuatoriano Pronostica",
     "fecha": "2026-06-20",
     "mes": "Junio",
@@ -40,8 +40,8 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
-    "campana": "EC_BET593_EcuatorianoPronostica_25Junio2026",
-    "anunciante": "EC_BET593",
+    "campana": "EC_Bet593_EcuatorianoPronostica_25Junio2026",
+    "anunciante": "EC_Bet593",
     "motivo": "Ecuatoriano Pronostica",
     "fecha": "2026-06-25",
     "mes": "Junio",
@@ -57,6 +57,46 @@
     "vtr": 86.25,
     "frecuencia": 1,
     "alcance": 38398,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_Bet593_BSCvsManta_28Agosto2026",
+    "anunciante": "EC_Bet593",
+    "motivo": "Barcelona VS Manta",
+    "fecha": "2026-08-28",
+    "mes": "Agosto",
+    "formato": "Push Premium Display",
+    "impresionesTotales": 9259,
+    "clicsTotales": 779,
+    "ctr": 8.41,
+    "inversion": 506.35,
+    "quartil25": 0,
+    "quartil50": 0,
+    "quartil75": 0,
+    "quartil100": 0,
+    "vtr": 0,
+    "frecuencia": 1,
+    "alcance": 9259,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_Bet593_BSCvsManta_28Agosto2026",
+    "anunciante": "EC_Bet593",
+    "motivo": "Barcelona VS Manta",
+    "fecha": "2026-08-29",
+    "mes": "Agosto",
+    "formato": "Push Premium Display",
+    "impresionesTotales": 8135,
+    "clicsTotales": 757,
+    "ctr": 9.31,
+    "inversion": 492.05,
+    "quartil25": 0,
+    "quartil50": 0,
+    "quartil75": 0,
+    "quartil100": 0,
+    "vtr": 0,
+    "frecuencia": 1,
+    "alcance": 8135,
     "cliente": "EC_Lotería Nacional"
   }
 ]

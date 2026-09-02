@@ -1,0 +1,50 @@
+[
+  {
+    "campana": "PE_RonCartavio_AltaGama_Junio2026",
+    "anunciante": "PE_Ron Cartavio",
+    "motivo": "Alta Gama Junio",
+    "mes": "Junio",
+    "formato": "Push Premium Video",
+    "ubicacion": "Cusco",
+    "impresionesTotales": 19096,
+    "clicsTotales": 2018,
+    "ctr": 10.57,
+    "cliente": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_RonCartavio_AltaGama_Junio2026",
+    "anunciante": "PE_Ron Cartavio",
+    "motivo": "Alta Gama Junio",
+    "mes": "Junio",
+    "formato": "Push Premium Video",
+    "ubicacion": "Chiclayo",
+    "impresionesTotales": 26267,
+    "clicsTotales": 2987,
+    "ctr": 11.37,
+    "cliente": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_RonCartavio_AltaGama_Julio2026",
+    "anunciante": "PE_Ron Cartavio",
+    "motivo": "Alta Gama Julio",
+    "mes": "Julio",
+    "formato": "Push Premium Video",
+    "ubicacion": "Trujillo",
+    "impresionesTotales": 46393,
+    "clicsTotales": 5010,
+    "ctr": 10.8,
+    "cliente": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_RonCartavio_AltaGama_Agosto2026",
+    "anunciante": "PE_Ron Cartavio",
+    "motivo": "Alta Gama Agosto",
+    "mes": "Agosto",
+    "formato": "Push Premium Video",
+    "ubicacion": "Arequipa",
+    "impresionesTotales": 62329,
+    "clicsTotales": 5000,
+    "ctr": 8.02,
+    "cliente": "PE_Cartavio"
+  }
+]
