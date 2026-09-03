@@ -115,7 +115,7 @@ export default function EvolucionDiariaChart({ rows, columns }) {
         )}
 
         <ResponsiveContainer width="100%" height={260}>
-          <AreaChart data={porDia} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
+          <AreaChart data={porDia} margin={{ top: 10, right: 20, left: 20, bottom: 5 }}>
             <defs>
               <linearGradient id="evolucionAreaFill" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={PURPLE} stopOpacity={0.32} />
