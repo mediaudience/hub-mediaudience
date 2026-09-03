@@ -219,12 +219,12 @@ export const CANAL_METRICAS = {
         // ver MetricsTable.jsx. El resto de las pestañas NO lleva `width` a
         // propósito, para no cambiarles el layout (pedido de Jose el 2026-08-24).
         columns: [
-          { key: "fecha", label: "Fecha", width: 96 },
+          { key: "fecha", label: "Fecha", width: 120 },
           { key: "campana", label: "Campaña", width: 210 },
           { key: "anunciante", label: "Anunciante", width: 170 },
           { key: "formato", label: "Formato", width: 110 },
-          { key: "impresionesTotales", label: "Impresiones Totales", align: "right", type: "numero", width: 130 },
-          { key: "clicsTotales", label: "Clics Totales", align: "right", type: "numero", width: 130 },
+          { key: "impresionesTotales", label: "Impresiones Totales", align: "right", type: "numero", width: 210 },
+          { key: "clicsTotales", label: "Clics Totales", align: "right", type: "numero", width: 150 },
           {
             key: "ctr",
             label: "CTR%",
