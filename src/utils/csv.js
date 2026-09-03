@@ -1,55 +1,46 @@
-// Si el valor (viene de un Sheet o de un formulario editable, ej. nombre de
-// contacto en Prospección) empieza con uno de estos caracteres, Excel/Sheets
-// puede interpretarlo como fórmula al abrir el CSV exportado -- se antepone
-// un apóstrofe para forzarlo a texto plano (mitigación estándar de CSV/Formula
-// Injection).
-const FORMULA_TRIGGER = /^[=+\-@\t\r]/;
-
-function toCSVValue(value) {
-  let str = String(value ?? "");
-  if (FORMULA_TRIGGER.test(str)) str = `'${str}`;
-  return /[",\n]/.test(str) ? `"${str.replace(/"/g, '""')}"` : str;
-}
+import * as XLSX from "xlsx";
 
 function normalizeColumns(rows, columns) {
   const cols = columns || Object.keys(rows[0] ?? {}).map((key) => ({ key, label: key }));
   return cols.map((c) => (typeof c === "string" ? { key: c, label: c } : c));
 }
 
-export function rowsToCSV(rows, columns) {
+function buildWorksheet(rows, columns) {
   const cols = normalizeColumns(rows, columns);
-  const lines = [cols.map((c) => toCSVValue(c.label)).join(",")];
-  rows.forEach((row) => lines.push(cols.map((c) => toCSVValue(row[c.key])).join(",")));
-  return lines.join("\n");
+  const data = rows.map((row) => {
+    const record = {};
+    cols.forEach((c) => {
+      record[c.label] = row[c.key] ?? "";
+    });
+    return record;
+  });
+  const worksheet = XLSX.utils.json_to_sheet(data, { header: cols.map((c) => c.label) });
+  // `width` ya viene definido en algunas columnas para la tabla en pantalla
+  // (ver CampanasServidas.jsx) -- se reutiliza acá para que el .xlsx no
+  // salga con todas las columnas apretadas al ancho por defecto.
+  worksheet["!cols"] = cols.map((c) => ({ wch: c.width ?? Math.max(c.label.length, 10) }));
+  return worksheet;
 }
 
-export function sectionsToCSV(sections) {
-  return sections
-    .filter((s) => s.rows.length > 0)
-    .map((s) => `${s.title}\n${rowsToCSV(s.rows, s.columns)}`)
-    .join("\n\n");
-}
-
-function triggerDownload(filename, content) {
-  // BOM UTF-8: sin esto, Excel abre el CSV asumiendo la codificación local
-  // (no UTF-8) y las tildes/ñ se ven rotas. Con el BOM, Excel detecta UTF-8
-  // solo con doble clic, sin pasar por el asistente de importación.
-  const BOM = "\uFEFF";
-  const blob = new Blob([BOM + content], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename.endsWith(".csv") ? filename : `${filename}.csv`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+function triggerDownload(filename, workbook) {
+  const name = filename.replace(/\.(csv|xlsx)$/i, "");
+  XLSX.writeFile(workbook, `${name}.xlsx`);
 }
 
 export function downloadCSV(filename, rows, columns) {
-  triggerDownload(filename, rowsToCSV(rows, columns));
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, buildWorksheet(rows, columns), "Datos");
+  triggerDownload(filename, workbook);
 }
 
 export function downloadSectionsCSV(filename, sections) {
-  triggerDownload(filename, sectionsToCSV(sections));
+  const workbook = XLSX.utils.book_new();
+  sections
+    .filter((s) => s.rows.length > 0)
+    .forEach((s) => {
+      // Nombre de hoja de Excel: máximo 31 caracteres, sin \ / ? * [ ].
+      const sheetName = s.title.replace(/[\\/?*[\]]/g, "").slice(0, 31);
+      XLSX.utils.book_append_sheet(workbook, buildWorksheet(s.rows, s.columns), sheetName);
+    });
+  triggerDownload(filename, workbook);
 }
