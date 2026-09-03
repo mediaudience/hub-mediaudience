@@ -257,7 +257,16 @@
     "motivo": "Mes de la Construcción",
     "mes": "Agosto",
     "formato": "Display Programático",
-    "link": "https://drive.google.com/drive/folders/18soJESU0WxrFC3O1CqYRV_-tfAJ6Dyk9?usp=sharing",
+    "link": "PROGRAMÁTICA",
+    "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
+    "anunciante": "EC_Ferrisariato",
+    "motivo": "Mes de la Construcción",
+    "mes": "Agosto",
+    "formato": "Display Programático",
+    "link": "EC_Ferrisariato_DataExtra_2026",
     "cliente": "EC_La Destilería"
   },
   {

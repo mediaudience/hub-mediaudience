@@ -6,9 +6,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Pichincha",
-    "impresionesTotales": 104628,
-    "clicsTotales": 138,
-    "ctr": 0.13,
+    "impresionesTotales": 104898,
+    "clicsTotales": 142,
+    "ctr": 0.14,
     "cliente": "EC_La Destilería"
   },
   {
@@ -18,7 +18,7 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Guayas",
-    "impresionesTotales": 68051,
+    "impresionesTotales": 68321,
     "clicsTotales": 124,
     "ctr": 0.18,
     "cliente": "EC_La Destilería"
@@ -30,7 +30,7 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Azuay",
-    "impresionesTotales": 19648,
+    "impresionesTotales": 19918,
     "clicsTotales": 31,
     "ctr": 0.16,
     "cliente": "EC_La Destilería"
@@ -42,9 +42,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Tungurahua",
-    "impresionesTotales": 10191,
-    "clicsTotales": 9,
-    "ctr": 0.09,
+    "impresionesTotales": 10461,
+    "clicsTotales": 10,
+    "ctr": 0.1,
     "cliente": "EC_La Destilería"
   },
   {
@@ -54,9 +54,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de El Oro",
-    "impresionesTotales": 8188,
+    "impresionesTotales": 8458,
     "clicsTotales": 12,
-    "ctr": 0.15,
+    "ctr": 0.14,
     "cliente": "EC_La Destilería"
   },
   {
@@ -66,7 +66,7 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Imbabura",
-    "impresionesTotales": 7930,
+    "impresionesTotales": 8200,
     "clicsTotales": 8,
     "ctr": 0.1,
     "cliente": "EC_La Destilería"
@@ -78,7 +78,7 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Loja",
-    "impresionesTotales": 7642,
+    "impresionesTotales": 7912,
     "clicsTotales": 7,
     "ctr": 0.09,
     "cliente": "EC_La Destilería"
@@ -90,7 +90,7 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Santo Domingo de los Tsachilas",
-    "impresionesTotales": 7529,
+    "impresionesTotales": 7799,
     "clicsTotales": 9,
     "ctr": 0.12,
     "cliente": "EC_La Destilería"
@@ -102,9 +102,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Chimborazo",
-    "impresionesTotales": 7270,
+    "impresionesTotales": 7540,
     "clicsTotales": 10,
-    "ctr": 0.14,
+    "ctr": 0.13,
     "cliente": "EC_La Destilería"
   },
   {
@@ -114,9 +114,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Los Rios",
-    "impresionesTotales": 5599,
+    "impresionesTotales": 5869,
     "clicsTotales": 9,
-    "ctr": 0.16,
+    "ctr": 0.15,
     "cliente": "EC_La Destilería"
   },
   {
@@ -126,9 +126,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Esmeraldas",
-    "impresionesTotales": 4674,
-    "clicsTotales": 3,
-    "ctr": 0.06,
+    "impresionesTotales": 4944,
+    "clicsTotales": 4,
+    "ctr": 0.08,
     "cliente": "EC_La Destilería"
   },
   {
@@ -138,7 +138,7 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Santa Elena",
-    "impresionesTotales": 4011,
+    "impresionesTotales": 4281,
     "clicsTotales": 3,
     "ctr": 0.07,
     "cliente": "EC_La Destilería"
@@ -150,9 +150,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Cotopaxi",
-    "impresionesTotales": 3970,
+    "impresionesTotales": 4240,
     "clicsTotales": 4,
-    "ctr": 0.1,
+    "ctr": 0.09,
     "cliente": "EC_La Destilería"
   },
   {
@@ -162,9 +162,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Canar",
-    "impresionesTotales": 2909,
+    "impresionesTotales": 3179,
     "clicsTotales": 3,
-    "ctr": 0.1,
+    "ctr": 0.09,
     "cliente": "EC_La Destilería"
   },
   {
@@ -174,9 +174,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Napo",
-    "impresionesTotales": 2012,
+    "impresionesTotales": 2287,
     "clicsTotales": 5,
-    "ctr": 0.25,
+    "ctr": 0.22,
     "cliente": "EC_La Destilería"
   },
   {
@@ -186,9 +186,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Carchi",
-    "impresionesTotales": 1719,
-    "clicsTotales": 3,
-    "ctr": 0.17,
+    "impresionesTotales": 1989,
+    "clicsTotales": 4,
+    "ctr": 0.2,
     "cliente": "EC_La Destilería"
   },
   {
@@ -198,9 +198,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Sucumbios",
-    "impresionesTotales": 1705,
+    "impresionesTotales": 1975,
     "clicsTotales": 2,
-    "ctr": 0.12,
+    "ctr": 0.1,
     "cliente": "EC_La Destilería"
   },
   {
@@ -210,9 +210,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Morona-Santiago",
-    "impresionesTotales": 1464,
+    "impresionesTotales": 1734,
     "clicsTotales": 4,
-    "ctr": 0.27,
+    "ctr": 0.23,
     "cliente": "EC_La Destilería"
   },
   {
@@ -222,9 +222,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Francisco de Orellana",
-    "impresionesTotales": 1464,
+    "impresionesTotales": 1734,
     "clicsTotales": 1,
-    "ctr": 0.07,
+    "ctr": 0.06,
     "cliente": "EC_La Destilería"
   },
   {
@@ -234,7 +234,7 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Bolivar",
-    "impresionesTotales": 1289,
+    "impresionesTotales": 1559,
     "clicsTotales": 0,
     "ctr": 0,
     "cliente": "EC_La Destilería"
@@ -246,9 +246,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Zamora-Chinchipe",
-    "impresionesTotales": 986,
+    "impresionesTotales": 1256,
     "clicsTotales": 3,
-    "ctr": 0.3,
+    "ctr": 0.24,
     "cliente": "EC_La Destilería"
   },
   {
@@ -258,9 +258,9 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Pastaza",
-    "impresionesTotales": 822,
+    "impresionesTotales": 1092,
     "clicsTotales": 3,
-    "ctr": 0.36,
+    "ctr": 0.27,
     "cliente": "EC_La Destilería"
   },
   {
@@ -270,7 +270,7 @@
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Manabi",
-    "impresionesTotales": 15,
+    "impresionesTotales": 285,
     "clicsTotales": 0,
     "ctr": 0,
     "cliente": "EC_La Destilería"

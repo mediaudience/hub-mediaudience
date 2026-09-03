@@ -1,0 +1,47 @@
+[
+  {
+    "campana": "PE_Promart_CyberWOW_Abril2026",
+    "anunciante": "PE_Promart",
+    "motivo": "Cyber WOW",
+    "mes": "Abril",
+    "formato": "Push Premium Display",
+    "link": "Testigo Cyber WOW Abril",
+    "cliente": "PE_Promart"
+  },
+  {
+    "campana": "PE_Promart_Refuerzos_Julio2026",
+    "anunciante": "PE_Promart",
+    "motivo": "Refuerzos",
+    "mes": "Julio",
+    "formato": "Push Premium Display",
+    "link": "Testigos Refuerzos Julio ",
+    "cliente": "PE_Promart"
+  },
+  {
+    "campana": "PE_Promart_Refuerzos_Agosto2026",
+    "anunciante": "PE_Promart",
+    "motivo": "Refuerzos",
+    "mes": "Agosto",
+    "formato": "Push Premium Display",
+    "link": "   Testigo Reguerzos Agosto.mp4 ",
+    "cliente": "PE_Promart"
+  },
+  {
+    "campana": "PE_Promart_Refuerzos_Julio2026",
+    "anunciante": "PE_Promart",
+    "motivo": "Refuerzos",
+    "mes": "Julio",
+    "formato": "Push Premium Display",
+    "link": "Campañas Motivo Julio",
+    "cliente": "PE_Promart"
+  },
+  {
+    "campana": "PE_Promart_Refuerzos_Agosto2026",
+    "anunciante": "PE_Promart",
+    "motivo": "Refuerzos",
+    "mes": "Agosto",
+    "formato": "Push Premium Display",
+    "link": "Campaña Motivo Agosto",
+    "cliente": "PE_Promart"
+  }
+]

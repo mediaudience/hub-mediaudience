@@ -440,5 +440,22 @@
     "quartil75": 0,
     "vtr": 0,
     "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
+    "anunciante": "EC_Ferrisariato",
+    "motivo": "Mes de la Construcción",
+    "fecha": "2026-08-31",
+    "mes": "Agosto",
+    "formato": "Display Programático",
+    "impresionesTotales": 6215,
+    "clicsTotales": 7,
+    "ctr": 0.11,
+    "vistasTotales": 0,
+    "quartil25": 0,
+    "quartil50": 0,
+    "quartil75": 0,
+    "vtr": 0,
+    "cliente": "EC_La Destilería"
   }
 ]
