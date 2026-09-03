@@ -31,7 +31,11 @@ export function sectionsToCSV(sections) {
 }
 
 function triggerDownload(filename, content) {
-  const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
+  // BOM UTF-8: sin esto, Excel abre el CSV asumiendo la codificación local
+  // (no UTF-8) y las tildes/ñ se ven rotas. Con el BOM, Excel detecta UTF-8
+  // solo con doble clic, sin pasar por el asistente de importación.
+  const BOM = "\uFEFF";
+  const blob = new Blob([BOM + content], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
