@@ -1,13 +1,5 @@
 import Card from "./Card";
 
-// El Sheet a veces trae en la columna Testigo solo un nombre de archivo
-// (ej. "Testigo Cyber WOW Abril") en vez de un link real de Drive -- eso
-// no debe renderizarse como <a href>, porque el navegador lo interpreta
-// como ruta relativa y termina navegando dentro del propio hub.
-function esLinkValido(link) {
-  return typeof link === "string" && /^https?:\/\//i.test(link.trim());
-}
-
 function EstadoBadge({ estado }) {
   const esVerificado = estado === "Verificado";
   return (
@@ -58,23 +50,9 @@ export default function TestigoTable({ rows, columns }) {
                 </td>
                 <td className="px-4 py-2.5">
                   {r.link ? (
-                    esLinkValido(r.link) ? (
-                      <a
-                        href={r.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline truncate block max-w-[220px]"
-                      >
-                        {r.link}
-                      </a>
-                    ) : (
-                      <span
-                        className="text-gray-500 italic truncate block max-w-[220px]"
-                        title={`"${r.link}" no es un link de Drive válido`}
-                      >
-                        {r.link}
-                      </span>
-                    )
+                    <a href={r.link} className="text-blue-600 hover:underline truncate block max-w-[220px]">
+                      {r.link}
+                    </a>
                   ) : (
                     <span className="text-gray-400">—</span>
                   )}
