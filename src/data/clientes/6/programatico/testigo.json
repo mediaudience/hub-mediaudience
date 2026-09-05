@@ -5,7 +5,7 @@
     "motivo": "Enero_Mi Casa Propia",
     "mes": "Enero",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -14,7 +14,7 @@
     "motivo": "Enero_Mi Banco",
     "mes": "Enero",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -23,7 +23,16 @@
     "motivo": "Enero_Crédito",
     "mes": "Enero",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Enero2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Enero_Débito",
+    "mes": "Enero",
+    "formato": "Rich Media",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -32,7 +41,7 @@
     "motivo": "Febrero_Mi Banco",
     "mes": "Febrero",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -41,7 +50,7 @@
     "motivo": "Febrero_Mi Casa Propia",
     "mes": "Febrero",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -50,7 +59,7 @@
     "motivo": "Febrero_Matriculación",
     "mes": "Febrero",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -59,7 +68,7 @@
     "motivo": "Febrero_Visa Fifa",
     "mes": "Febrero",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -68,7 +77,7 @@
     "motivo": "Marzo_Mi Casa Propia",
     "mes": "Marzo",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -77,7 +86,7 @@
     "motivo": "Marzo_Mi Banco",
     "mes": "Marzo",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -86,7 +95,7 @@
     "motivo": "Marzo_Visa Fifa",
     "mes": "Marzo",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -95,7 +104,7 @@
     "motivo": "Marzo_Matriculación",
     "mes": "Marzo",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -104,7 +113,7 @@
     "motivo": "Abril_Institucional",
     "mes": "Abril",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -113,7 +122,7 @@
     "motivo": "Mayo_DíaDeLaMadre",
     "mes": "Mayo",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -122,7 +131,7 @@
     "motivo": "Mayo_MiBancoPensiónAlimenticia",
     "mes": "Mayo",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -131,7 +140,7 @@
     "motivo": "Mayo_InstitucionalCosta",
     "mes": "Mayo",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -140,7 +149,7 @@
     "motivo": "Mayo_InstitucionalSierra",
     "mes": "Mayo",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -149,7 +158,7 @@
     "motivo": "Junio_InstitucionalCosta",
     "mes": "Junio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -158,7 +167,7 @@
     "motivo": "Junio_InstitucionalSierra",
     "mes": "Junio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -167,7 +176,7 @@
     "motivo": "Junio_PensiónAlimenticia",
     "mes": "Junio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -176,7 +185,7 @@
     "motivo": "Junio_DíaDelPadre",
     "mes": "Junio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -185,7 +194,7 @@
     "motivo": "Julio_Sector Pesca",
     "mes": "Julio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -194,7 +203,7 @@
     "motivo": "Julio_Colaboradores",
     "mes": "Julio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -203,7 +212,7 @@
     "motivo": "Julio_Sector Manufactura",
     "mes": "Julio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -212,7 +221,7 @@
     "motivo": "Julio_Institucional Lácteos",
     "mes": "Julio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -221,7 +230,7 @@
     "motivo": "Julio_Sector Agricultura",
     "mes": "Julio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -230,16 +239,16 @@
     "motivo": "Julio_Mi Casa Propia_ITT",
     "mes": "Julio",
     "formato": "ITT",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "https://drive.google.com/file/d/15R7Hs84ei21u3B28qP9wBpIkrXf0uIGa/view?usp=drive_link",
     "cliente": "EC_Banco del Pacífico"
   },
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_MiCasaPropia",
+    "motivo": "Julio_Mi Casa Propia_Rich Media",
     "mes": "Julio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "https://drive.google.com/file/d/1KyDhymC_3-ySR-nuLMnYOnKyU9pEbuHq/view?usp=sharing",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -248,7 +257,88 @@
     "motivo": "Julio_RecargaTuCelular",
     "mes": "Julio",
     "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1WUdtHNQw-wZ_zcTfXzdCYB1VqHlzO1q7?usp=sharing",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Julio_Testimoniales",
+    "mes": "Julio",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Julio_RegresoAClasesSierra",
+    "mes": "Julio",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Julio_LoEstamosLogrando",
+    "mes": "Julio",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Julio_Mi Casa Propia_Spotify",
+    "mes": "Julio",
+    "formato": "Spotify",
+    "link": "https://drive.google.com/file/d/1KyDhymC_3-ySR-nuLMnYOnKyU9pEbuHq/view?usp=drive_link",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Agosto_Institucional_Regreso a Clases",
+    "mes": "Agosto",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Agosto_Institucional_Lo Estamos Logrando",
+    "mes": "Agosto",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Agosto_Institucional_Bies",
+    "mes": "Agosto",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Agosto_Institucional_Testimonial",
+    "mes": "Agosto",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Agosto_Institucional_Recarga de Celular",
+    "mes": "Agosto",
+    "formato": "Rich Media",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   }
 ]

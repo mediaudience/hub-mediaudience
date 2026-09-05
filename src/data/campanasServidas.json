@@ -28,38 +28,6 @@
     "anunciante": "EC_AlimentosLosAndes"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Enero2026",
-    "anunciante": "EC_BancoDelPacífico"
-  },
-  {
-    "campana": "EC_BancoDelPacífico_Institucional_Febrero2026",
-    "anunciante": "EC_BancoDelPacífico"
-  },
-  {
-    "campana": "EC_BancoDelPacífico_Institucional_Marzo2026",
-    "anunciante": "EC_BancoDelPacífico"
-  },
-  {
-    "campana": "EC_BancoDelPacífico_Institucional_Abril2026",
-    "anunciante": "EC_BancoDelPacífico"
-  },
-  {
-    "campana": "EC_BancoDelPacífico_Institucional_Mayo2026",
-    "anunciante": "EC_BancoDelPacífico"
-  },
-  {
-    "campana": "EC_BancoDelPacífico_Institucional_Junio2026",
-    "anunciante": "EC_BancoDelPacífico"
-  },
-  {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
-    "anunciante": "EC_BancoDelPacífico"
-  },
-  {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
-    "anunciante": "EC_BancoDelPacífico"
-  },
-  {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato"
   },
@@ -182,5 +150,45 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Enero2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Febrero2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Marzo2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Abril2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Mayo2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Junio2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
+    "anunciante": "EC_BancoDelPacífico"
   }
 ]

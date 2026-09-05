@@ -1,29 +1,5 @@
 [
   {
-    "campana": "PE_Cartavio_AltaGama_Julio2026",
-    "anunciante": "PE_Cartavio",
-    "motivo": "Alta Gama",
-    "mes": "Julio",
-    "formato": "CTV",
-    "ubicacion": "Perú",
-    "impresionesTotales": 185318,
-    "quartil100": 145679,
-    "vtr": 78.61,
-    "cliente": "PE_Cartavio"
-  },
-  {
-    "campana": "PE_Cartavio_AltaGama_Agosto2026",
-    "anunciante": "PE_Cartavio",
-    "motivo": "Alta Gama",
-    "mes": "Agosto",
-    "formato": "CTV",
-    "ubicacion": "Perú",
-    "impresionesTotales": 227283,
-    "quartil100": 191636,
-    "vtr": 84.32,
-    "cliente": "PE_Cartavio"
-  },
-  {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Mi Casa Propia",
