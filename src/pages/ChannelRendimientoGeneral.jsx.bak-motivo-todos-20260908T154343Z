@@ -53,7 +53,7 @@ function calcularKpi(kpi, rows) {
 // cada una y qué KPIs mostrar es src/config/canalMetricas.js, no este
 // componente -- así los 5 servicios comparten un solo componente aunque sus
 // datos sean bien distintos entre sí.
-export default function ChannelRendimientoGeneral({ data, uiTabs }) {
+export default function ChannelRendimientoGeneral({ data, uiTabs, canal }) {
   const { clientes, clienteActivo, setClienteActivo } = useClienteActivo();
   const [tabKey, setTabKey] = useState(uiTabs[0].key);
   const [campana, setCampana] = useState(null);
@@ -125,8 +125,12 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
       ? [
           { label: "Anunciante", options: anunciantesDisponibles, value: anunciante, onChange: setAnunciante },
           { label: "Campaña", options: campanasDisponibles, value: campana, onChange: setCampana },
-          { label: "Motivo", options: motivosDisponibles, value: motivo, onChange: setMotivo },
         ]
+      : []),
+    // Prueba pedida por Jose 2026-09-08: solo Programático, para ver cómo
+    // queda antes de sumarlo a los otros 3 canales (CTV/OTT, Push, YouTube).
+    ...(tieneCampanaAnunciante && canal === "programatico"
+      ? [{ label: "Motivo", options: motivosDisponibles, value: motivo, onChange: setMotivo }]
       : []),
   ];
 
