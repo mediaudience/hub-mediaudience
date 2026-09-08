@@ -210,5 +210,33 @@
   {
     "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
     "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
+    "anunciante": "EC_Netlife"
   }
 ]

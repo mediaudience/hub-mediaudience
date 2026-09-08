@@ -874,5 +874,101 @@
     "clicsTotales": 8268,
     "ctr": 10.39,
     "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
+    "anunciante": "EC_Netlife",
+    "motivo": "Netlife Business",
+    "mes": "Septiembre",
+    "formato": "Display Programático",
+    "ubicacion": "Eccuador",
+    "impresionesTotales": 103448,
+    "clicsTotales": 182,
+    "ctr": 0.18,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "",
+    "anunciante": "",
+    "motivo": "",
+    "mes": "",
+    "formato": "",
+    "ubicacion": "",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "",
+    "anunciante": "",
+    "motivo": "",
+    "mes": "",
+    "formato": "",
+    "ubicacion": "",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "",
+    "anunciante": "",
+    "motivo": "",
+    "mes": "",
+    "formato": "",
+    "ubicacion": "",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "",
+    "anunciante": "",
+    "motivo": "",
+    "mes": "",
+    "formato": "",
+    "ubicacion": "",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "",
+    "anunciante": "",
+    "motivo": "",
+    "mes": "",
+    "formato": "",
+    "ubicacion": "",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "",
+    "anunciante": "",
+    "motivo": "",
+    "mes": "",
+    "formato": "",
+    "ubicacion": "",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "",
+    "anunciante": "",
+    "motivo": "",
+    "mes": "",
+    "formato": "",
+    "ubicacion": "",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Netlife"
   }
 ]

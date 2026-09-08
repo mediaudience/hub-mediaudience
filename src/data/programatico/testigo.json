@@ -484,5 +484,14 @@
     "formato": "Rich Media",
     "link": "",
     "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
+    "anunciante": "EC_Netlife",
+    "motivo": "Netlife Business",
+    "mes": "Septiembre",
+    "formato": "Display Programático",
+    "link": "https://drive.google.com/drive/folders/1mDCNFlDtPcF80AlqklBPm1-fN89pxHxE?usp=sharing",
+    "cliente": "EC_Netlife"
   }
 ]
