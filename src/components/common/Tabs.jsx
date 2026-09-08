@@ -25,29 +25,35 @@ function ClipIcon({ active }) {
 
 const ICONS = { megaphone: MegaphoneIcon, clip: ClipIcon };
 
-export default function Tabs({ tabs, active, onChange }) {
+// `actions`: nodo opcional que se ancla al extremo derecho de la barra de
+// pestañas (ej. el botón Descargar en ChannelRendimientoGeneral.jsx) -- así
+// no compite por espacio con los filtros de GradientHeader más arriba.
+export default function Tabs({ tabs, active, onChange, actions }) {
   return (
-    <div className="flex items-center gap-6 overflow-x-auto border-b border-slate-200 bg-white rounded-t-xl px-5">
-      {tabs.map((tab) => {
-        const Icon = ICONS[tab.icon] || MegaphoneIcon;
-        const isActive = active === tab.key;
-        return (
-          <button
-            key={tab.key}
-            type="button"
-            onClick={() => onChange(tab.key)}
-            className={`relative flex items-center gap-2 py-3 text-sm font-medium whitespace-nowrap shrink-0 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-purple ${
-              isActive ? "text-brand-purple" : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            <Icon active={isActive} />
-            {tab.label}
-            {isActive && (
-              <span className="absolute left-0 right-0 -bottom-px h-[3px] bg-blue-500 rounded-t" />
-            )}
-          </button>
-        );
-      })}
+    <div className="flex items-center justify-between gap-4 border-b border-slate-200 bg-white rounded-t-xl px-5">
+      <div className="flex items-center gap-6 overflow-x-auto">
+        {tabs.map((tab) => {
+          const Icon = ICONS[tab.icon] || MegaphoneIcon;
+          const isActive = active === tab.key;
+          return (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => onChange(tab.key)}
+              className={`relative flex items-center gap-2 py-3 text-sm font-medium whitespace-nowrap shrink-0 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-purple ${
+                isActive ? "text-brand-purple" : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              <Icon active={isActive} />
+              {tab.label}
+              {isActive && (
+                <span className="absolute left-0 right-0 -bottom-px h-[3px] bg-blue-500 rounded-t" />
+              )}
+            </button>
+          );
+        })}
+      </div>
+      {actions && <div className="shrink-0 py-2">{actions}</div>}
     </div>
   );
 }

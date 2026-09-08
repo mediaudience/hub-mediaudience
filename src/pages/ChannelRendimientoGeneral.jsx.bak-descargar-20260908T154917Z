@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import GradientHeader from "../components/common/GradientHeader";
 import Tabs from "../components/common/Tabs";
-import DownloadButton from "../components/common/DownloadButton";
 import KPICard from "../components/common/KPICard";
 import MetricsTable from "../components/common/MetricsTable";
 import TestigoTable from "../components/common/TestigoTable";
@@ -145,15 +144,10 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
           setMotivo(null);
           setPeriodo(null);
         }}
-        showDownload={false}
+        onDownload={filas.length > 0 ? handleDownload : undefined}
       />
 
-      <Tabs
-        tabs={uiTabs.map((t) => ({ key: t.key, label: t.label }))}
-        active={tabKey}
-        onChange={setTabKey}
-        actions={<DownloadButton onDownload={filas.length > 0 ? handleDownload : undefined} />}
-      />
+      <Tabs tabs={uiTabs.map((t) => ({ key: t.key, label: t.label }))} active={tabKey} onChange={setTabKey} />
 
       <div className="pt-4">
         {tab.kpis.length > 0 && (
