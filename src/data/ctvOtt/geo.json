@@ -58,5 +58,65 @@
     "quartil100": 339564,
     "vtr": 96.77,
     "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Mi Casa Propia",
+    "mes": "Agosto",
+    "formato": "CTV",
+    "ubicacion": "Guayaquil",
+    "impresionesTotales": 146779,
+    "quartil100": 137757,
+    "vtr": 93.85,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Mi Casa Propia",
+    "mes": "Agosto",
+    "formato": "CTV",
+    "ubicacion": "Babahoyo",
+    "impresionesTotales": 23590,
+    "quartil100": 22140,
+    "vtr": 93.85,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Mi Casa Propia",
+    "mes": "Agosto",
+    "formato": "CTV",
+    "ubicacion": "Quevedo",
+    "impresionesTotales": 31453,
+    "quartil100": 29520,
+    "vtr": 93.85,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Mi Casa Propia",
+    "mes": "Agosto",
+    "formato": "CTV",
+    "ubicacion": "Machala",
+    "impresionesTotales": 44558,
+    "quartil100": 41819,
+    "vtr": 93.85,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Mi Casa Propia",
+    "mes": "Agosto",
+    "formato": "CTV",
+    "ubicacion": "Puerto Bolivar",
+    "impresionesTotales": 15726,
+    "quartil100": 14760,
+    "vtr": 93.86,
+    "cliente": "EC_Banco del Pacífico"
   }
 ]

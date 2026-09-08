@@ -9,10 +9,37 @@
     "cliente": "PE_Cartavio"
   },
   {
+    "campana": "PE_RonCartavio_AltaGama_Junio2026",
+    "anunciante": "PE_Cartavio",
+    "motivo": "Alta Gama Junio",
+    "mes": "Junio",
+    "formato": "Push Premium Video",
+    "link": "https://docs.google.com/spreadsheets/d/1N2R1iRHq7_2M4psp66dtOud0f_gZ7Y1H-bVesJJ9_SY/edit?gid=1647566569#gid=1647566569",
+    "cliente": "PE_Cartavio"
+  },
+  {
     "campana": "PE_RonCartavio_AltaGama_Julio2026",
     "anunciante": "PE_Cartavio",
     "motivo": "Alta Gama Julio",
     "mes": "Julio",
+    "formato": "Push Premium Video",
+    "link": "https://drive.google.com/file/d/18Hm7YkbUAujHyvvsm2L5ZCcPwVUNvnO5/view",
+    "cliente": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_RonCartavio_AltaGama_Julio2026",
+    "anunciante": "PE_Cartavio",
+    "motivo": "Alta Gama Julio",
+    "mes": "Julio",
+    "formato": "Push Premium Video",
+    "link": "https://docs.google.com/spreadsheets/d/1N2R1iRHq7_2M4psp66dtOud0f_gZ7Y1H-bVesJJ9_SY/edit?gid=1116771480#gid=1116771480",
+    "cliente": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_RonCartavio_AltaGama_Agosto2026",
+    "anunciante": "PE_Cartavio",
+    "motivo": "Alta Gama Agosto",
+    "mes": "Agosto",
     "formato": "Push Premium Video",
     "link": "https://drive.google.com/file/d/18Hm7YkbUAujHyvvsm2L5ZCcPwVUNvnO5/view",
     "cliente": "PE_Cartavio"
@@ -23,7 +50,7 @@
     "motivo": "Alta Gama Agosto",
     "mes": "Agosto",
     "formato": "Push Premium Video",
-    "link": "https://drive.google.com/file/d/18Hm7YkbUAujHyvvsm2L5ZCcPwVUNvnO5/view",
+    "link": "https://docs.google.com/spreadsheets/d/1N2R1iRHq7_2M4psp66dtOud0f_gZ7Y1H-bVesJJ9_SY/edit?usp=sharing",
     "cliente": "PE_Cartavio"
   }
 ]

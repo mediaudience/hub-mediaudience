@@ -5,7 +5,7 @@
     "motivo": "Alta Gama",
     "mes": "Julio",
     "formato": "CTV",
-    "link": "Testigo Cartavio Julio.png",
+    "link": "https://drive.google.com/file/d/1IwpFQ4PESWx3SFX3SFwAnwkyxXtZWHaC/view",
     "cliente": "PE_Cartavio"
   },
   {
@@ -14,7 +14,16 @@
     "motivo": "Alta Gama",
     "mes": "Agosto",
     "formato": "CTV",
-    "link": "Testigo Cartavio Agosto",
+    "link": "https://drive.google.com/file/d/19vO0TE0HmV-lKwYxw7WQhVK8CKdDjYB7/view",
+    "cliente": "PE_Cartavio"
+  },
+  {
+    "campana": "PE_Cartavio_AltaGama_Agosto2026",
+    "anunciante": "PE_Cartavio",
+    "motivo": "Alta Gama",
+    "mes": "Agosto",
+    "formato": "CTV",
+    "link": "https://docs.google.com/spreadsheets/d/1Bnc8EjP-ok7hke_GOk74xdVHHYSeNdyXFwMyKaFBrwI/edit?usp=sharing",
     "cliente": "PE_Cartavio"
   }
 ]

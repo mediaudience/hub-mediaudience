@@ -1030,5 +1030,41 @@
     "clicsTotales": 470,
     "vistasTotales": 111485,
     "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Paso Lateral Babahoyo Jujan",
+    "mes": "Junio",
+    "formato": "YouTube",
+    "ubicacion": "Los Ríos",
+    "impresionesTotales": 139774,
+    "clicsTotales": 381,
+    "vistasTotales": 30382,
+    "cliente": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Obra Centro Expo",
+    "mes": "Junio",
+    "formato": "YouTube",
+    "ubicacion": "Los Ríos",
+    "impresionesTotales": 123322,
+    "clicsTotales": 132,
+    "vistasTotales": 32437,
+    "cliente": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Paso Lateral Babahoyo Jujan",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "ubicacion": "Los Ríos",
+    "impresionesTotales": 1845,
+    "clicsTotales": 1,
+    "vistasTotales": 1022,
+    "cliente": "EC_Prefectura"
   }
 ]

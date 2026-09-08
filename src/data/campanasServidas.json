@@ -80,6 +80,10 @@
     "anunciante": "EC_Bet593"
   },
   {
+    "campana": "EC_Bet593_BSCvsIDV_01Septiembre2026",
+    "anunciante": "EC_Bet593"
+  },
+  {
     "campana": "PE_Cartavio_AltaGama_Julio2026",
     "anunciante": "PE_Cartavio"
   },
@@ -156,6 +160,10 @@
     "anunciante": "EC_BancoDelPacífico"
   },
   {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
     "campana": "EC_BancoDelPacífico_Institucional_Enero2026",
     "anunciante": "EC_BancoDelPacífico"
   },
@@ -190,5 +198,17 @@
   {
     "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
     "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura"
   }
 ]

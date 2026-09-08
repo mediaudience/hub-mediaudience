@@ -42,9 +42,21 @@
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Ecuador",
-    "impresionesTotales": 8135,
-    "clicsTotales": 757,
-    "ctr": 9.31,
+    "impresionesTotales": 17394,
+    "clicsTotales": 1536,
+    "ctr": 8.83,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_Bet593_BSCvsIDV_01Septiembre2026",
+    "anunciante": "EC_Bet593",
+    "motivo": "Barcelona VS IDV",
+    "mes": "Septiembre",
+    "formato": "Push Premium Display",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 17171,
+    "clicsTotales": 1543,
+    "ctr": 8.99,
     "cliente": "EC_Lotería Nacional"
   }
 ]
