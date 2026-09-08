@@ -38,5 +38,5 @@ export default function CanalRendimientoGeneral() {
     return <EmptyState message="Este servicio todavía no tiene su estructura de Rendimiento General configurada." />;
   }
 
-  return <ChannelRendimientoGeneral data={data} uiTabs={metricas.uiTabs} canal={canal} />;
+  return <ChannelRendimientoGeneral data={data} uiTabs={metricas.uiTabs} />;
 }

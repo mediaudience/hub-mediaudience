@@ -53,26 +53,24 @@ function calcularKpi(kpi, rows) {
 // cada una y qué KPIs mostrar es src/config/canalMetricas.js, no este
 // componente -- así los 5 servicios comparten un solo componente aunque sus
 // datos sean bien distintos entre sí.
-export default function ChannelRendimientoGeneral({ data, uiTabs, canal }) {
+export default function ChannelRendimientoGeneral({ data, uiTabs }) {
   const { clientes, clienteActivo, setClienteActivo } = useClienteActivo();
   const [tabKey, setTabKey] = useState(uiTabs[0].key);
   const [campana, setCampana] = useState(null);
   const [anunciante, setAnunciante] = useState(null);
-  const [motivo, setMotivo] = useState(null);
   const [periodo, setPeriodo] = useState(null);
 
   const tab = uiTabs.find((t) => t.key === tabKey) ?? uiTabs[0];
   const datasetCrudo = data[tab.source] ?? SIN_FILAS;
   const tieneCampanaAnunciante = datasetCrudo.length === 0 || "campana" in datasetCrudo[0];
 
-  // Un anunciante/campaña/motivo elegido puede dejar de existir para el
-  // cliente activo si se cambia de cliente arriba -- se limpia para no dejar
-  // un filtro "fantasma" que deja la tabla en 0 filas sin ninguna pista de por
+  // Un anunciante/campaña elegido puede dejar de existir para el cliente
+  // activo si se cambia de cliente arriba -- se limpia para no dejar un
+  // filtro "fantasma" que deja la tabla en 0 filas sin ninguna pista de por
   // qué (ver más abajo, mismo problema que motivó este fix).
   useEffect(() => {
     setAnunciante(null);
     setCampana(null);
-    setMotivo(null);
   }, [clienteActivo]);
 
   // Solo el cliente activo, SIN los demás filtros -- son las opciones que
@@ -93,10 +91,6 @@ export default function ChannelRendimientoGeneral({ data, uiTabs, canal }) {
     () => [...new Set(filasDelClienteActivo.map((r) => r.campana).filter(Boolean))].sort(),
     [filasDelClienteActivo]
   );
-  const motivosDisponibles = useMemo(
-    () => [...new Set(filasDelClienteActivo.map((r) => r.motivo).filter(Boolean))].sort(),
-    [filasDelClienteActivo]
-  );
 
   const filas = useMemo(
     () =>
@@ -104,10 +98,9 @@ export default function ChannelRendimientoGeneral({ data, uiTabs, canal }) {
         (r) =>
           (!campana || r.campana === campana) &&
           (!anunciante || r.anunciante === anunciante) &&
-          (!motivo || r.motivo === motivo) &&
           dentroDelPeriodo(r.fecha, periodo)
       ),
-    [filasDelClienteActivo, campana, anunciante, motivo, periodo]
+    [filasDelClienteActivo, campana, anunciante, periodo]
   );
 
   const handleDownload = () => downloadCSV(tab.key, filas, tab.columns);
@@ -127,11 +120,6 @@ export default function ChannelRendimientoGeneral({ data, uiTabs, canal }) {
           { label: "Campaña", options: campanasDisponibles, value: campana, onChange: setCampana },
         ]
       : []),
-    // Prueba pedida por Jose 2026-09-08: solo Programático, para ver cómo
-    // queda antes de sumarlo a los otros 3 canales (CTV/OTT, Push, YouTube).
-    ...(tieneCampanaAnunciante && canal === "programatico"
-      ? [{ label: "Motivo", options: motivosDisponibles, value: motivo, onChange: setMotivo }]
-      : []),
   ];
 
   return (
@@ -145,7 +133,6 @@ export default function ChannelRendimientoGeneral({ data, uiTabs, canal }) {
         onClearFilters={() => {
           setCampana(null);
           setAnunciante(null);
-          setMotivo(null);
           setPeriodo(null);
         }}
         onDownload={filas.length > 0 ? handleDownload : undefined}
