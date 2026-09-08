@@ -31,7 +31,7 @@ const ICONS = { megaphone: MegaphoneIcon, clip: ClipIcon };
 export default function Tabs({ tabs, active, onChange, actions }) {
   return (
     <div className="flex items-center justify-between gap-4 border-b border-slate-200 bg-white rounded-t-xl px-5">
-      <div className="flex items-center gap-6 overflow-x-auto">
+      <div className="flex items-center gap-6 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {tabs.map((tab) => {
           const Icon = ICONS[tab.icon] || MegaphoneIcon;
           const isActive = active === tab.key;

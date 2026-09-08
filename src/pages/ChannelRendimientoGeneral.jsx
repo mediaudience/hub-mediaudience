@@ -152,7 +152,7 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
         tabs={uiTabs.map((t) => ({ key: t.key, label: t.label }))}
         active={tabKey}
         onChange={setTabKey}
-        actions={<DownloadButton onDownload={filas.length > 0 ? handleDownload : undefined} />}
+        actions={<DownloadButton variant="solid" onDownload={filas.length > 0 ? handleDownload : undefined} />}
       />
 
       <div className="pt-4">
