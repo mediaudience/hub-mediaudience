@@ -1168,5 +1168,41 @@
     "quartil100": 56.54,
     "inversion": 4.45,
     "cliente": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Paso Lateral Babahoyo Jujan",
+    "fecha": "2026-09-07",
+    "mes": "Julio",
+    "formato": "YouTube",
+    "impresionesTotales": 1150,
+    "clicsTotales": 12,
+    "ctr": 1.04,
+    "vistasTotales": 554,
+    "quartil25": 92.86,
+    "quartil50": 61.97,
+    "quartil75": 43.63,
+    "quartil100": 33.78,
+    "inversion": 2.88,
+    "cliente": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Paso Lateral Babahoyo Jujan",
+    "fecha": "2026-09-08",
+    "mes": "Julio",
+    "formato": "YouTube",
+    "impresionesTotales": 1857,
+    "clicsTotales": 16,
+    "ctr": 0.86,
+    "vistasTotales": 547,
+    "quartil25": 91.08,
+    "quartil50": 56.36,
+    "quartil75": 35.74,
+    "quartil100": 27.3,
+    "inversion": 4.64,
+    "cliente": "EC_Prefectura"
   }
 ]
