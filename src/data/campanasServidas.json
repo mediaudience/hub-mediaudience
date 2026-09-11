@@ -28,10 +28,6 @@
     "anunciante": "EC_AlimentosLosAndes"
   },
   {
-    "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
-    "anunciante": "EC_Ferrisariato"
-  },
-  {
     "campana": "EC_LoteríaNacional_Mamá_06Abril2026",
     "anunciante": "EC_LoteríaNacional"
   },
@@ -238,5 +234,13 @@
   {
     "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
     "anunciante": "EC_Netlife"
+  },
+  {
+    "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
+    "anunciante": "EC_Ferrisariato"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_Septiembre2026",
+    "anunciante": "EC_PanteónMetropolitano"
   }
 ]
