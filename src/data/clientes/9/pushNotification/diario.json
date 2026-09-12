@@ -2,7 +2,7 @@
   {
     "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
     "anunciante": "EC_Bet593",
-    "motivo": "Ecuatoriano Pronostica",
+    "motivo": "Junio_Ecuatoriano Pronostica",
     "fecha": "2026-06-14",
     "mes": "Junio",
     "formato": "Push Premium Video",
@@ -22,7 +22,7 @@
   {
     "campana": "EC_Bet593_EcuatorianoPronostica_20Junio2026",
     "anunciante": "EC_Bet593",
-    "motivo": "Ecuatoriano Pronostica",
+    "motivo": "Junio_Ecuatoriano Pronostica",
     "fecha": "2026-06-20",
     "mes": "Junio",
     "formato": "Push Premium Video",
@@ -42,7 +42,7 @@
   {
     "campana": "EC_Bet593_EcuatorianoPronostica_25Junio2026",
     "anunciante": "EC_Bet593",
-    "motivo": "Ecuatoriano Pronostica",
+    "motivo": "Junio_Ecuatoriano Pronostica",
     "fecha": "2026-06-25",
     "mes": "Junio",
     "formato": "Push Premium Video",
@@ -62,7 +62,7 @@
   {
     "campana": "EC_Bet593_BSCvsManta_28Agosto2026",
     "anunciante": "EC_Bet593",
-    "motivo": "Barcelona VS Manta",
+    "motivo": "Agosto_Barcelona VS Manta",
     "fecha": "2026-08-28",
     "mes": "Agosto",
     "formato": "Push Premium Display",
@@ -82,7 +82,7 @@
   {
     "campana": "EC_Bet593_BSCvsManta_28Agosto2026",
     "anunciante": "EC_Bet593",
-    "motivo": "Barcelona VS Manta",
+    "motivo": "Agosto_Barcelona VS Manta",
     "fecha": "2026-08-29",
     "mes": "Agosto",
     "formato": "Push Premium Display",
@@ -102,7 +102,7 @@
   {
     "campana": "EC_Bet593_BSCvsIDV_01Septiembre2026",
     "anunciante": "EC_Bet593",
-    "motivo": "Barcelona VS IDV",
+    "motivo": "Septiembre_Barcelona VS IDV",
     "fecha": "2026-09-01",
     "mes": "Septiembre",
     "formato": "Push Premium Display",
@@ -122,7 +122,7 @@
   {
     "campana": "EC_Bet593_BSCvsIDV_01Septiembre2026",
     "anunciante": "EC_Bet593",
-    "motivo": "Barcelona VS IDV",
+    "motivo": "Septiembre_Barcelona VS IDV",
     "fecha": "2026-09-02",
     "mes": "Septiembre",
     "formato": "Push Premium Display",

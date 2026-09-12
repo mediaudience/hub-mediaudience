@@ -28,11 +28,11 @@
     "anunciante": "EC_AlimentosLosAndes"
   },
   {
-    "campana": "EC_LoteríaNacional_Mamá_06Abril2026",
+    "campana": "EC_LoteríaNacional_Mamá1_06Abril2026",
     "anunciante": "EC_LoteríaNacional"
   },
   {
-    "campana": "EC_LoteríaNacional_Mamá_24Abril2026",
+    "campana": "EC_LoteríaNacional_Mamá2_24Abril2026",
     "anunciante": "EC_LoteríaNacional"
   },
   {
@@ -57,6 +57,10 @@
   },
   {
     "campana": "EC_LoteríaNacional_LoDamosTodo_13Agosto2026",
+    "anunciante": "EC_LoteríaNacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoteríaNavidad_07Septiembre2026",
     "anunciante": "EC_LoteríaNacional"
   },
   {

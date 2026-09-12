@@ -1,8 +1,8 @@
 [
   {
-    "campana": "EC_LoteríaNacional_Mamá_06Abril2026",
+    "campana": "EC_LoteríaNacional_Mamá1_06Abril2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Mamá 1",
+    "motivo": "Abril_Mamá 1",
     "mes": "Abril",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -12,9 +12,9 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
-    "campana": "EC_LoteríaNacional_Mamá_24Abril2026",
+    "campana": "EC_LoteríaNacional_Mamá2_24Abril2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Mamá 2",
+    "motivo": "Abril_Mamá 2",
     "mes": "Abril",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -26,7 +26,7 @@
   {
     "campana": "EC_LoteríaNacional_MamáAudio1_05Mayo2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Mamá 1",
+    "motivo": "Mayo_Mamá 1",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -38,7 +38,7 @@
   {
     "campana": "EC_LoteríaNacional_MamáAudio2_05Mayo2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Mamá 2",
+    "motivo": "Mayo_Mamá 2",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -50,7 +50,7 @@
   {
     "campana": "EC_LoteríaNacional_LoDamosTodo_25Mayo2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Lo Damos Todo",
+    "motivo": "Mayo_Lo Damos Todo",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -62,7 +62,7 @@
   {
     "campana": "EC_LoteríaNacional_LoDamosTodo_18Junio2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Lo Damos Todo",
+    "motivo": "Junio_Lo Damos Todo",
     "mes": "Junio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -74,7 +74,7 @@
   {
     "campana": "EC_LoteríaNacional_LoDamosTodo_22Julio2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Lo Damos Todo",
+    "motivo": "Julio_Lo Damos Todo",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -86,13 +86,25 @@
   {
     "campana": "EC_LoteríaNacional_LoDamosTodo_13Agosto2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Lo Damos Todo",
+    "motivo": "Agosto_Lo Damos Todo",
     "mes": "Agosto",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
     "impresionesTotales": 227266,
     "clicsTotales": 1812,
     "ctr": 0.8,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoteríaNavidad_07Septiembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Septiembre_Lotería Navidad",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 34135,
+    "clicsTotales": 227,
+    "ctr": 0.67,
     "cliente": "EC_Lotería Nacional"
   }
 ]
