@@ -27,15 +27,6 @@
     "cliente": "EC_Alimentos los Andes"
   },
   {
-    "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
-    "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Testimonio PYME",
-    "mes": "Junio",
-    "formato": "YouTube",
-    "link": "https://drive.google.com/drive/folders/15WWQV3r5cobhuj8KXKL7KUME1za1HUXR?usp=sharing",
-    "cliente": "EC_Banco del Pacífico"
-  },
-  {
     "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
     "anunciante": "EC_Prefectura",
     "motivo": "Paso Lateral Babahoyo Jujan",
@@ -61,5 +52,14 @@
     "formato": "YouTube",
     "link": "https://www.youtube.com/watch?v=VSCkrvtVt3Y&force_ad_encrypted=AKjQQ4IJ2djXiD2FdanrCc5XTvXGw4YlbB-vwBz7S1WGwc9kiEWgJK5SUG9rl8pU2e1b-XDdkg_DwLga7cJNjGirWs_E-gxoBjm5s3dgAI4e21ZVRbjGtahaQnLYt6Bi-udK6H_nZd8JWwCL7ILSmSo3GRs9Z54RPx5SYMuTuGIyQ3RApNYWj1RU2jE0J2D0ml09NuGJ6jITxHnYwSFsMYZ1tFXTEakhrgfJE_zrEvoJzgVB-7FWTXgOWST4PNkkUZJ1YyB_ratI48roIPlij5K9LlpgjK24_mUH61U0pgd7NtdGCtr3-LOEyKZyNhAZdMwqvLp_4nW7M1hFKutrM130glTkU6UQQ9enQL4iGcb0Ru-Mgb8YLnmhyzTf_5wyWqyrN0lSGdHa2bJgwqAaGc3e_YXz2GemCFJQscirbjhSjXQ2D8FM0cbo4QvwC7mttyOgkJnawJKYfvxeVzgX2iXiv18Z41WSVNtNat16sJXNzGdXcrVHUh0=",
     "cliente": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Testimonio PYME",
+    "mes": "Junio",
+    "formato": "YouTube",
+    "link": "https://drive.google.com/drive/folders/15WWQV3r5cobhuj8KXKL7KUME1za1HUXR?usp=sharing",
+    "cliente": "EC_Banco del Pacífico"
   }
 ]

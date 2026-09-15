@@ -156,6 +156,66 @@
     "anunciante": "PE_Starbucks"
   },
   {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
+    "anunciante": "EC_Netlife"
+  },
+  {
+    "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
+    "anunciante": "EC_Ferrisariato"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_Septiembre2026",
+    "anunciante": "EC_PanteónMetropolitano"
+  },
+  {
+    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
+    "anunciante": "PE_Verisure"
+  },
+  {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico"
   },
@@ -200,51 +260,27 @@
     "anunciante": "EC_BancoDelPacífico"
   },
   {
-    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
-    "anunciante": "EC_Prefectura"
+    "campana": "EC_BancoDelPacífico_TestimoniosPYME_23Junio2026",
+    "anunciante": "EC_BancoDelPacífico"
   },
   {
-    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
-    "anunciante": "EC_Prefectura"
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_09Julio2026",
+    "anunciante": "EC_BancoDelPacífico"
   },
   {
-    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
-    "anunciante": "EC_Prefectura"
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_07Agosto2026",
+    "anunciante": "EC_BancoDelPacífico"
   },
   {
-    "campana": "EC_Bambú_22Junio2026_Alcance",
-    "anunciante": "EC_Bambú"
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_01Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico"
   },
   {
-    "campana": "EC_Bambú_22Junio2026_Interacciones",
-    "anunciante": "EC_Bambú"
+    "campana": "EC_BancoDelPacífico_Mastercard_04Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico"
   },
   {
-    "campana": "EC_Bambú_15Julio2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_15Julio2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_07Agosto2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_07Agosto2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
-    "anunciante": "EC_Netlife"
-  },
-  {
-    "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
-    "anunciante": "EC_Ferrisariato"
-  },
-  {
-    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_Septiembre2026",
-    "anunciante": "EC_PanteónMetropolitano"
+    "campana": "EC_BancoDelPacífico_Visa_04Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico"
   }
 ]

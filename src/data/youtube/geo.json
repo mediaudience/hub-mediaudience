@@ -1020,18 +1020,6 @@
     "cliente": "EC_Alimentos los Andes"
   },
   {
-    "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
-    "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Testimonio PYME",
-    "mes": "Junio",
-    "formato": "YouTube",
-    "ubicacion": "Ecuador",
-    "impresionesTotales": 485518,
-    "clicsTotales": 470,
-    "vistasTotales": 111485,
-    "cliente": "EC_Banco del Pacífico"
-  },
-  {
     "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
     "anunciante": "EC_Prefectura",
     "motivo": "Paso Lateral Babahoyo Jujan",
@@ -1062,9 +1050,21 @@
     "mes": "Septiembre",
     "formato": "YouTube",
     "ubicacion": "Los Ríos",
-    "impresionesTotales": 4852,
-    "clicsTotales": 29,
-    "vistasTotales": 2123,
+    "impresionesTotales": 9614,
+    "clicsTotales": 58,
+    "vistasTotales": 3357,
     "cliente": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Testimonio PYME",
+    "mes": "Junio",
+    "formato": "YouTube",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 485518,
+    "clicsTotales": 470,
+    "vistasTotales": 111485,
+    "cliente": "EC_Banco del Pacífico"
   }
 ]

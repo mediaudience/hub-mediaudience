@@ -349,5 +349,14 @@
     "formato": "Push Premium Display",
     "link": "Testigo Dúo Proteico Agosto.mp4",
     "cliente": "PE_Starbucks"
+  },
+  {
+    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
+    "anunciante": "PE_Verisure",
+    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "mes": "Septiembre",
+    "formato": "Push Premium Vídeo",
+    "link": "https://drive.google.com/file/d/1zjp6UeYC8n4Mtmkn8yGy2IEMUMaEnvjB/view?usp=sharing",
+    "cliente": "PE_Verisure"
   }
 ]

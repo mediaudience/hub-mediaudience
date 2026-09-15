@@ -1114,5 +1114,17 @@
     "clicsTotales": 460,
     "ctr": 15.28,
     "cliente": "PE_Starbucks"
+  },
+  {
+    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
+    "anunciante": "PE_Verisure",
+    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "mes": "Septiembre",
+    "formato": "Push Premium Vídeo",
+    "ubicacion": "Lima Mteropolitana",
+    "impresionesTotales": 8905,
+    "clicsTotales": 707,
+    "ctr": 7.94,
+    "cliente": "PE_Verisure"
   }
 ]
