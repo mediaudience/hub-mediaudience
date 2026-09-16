@@ -1126,5 +1126,29 @@
     "clicsTotales": 707,
     "ctr": 7.94,
     "cliente": "PE_Verisure"
+  },
+  {
+    "campana": "PE_ClínicaAviva_09Septiembre2026",
+    "anunciante": "PE_Clínica Aviva",
+    "motivo": "Septiembre_Clínica Aviva 2026",
+    "mes": "Septiembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Lima",
+    "impresionesTotales": 8959,
+    "clicsTotales": 700,
+    "ctr": 7.81,
+    "cliente": "PE_Clínica Aviva"
+  },
+  {
+    "campana": "PE_ClínicaAviva_09Septiembre2026",
+    "anunciante": "PE_Clínica Aviva",
+    "motivo": "Septiembre_Clínica Aviva 2026",
+    "mes": "Septiembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Callao",
+    "impresionesTotales": 8447,
+    "clicsTotales": 661,
+    "ctr": 7.83,
+    "cliente": "PE_Clínica Aviva"
   }
 ]
