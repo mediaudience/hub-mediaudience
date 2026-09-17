@@ -2372,7 +2372,7 @@
     "quartil50": 78.87,
     "quartil75": 63.57,
     "quartil100": 56.54,
-    "inversion": 4.45,
+    "inversion": 60.24,
     "cliente": "EC_Prefectura"
   },
   {
@@ -2390,7 +2390,7 @@
     "quartil50": 61.97,
     "quartil75": 43.63,
     "quartil100": 33.78,
-    "inversion": 2.88,
+    "inversion": 33.24,
     "cliente": "EC_Prefectura"
   },
   {
@@ -2408,7 +2408,7 @@
     "quartil50": 56.36,
     "quartil75": 35.74,
     "quartil100": 27.3,
-    "inversion": 4.64,
+    "inversion": 32.82,
     "cliente": "EC_Prefectura"
   },
   {
@@ -2426,7 +2426,7 @@
     "quartil50": 58.7,
     "quartil75": 31.29,
     "quartil100": 21.84,
-    "inversion": 2.17,
+    "inversion": 11.88,
     "cliente": "EC_Prefectura"
   },
   {
@@ -2444,7 +2444,7 @@
     "quartil50": 50.92,
     "quartil75": 28.2,
     "quartil100": 18.71,
-    "inversion": 4.6,
+    "inversion": 22.98,
     "cliente": "EC_Prefectura"
   },
   {
@@ -2462,7 +2462,7 @@
     "quartil50": 60.92,
     "quartil75": 39.43,
     "quartil100": 30.57,
-    "inversion": 2.63,
+    "inversion": 17.04,
     "cliente": "EC_Prefectura"
   },
   {
@@ -2480,7 +2480,7 @@
     "quartil50": 59.8,
     "quartil75": 36.2,
     "quartil100": 25.6,
-    "inversion": 1.42,
+    "inversion": 8.88,
     "cliente": "EC_Prefectura"
   },
   {
@@ -2498,7 +2498,43 @@
     "quartil50": 79.66,
     "quartil75": 65.25,
     "quartil100": 59.32,
-    "inversion": 1.1,
+    "inversion": 13.26,
+    "cliente": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Paso Lateral Babahoyo Jujan",
+    "fecha": "2026-09-14",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "vistasTotales": 325,
+    "quartil25": 0,
+    "quartil50": 0,
+    "quartil75": 0,
+    "quartil100": 0,
+    "inversion": 19.5,
+    "cliente": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Paso Lateral Babahoyo Jujan",
+    "fecha": "2026-09-15",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "vistasTotales": 274,
+    "quartil25": 0,
+    "quartil50": 0,
+    "quartil75": 0,
+    "quartil100": 0,
+    "inversion": 16.44,
     "cliente": "EC_Prefectura"
   },
   {
