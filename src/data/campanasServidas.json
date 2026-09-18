@@ -212,10 +212,6 @@
     "anunciante": "EC_PanteónMetropolitano"
   },
   {
-    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
-    "anunciante": "PE_Verisure"
-  },
-  {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico"
   },
@@ -286,5 +282,13 @@
   {
     "campana": "PE_ClínicaAviva_09Septiembre2026",
     "anunciante": "PE_Clínica Aviva"
+  },
+  {
+    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
+    "anunciante": "PE_Verisure"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_Plaza San Miguel"
   }
 ]
