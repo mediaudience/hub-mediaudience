@@ -29,7 +29,7 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Julio_Mi Casa Propia",
     "mes": "Julio",
     "formato": "CTV",
     "link": "https://drive.google.com/file/d/1ND-8Qp2X8I4_aaT26mMQz_AuXgvvIVxE/view?usp=drive_link",
@@ -38,10 +38,19 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Agosto_Mi Casa Propia",
     "mes": "Agosto",
     "formato": "CTV",
     "link": "https://drive.google.com/file/d/1qXmSsMpTcDlmTCzyWdC8AO00Bx2Nd_Eg/view?usp=sharing",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Mi Casa Propia",
+    "mes": "Septiembre",
+    "formato": "CTV",
+    "link": "https://drive.google.com/file/d/1rYSbrECynvi6r5mJxa0gI67N6Od4LcEN/view?usp=sharing",
     "cliente": "EC_Banco del Pacífico"
   }
 ]

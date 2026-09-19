@@ -26,7 +26,7 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Julio_Mi Casa Propia",
     "mes": "Julio",
     "formato": "CTV",
     "ubicacion": "Los Ríos",
@@ -38,7 +38,7 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Julio_Mi Casa Propia",
     "mes": "Julio",
     "formato": "CTV",
     "ubicacion": "El Oro",
@@ -50,7 +50,7 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Julio_Mi Casa Propia",
     "mes": "Julio",
     "formato": "CTV",
     "ubicacion": "Guayas",
@@ -62,7 +62,7 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Agosto_Mi Casa Propia",
     "mes": "Agosto",
     "formato": "CTV",
     "ubicacion": "Guayaquil",
@@ -74,7 +74,7 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Agosto_Mi Casa Propia",
     "mes": "Agosto",
     "formato": "CTV",
     "ubicacion": "Babahoyo",
@@ -86,7 +86,7 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Agosto_Mi Casa Propia",
     "mes": "Agosto",
     "formato": "CTV",
     "ubicacion": "Quevedo",
@@ -98,7 +98,7 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Agosto_Mi Casa Propia",
     "mes": "Agosto",
     "formato": "CTV",
     "ubicacion": "Machala",
@@ -110,13 +110,73 @@
   {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mi Casa Propia",
+    "motivo": "Agosto_Mi Casa Propia",
     "mes": "Agosto",
     "formato": "CTV",
     "ubicacion": "Puerto Bolivar",
     "impresionesTotales": 15726,
     "quartil100": 14760,
     "vtr": 93.86,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Mi Casa Propia",
+    "mes": "Septiembre",
+    "formato": "CTV",
+    "ubicacion": "Guayaquil",
+    "impresionesTotales": 15463,
+    "quartil100": 14539,
+    "vtr": 94.02,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Mi Casa Propia",
+    "mes": "Septiembre",
+    "formato": "CTV",
+    "ubicacion": "Babahoyo",
+    "impresionesTotales": 5567,
+    "quartil100": 5233,
+    "vtr": 94,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Mi Casa Propia",
+    "mes": "Septiembre",
+    "formato": "CTV",
+    "ubicacion": "Quevedo",
+    "impresionesTotales": 4330,
+    "quartil100": 4069,
+    "vtr": 93.97,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Mi Casa Propia",
+    "mes": "Septiembre",
+    "formato": "CTV",
+    "ubicacion": "Machala",
+    "impresionesTotales": 3711,
+    "quartil100": 3487,
+    "vtr": 93.96,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Mi Casa Propia",
+    "mes": "Septiembre",
+    "formato": "CTV",
+    "ubicacion": "Puerto Bolivar",
+    "impresionesTotales": 1855,
+    "quartil100": 1752,
+    "vtr": 94.45,
     "cliente": "EC_Banco del Pacífico"
   }
 ]
