@@ -480,9 +480,9 @@
     "cliente": "EC_La Destilería"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Enero2026",
+    "campana": "EC_BancoDelPacífico_Institucional_MiCasaPropia_Enero2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Enero_Mi Casa Propia",
+    "motivo": "Enero_Institucional_Mi Casa Propia",
     "mes": "Enero",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -492,9 +492,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Enero2026",
+    "campana": "EC_BancoDelPacífico_Institucional_MiBanco_Enero2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Enero_Mi Banco",
+    "motivo": "Enero_Institucional_Mi Banco",
     "mes": "Enero",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -504,9 +504,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Enero2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Crédito_Enero2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Enero_Crédito",
+    "motivo": "Enero_Institucional_Crédito",
     "mes": "Enero",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -516,9 +516,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Enero2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Débito_Enero2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Enero_Débito",
+    "motivo": "Enero_Institucional_Débito",
     "mes": "Enero",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -528,9 +528,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Febrero2026",
+    "campana": "EC_BancoDelPacífico_Institucional_MiBanco_Febrero2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Febrero_Mi Banco",
+    "motivo": "Febrero_Institucional_Mi Banco",
     "mes": "Febrero",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -540,9 +540,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Febrero2026",
+    "campana": "EC_BancoDelPacífico_Institucional_MiCasaPropia_Febrero2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Febrero_Mi Casa Propia",
+    "motivo": "Febrero_Institucional_Mi Casa Propia",
     "mes": "Febrero",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -552,7 +552,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Febrero2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Matriculación_Febrero2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Febrero_Matriculación",
     "mes": "Febrero",
@@ -564,7 +564,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Febrero2026",
+    "campana": "EC_BancoDelPacífico_Institucional_VisaFifa_Febrero2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Febrero_Visa Fifa",
     "mes": "Febrero",
@@ -576,9 +576,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Marzo2026",
+    "campana": "EC_BancoDelPacífico_Institucional_MiCasaPropia_Marzo2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Marzo_Mi Casa Propia",
+    "motivo": "Marzo_Institucional_Mi Casa Propia",
     "mes": "Marzo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -588,9 +588,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Marzo2026",
+    "campana": "EC_BancoDelPacífico_Institucional_MiBanco_Marzo2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Marzo_Mi Banco",
+    "motivo": "Marzo_Institucional_Mi Banco",
     "mes": "Marzo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -600,9 +600,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Marzo2026",
+    "campana": "EC_BancoDelPacífico_Institucional_VisaFifa_Marzo2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Marzo_Visa Fifa",
+    "motivo": "Marzo_Institucional_Visa Fifa",
     "mes": "Marzo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -612,9 +612,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Marzo2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Matriculación_Marzo2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Marzo_Matriculación",
+    "motivo": "Marzo_Institucional_Matriculación",
     "mes": "Marzo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -636,9 +636,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Mayo2026",
+    "campana": "EC_BancoDelPacífico_Institucional_DíaDeLaMadre_Mayo2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mayo_DíaDeLaMadre",
+    "motivo": "Mayo_Institucional_Día De LaMadre",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -648,9 +648,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Mayo2026",
+    "campana": "EC_BancoDelPacífico_Institucional_MiBancoPensiónAlimenticia_Mayo2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mayo_MiBancoPensiónAlimenticia",
+    "motivo": "Mayo_Institucional_Mi Banco Pensión Alimenticia",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -660,9 +660,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Mayo2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Costa_Mayo2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mayo_InstitucionalCosta",
+    "motivo": "Mayo_Institucional_Costa",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -672,9 +672,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Mayo2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Sierra_Mayo2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Mayo_InstitucionalSierra",
+    "motivo": "Mayo_Institucional_Sierra",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -684,9 +684,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Junio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Costa_Junio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Junio_InstitucionalCosta",
+    "motivo": "Junio_Institucional_Costa",
     "mes": "Junio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -696,9 +696,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Junio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Sierra_Junio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Junio_InstitucionalSierra",
+    "motivo": "Junio_Institucional_Sierra",
     "mes": "Junio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -708,9 +708,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Junio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_PensiónAlimenticia_Junio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Junio_PensiónAlimenticia",
+    "motivo": "Junio_Institucional_Pensión Alimenticia",
     "mes": "Junio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -720,9 +720,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Junio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_DíaDelPadre_Junio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Junio_DíaDelPadre",
+    "motivo": "Junio_Institucional_Día Del Padre",
     "mes": "Junio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -732,9 +732,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_SectorPesca_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_Sector Pesca",
+    "motivo": "Julio_Institucional_Sector Pesca",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -744,9 +744,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Colaboradores_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_Colaboradores",
+    "motivo": "Julio_Institucional_Colaboradores",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -756,9 +756,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_SectorManufactura_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_Sector Manufactura",
+    "motivo": "Julio_Institucional_Sector Manufactura",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -768,9 +768,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Lácteos_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_Institucional Lácteos",
+    "motivo": "Julio_Institucional_Lácteos",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -780,9 +780,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_SectorAgricultura_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_Sector Agricultura",
+    "motivo": "Julio_Institucional_Sector Agricultura",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -792,7 +792,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_ITT_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Julio_Mi Casa Propia_ITT",
     "mes": "Julio",
@@ -804,7 +804,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_RichMedia_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Julio_Mi Casa Propia_Rich Media",
     "mes": "Julio",
@@ -816,9 +816,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_RecargaTuCelular_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_RecargaTuCelular",
+    "motivo": "Julio_Institucional_Recarga Tu Celular",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -828,9 +828,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Testimoniales_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_Testimoniales",
+    "motivo": "Julio_Institucional_Testimoniales",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -840,9 +840,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_RegresoAClasesSierra_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_RegresoAClasesSierra",
+    "motivo": "Julio_Institucional_Regreso A Clases Sierra",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -852,9 +852,9 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Julio2026",
+    "campana": "EC_BancoDelPacífico_Institucional_LoEstamosLogrando_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_LoEstamosLogrando",
+    "motivo": "Julio_Institucional_Lo Estamos Logrando",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -864,7 +864,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Spotify_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Julio_Mi Casa Propia_Spotify",
     "mes": "Julio",
@@ -876,7 +876,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Spotify_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Julio_Mi Casa Propia_Spotify",
     "mes": "Julio",
@@ -888,7 +888,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Spotify_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Julio_Mi Casa Propia_Spotify",
     "mes": "Julio",
@@ -900,7 +900,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Spotify_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Julio_Mi Casa Propia_Spotify",
     "mes": "Julio",
@@ -912,7 +912,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Spotify_Julio2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Julio_Mi Casa Propia_Spotify",
     "mes": "Julio",
@@ -924,7 +924,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "campana": "EC_BancoDelPacífico_Institucional_RegresoAClases_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Agosto_Institucional_Regreso a Clases",
     "mes": "Agosto",
@@ -936,7 +936,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "campana": "EC_BancoDelPacífico_Institucional_LoEstamosLogrando_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Agosto_Institucional_Lo Estamos Logrando",
     "mes": "Agosto",
@@ -948,7 +948,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Bies_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Agosto_Institucional_Bies",
     "mes": "Agosto",
@@ -960,7 +960,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "campana": "EC_BancoDelPacífico_Institucional_Testimonial_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Agosto_Institucional_Testimonial",
     "mes": "Agosto",
@@ -972,7 +972,7 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_BancoDelPacífico_Institucional_Agosto2026",
+    "campana": "EC_BancoDelPacífico_Institucional_RecargaDeCelular_Agosto2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Agosto_Institucional_Recarga de Celular",
     "mes": "Agosto",
@@ -981,6 +981,78 @@
     "impresionesTotales": 79562,
     "clicsTotales": 8268,
     "ctr": 10.39,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_ITT_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Mi Casa Propia_ITT",
+    "mes": "Septiembre",
+    "formato": "ITT",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_RichMedia_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Mi Casa Propia_Rich Media",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Testimoniales_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Institucional_Testimoniales",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_LoEstamosLogrando_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Institucional_Lo Estamos Logrando",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_RegresoAClases_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Institucional_Regreso a Clases",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_SolicitudTarjetaDeCrédito_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Institucional_Solicitud Tarjeta de Crédito",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
     "cliente": "EC_Banco del Pacífico"
   }
 ]
