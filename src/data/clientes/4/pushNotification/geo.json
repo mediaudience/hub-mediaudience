@@ -2,7 +2,7 @@
   {
     "campana": "EC_Granasa_Chevrolet_Junio2026",
     "anunciante": "EC_Chevrolet",
-    "motivo": "Chevrolet",
+    "motivo": "Junio_Chevrolet",
     "mes": "Junio",
     "formato": "Push Programático",
     "ubicacion": "Ecuador",
@@ -13,8 +13,8 @@
   },
   {
     "campana": "EC_Granasa_BancoPichincha_Junio2026",
-    "anunciante": "EC_Banco Pichincha",
-    "motivo": "Banco Pichincha",
+    "anunciante": "EC_BancoPichincha",
+    "motivo": "Junio_BancoPichincha",
     "mes": "Junio",
     "formato": "Push Programático",
     "ubicacion": "Ecuador",
@@ -26,7 +26,7 @@
   {
     "campana": "EC_Granasa_Gigabytes_Julio2026",
     "anunciante": "EC_Gigabytes",
-    "motivo": "Gigabytes",
+    "motivo": "Julio_Gigabytes",
     "mes": "Julio",
     "formato": "Push Programático",
     "ubicacion": "Ecuador",
@@ -38,7 +38,7 @@
   {
     "campana": "EC_Granasa_1xBet_Julio2026",
     "anunciante": "EC_1xBet",
-    "motivo": "1xBet",
+    "motivo": "Julio_1xBet",
     "mes": "Julio",
     "formato": "Push Programático",
     "ubicacion": "Ecuador",

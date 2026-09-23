@@ -2,7 +2,7 @@
   {
     "campana": "EC_Granasa_Chevrolet_Junio2026",
     "anunciante": "EC_Chevrolet",
-    "motivo": "Chevrolet",
+    "motivo": "Junio_Chevrolet",
     "mes": "Junio",
     "formato": "Push Programático",
     "link": "https://drive.google.com/drive/folders/1LZR0ayBIq_GAPRaze00usbzDprHlJo1W?usp=sharing",
@@ -10,8 +10,8 @@
   },
   {
     "campana": "EC_Granasa_BancoPichincha_Junio2026",
-    "anunciante": "EC_Banco Pichincha",
-    "motivo": "Banco Pichincha",
+    "anunciante": "EC_BancoPichincha",
+    "motivo": "Junio_BancoPichincha",
     "mes": "Junio",
     "formato": "Push Programático",
     "link": "https://drive.google.com/drive/folders/1yrboBR9hPQBMviQu3sGzBPziUjalirk7?usp=sharing",
@@ -20,7 +20,7 @@
   {
     "campana": "EC_Granasa_Gigabytes_Julio2026",
     "anunciante": "EC_Gigabytes",
-    "motivo": "Gigabytes",
+    "motivo": "Julio_Gigabytes",
     "mes": "Julio",
     "formato": "Push Programático",
     "link": "https://drive.google.com/file/d/1iyPpntE6Tw8sqnlAa3rPL_haIdIsz4vr/view?usp=drive_link",
@@ -29,7 +29,7 @@
   {
     "campana": "EC_Granasa_1xBet_Julio2026",
     "anunciante": "EC_1xBet",
-    "motivo": "1xBet",
+    "motivo": "Julio_1xBet",
     "mes": "Julio",
     "formato": "Push Programático",
     "link": "https://drive.google.com/file/d/1B5oURuZnJBlIaIe34PMK_S4m4-RN74_N/view?usp=drive_link",

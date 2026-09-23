@@ -1,53 +1,5 @@
 [
   {
-    "campana": "EC_Granasa_Chevrolet_Junio2026",
-    "anunciante": "EC_Chevrolet",
-    "motivo": "Chevrolet",
-    "mes": "Junio",
-    "formato": "Push Programático",
-    "ubicacion": "Ecuador",
-    "impresionesTotales": 102972,
-    "clicsTotales": 1113,
-    "ctr": 1.08,
-    "cliente": "EC_Granasa"
-  },
-  {
-    "campana": "EC_Granasa_BancoPichincha_Junio2026",
-    "anunciante": "EC_Banco Pichincha",
-    "motivo": "Banco Pichincha",
-    "mes": "Junio",
-    "formato": "Push Programático",
-    "ubicacion": "Ecuador",
-    "impresionesTotales": 99200,
-    "clicsTotales": 1045,
-    "ctr": 1.05,
-    "cliente": "EC_Granasa"
-  },
-  {
-    "campana": "EC_Granasa_Gigabytes_Julio2026",
-    "anunciante": "EC_Gigabytes",
-    "motivo": "Gigabytes",
-    "mes": "Julio",
-    "formato": "Push Programático",
-    "ubicacion": "Ecuador",
-    "impresionesTotales": 95968,
-    "clicsTotales": 1017,
-    "ctr": 1.06,
-    "cliente": "EC_Granasa"
-  },
-  {
-    "campana": "EC_Granasa_1xBet_Julio2026",
-    "anunciante": "EC_1xBet",
-    "motivo": "1xBet",
-    "mes": "Julio",
-    "formato": "Push Programático",
-    "ubicacion": "Ecuador",
-    "impresionesTotales": 110188,
-    "clicsTotales": 1163,
-    "ctr": 1.06,
-    "cliente": "EC_Granasa"
-  },
-  {
     "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
     "anunciante": "EC_Bet593",
     "motivo": "Junio_Ecuatoriano Pronostica",
@@ -1116,30 +1068,6 @@
     "cliente": "PE_Starbucks"
   },
   {
-    "campana": "PE_ClínicaAviva_09Septiembre2026",
-    "anunciante": "PE_Clínica Aviva",
-    "motivo": "Septiembre_Clínica Aviva 2026",
-    "mes": "Septiembre",
-    "formato": "Push Premium Video",
-    "ubicacion": "Lima",
-    "impresionesTotales": 8959,
-    "clicsTotales": 700,
-    "ctr": 7.81,
-    "cliente": "PE_Clínica Aviva"
-  },
-  {
-    "campana": "PE_ClínicaAviva_09Septiembre2026",
-    "anunciante": "PE_Clínica Aviva",
-    "motivo": "Septiembre_Clínica Aviva 2026",
-    "mes": "Septiembre",
-    "formato": "Push Premium Video",
-    "ubicacion": "Callao",
-    "impresionesTotales": 8447,
-    "clicsTotales": 661,
-    "ctr": 7.83,
-    "cliente": "PE_Clínica Aviva"
-  },
-  {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
     "motivo": "Septiembre_Calculadora Tres Pasos",
@@ -1426,5 +1354,77 @@
     "clicsTotales": 137,
     "ctr": 7.9,
     "cliente": "PE_Reset"
+  },
+  {
+    "campana": "EC_Granasa_Chevrolet_Junio2026",
+    "anunciante": "EC_Chevrolet",
+    "motivo": "Junio_Chevrolet",
+    "mes": "Junio",
+    "formato": "Push Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 102972,
+    "clicsTotales": 1113,
+    "ctr": 1.08,
+    "cliente": "EC_Granasa"
+  },
+  {
+    "campana": "EC_Granasa_BancoPichincha_Junio2026",
+    "anunciante": "EC_BancoPichincha",
+    "motivo": "Junio_BancoPichincha",
+    "mes": "Junio",
+    "formato": "Push Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 99200,
+    "clicsTotales": 1045,
+    "ctr": 1.05,
+    "cliente": "EC_Granasa"
+  },
+  {
+    "campana": "EC_Granasa_Gigabytes_Julio2026",
+    "anunciante": "EC_Gigabytes",
+    "motivo": "Julio_Gigabytes",
+    "mes": "Julio",
+    "formato": "Push Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 95968,
+    "clicsTotales": 1017,
+    "ctr": 1.06,
+    "cliente": "EC_Granasa"
+  },
+  {
+    "campana": "EC_Granasa_1xBet_Julio2026",
+    "anunciante": "EC_1xBet",
+    "motivo": "Julio_1xBet",
+    "mes": "Julio",
+    "formato": "Push Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 110188,
+    "clicsTotales": 1163,
+    "ctr": 1.06,
+    "cliente": "EC_Granasa"
+  },
+  {
+    "campana": "PE_ClínicaAviva_09Septiembre2026",
+    "anunciante": "PE_ClínicaAviva",
+    "motivo": "Septiembre_ClínicaAviva 2026",
+    "mes": "Septiembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Lima",
+    "impresionesTotales": 21686,
+    "clicsTotales": 2268,
+    "ctr": 10.46,
+    "cliente": "PE_Clínica Aviva"
+  },
+  {
+    "campana": "PE_ClínicaAviva_09Septiembre2026",
+    "anunciante": "PE_ClínicaAviva",
+    "motivo": "Septiembre_ClínicaAviva 2026",
+    "mes": "Septiembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Callao",
+    "impresionesTotales": 20443,
+    "clicsTotales": 2177,
+    "ctr": 10.65,
+    "cliente": "PE_Clínica Aviva"
   }
 ]
