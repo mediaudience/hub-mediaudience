@@ -181,7 +181,7 @@ export default function AdminClientes() {
   const { canales } = useAuth();
   const canalLabel = Object.fromEntries(canales.map((c) => [c.slug, c.nombre]));
   const [clientes, setClientes] = useState([]);
-  const [anunciantesDisponibles, setAnunciantesDisponibles] = useState([]);
+  const [anunciantesEnDatos, setAnunciantesEnDatos] = useState([]);
   const [paises, setPaises] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -207,13 +207,11 @@ export default function AdminClientes() {
   async function cargar() {
     setLoading(true);
     try {
-      const [clientesRes, anunciantesRes, paisesRes] = await Promise.all([
+      const [clientesRes, paisesRes] = await Promise.all([
         apiFetch("/api/admin/clientes"),
-        apiFetch("/api/admin/anunciantes-disponibles"),
         apiFetch("/api/admin/paises"),
       ]);
       setClientes(clientesRes.clientes);
-      setAnunciantesDisponibles(anunciantesRes.anunciantes);
       setPaises(paisesRes.paises.filter((p) => p.activo));
     } catch (err) {
       setError(err.message);
@@ -225,6 +223,21 @@ export default function AdminClientes() {
   useEffect(() => {
     cargar();
   }, []);
+
+  // Nombres que trae el Sheet sincronizado del cliente que se está editando --
+  // solo para avisar si alguno no coincide con sus anunciantes (ver abajo).
+  const formClienteId = form?.id ?? null;
+  useEffect(() => {
+    setAnunciantesEnDatos([]);
+    if (!formClienteId) return;
+    let cancelado = false;
+    apiFetch(`/api/admin/clientes/${formClienteId}/anunciantes-en-datos`)
+      .then((res) => !cancelado && setAnunciantesEnDatos(res.anunciantes))
+      .catch(() => {});
+    return () => {
+      cancelado = true;
+    };
+  }, [formClienteId]);
 
   function toggleAnunciante(a) {
     setForm((f) => ({
@@ -377,20 +390,27 @@ export default function AdminClientes() {
     }
   }
 
-  // Los ya asociados al cliente pueden no venir del sync todavía (recién
-  // creados a mano acá mismo) -- se muestran igual, unidos a los que sí
-  // aparecen ya en datos sincronizados.
-  const anunciantesParaMostrar = form
-    ? [...new Set([...anunciantesDisponibles, ...form.anunciantes])].sort()
-    : [];
-
   // Editar/Eliminar solo tienen sentido sobre un anunciante que YA existe en
   // `cliente_anunciantes` para este cliente (las rutas nuevas pegan directo
   // por cliente+anunciante) -- uno recién tipeado en "+ Agregar" pero sin
-  // guardar todavía, o uno que viene del catálogo global pero aún no está
-  // asociado a este cliente, no tiene nada que renombrar/eliminar en el
-  // servidor hasta el primer "Guardar".
+  // guardar todavía, o uno agregado desde el aviso del Sheet, no tiene nada
+  // que renombrar/eliminar en el servidor hasta el primer "Guardar".
   const anunciantesPersistidos = form?.id ? clientes.find((c) => c.id === form.id)?.anunciantes ?? [] : [];
+
+  // Solo los anunciantes de ESTE cliente: los ya guardados (aunque se
+  // desmarquen, para poder volver a marcarlos antes de Guardar) más los
+  // recién agregados en el formulario. Ya no se sugiere el catálogo de todos
+  // los clientes ni las variantes del Sheet -- eso mostraba el mismo
+  // anunciante dos veces (junto y separado) cuando no coincidían.
+  const anunciantesParaMostrar = form
+    ? [...new Set([...anunciantesPersistidos, ...form.anunciantes])].sort()
+    : [];
+
+  // Nombres del Sheet de este cliente que no coinciden EXACTO con ninguno de
+  // sus anunciantes: esas filas no las ve ningún usuario interno/externo.
+  const anunciantesSinCoincidencia = form
+    ? anunciantesEnDatos.filter((a) => !form.anunciantes.includes(a))
+    : [];
 
   // El botón "Sincronizar" junto a un Sheet ID solo tiene sentido si ESE
   // servicio ya está guardado en la base con un Sheet ID -- uno recién
@@ -698,9 +718,32 @@ export default function AdminClientes() {
                   </div>
                 ))}
               </div>
+              {anunciantesSinCoincidencia.length > 0 && (
+                <div className="mt-2 rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+                  <p className="font-medium">El Sheet de este cliente trae anunciantes que no coinciden</p>
+                  <p className="mt-0.5 text-xs">
+                    Los usuarios internos y externos no verán esas filas hasta que el nombre sea idéntico (espacios y
+                    tildes incluidos). Agrégalo tal cual o corrige el nombre en el Sheet.
+                  </p>
+                  <div className="mt-2 flex flex-col gap-1.5">
+                    {anunciantesSinCoincidencia.map((a) => (
+                      <div key={a} className="flex items-center gap-2">
+                        <code className="flex-1 rounded bg-white/70 px-2 py-1 text-xs">{a}</code>
+                        <button
+                          type="button"
+                          onClick={() => setForm((f) => ({ ...f, anunciantes: [...f.anunciantes, a] }))}
+                          className="shrink-0 text-xs font-medium text-brand-purple hover:underline"
+                        >
+                          Agregar tal cual
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               <p className="mt-1.5 text-xs text-slate-label">
-                Si el anunciante todavía no aparece en los datos sincronizados, escríbelo arriba y agrégalo -- queda
-                asociado a este cliente igual, sin esperar al próximo sync.
+                Usa el mismo nombre exacto que trae la columna "Anunciante" del Sheet. Si todavía no hay datos
+                sincronizados, escríbelo arriba y agrégalo.
               </p>
             </div>
 

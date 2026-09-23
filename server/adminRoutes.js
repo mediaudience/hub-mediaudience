@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
@@ -330,13 +330,34 @@ router.get('/clientes', (req, res) => {
   });
 });
 
-router.get('/anunciantes-disponibles', async (req, res) => {
+// Nombres de anunciante que trae el Sheet sincronizado de ESTE cliente (todas
+// sus carpetas de canal bajo src/data/clientes/:id). El formulario de
+// Admin > Clientes ya no sugiere el catálogo global de todos los clientes:
+// solo muestra los anunciantes creados para el cliente, y usa esta lista para
+// avisar cuando el Sheet trae un nombre que no coincide exactamente con
+// ninguno -- esas filas quedan invisibles para usuario_interno/externo, que
+// filtran por coincidencia exacta (caso PE_Clínica Aviva vs PE_ClínicaAviva).
+router.get('/clientes/:id/anunciantes-en-datos', async (req, res) => {
+  const clienteDir = path.join(DATA_DIR, 'clientes', String(Number(req.params.id)));
+  const nombres = new Set();
   try {
-    const campanas = JSON.parse(await readFile(path.join(DATA_DIR, 'campanasServidas.json'), 'utf-8'));
-    res.json({ anunciantes: [...new Set(campanas.map((c) => c.anunciante))].sort() });
+    for (const canal of await readdir(clienteDir, { withFileTypes: true })) {
+      if (!canal.isDirectory()) continue;
+      const canalDir = path.join(clienteDir, canal.name);
+      for (const archivo of await readdir(canalDir)) {
+        if (!archivo.endsWith('.json')) continue;
+        try {
+          const filas = JSON.parse(await readFile(path.join(canalDir, archivo), 'utf-8'));
+          if (Array.isArray(filas)) for (const f of filas) if (f?.anunciante) nombres.add(f.anunciante);
+        } catch {
+          // archivo a medio escribir o corrupto -- se ignora, el resto sirve igual
+        }
+      }
+    }
   } catch {
-    res.json({ anunciantes: [] });
+    // cliente sin datos sincronizados todavía
   }
+  res.json({ anunciantes: [...nombres].sort() });
 });
 
 // Dispara un sync puntual justo después de guardar canales con Sheet ID --
