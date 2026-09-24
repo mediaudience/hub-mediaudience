@@ -2,7 +2,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-09",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -22,7 +22,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-10",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -42,7 +42,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-11",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -62,7 +62,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-12",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -82,7 +82,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-13",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -102,7 +102,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-14",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -122,7 +122,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-15",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -142,7 +142,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-16",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -162,7 +162,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-17",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -182,7 +182,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-18",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -202,7 +202,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-19",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -222,7 +222,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "fecha": "2026-09-20",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
@@ -241,8 +241,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "fecha": "2026-09-08",
     "mes": "Septiembre",
     "formato": "Push Display",
@@ -261,8 +261,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "fecha": "2026-09-09",
     "mes": "Septiembre",
     "formato": "Push Display",
@@ -281,8 +281,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "fecha": "2026-09-10",
     "mes": "Septiembre",
     "formato": "Push Display",
@@ -301,8 +301,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "fecha": "2026-09-11",
     "mes": "Septiembre",
     "formato": "Push Display",
@@ -321,8 +321,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "fecha": "2026-09-12",
     "mes": "Septiembre",
     "formato": "Push Display",
@@ -341,8 +341,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "fecha": "2026-09-13",
     "mes": "Septiembre",
     "formato": "Push Display",
@@ -361,8 +361,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "fecha": "2026-09-14",
     "mes": "Septiembre",
     "formato": "Push Display",
@@ -381,8 +381,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "fecha": "2026-09-15",
     "mes": "Septiembre",
     "formato": "Push Display",
@@ -401,8 +401,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "fecha": "2026-09-16",
     "mes": "Septiembre",
     "formato": "Push Display",

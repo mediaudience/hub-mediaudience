@@ -412,14 +412,6 @@
     "anunciante": "EC_BancoDelPacífico"
   },
   {
-    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
-    "anunciante": "PE_Verisure"
-  },
-  {
-    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel"
-  },
-  {
     "campana": "EC_Granasa_Chevrolet_Junio2026",
     "anunciante": "EC_Chevrolet"
   },
@@ -438,5 +430,13 @@
   {
     "campana": "PE_ClínicaAviva_09Septiembre2026",
     "anunciante": "PE_ClínicaAviva"
+  },
+  {
+    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
+    "anunciante": "PE_Verisure"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel"
   }
 ]

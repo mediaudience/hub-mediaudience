@@ -2,7 +2,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "Lima Metropolitana",
@@ -14,7 +14,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "Barranco",
@@ -26,7 +26,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "Miraflores",
@@ -38,7 +38,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "San Borja",
@@ -50,7 +50,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "San Isidro",
@@ -62,7 +62,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "Santiago de Surco",
@@ -74,7 +74,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "La Molina",
@@ -86,7 +86,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "Asia",
@@ -98,7 +98,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "Pucusana",
@@ -110,7 +110,7 @@
   {
     "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
     "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
+    "motivo": "Septiembre_CalculadoraTresPasos",
     "mes": "Septiembre",
     "formato": "Push Premium Vídeo",
     "ubicacion": "Punta Hermosa",
@@ -121,8 +121,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "San Miguel",
@@ -133,8 +133,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Pueblo Libre",
@@ -145,8 +145,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Magdalena del Mar",
@@ -157,8 +157,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Breña",
@@ -169,8 +169,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Jesus María",
@@ -181,8 +181,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "La Victoria",
@@ -193,8 +193,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "San Borja",
@@ -205,8 +205,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "San Isidro",
@@ -217,8 +217,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Callao",
@@ -229,8 +229,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Bellavista",
@@ -241,8 +241,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "La Perla",
@@ -253,8 +253,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "La Punta",
@@ -265,8 +265,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Lima",
@@ -277,8 +277,8 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Rimac",

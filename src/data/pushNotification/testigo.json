@@ -315,33 +315,6 @@
     "cliente": "PE_Starbucks"
   },
   {
-    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
-    "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
-    "mes": "Septiembre",
-    "formato": "Push Premium Vídeo",
-    "link": "https://drive.google.com/file/d/1zjp6UeYC8n4Mtmkn8yGy2IEMUMaEnvjB/view?usp=sharing",
-    "cliente": "PE_Reset"
-  },
-  {
-    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
-    "anunciante": "PE_Verisure",
-    "motivo": "Septiembre_Calculadora Tres Pasos",
-    "mes": "Septiembre",
-    "formato": "Push Premium Vídeo",
-    "link": "https://docs.google.com/spreadsheets/d/1eKR4fGcXqHkm5pMEDzYhQknnszohJ2ETTIuypOND730/edit?usp=sharing",
-    "cliente": "PE_Reset"
-  },
-  {
-    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_Plaza San Miguel",
-    "motivo": "Septiembre_50 Aniverario",
-    "mes": "Septiembre",
-    "formato": "Push Display",
-    "link": "https://drive.google.com/drive/folders/1t-dBFwayimDpXOTYus4bUS7x9JEdHCqJ?usp=sharing",
-    "cliente": "PE_Reset"
-  },
-  {
     "campana": "EC_Granasa_Chevrolet_Junio2026",
     "anunciante": "EC_Chevrolet",
     "motivo": "Junio_Chevrolet",
@@ -385,5 +358,32 @@
     "formato": "Push Premium Video",
     "link": "https://drive.google.com/file/d/13iDS_IemxImgPqScouAirJg8RDIeRt7n/view?usp=sharing",
     "cliente": "PE_Clínica Aviva"
+  },
+  {
+    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
+    "anunciante": "PE_Verisure",
+    "motivo": "Septiembre_CalculadoraTresPasos",
+    "mes": "Septiembre",
+    "formato": "Push Premium Vídeo",
+    "link": "https://drive.google.com/file/d/1zjp6UeYC8n4Mtmkn8yGy2IEMUMaEnvjB/view?usp=sharing",
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
+    "anunciante": "PE_Verisure",
+    "motivo": "Septiembre_CalculadoraTresPasos",
+    "mes": "Septiembre",
+    "formato": "Push Premium Vídeo",
+    "link": "https://docs.google.com/spreadsheets/d/1eKR4fGcXqHkm5pMEDzYhQknnszohJ2ETTIuypOND730/edit?usp=sharing",
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Septiembre",
+    "formato": "Push Display",
+    "link": "https://drive.google.com/drive/folders/1t-dBFwayimDpXOTYus4bUS7x9JEdHCqJ?usp=sharing",
+    "cliente": "PE_Reset"
   }
 ]
