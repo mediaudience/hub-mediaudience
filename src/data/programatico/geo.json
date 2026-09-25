@@ -2,7 +2,7 @@
   {
     "campana": "EC_LoteríaNacional_Mamá1_06Abril2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Abril_Mamá 1",
+    "motivo": "Abril_Mamá1",
     "mes": "Abril",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -14,7 +14,7 @@
   {
     "campana": "EC_LoteríaNacional_Mamá2_24Abril2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Abril_Mamá 2",
+    "motivo": "Abril_Mamá2",
     "mes": "Abril",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -26,7 +26,7 @@
   {
     "campana": "EC_LoteríaNacional_MamáAudio1_05Mayo2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Mayo_Mamá 1",
+    "motivo": "Mayo_Mamá1",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -38,7 +38,7 @@
   {
     "campana": "EC_LoteríaNacional_MamáAudio2_05Mayo2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Mayo_Mamá 2",
+    "motivo": "Mayo_Mamá2",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -50,7 +50,7 @@
   {
     "campana": "EC_LoteríaNacional_LoDamosTodo_25Mayo2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Mayo_Lo Damos Todo",
+    "motivo": "Mayo_LoDamosTodo",
     "mes": "Mayo",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -62,7 +62,7 @@
   {
     "campana": "EC_LoteríaNacional_LoDamosTodo_18Junio2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Junio_Lo Damos Todo",
+    "motivo": "Junio_LoDamosTodo",
     "mes": "Junio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -74,7 +74,7 @@
   {
     "campana": "EC_LoteríaNacional_LoDamosTodo_22Julio2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Julio_Lo Damos Todo",
+    "motivo": "Julio_LoDamosTodo",
     "mes": "Julio",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -86,7 +86,7 @@
   {
     "campana": "EC_LoteríaNacional_LoDamosTodo_13Agosto2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Agosto_Lo Damos Todo",
+    "motivo": "Agosto_LoDamosTodo",
     "mes": "Agosto",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
@@ -98,13 +98,13 @@
   {
     "campana": "EC_LoteríaNacional_LoteríaNavidad_07Septiembre2026",
     "anunciante": "EC_LoteríaNacional",
-    "motivo": "Septiembre_Lotería Navidad",
+    "motivo": "Septiembre_LoteríaNavidad",
     "mes": "Septiembre",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
-    "impresionesTotales": 59758,
-    "clicsTotales": 413,
-    "ctr": 0.69,
+    "impresionesTotales": 160913,
+    "clicsTotales": 1132,
+    "ctr": 0.7,
     "cliente": "EC_Lotería Nacional"
   },
   {
@@ -206,7 +206,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Pichincha",
@@ -218,7 +218,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Guayas",
@@ -230,7 +230,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Azuay",
@@ -242,7 +242,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Tungurahua",
@@ -254,7 +254,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de El Oro",
@@ -266,7 +266,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Imbabura",
@@ -278,7 +278,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Loja",
@@ -290,7 +290,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Santo Domingo de los Tsachilas",
@@ -302,7 +302,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Chimborazo",
@@ -314,7 +314,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Los Rios",
@@ -326,7 +326,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Esmeraldas",
@@ -338,7 +338,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Santa Elena",
@@ -350,7 +350,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Cotopaxi",
@@ -362,7 +362,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Canar",
@@ -374,7 +374,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Napo",
@@ -386,7 +386,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Carchi",
@@ -398,7 +398,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Sucumbios",
@@ -410,7 +410,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Morona-Santiago",
@@ -422,7 +422,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Francisco de Orellana",
@@ -434,7 +434,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Bolivar",
@@ -446,7 +446,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Zamora-Chinchipe",
@@ -458,7 +458,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Pastaza",
@@ -470,13 +470,25 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "ubicacion": "Provincia de Manabi",
     "impresionesTotales": 1997,
     "clicsTotales": 0,
     "ctr": 0,
+    "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_Septiembre2026",
+    "anunciante": "EC_PanteónMetropolitano",
+    "motivo": "Septiembre_BosqueDeLavida",
+    "mes": "Septiembre",
+    "formato": "Display Programático",
+    "ubicacion": "Provincia del Guayas",
+    "impresionesTotales": 65646,
+    "clicsTotales": 405,
+    "ctr": 0.62,
     "cliente": "EC_La Destilería"
   },
   {

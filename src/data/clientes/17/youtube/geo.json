@@ -1,0 +1,38 @@
+[
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Bumper_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal",
+    "motivo": "Septiembre_QuienMásQueCrisSal_Bumper",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 2450,
+    "clicsTotales": 1,
+    "vistasTotales": 0,
+    "cliente": "EC_Cris Sal"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Comercial_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal",
+    "motivo": "Septiembre_QuienMásQueCrisSal_Comercial",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 3245,
+    "clicsTotales": 0,
+    "vistasTotales": 212,
+    "cliente": "EC_Cris Sal"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Short_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal",
+    "motivo": "Septiembre_QuienMásQueCrisSal_Short",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 2678,
+    "clicsTotales": 1,
+    "vistasTotales": 78,
+    "cliente": "EC_Cris Sal"
+  }
+]

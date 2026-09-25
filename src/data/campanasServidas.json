@@ -48,6 +48,10 @@
     "anunciante": "EC_LoteríaNacional"
   },
   {
+    "campana": "EC_LoteríaNacional_LoteríaNavidad2_23Septiembre2026",
+    "anunciante": "EC_LoteríaNacional"
+  },
+  {
     "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
     "anunciante": "EC_Bet593"
   },
@@ -138,18 +142,6 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks"
-  },
-  {
-    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
-    "anunciante": "EC_Prefectura"
-  },
-  {
-    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
-    "anunciante": "EC_Prefectura"
-  },
-  {
-    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
-    "anunciante": "EC_Prefectura"
   },
   {
     "campana": "EC_Bambú_22Junio2026_Alcance",
@@ -438,5 +430,29 @@
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
     "anunciante": "PE_PlazaSanMiguel"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Bumper_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Comercial_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Short_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal"
   }
 ]

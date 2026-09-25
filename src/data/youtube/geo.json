@@ -1020,42 +1020,6 @@
     "cliente": "EC_Alimentos los Andes"
   },
   {
-    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
-    "anunciante": "EC_Prefectura",
-    "motivo": "Paso Lateral Babahoyo Jujan",
-    "mes": "Junio",
-    "formato": "YouTube",
-    "ubicacion": "Los Ríos",
-    "impresionesTotales": 139774,
-    "clicsTotales": 381,
-    "vistasTotales": 30382,
-    "cliente": "EC_Prefectura"
-  },
-  {
-    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
-    "anunciante": "EC_Prefectura",
-    "motivo": "Obra Centro Expo",
-    "mes": "Junio",
-    "formato": "YouTube",
-    "ubicacion": "Los Ríos",
-    "impresionesTotales": 123322,
-    "clicsTotales": 132,
-    "vistasTotales": 32437,
-    "cliente": "EC_Prefectura"
-  },
-  {
-    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
-    "anunciante": "EC_Prefectura",
-    "motivo": "Paso Lateral Babahoyo Jujan",
-    "mes": "Septiembre",
-    "formato": "YouTube",
-    "ubicacion": "Los Ríos",
-    "impresionesTotales": 19106,
-    "clicsTotales": 127,
-    "vistasTotales": 5621,
-    "cliente": "EC_Prefectura"
-  },
-  {
     "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Testimonio PYME",
@@ -1066,5 +1030,77 @@
     "clicsTotales": 470,
     "vistasTotales": 111485,
     "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Junio_PasoLateralBabahoyoJujan",
+    "mes": "Junio",
+    "formato": "YouTube",
+    "ubicacion": "Los Ríos",
+    "impresionesTotales": 139774,
+    "clicsTotales": 381,
+    "vistasTotales": 30382,
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Junio_ObraCentroExpo",
+    "mes": "Junio",
+    "formato": "YouTube",
+    "ubicacion": "Los Ríos",
+    "impresionesTotales": 123322,
+    "clicsTotales": 132,
+    "vistasTotales": 32437,
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura",
+    "motivo": "Septiembre_PasoLateralBabahoyoJujan",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "ubicacion": "Los Ríos",
+    "impresionesTotales": 19106,
+    "clicsTotales": 127,
+    "vistasTotales": 5621,
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Bumper_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal",
+    "motivo": "Septiembre_QuienMásQueCrisSal_Bumper",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 2450,
+    "clicsTotales": 1,
+    "vistasTotales": 0,
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Comercial_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal",
+    "motivo": "Septiembre_QuienMásQueCrisSal_Comercial",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 3245,
+    "clicsTotales": 0,
+    "vistasTotales": 212,
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Short_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal",
+    "motivo": "Septiembre_QuienMásQueCrisSal_Short",
+    "mes": "Septiembre",
+    "formato": "YouTube",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 2678,
+    "clicsTotales": 1,
+    "vistasTotales": 78,
+    "cliente": "EC_Paradais"
   }
 ]
