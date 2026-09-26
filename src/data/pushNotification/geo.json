@@ -1122,9 +1122,9 @@
     "mes": "Septiembre",
     "formato": "Push Premium Video",
     "ubicacion": "Lima",
-    "impresionesTotales": 21686,
-    "clicsTotales": 2268,
-    "ctr": 10.46,
+    "impresionesTotales": 24704,
+    "clicsTotales": 4413,
+    "ctr": 17.86,
     "cliente": "PE_Clínica Aviva"
   },
   {
@@ -1134,9 +1134,9 @@
     "mes": "Septiembre",
     "formato": "Push Premium Video",
     "ubicacion": "Callao",
-    "impresionesTotales": 20443,
-    "clicsTotales": 2177,
-    "ctr": 10.65,
+    "impresionesTotales": 23288,
+    "clicsTotales": 4309,
+    "ctr": 18.5,
     "cliente": "PE_Clínica Aviva"
   },
   {
@@ -1147,8 +1147,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "Lima Metropolitana",
     "impresionesTotales": 1246,
-    "clicsTotales": 106,
-    "ctr": 8.51,
+    "clicsTotales": 139,
+    "ctr": 11.16,
     "cliente": "PE_Reset"
   },
   {
@@ -1159,8 +1159,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "Barranco",
     "impresionesTotales": 943,
-    "clicsTotales": 71,
-    "ctr": 7.53,
+    "clicsTotales": 93,
+    "ctr": 9.86,
     "cliente": "PE_Reset"
   },
   {
@@ -1171,8 +1171,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "Miraflores",
     "impresionesTotales": 2744,
-    "clicsTotales": 206,
-    "ctr": 7.51,
+    "clicsTotales": 271,
+    "ctr": 9.88,
     "cliente": "PE_Reset"
   },
   {
@@ -1183,8 +1183,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "San Borja",
     "impresionesTotales": 3116,
-    "clicsTotales": 233,
-    "ctr": 7.48,
+    "clicsTotales": 306,
+    "ctr": 9.82,
     "cliente": "PE_Reset"
   },
   {
@@ -1195,8 +1195,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "San Isidro",
     "impresionesTotales": 1684,
-    "clicsTotales": 126,
-    "ctr": 7.48,
+    "clicsTotales": 166,
+    "ctr": 9.86,
     "cliente": "PE_Reset"
   },
   {
@@ -1207,8 +1207,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "Santiago de Surco",
     "impresionesTotales": 7702,
-    "clicsTotales": 565,
-    "ctr": 7.34,
+    "clicsTotales": 743,
+    "ctr": 9.65,
     "cliente": "PE_Reset"
   },
   {
@@ -1219,8 +1219,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "La Molina",
     "impresionesTotales": 3824,
-    "clicsTotales": 286,
-    "ctr": 7.48,
+    "clicsTotales": 376,
+    "ctr": 9.83,
     "cliente": "PE_Reset"
   },
   {
@@ -1231,8 +1231,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "Asia",
     "impresionesTotales": 317,
-    "clicsTotales": 24,
-    "ctr": 7.57,
+    "clicsTotales": 32,
+    "ctr": 10.09,
     "cliente": "PE_Reset"
   },
   {
@@ -1243,8 +1243,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "Pucusana",
     "impresionesTotales": 391,
-    "clicsTotales": 29,
-    "ctr": 7.42,
+    "clicsTotales": 38,
+    "ctr": 9.72,
     "cliente": "PE_Reset"
   },
   {
@@ -1255,8 +1255,8 @@
     "formato": "Push Premium Vídeo",
     "ubicacion": "Punta Hermosa",
     "impresionesTotales": 420,
-    "clicsTotales": 31,
-    "ctr": 7.38,
+    "clicsTotales": 40,
+    "ctr": 9.52,
     "cliente": "PE_Reset"
   },
   {
