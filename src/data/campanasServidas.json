@@ -376,6 +376,14 @@
     "anunciante": "EC_BancoDelPacífico"
   },
   {
+    "campana": "EC_BancoDelPacífico_Institucional_Diferidos_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_AhorroProgramado_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
     "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
     "anunciante": "EC_BancoDelPacífico"
   },
