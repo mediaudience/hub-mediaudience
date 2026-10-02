@@ -146,7 +146,7 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "link": "https://drive.google.com/drive/folders/18soJESU0WxrFC3O1CqYRV_-tfAJ6Dyk9",
@@ -155,10 +155,28 @@
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
-    "motivo": "Mes de la Construcción",
+    "motivo": "Agosto_MesDeLaConstrucción",
     "mes": "Agosto",
     "formato": "Display Programático",
     "link": "https://docs.google.com/spreadsheets/d/1zPLLflzxxC30pS5-2nFV8trYKhBEY4y98KyWk4LKUw4/edit?gid=0#gid=0",
+    "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_Septiembre2026",
+    "anunciante": "EC_PanteónMetropolitano",
+    "motivo": "Septiembre_BosqueDeLavida",
+    "mes": "Septiembre",
+    "formato": "Display Programático",
+    "link": "https://drive.google.com/drive/folders/1gyNeAst8gP9sFV6D5mHoWG4TX2pA9gFb?usp=sharing",
+    "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_Septiembre2026",
+    "anunciante": "EC_PanteónMetropolitano",
+    "motivo": "Septiembre_BosqueDeLavida",
+    "mes": "Septiembre",
+    "formato": "Display Programático",
+    "link": "https://docs.google.com/spreadsheets/d/1zPLLflzxxC30pS5-2nFV8trYKhBEY4y98KyWk4LKUw4/edit?gid=703045570#gid=703045570",
     "cliente": "EC_La Destilería"
   },
   {

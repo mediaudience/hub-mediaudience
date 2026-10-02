@@ -462,5 +462,29 @@
   {
     "campana": "EC_CrisSal_QuienMásQueCrisSal_Short_YT_23Septiembre2026_CPM",
     "anunciante": "EC_CrisSal"
+  },
+  {
+    "campana": "PE_Alicorp_NosLavaremosLasManos_Junio2026",
+    "anunciante": "PE_Alicorp"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsRelanzamiento_Mayo2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Junio2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Julio2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsPromoYape_Julio2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_BolivarMissDior_Julio2026",
+    "anunciante": "PE_Bolivar"
   }
 ]

@@ -58,15 +58,58 @@ async function fetchTabRowsPublicCsv(spreadsheetId, tab) {
   return parseCsv(await res.text());
 }
 
+// La API de Sheets corta en 60 lecturas/minuto por cuenta de servicio. Con
+// ~20 Sheets de cliente en el cron diario, leer pestaña por pestaña pasaba
+// ese límite y los últimos clientes de la lista quedaban sin sincronizar
+// ("Quota exceeded ... Read requests per minute per user", visto a fines de
+// sep-2026). Dos defensas: (1) fetchTabsRows lee todas las pestañas de un
+// Sheet en UNA sola llamada (batchGet), y (2) en el cron diario
+// (reintentarPorCuota = true, ver main()) se espera y se reintenta cuando
+// Google responde 429. En los syncs puntuales de Admin > Clientes no se
+// reintenta, para no dejar colgado el request HTTP un minuto.
+let reintentarPorCuota = false;
+const ESPERAS_CUOTA_MS = [30_000, 65_000];
+
+function esErrorDeCuota(err) {
+  return err?.code === 429 || err?.status === 429 || /quota exceeded/i.test(err?.message || '');
+}
+
+async function conReintentoPorCuota(fn) {
+  for (let intento = 0; ; intento++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (!reintentarPorCuota || !esErrorDeCuota(err) || intento >= ESPERAS_CUOTA_MS.length) throw err;
+      const espera = ESPERAS_CUOTA_MS[intento];
+      console.log(`  Cuota de lectura de Sheets agotada, se reintenta en ${espera / 1000}s...`);
+      await new Promise((r) => setTimeout(r, espera));
+    }
+  }
+}
+
+// Nombre de pestaña como rango A1 ("'Mi pestaña'"), escapando comillas simples.
+const rangoPestana = (tab) => `'${String(tab).replace(/'/g, "''")}'`;
+
 async function fetchTabRowsServiceAccount(spreadsheetId, tab) {
   const sheets = await getSheetsClient();
-  const res = await sheets.spreadsheets.values.get({ spreadsheetId, range: tab });
+  const res = await conReintentoPorCuota(() => sheets.spreadsheets.values.get({ spreadsheetId, range: tab }));
   return res.data.values || [];
 }
 
 export async function fetchTabRows(spreadsheetId, tab) {
   if (existsSync(CREDENTIALS_PATH)) return fetchTabRowsServiceAccount(spreadsheetId, tab);
   return fetchTabRowsPublicCsv(spreadsheetId, tab);
+}
+
+// Varias pestañas del mismo Sheet -> array de filas por pestaña, en el mismo
+// orden que `tabs`. Con cuenta de servicio es una sola llamada a la API.
+export async function fetchTabsRows(spreadsheetId, tabs) {
+  if (!existsSync(CREDENTIALS_PATH)) return Promise.all(tabs.map((t) => fetchTabRowsPublicCsv(spreadsheetId, t)));
+  const sheets = await getSheetsClient();
+  const res = await conReintentoPorCuota(() =>
+    sheets.spreadsheets.values.batchGet({ spreadsheetId, ranges: tabs.map(rangoPestana) })
+  );
+  return (res.data.valueRanges || []).map((vr) => vr.values || []);
 }
 
 function rowsToObjects(rows) {
@@ -172,9 +215,7 @@ async function syncClienteCanal({ clienteId, clienteNombre, canal, sheetId }) {
   console.log(`Sincronizando ${clienteNombre} / ${canal} (${sheetId})...`);
 
   const tabKeys = Object.keys(metricas.sheetTabs);
-  const rowsPorTab = await Promise.all(
-    tabKeys.map((key) => fetchTabRows(sheetId, metricas.sheetTabs[key].nombre))
-  );
+  const rowsPorTab = await fetchTabsRows(sheetId, tabKeys.map((key) => metricas.sheetTabs[key].nombre));
 
   // `cliente` se agrega a cada fila (no viene del Sheet) para que, en la
   // vista agregada de Admin/Super Admin -- que combina todos los clientes de
@@ -302,6 +343,7 @@ export async function syncTodo() {
 }
 
 async function main() {
+  reintentarPorCuota = true;
   const resultado = await syncTodo();
   if (resultado.errores.length > 0) {
     console.error('Errores durante el sync:');
