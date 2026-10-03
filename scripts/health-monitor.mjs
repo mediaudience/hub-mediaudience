@@ -101,6 +101,19 @@ function chequearLogsDesde(desdeISO) {
     .filter((l) => /\[client-error\]|UnhandledPromiseRejection|TypeError|ReferenceError|Error interno del servidor/.test(l));
 }
 
+// Avisa si el disco raíz pasa del umbral. Para no mandar un correo cada 5 min,
+// repite la alerta como máximo una vez por día mientras siga arriba.
+const UMBRAL_DISCO = 80;
+function chequearDisco() {
+  try {
+    const salida = execSync("df -P /", { encoding: "utf8" }).trim().split("\n").pop();
+    const [, , usado, libre, porcentaje] = salida.split(/\s+/);
+    return { pct: parseInt(porcentaje, 10), usadoGB: (usado / 1048576).toFixed(1), libreGB: (libre / 1048576).toFixed(1) };
+  } catch {
+    return null;
+  }
+}
+
 async function main() {
   const env = cargarEnv();
   const estado = cargarEstado();
@@ -116,9 +129,25 @@ async function main() {
     await enviarAlerta(env, `${lineasError.length} error(es) nuevo(s) en el backend`, lineasError.slice(0, 30).join("\n"));
   }
 
-  guardarEstado({ ultimaRevisionISO: ahoraISO });
+  const disco = chequearDisco();
+  let ultimaAlertaDiscoISO = estado.ultimaAlertaDiscoISO || null;
+  if (disco && disco.pct >= UMBRAL_DISCO) {
+    const haceUnDia = Date.now() - 24 * 60 * 60 * 1000;
+    if (!ultimaAlertaDiscoISO || new Date(ultimaAlertaDiscoISO).getTime() < haceUnDia) {
+      await enviarAlerta(
+        env,
+        `Disco al ${disco.pct}%`,
+        `El disco del servidor está al ${disco.pct}% (usado ${disco.usadoGB} GB, libre ${disco.libreGB} GB).\nUmbral de aviso: ${UMBRAL_DISCO}%.`
+      );
+      ultimaAlertaDiscoISO = ahoraISO;
+    }
+  } else {
+    ultimaAlertaDiscoISO = null;
+  }
+
+  guardarEstado({ ultimaRevisionISO: ahoraISO, ultimaAlertaDiscoISO });
   console.log(
-    `[monitor] ${ahoraISO} -- HTTP: ${problemasHTTP.length === 0 ? "OK" : problemasHTTP.length + " problema(s)"}, logs: ${lineasError.length} error(es) nuevo(s)`
+    `[monitor] ${ahoraISO} -- HTTP: ${problemasHTTP.length === 0 ? "OK" : problemasHTTP.length + " problema(s)"}, logs: ${lineasError.length} error(es) nuevo(s), disco: ${disco ? disco.pct + "%" : "?"}`
   );
 }
 

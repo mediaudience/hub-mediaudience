@@ -12274,6 +12274,23 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_ITT_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Mi Casa Propia_ITT",
+    "fecha": "2026-09-30",
+    "mes": "Septiembre",
+    "formato": "ITT",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "vistasTotales": 0,
+    "quartil25": 0,
+    "quartil50": 0,
+    "quartil75": 0,
+    "vtr": 0,
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_RichMedia_Septiembre2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Septiembre_Mi Casa Propia_Rich Media",

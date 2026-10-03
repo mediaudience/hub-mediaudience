@@ -134,7 +134,10 @@ function parseNumeroEs(raw) {
 // "2/06/2026") o con "-" (ej. Programático, "05-01-2026") -- ambos DD/MM/YYYY,
 // solo cambia el separador, así que se acepta cualquiera de los dos.
 function parseFechaEs(raw) {
-  const [d, m, y] = String(raw).trim().split(/[/-]/);
+  const partes = String(raw).trim().split(/[/-]/);
+  // Algunos Sheets (ej. PE_Alicorp CTV) mezclan d/mm/aaaa con aaaa-mm-dd.
+  if (/^\d{4}$/.test(partes[0])) partes.reverse();
+  const [d, m, y] = partes;
   if (!d || !m || !y) return '';
   return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
 }
