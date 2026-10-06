@@ -563,7 +563,7 @@
     "motivo": "Septiembre_Mi Casa Propia_ITT",
     "mes": "Septiembre",
     "formato": "ITT",
-    "link": "",
+    "link": "https://drive.google.com/file/d/1viDxuf7uuljnM_cbVtzwmM877c--rODY/view?usp=sharing",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -572,7 +572,7 @@
     "motivo": "Septiembre_Mi Casa Propia_Rich Media",
     "mes": "Septiembre",
     "formato": "Rich Media",
-    "link": "",
+    "link": "https://drive.google.com/file/d/1sqyC0fSEIt3mFlv-FNV8hEHaI0G5HlaV/view?usp=sharing",
     "cliente": "EC_Banco del Pacífico"
   },
   {
@@ -609,6 +609,24 @@
     "mes": "Septiembre",
     "formato": "Rich Media",
     "link": "https://drive.google.com/file/d/1NcPtSi-3uEbesR-i9zOKOdsjiI36iw-z/view?usp=sharing",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Diferidos_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Institucional_Diferidos",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_AhorroProgramado_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_Institucional_AhorroProgramado",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "link": "",
     "cliente": "EC_Banco del Pacífico"
   }
 ]

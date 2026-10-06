@@ -126,9 +126,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "San Miguel",
-    "impresionesTotales": 1953,
-    "clicsTotales": 153,
-    "ctr": 7.83,
+    "impresionesTotales": 2061,
+    "clicsTotales": 161,
+    "ctr": 7.81,
     "cliente": "PE_Reset"
   },
   {
@@ -138,9 +138,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Pueblo Libre",
-    "impresionesTotales": 1956,
-    "clicsTotales": 153,
-    "ctr": 7.82,
+    "impresionesTotales": 2064,
+    "clicsTotales": 161,
+    "ctr": 7.8,
     "cliente": "PE_Reset"
   },
   {
@@ -150,9 +150,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Magdalena del Mar",
-    "impresionesTotales": 1957,
-    "clicsTotales": 156,
-    "ctr": 7.97,
+    "impresionesTotales": 2065,
+    "clicsTotales": 164,
+    "ctr": 7.94,
     "cliente": "PE_Reset"
   },
   {
@@ -162,9 +162,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Breña",
-    "impresionesTotales": 1958,
-    "clicsTotales": 159,
-    "ctr": 8.12,
+    "impresionesTotales": 2070,
+    "clicsTotales": 167,
+    "ctr": 8.07,
     "cliente": "PE_Reset"
   },
   {
@@ -174,9 +174,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Jesus María",
-    "impresionesTotales": 1958,
-    "clicsTotales": 159,
-    "ctr": 8.12,
+    "impresionesTotales": 2066,
+    "clicsTotales": 167,
+    "ctr": 8.08,
     "cliente": "PE_Reset"
   },
   {
@@ -186,9 +186,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "La Victoria",
-    "impresionesTotales": 1958,
-    "clicsTotales": 157,
-    "ctr": 8.02,
+    "impresionesTotales": 2066,
+    "clicsTotales": 165,
+    "ctr": 7.99,
     "cliente": "PE_Reset"
   },
   {
@@ -198,9 +198,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "San Borja",
-    "impresionesTotales": 1956,
-    "clicsTotales": 153,
-    "ctr": 7.82,
+    "impresionesTotales": 2064,
+    "clicsTotales": 169,
+    "ctr": 8.19,
     "cliente": "PE_Reset"
   },
   {
@@ -210,9 +210,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "San Isidro",
-    "impresionesTotales": 2004,
-    "clicsTotales": 156,
-    "ctr": 7.78,
+    "impresionesTotales": 2114,
+    "clicsTotales": 164,
+    "ctr": 7.76,
     "cliente": "PE_Reset"
   },
   {
@@ -222,9 +222,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Callao",
-    "impresionesTotales": 1961,
-    "clicsTotales": 159,
-    "ctr": 8.11,
+    "impresionesTotales": 2069,
+    "clicsTotales": 162,
+    "ctr": 7.83,
     "cliente": "PE_Reset"
   },
   {
@@ -234,9 +234,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Bellavista",
-    "impresionesTotales": 1959,
-    "clicsTotales": 159,
-    "ctr": 8.12,
+    "impresionesTotales": 2067,
+    "clicsTotales": 175,
+    "ctr": 8.47,
     "cliente": "PE_Reset"
   },
   {
@@ -246,9 +246,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "La Perla",
-    "impresionesTotales": 1958,
-    "clicsTotales": 157,
-    "ctr": 8.02,
+    "impresionesTotales": 2066,
+    "clicsTotales": 165,
+    "ctr": 7.99,
     "cliente": "PE_Reset"
   },
   {
@@ -258,9 +258,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "La Punta",
-    "impresionesTotales": 1958,
-    "clicsTotales": 157,
-    "ctr": 8.02,
+    "impresionesTotales": 2066,
+    "clicsTotales": 165,
+    "ctr": 7.99,
     "cliente": "PE_Reset"
   },
   {
@@ -270,9 +270,9 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Lima",
-    "impresionesTotales": 2738,
-    "clicsTotales": 214,
-    "ctr": 7.82,
+    "impresionesTotales": 2846,
+    "clicsTotales": 223,
+    "ctr": 7.84,
     "cliente": "PE_Reset"
   },
   {
@@ -282,9 +282,177 @@
     "mes": "Septiembre",
     "formato": "Push Display",
     "ubicacion": "Rimac",
-    "impresionesTotales": 1956,
-    "clicsTotales": 153,
-    "ctr": 7.82,
+    "impresionesTotales": 2064,
+    "clicsTotales": 161,
+    "ctr": 7.8,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "San Miguel",
+    "impresionesTotales": 177,
+    "clicsTotales": 13,
+    "ctr": 7.34,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "Pueblo Libre",
+    "impresionesTotales": 177,
+    "clicsTotales": 14,
+    "ctr": 7.91,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "Magdalena del Mar",
+    "impresionesTotales": 177,
+    "clicsTotales": 15,
+    "ctr": 8.47,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "Breña",
+    "impresionesTotales": 180,
+    "clicsTotales": 16,
+    "ctr": 8.89,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "Jesus María",
+    "impresionesTotales": 180,
+    "clicsTotales": 15,
+    "ctr": 8.33,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "La Victoria",
+    "impresionesTotales": 180,
+    "clicsTotales": 15,
+    "ctr": 8.33,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "San Borja",
+    "impresionesTotales": 177,
+    "clicsTotales": 13,
+    "ctr": 7.34,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "San Isidro",
+    "impresionesTotales": 181,
+    "clicsTotales": 13,
+    "ctr": 7.18,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "Callao",
+    "impresionesTotales": 180,
+    "clicsTotales": 16,
+    "ctr": 8.89,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "Bellavista",
+    "impresionesTotales": 181,
+    "clicsTotales": 17,
+    "ctr": 9.39,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "La Perla",
+    "impresionesTotales": 180,
+    "clicsTotales": 15,
+    "ctr": 8.33,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "La Punta",
+    "impresionesTotales": 180,
+    "clicsTotales": 15,
+    "ctr": 8.33,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "Lima",
+    "impresionesTotales": 249,
+    "clicsTotales": 18,
+    "ctr": 7.23,
+    "cliente": "PE_Reset"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "ubicacion": "Rimac",
+    "impresionesTotales": 177,
+    "clicsTotales": 13,
+    "ctr": 7.34,
     "cliente": "PE_Reset"
   }
 ]
