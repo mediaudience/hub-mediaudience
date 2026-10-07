@@ -22,5 +22,29 @@
     "clicsTotales": 3594,
     "ctr": 11.45,
     "cliente": "PE_Clínica Aviva"
+  },
+  {
+    "campana": "PE_ClínicaAviva_02Octubre2026",
+    "anunciante": "PE_ClínicaAviva",
+    "motivo": "Octubre_ClínicaAviva 2026",
+    "mes": "Octubre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Lima",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "PE_Clínica Aviva"
+  },
+  {
+    "campana": "PE_ClínicaAviva_02Octubre2026",
+    "anunciante": "PE_ClínicaAviva",
+    "motivo": "Octubre_ClínicaAviva 2026",
+    "mes": "Octubre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Callao",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "PE_Clínica Aviva"
   }
 ]

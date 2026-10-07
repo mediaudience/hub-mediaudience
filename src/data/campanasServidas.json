@@ -168,11 +168,27 @@
     "anunciante": "EC_Bambú"
   },
   {
-    "campana": "EC_Bambú_01Septiembre2026_Alcance",
+    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Alcance",
     "anunciante": "EC_Bambú"
   },
   {
-    "campana": "EC_Bambú_01Septiembre2026_Interacciones",
+    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Interacciones",
     "anunciante": "EC_Bambú"
   },
   {
@@ -429,6 +445,10 @@
   },
   {
     "campana": "PE_ClínicaAviva_09Septiembre2026",
+    "anunciante": "PE_ClínicaAviva"
+  },
+  {
+    "campana": "PE_ClínicaAviva_02Octubre2026",
     "anunciante": "PE_ClínicaAviva"
   },
   {
