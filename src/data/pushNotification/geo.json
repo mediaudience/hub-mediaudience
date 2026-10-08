@@ -1146,9 +1146,9 @@
     "mes": "Octubre",
     "formato": "Push Premium Video",
     "ubicacion": "Lima",
-    "impresionesTotales": 0,
-    "clicsTotales": 0,
-    "ctr": 0,
+    "impresionesTotales": 4447,
+    "clicsTotales": 364,
+    "ctr": 8.19,
     "cliente": "PE_Clínica Aviva"
   },
   {
@@ -1158,9 +1158,9 @@
     "mes": "Octubre",
     "formato": "Push Premium Video",
     "ubicacion": "Callao",
-    "impresionesTotales": 0,
-    "clicsTotales": 0,
-    "ctr": 0,
+    "impresionesTotales": 4195,
+    "clicsTotales": 345,
+    "ctr": 8.22,
     "cliente": "PE_Clínica Aviva"
   },
   {
