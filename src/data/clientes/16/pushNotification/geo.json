@@ -2,7 +2,7 @@
   {
     "campana": "PE_ClínicaAviva_09Septiembre2026",
     "anunciante": "PE_ClínicaAviva",
-    "motivo": "Septiembre_ClínicaAviva 2026",
+    "motivo": "Septiembre_ClínicaAviva2026",
     "mes": "Septiembre",
     "formato": "Push Premium Video",
     "ubicacion": "Lima",
@@ -14,7 +14,7 @@
   {
     "campana": "PE_ClínicaAviva_09Septiembre2026",
     "anunciante": "PE_ClínicaAviva",
-    "motivo": "Septiembre_ClínicaAviva 2026",
+    "motivo": "Septiembre_ClínicaAviva2026",
     "mes": "Septiembre",
     "formato": "Push Premium Video",
     "ubicacion": "Callao",
@@ -26,25 +26,25 @@
   {
     "campana": "PE_ClínicaAviva_02Octubre2026",
     "anunciante": "PE_ClínicaAviva",
-    "motivo": "Octubre_ClínicaAviva 2026",
+    "motivo": "Octubre_ClínicaAviva2026",
     "mes": "Octubre",
     "formato": "Push Premium Video",
     "ubicacion": "Lima",
-    "impresionesTotales": 6466,
-    "clicsTotales": 698,
-    "ctr": 10.79,
+    "impresionesTotales": 10154,
+    "clicsTotales": 1151,
+    "ctr": 11.34,
     "cliente": "PE_Clínica Aviva"
   },
   {
     "campana": "PE_ClínicaAviva_02Octubre2026",
     "anunciante": "PE_ClínicaAviva",
-    "motivo": "Octubre_ClínicaAviva 2026",
+    "motivo": "Octubre_ClínicaAviva2026",
     "mes": "Octubre",
     "formato": "Push Premium Video",
     "ubicacion": "Callao",
-    "impresionesTotales": 6095,
-    "clicsTotales": 670,
-    "ctr": 10.99,
+    "impresionesTotales": 9574,
+    "clicsTotales": 1104,
+    "ctr": 11.53,
     "cliente": "PE_Clínica Aviva"
   }
 ]

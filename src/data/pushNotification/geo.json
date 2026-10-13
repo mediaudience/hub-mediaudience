@@ -1118,7 +1118,7 @@
   {
     "campana": "PE_ClínicaAviva_09Septiembre2026",
     "anunciante": "PE_ClínicaAviva",
-    "motivo": "Septiembre_ClínicaAviva 2026",
+    "motivo": "Septiembre_ClínicaAviva2026",
     "mes": "Septiembre",
     "formato": "Push Premium Video",
     "ubicacion": "Lima",
@@ -1130,7 +1130,7 @@
   {
     "campana": "PE_ClínicaAviva_09Septiembre2026",
     "anunciante": "PE_ClínicaAviva",
-    "motivo": "Septiembre_ClínicaAviva 2026",
+    "motivo": "Septiembre_ClínicaAviva2026",
     "mes": "Septiembre",
     "formato": "Push Premium Video",
     "ubicacion": "Callao",
@@ -1142,25 +1142,25 @@
   {
     "campana": "PE_ClínicaAviva_02Octubre2026",
     "anunciante": "PE_ClínicaAviva",
-    "motivo": "Octubre_ClínicaAviva 2026",
+    "motivo": "Octubre_ClínicaAviva2026",
     "mes": "Octubre",
     "formato": "Push Premium Video",
     "ubicacion": "Lima",
-    "impresionesTotales": 6466,
-    "clicsTotales": 698,
-    "ctr": 10.79,
+    "impresionesTotales": 10154,
+    "clicsTotales": 1151,
+    "ctr": 11.34,
     "cliente": "PE_Clínica Aviva"
   },
   {
     "campana": "PE_ClínicaAviva_02Octubre2026",
     "anunciante": "PE_ClínicaAviva",
-    "motivo": "Octubre_ClínicaAviva 2026",
+    "motivo": "Octubre_ClínicaAviva2026",
     "mes": "Octubre",
     "formato": "Push Premium Video",
     "ubicacion": "Callao",
-    "impresionesTotales": 6095,
-    "clicsTotales": 670,
-    "ctr": 10.99,
+    "impresionesTotales": 9574,
+    "clicsTotales": 1104,
+    "ctr": 11.53,
     "cliente": "PE_Clínica Aviva"
   },
   {
@@ -1458,9 +1458,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "San Miguel",
-    "impresionesTotales": 177,
-    "clicsTotales": 13,
-    "ctr": 7.34,
+    "impresionesTotales": 471,
+    "clicsTotales": 35,
+    "ctr": 7.43,
     "cliente": "PE_Reset"
   },
   {
@@ -1470,9 +1470,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Pueblo Libre",
-    "impresionesTotales": 177,
-    "clicsTotales": 14,
-    "ctr": 7.91,
+    "impresionesTotales": 472,
+    "clicsTotales": 36,
+    "ctr": 7.63,
     "cliente": "PE_Reset"
   },
   {
@@ -1482,9 +1482,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Magdalena del Mar",
-    "impresionesTotales": 177,
-    "clicsTotales": 15,
-    "ctr": 8.47,
+    "impresionesTotales": 473,
+    "clicsTotales": 37,
+    "ctr": 7.82,
     "cliente": "PE_Reset"
   },
   {
@@ -1494,9 +1494,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Breña",
-    "impresionesTotales": 180,
-    "clicsTotales": 16,
-    "ctr": 8.89,
+    "impresionesTotales": 474,
+    "clicsTotales": 39,
+    "ctr": 8.23,
     "cliente": "PE_Reset"
   },
   {
@@ -1506,9 +1506,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Jesus María",
-    "impresionesTotales": 180,
-    "clicsTotales": 15,
-    "ctr": 8.33,
+    "impresionesTotales": 474,
+    "clicsTotales": 39,
+    "ctr": 8.23,
     "cliente": "PE_Reset"
   },
   {
@@ -1518,9 +1518,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "La Victoria",
-    "impresionesTotales": 180,
-    "clicsTotales": 15,
-    "ctr": 8.33,
+    "impresionesTotales": 473,
+    "clicsTotales": 37,
+    "ctr": 7.82,
     "cliente": "PE_Reset"
   },
   {
@@ -1530,9 +1530,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "San Borja",
-    "impresionesTotales": 177,
-    "clicsTotales": 13,
-    "ctr": 7.34,
+    "impresionesTotales": 472,
+    "clicsTotales": 35,
+    "ctr": 7.42,
     "cliente": "PE_Reset"
   },
   {
@@ -1542,9 +1542,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "San Isidro",
-    "impresionesTotales": 181,
-    "clicsTotales": 13,
-    "ctr": 7.18,
+    "impresionesTotales": 483,
+    "clicsTotales": 36,
+    "ctr": 7.45,
     "cliente": "PE_Reset"
   },
   {
@@ -1554,9 +1554,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Callao",
-    "impresionesTotales": 180,
-    "clicsTotales": 16,
-    "ctr": 8.89,
+    "impresionesTotales": 474,
+    "clicsTotales": 39,
+    "ctr": 8.23,
     "cliente": "PE_Reset"
   },
   {
@@ -1566,9 +1566,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Bellavista",
-    "impresionesTotales": 181,
-    "clicsTotales": 17,
-    "ctr": 9.39,
+    "impresionesTotales": 474,
+    "clicsTotales": 39,
+    "ctr": 8.23,
     "cliente": "PE_Reset"
   },
   {
@@ -1578,9 +1578,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "La Perla",
-    "impresionesTotales": 180,
-    "clicsTotales": 15,
-    "ctr": 8.33,
+    "impresionesTotales": 473,
+    "clicsTotales": 39,
+    "ctr": 8.25,
     "cliente": "PE_Reset"
   },
   {
@@ -1590,9 +1590,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "La Punta",
-    "impresionesTotales": 180,
-    "clicsTotales": 15,
-    "ctr": 8.33,
+    "impresionesTotales": 473,
+    "clicsTotales": 38,
+    "ctr": 8.03,
     "cliente": "PE_Reset"
   },
   {
@@ -1602,9 +1602,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Lima",
-    "impresionesTotales": 249,
-    "clicsTotales": 18,
-    "ctr": 7.23,
+    "impresionesTotales": 659,
+    "clicsTotales": 50,
+    "ctr": 7.59,
     "cliente": "PE_Reset"
   },
   {
@@ -1614,9 +1614,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Rimac",
-    "impresionesTotales": 177,
-    "clicsTotales": 13,
-    "ctr": 7.34,
+    "impresionesTotales": 472,
+    "clicsTotales": 36,
+    "ctr": 7.63,
     "cliente": "PE_Reset"
   }
 ]

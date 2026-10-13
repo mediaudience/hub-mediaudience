@@ -294,9 +294,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "San Miguel",
-    "impresionesTotales": 177,
-    "clicsTotales": 13,
-    "ctr": 7.34,
+    "impresionesTotales": 471,
+    "clicsTotales": 35,
+    "ctr": 7.43,
     "cliente": "PE_Reset"
   },
   {
@@ -306,9 +306,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Pueblo Libre",
-    "impresionesTotales": 177,
-    "clicsTotales": 14,
-    "ctr": 7.91,
+    "impresionesTotales": 472,
+    "clicsTotales": 36,
+    "ctr": 7.63,
     "cliente": "PE_Reset"
   },
   {
@@ -318,9 +318,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Magdalena del Mar",
-    "impresionesTotales": 177,
-    "clicsTotales": 15,
-    "ctr": 8.47,
+    "impresionesTotales": 473,
+    "clicsTotales": 37,
+    "ctr": 7.82,
     "cliente": "PE_Reset"
   },
   {
@@ -330,9 +330,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Breña",
-    "impresionesTotales": 180,
-    "clicsTotales": 16,
-    "ctr": 8.89,
+    "impresionesTotales": 474,
+    "clicsTotales": 39,
+    "ctr": 8.23,
     "cliente": "PE_Reset"
   },
   {
@@ -342,9 +342,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Jesus María",
-    "impresionesTotales": 180,
-    "clicsTotales": 15,
-    "ctr": 8.33,
+    "impresionesTotales": 474,
+    "clicsTotales": 39,
+    "ctr": 8.23,
     "cliente": "PE_Reset"
   },
   {
@@ -354,9 +354,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "La Victoria",
-    "impresionesTotales": 180,
-    "clicsTotales": 15,
-    "ctr": 8.33,
+    "impresionesTotales": 473,
+    "clicsTotales": 37,
+    "ctr": 7.82,
     "cliente": "PE_Reset"
   },
   {
@@ -366,9 +366,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "San Borja",
-    "impresionesTotales": 177,
-    "clicsTotales": 13,
-    "ctr": 7.34,
+    "impresionesTotales": 472,
+    "clicsTotales": 35,
+    "ctr": 7.42,
     "cliente": "PE_Reset"
   },
   {
@@ -378,9 +378,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "San Isidro",
-    "impresionesTotales": 181,
-    "clicsTotales": 13,
-    "ctr": 7.18,
+    "impresionesTotales": 483,
+    "clicsTotales": 36,
+    "ctr": 7.45,
     "cliente": "PE_Reset"
   },
   {
@@ -390,9 +390,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Callao",
-    "impresionesTotales": 180,
-    "clicsTotales": 16,
-    "ctr": 8.89,
+    "impresionesTotales": 474,
+    "clicsTotales": 39,
+    "ctr": 8.23,
     "cliente": "PE_Reset"
   },
   {
@@ -402,9 +402,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Bellavista",
-    "impresionesTotales": 181,
-    "clicsTotales": 17,
-    "ctr": 9.39,
+    "impresionesTotales": 474,
+    "clicsTotales": 39,
+    "ctr": 8.23,
     "cliente": "PE_Reset"
   },
   {
@@ -414,9 +414,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "La Perla",
-    "impresionesTotales": 180,
-    "clicsTotales": 15,
-    "ctr": 8.33,
+    "impresionesTotales": 473,
+    "clicsTotales": 39,
+    "ctr": 8.25,
     "cliente": "PE_Reset"
   },
   {
@@ -426,9 +426,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "La Punta",
-    "impresionesTotales": 180,
-    "clicsTotales": 15,
-    "ctr": 8.33,
+    "impresionesTotales": 473,
+    "clicsTotales": 38,
+    "ctr": 8.03,
     "cliente": "PE_Reset"
   },
   {
@@ -438,9 +438,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Lima",
-    "impresionesTotales": 249,
-    "clicsTotales": 18,
-    "ctr": 7.23,
+    "impresionesTotales": 659,
+    "clicsTotales": 50,
+    "ctr": 7.59,
     "cliente": "PE_Reset"
   },
   {
@@ -450,9 +450,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Rimac",
-    "impresionesTotales": 177,
-    "clicsTotales": 13,
-    "ctr": 7.34,
+    "impresionesTotales": 472,
+    "clicsTotales": 36,
+    "ctr": 7.63,
     "cliente": "PE_Reset"
   }
 ]

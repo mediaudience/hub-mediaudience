@@ -52,6 +52,10 @@
     "anunciante": "EC_LoteríaNacional"
   },
   {
+    "campana": "EC_LoteríaNacional_NavidadRetargeting_28Septiembre2026",
+    "anunciante": "EC_LoteríaNacional"
+  },
+  {
     "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
     "anunciante": "EC_Bet593"
   },
@@ -457,6 +461,10 @@
   },
   {
     "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel"
+  },
+  {
+    "campana": "PE_PlazaSanMigue_50Aniversario_Bonificado_06Octubre2026",
     "anunciante": "PE_PlazaSanMiguel"
   },
   {

@@ -133,5 +133,23 @@
     "formato": "Rich Media",
     "link": "https://drive.google.com/drive/folders/1N2l9nKgOazSw05x0CuOAQKQtoGioys4o?usp=sharing",
     "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoteríaNavidad2_23Septiembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Septiembre_LoteríaNavidad2",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_NavidadRetargeting_28Septiembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Septiembre_NavidadRetargeting",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
   }
 ]

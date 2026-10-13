@@ -102,9 +102,33 @@
     "mes": "Septiembre",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
-    "impresionesTotales": 160913,
-    "clicsTotales": 1132,
-    "ctr": 0.7,
+    "impresionesTotales": 376578,
+    "clicsTotales": 2666,
+    "ctr": 0.71,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_LoteríaNavidad2_23Septiembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Septiembre_LoteríaNavidad2",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 419418,
+    "clicsTotales": 3006,
+    "ctr": 0.72,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_NavidadRetargeting_28Septiembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Septiembre_NavidadRetargeting",
+    "mes": "Septiembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 159270,
+    "clicsTotales": 1050,
+    "ctr": 0.66,
     "cliente": "EC_Lotería Nacional"
   }
 ]
