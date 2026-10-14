@@ -8018,7 +8018,7 @@
     "objetivo": 107692,
     "consumo": 113612,
     "porcentajeConsumo": 105.5,
-    "reporte": "No enviado",
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8102,7 +8102,7 @@
     "objetivo": 87719,
     "consumo": 96431,
     "porcentajeConsumo": 109.93,
-    "reporte": "No enviado",
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8116,7 +8116,7 @@
     "objetivo": 5000,
     "consumo": 5621,
     "porcentajeConsumo": 112.42,
-    "reporte": "No enviado",
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8144,7 +8144,7 @@
     "objetivo": 6250,
     "consumo": 6754,
     "porcentajeConsumo": 108.06,
-    "reporte": "No enviado",
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8156,9 +8156,9 @@
     "fechaInicio": "2026-09-28",
     "fechaFin": "2026-09-30",
     "objetivo": 142857,
-    "consumo": 94247,
-    "porcentajeConsumo": 65.97,
-    "reporte": "No enviado",
+    "consumo": 159270,
+    "porcentajeConsumo": 111.49,
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8170,9 +8170,9 @@
     "fechaInicio": "2026-10-03",
     "fechaFin": "2026-10-12",
     "objetivo": 5000,
-    "consumo": 2451,
-    "porcentajeConsumo": 49.02,
-    "reporte": "No enviado",
+    "consumo": 6224,
+    "porcentajeConsumo": 124.48,
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8184,8 +8184,8 @@
     "fechaInicio": "2026-09-23",
     "fechaFin": "2026-10-22",
     "objetivo": 291428,
-    "consumo": 224125,
-    "porcentajeConsumo": 76.91,
+    "consumo": 250081,
+    "porcentajeConsumo": 85.81,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8198,8 +8198,8 @@
     "fechaInicio": "2026-09-23",
     "fechaFin": "2026-10-22",
     "objetivo": 291428,
-    "consumo": 243542,
-    "porcentajeConsumo": 83.57,
+    "consumo": 246471,
+    "porcentajeConsumo": 84.57,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8212,8 +8212,8 @@
     "fechaInicio": "2026-09-23",
     "fechaFin": "2026-10-22",
     "objetivo": 388572,
-    "consumo": 239796,
-    "porcentajeConsumo": 61.71,
+    "consumo": 284823,
+    "porcentajeConsumo": 73.3,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8240,8 +8240,8 @@
     "fechaInicio": "2026-09-30",
     "fechaFin": "2026-10-30",
     "objetivo": 8500,
-    "consumo": 3335,
-    "porcentajeConsumo": 39.24,
+    "consumo": 4250,
+    "porcentajeConsumo": 50,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8254,8 +8254,8 @@
     "fechaInicio": "2026-09-30",
     "fechaFin": "2026-10-30",
     "objetivo": 1360,
-    "consumo": 304,
-    "porcentajeConsumo": 22.35,
+    "consumo": 335,
+    "porcentajeConsumo": 24.63,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8268,8 +8268,8 @@
     "fechaInicio": "2026-10-03",
     "fechaFin": "2026-10-31",
     "objetivo": 508706,
-    "consumo": 193324,
-    "porcentajeConsumo": 38,
+    "consumo": 358465,
+    "porcentajeConsumo": 70.47,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8282,8 +8282,8 @@
     "fechaInicio": "2026-10-05",
     "fechaFin": "2026-10-31",
     "objetivo": 215385,
-    "consumo": 10515,
-    "porcentajeConsumo": 4.88,
+    "consumo": 29066,
+    "porcentajeConsumo": 13.49,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8324,8 +8324,8 @@
     "fechaInicio": "2026-10-05",
     "fechaFin": "2026-10-31",
     "objetivo": 53846,
-    "consumo": 3214,
-    "porcentajeConsumo": 5.97,
+    "consumo": 10455,
+    "porcentajeConsumo": 19.42,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8352,8 +8352,8 @@
     "fechaInicio": "2026-10-05",
     "fechaFin": "2026-10-31",
     "objetivo": 26923,
-    "consumo": 2540,
-    "porcentajeConsumo": 9.43,
+    "consumo": 10028,
+    "porcentajeConsumo": 37.25,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8380,8 +8380,22 @@
     "fechaInicio": "2026-10-05",
     "fechaFin": "2026-10-31",
     "objetivo": 26923,
-    "consumo": 3193,
-    "porcentajeConsumo": 11.86,
+    "consumo": 10844,
+    "porcentajeConsumo": 40.28,
+    "reporte": "No enviado",
+    "pais": "Ecuador"
+  },
+  {
+    "anunciante": "Lotería Nacional",
+    "campana": "Lotería Navidad Octubre",
+    "ejecutivo": "Diego León",
+    "formato": "Rich Media",
+    "tipoVenta": "CPM",
+    "fechaInicio": "2026-10-13",
+    "fechaFin": "2026-10-31",
+    "objetivo": 335714,
+    "consumo": 0,
+    "porcentajeConsumo": 0,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
