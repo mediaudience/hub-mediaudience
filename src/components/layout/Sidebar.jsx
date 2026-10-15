@@ -32,7 +32,7 @@ export default function Sidebar({ open, onNavigate }) {
 
   return (
     <aside
-      className={`fixed top-16 left-0 bottom-0 w-[245px] bg-white border-r border-slate-100 overflow-y-auto transition-transform duration-200 z-40 ${
+      className={`fixed top-16 left-0 bottom-0 w-[245px] bg-ink-deep border-r border-line overflow-y-auto transition-transform duration-200 z-40 ${
         open ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -47,8 +47,8 @@ export default function Sidebar({ open, onNavigate }) {
             end
             onClick={onNavigate}
             className={({ isActive }) =>
-              `flex items-center gap-1.5 px-3 py-2.5 mb-2 rounded-lg text-sm font-bold text-brand-magenta transition-colors hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
-                isActive ? "bg-brand-magenta/10" : ""
+              `flex items-center gap-2 px-3 py-2.5 mb-3 rounded-md text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-purple ${
+                isActive ? "bg-brand-purple/10 text-gray-900 shadow-[inset_2px_0_0_#58b0ff]" : "text-gray-600 hover:bg-surface hover:text-gray-900"
               }`
             }
           >
@@ -67,15 +67,13 @@ export default function Sidebar({ open, onNavigate }) {
             return (
               <div
                 key={group.id}
-                className={isAdminGroup || isGestionGroup ? "mb-1 mt-3 pt-3 border-t border-slate-100" : "mb-1"}
+                className={isAdminGroup || isGestionGroup ? "mb-1 mt-3 pt-3 border-t border-line" : "mb-1"}
               >
                 <button
                   type="button"
                   onClick={() => toggleGroup(group.id)}
                   aria-expanded={open}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold hover:bg-slate-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
-                    isAdminGroup || isCampanasGroup || isGestionGroup ? "text-brand-magenta" : "text-slate-label"
-                  }`}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-md label-mono text-[10.5px] text-gray-400 hover:text-gray-800 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-purple"
                 >
                   <span className="flex items-center gap-1.5">
                     {isAdminGroup && (
@@ -111,17 +109,17 @@ export default function Sidebar({ open, onNavigate }) {
                   <GroupArrow open={open} />
                 </button>
                 {open && (
-                  <div className="mt-0.5 flex flex-col gap-0.5 pl-2">
+                  <div className="mt-0.5 mb-2 flex flex-col gap-0.5">
                     {group.items.map((item) => (
                       <NavLink
                         key={item.path}
                         to={item.path}
                         onClick={onNavigate}
                         className={({ isActive }) =>
-                          `mx-1 px-3 py-2 rounded-full text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-magenta ${
+                          `px-3 py-2 rounded-md text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-purple ${
                             isActive
-                              ? "bg-brand-magenta text-white font-medium"
-                              : "text-gray-600 hover:bg-slate-50"
+                              ? "bg-brand-purple/10 text-gray-900 shadow-[inset_2px_0_0_#58b0ff]"
+                              : "text-gray-600 hover:bg-surface hover:text-gray-900"
                           }`
                         }
                       >

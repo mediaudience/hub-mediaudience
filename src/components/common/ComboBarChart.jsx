@@ -24,13 +24,13 @@ function Panel({ data, xKey, series, height, showXAxis }) {
   return (
     <ResponsiveContainer width="100%" height={height}>
       <ComposedChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
-        <CartesianGrid stroke="#EEF5F9" vertical={false} />
+        <CartesianGrid stroke="#1A2135" vertical={false} />
         <XAxis
           dataKey={xKey}
-          tick={showXAxis ? { fontSize: 12, fill: "#768b9e" } : false}
-          axisLine={{ stroke: "#e2e8f0" }}
+          tick={showXAxis ? { fontSize: 12, fill: "#8A93A9" } : false}
+          axisLine={{ stroke: "rgba(255,255,255,0.12)" }}
         />
-        <YAxis tick={{ fontSize: 12, fill: "#768b9e" }} tickFormatter={kFormatter} axisLine={false} />
+        <YAxis tick={{ fontSize: 12, fill: "#8A93A9" }} tickFormatter={kFormatter} axisLine={false} />
         <Tooltip formatter={(value) => value.toLocaleString("es-EC")} />
         {series.map((s) =>
           s.type === "line" ? (

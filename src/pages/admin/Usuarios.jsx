@@ -25,7 +25,7 @@ const ROL_LABEL = {
 };
 
 const ROL_BADGE_CLASS = {
-  super_admin: "bg-brand-magenta text-white",
+  super_admin: "bg-brand-magenta text-on-accent",
   admin: "bg-brand-purple/10 text-brand-purple",
   usuario_interno: "bg-slate-label/10 text-slate-label",
   usuario_externo: "bg-brand-magenta/10 text-brand-magenta",
@@ -33,7 +33,7 @@ const ROL_BADGE_CLASS = {
 
 function RolBadge({ rol }) {
   return (
-    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${ROL_BADGE_CLASS[rol] ?? "bg-slate-label/10 text-slate-label"}`}>
+    <span className={`px-2 py-0.5 rounded-md text-xs font-medium ${ROL_BADGE_CLASS[rol] ?? "bg-slate-label/10 text-slate-label"}`}>
       {ROL_LABEL[rol] ?? rol}
     </span>
   );
@@ -174,7 +174,7 @@ function InvitacionBadge({ ultimoLogin }) {
   const pendiente = !ultimoLogin;
   return (
     <span
-      className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+      className={`px-2 py-0.5 rounded-md text-xs font-medium ${
         pendiente ? "bg-semaphore-orange/15 text-semaphore-orange" : "bg-semaphore-green/15 text-green-700"
       }`}
     >
@@ -554,7 +554,7 @@ export default function AdminUsuarios() {
           <button
             type="button"
             onClick={abrirNuevo}
-            className="mb-4 bg-brand-magenta text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-brand-magenta/90"
+            className="mb-4 bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90"
           >
             + Nuevo Usuario
           </button>
@@ -571,9 +571,9 @@ export default function AdminUsuarios() {
                     key={f.key}
                     type="button"
                     onClick={() => setFiltroInvitacion(f.key)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                       filtroInvitacion === f.key
-                        ? "bg-brand-magenta text-white"
+                        ? "bg-brand-magenta text-on-accent"
                         : "bg-slate-100 text-gray-600 hover:bg-slate-200"
                     }`}
                   >
@@ -588,7 +588,7 @@ export default function AdminUsuarios() {
               <Card className="overflow-x-auto">
               <table className="w-full text-sm min-w-[900px]">
                 <thead>
-                  <tr className="bg-brand-purple text-white text-left">
+                  <tr className="bg-surface-2 text-gray-500 text-left label-mono">
                     <th className="px-4 py-3 font-semibold">Nombre</th>
                     <th className="px-4 py-3 font-semibold">Email</th>
                     <th className="px-4 py-3 font-semibold">Rol</th>
@@ -610,17 +610,17 @@ export default function AdminUsuarios() {
                         {u.rol === "usuario_interno" ? (
                           <>
                             {u.perfil && (
-                              <span className="mr-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-brand-magenta/10 text-brand-magenta">
+                              <span className="mr-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-brand-magenta/10 text-brand-magenta">
                                 {PERFILES_INTERNO.find((p) => p.codigo === u.perfil)?.nombre ?? u.perfil}
                               </span>
                             )}
                             {u.pais && (
-                              <span className="mr-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-brand-purple/10 text-brand-purple">
+                              <span className="mr-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-brand-purple/10 text-brand-purple">
                                 {paises.find((p) => p.codigo === u.pais)?.nombre ?? u.pais} (todos)
                               </span>
                             )}
                             {u.gestionVeTodosPaises && (
-                              <span className="mr-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
+                              <span className="mr-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-emerald-100 text-emerald-700">
                                 Gestión: todos los países
                               </span>
                             )}
@@ -642,7 +642,7 @@ export default function AdminUsuarios() {
                       </td>
                       <td className="px-4 py-2.5">
                         <span
-                          className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                          className={`px-2 py-0.5 rounded-md text-xs font-medium ${
                             u.activo ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
                           }`}
                         >
@@ -934,14 +934,14 @@ export default function AdminUsuarios() {
               <button
                 type="submit"
                 disabled={saving || (form.rol === "usuario_externo" && clientes.length === 0)}
-                className="bg-brand-magenta text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-brand-magenta/90 disabled:opacity-60"
+                className="bg-brand-magenta text-on-accent text-sm font-medium px-5 py-2.5 rounded-md hover:bg-brand-magenta/90 disabled:opacity-60"
               >
                 {saving ? "Guardando..." : "Guardar"}
               </button>
               <button
                 type="button"
                 onClick={() => setForm(null)}
-                className="text-sm font-medium text-gray-600 px-5 py-2.5 rounded-full hover:bg-slate-50"
+                className="text-sm font-medium text-gray-600 px-5 py-2.5 rounded-md hover:bg-slate-50"
               >
                 Cancelar
               </button>
@@ -1014,14 +1014,14 @@ export default function AdminUsuarios() {
                   <button
                     type="submit"
                     disabled={resetSaving || (resetForm.modo === "manual" && resetForm.passwordManual.length < 8)}
-                    className="bg-brand-magenta text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-brand-magenta/90 disabled:opacity-60"
+                    className="bg-brand-magenta text-on-accent text-sm font-medium px-5 py-2.5 rounded-md hover:bg-brand-magenta/90 disabled:opacity-60"
                   >
                     {resetSaving ? "Reseteando..." : "Resetear contraseña"}
                   </button>
                   <button
                     type="button"
                     onClick={() => setResetForm(null)}
-                    className="text-sm font-medium text-gray-600 px-5 py-2.5 rounded-full hover:bg-slate-50"
+                    className="text-sm font-medium text-gray-600 px-5 py-2.5 rounded-md hover:bg-slate-50"
                   >
                     Cancelar
                   </button>

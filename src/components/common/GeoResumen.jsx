@@ -68,12 +68,12 @@ export default function GeoResumen({ rows, columns }) {
             ))}
           </colgroup>
           <thead>
-            <tr className="bg-brand-purple text-white text-left">
-              <th className="px-4 py-3 font-semibold sticky top-0 bg-brand-purple">Ubicación</th>
+            <tr className="bg-surface-2 text-gray-500 text-left label-mono">
+              <th className="px-4 py-3 font-semibold sticky top-0 bg-surface-2">Ubicación</th>
               {metricCols.map((col) => (
                 <th
                   key={col.key}
-                  className="px-4 py-3 font-semibold text-right sticky top-0 bg-brand-purple whitespace-nowrap"
+                  className="px-4 py-3 font-semibold text-right sticky top-0 bg-surface-2 whitespace-nowrap"
                 >
                   {etiquetaCorta(col.label)}
                 </th>

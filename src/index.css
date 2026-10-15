@@ -1,14 +1,67 @@
 @import "tailwindcss";
 
+/* Layout "Signal" (2026-10): dark-first, un solo acento azul, mismos tokens
+   que la web pública mediaudience.com. Los nombres brand-purple/magenta se
+   conservan para no tocar cientos de clases: hoy ambos son el acento azul.
+   La escala gray/slate de Tailwind se redefine invertida (50 = fondo más
+   oscuro, 900 = texto más claro) para que las clases existentes sigan
+   teniendo sentido sobre fondo oscuro. "white" es la superficie de las
+   tarjetas; el texto sobre el acento usa text-on-accent. */
 @theme {
-  --color-brand-purple: #57007e;
-  --color-brand-magenta: #c4216f;
-  --color-slate-label: rgb(118, 139, 158);
-  --color-bg-app: #f3f3f3;
-  --color-semaphore-red: #f44336;
-  --color-semaphore-orange: #ffa726;
-  --color-semaphore-green: #4caf50;
-  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-purple: #58b0ff;
+  --color-brand-magenta: #58b0ff;
+  --color-accent-hover: #8ccbff;
+  --color-on-accent: #040b17;
+  --color-slate-label: #8a93a9;
+  --color-bg-app: #0a0e17;
+  --color-ink-deep: #06090f;
+  --color-surface: #121828;
+  --color-surface-2: #1a2135;
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-semaphore-red: #e4665b;
+  --color-semaphore-orange: #d8b650;
+  --color-semaphore-green: #3fddb0;
+
+  --color-white: #121828;
+  --color-gray-50: #0f1422;
+  --color-gray-100: #1a2135;
+  --color-gray-200: #252d45;
+  --color-gray-300: #333c57;
+  --color-gray-400: #7782a3;
+  --color-gray-500: #8a93a9;
+  --color-gray-600: #a3abbf;
+  --color-gray-700: #c9cfdd;
+  --color-gray-800: #dde2ec;
+  --color-gray-900: #e9edf6;
+  --color-slate-50: #0f1422;
+  --color-slate-100: #1e2539;
+  --color-slate-200: #262e45;
+  --color-slate-300: #3a4360;
+  --color-red-50: #2a1719;
+  --color-red-600: #e4665b;
+  --color-red-700: #ef8a80;
+  --color-green-50: #10241f;
+  --color-green-100: #143029;
+  --color-green-600: #3fddb0;
+  --color-green-700: #3fddb0;
+  --color-emerald-100: #143029;
+  --color-emerald-700: #3fddb0;
+  --color-amber-300: #6b5a26;
+  --color-amber-900: #e8cf7f;
+  --color-blue-600: #58b0ff;
+
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "IBM Plex Sans", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-lg: 6px;
+  --radius-xl: 6px;
+  --radius-2xl: 8px;
+
+  --shadow-sm: none;
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 
 html,
@@ -21,7 +74,29 @@ body {
   margin: 0;
   background-color: var(--color-bg-app);
   font-family: var(--font-sans);
-  color: #1f2937;
+  color: #e9edf6;
+  color-scheme: dark;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Etiquetas en mayúsculas estilo Signal (labels de KPIs, cabeceras de tabla). */
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+input,
+select,
+textarea {
+  color-scheme: dark;
 }
 
 * {
@@ -33,7 +108,7 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(118, 139, 158, 0.4);
+  background: rgba(255, 255, 255, 0.14);
   border-radius: 8px;
 }
 
@@ -51,7 +126,7 @@ body {
   background: conic-gradient(
     from 0deg,
     var(--color-brand-purple),
-    var(--color-brand-magenta),
+    rgba(88, 176, 255, 0.15),
     var(--color-brand-purple)
   );
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
@@ -75,7 +150,7 @@ body {
 }
 
 .skeleton-shimmer {
-  background: linear-gradient(90deg, #e7def0 25%, #f4eef9 37%, #e7def0 63%);
+  background: linear-gradient(90deg, #161d30 25%, #1f2740 37%, #161d30 63%);
   background-size: 400px 100%;
   animation: shimmer 1.4s ease-in-out infinite;
 }
@@ -83,9 +158,9 @@ body {
 .skeleton-shimmer-header {
   background: linear-gradient(
     90deg,
-    rgba(87, 0, 126, 0.35) 25%,
-    rgba(196, 33, 111, 0.45) 37%,
-    rgba(87, 0, 126, 0.35) 63%
+    rgba(88, 176, 255, 0.08) 25%,
+    rgba(88, 176, 255, 0.16) 37%,
+    rgba(88, 176, 255, 0.08) 63%
   );
   background-size: 400px 100%;
   animation: shimmer 1.4s ease-in-out infinite;
@@ -109,11 +184,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .skeleton-shimmer {
     animation: none;
-    background: #ede6f2;
+    background: #161d30;
   }
   .skeleton-shimmer-header {
     animation: none;
-    background: rgba(87, 0, 126, 0.35);
+    background: rgba(88, 176, 255, 0.1);
   }
   .page-fade-in {
     animation: none;

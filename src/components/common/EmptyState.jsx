@@ -8,13 +8,13 @@ export default function EmptyState({ message = "Selecciona un periodo para ver l
         viewBox="0 0 100 100"
         fill="none"
       >
-        <path d="M78 18l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#C4216F" />
-        <ellipse cx="45" cy="62" rx="18" ry="7" fill="#57007E" opacity="0.15" />
-        <circle cx="45" cy="45" r="16" fill="#EEF5F9" stroke="#57007E" strokeWidth="2" />
-        <circle cx="40" cy="41" r="2.2" fill="#57007E" />
-        <path d="M33 50c4 3 15 3 19 0" stroke="#57007E" strokeWidth="2" fill="none" strokeLinecap="round" />
-        <rect x="37" y="58" width="16" height="14" rx="6" fill="#EEF5F9" stroke="#57007E" strokeWidth="2" />
-        <rect x="41.5" y="70" width="7" height="6" rx="2" fill="#C4216F" />
+        <path d="M78 18l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#58B0FF" />
+        <ellipse cx="45" cy="62" rx="18" ry="7" fill="#58B0FF" opacity="0.15" />
+        <circle cx="45" cy="45" r="16" fill="#1A2135" stroke="#58B0FF" strokeWidth="2" />
+        <circle cx="40" cy="41" r="2.2" fill="#58B0FF" />
+        <path d="M33 50c4 3 15 3 19 0" stroke="#58B0FF" strokeWidth="2" fill="none" strokeLinecap="round" />
+        <rect x="37" y="58" width="16" height="14" rx="6" fill="#1A2135" stroke="#58B0FF" strokeWidth="2" />
+        <rect x="41.5" y="70" width="7" height="6" rx="2" fill="#58B0FF" />
       </svg>
 
       <svg width="120" height="90" viewBox="0 0 120 90" fill="none" className="text-gray-200">

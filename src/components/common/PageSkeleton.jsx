@@ -1,5 +1,5 @@
 function Block({ className = "" }) {
-  return <div className={`skeleton-shimmer rounded-[14px] ${className}`} />;
+  return <div className={`skeleton-shimmer rounded-md ${className}`} />;
 }
 
 function CardsSkeleton() {
@@ -27,7 +27,7 @@ function TableSkeleton() {
 export default function PageSkeleton({ variant = "cards" }) {
   return (
     <div>
-      <div className="skeleton-shimmer-header rounded-2xl h-[104px] mb-6" />
+      <div className="skeleton-shimmer-header rounded-md h-[104px] mb-6" />
       {variant === "table" ? <TableSkeleton /> : <CardsSkeleton />}
     </div>
   );

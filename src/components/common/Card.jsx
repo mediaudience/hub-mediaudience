@@ -1,9 +1,9 @@
 export default function Card({ children, className = "", accent = false, hover = true }) {
   return (
     <div
-      className={`bg-white border border-brand-purple/20 rounded-[14px] shadow-sm ${
-        hover ? "transition-shadow duration-200 hover:shadow-md" : ""
-      } ${accent ? "border-t-[3px] border-t-brand-magenta" : ""} ${className}`}
+      className={`bg-surface border border-line rounded-md ${
+        hover ? "transition-colors duration-200 hover:border-brand-purple/35" : ""
+      } ${accent ? "border-t-2 border-t-brand-purple" : ""} ${className}`}
     >
       {children}
     </div>

@@ -25,7 +25,7 @@ export function progressTier(pct) {
 }
 
 export const TIER_COLORS = {
-  red: "#F44336",
-  orange: "#FFA726",
-  green: "#4CAF50",
+  red: "#E4665B",
+  orange: "#D8B650",
+  green: "#3FDDB0",
 };

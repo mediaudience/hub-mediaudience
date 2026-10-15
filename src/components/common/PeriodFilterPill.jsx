@@ -107,7 +107,7 @@ function Calendar({ label, year, month, onNav, selectedDay, onSelectDay }) {
               disabled={!d}
               onClick={() => d && onSelectDay({ year, month, day: d })}
               className={`text-xs h-7 w-7 mx-auto rounded-full transition-colors ${
-                !d ? "" : isSelected ? "bg-brand-purple text-white font-semibold" : "text-gray-700 hover:bg-slate-100"
+                !d ? "" : isSelected ? "bg-brand-purple text-on-accent font-semibold" : "text-gray-700 hover:bg-slate-100"
               }`}
             >
               {d || ""}
@@ -177,17 +177,17 @@ export default function PeriodFilterPill({ label = "Periodo", onChange }) {
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="flex items-center gap-2 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
+        className="flex items-center gap-2 h-10 bg-ink-deep text-gray-800 border border-line text-sm font-medium px-3.5 rounded-md whitespace-nowrap hover:border-brand-purple/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
       >
         {label}
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-          <path d="M6 9l6 6 6-6" stroke="#57007E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M6 9l6 6 6-6" stroke="#58B0FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
       {open && (
         <div
-          className={`absolute z-20 mt-1 right-0 bg-white rounded-xl shadow-xl border border-slate-100 p-3 ${
+          className={`absolute z-20 mt-1 left-0 bg-white rounded-xl shadow-xl border border-slate-100 p-3 ${
             modo === "menu" ? "w-64" : "w-[92vw] max-w-[480px]"
           }`}
         >
@@ -249,7 +249,7 @@ export default function PeriodFilterPill({ label = "Periodo", onChange }) {
                     onChange?.({ inicio: diaObjISO(startDay), fin: diaObjISO(endDay) });
                     cerrar();
                   }}
-                  className="bg-brand-purple text-white text-sm font-medium px-6 py-2 rounded-full hover:bg-brand-purple/90 disabled:opacity-50"
+                  className="bg-brand-purple text-on-accent text-sm font-medium px-6 py-2 rounded-md hover:bg-brand-purple/90 disabled:opacity-50"
                 >
                   Aplicar
                 </button>

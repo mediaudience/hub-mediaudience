@@ -46,10 +46,24 @@ async function enviarAlerta(env, asunto, detalle) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
-  const html = `<div style="font-family:sans-serif;font-size:14px;color:#1f2937">
-    <p><strong>${asunto}</strong></p>
-    <pre style="white-space:pre-wrap;background:#f3f3f3;padding:12px;border-radius:8px;font-size:12px">${detalleEscapado}</pre>
-    <p style="color:#768b9e;font-size:12px">Monitoreo automático de hub.mediaudience.com</p>
+  // Mismo layout "Signal" que los correos de server/email.js, pero con
+  // borde rojo: es una alerta, no un correo transaccional.
+  const ahora = new Date().toLocaleString("es-PE", { timeZone: "America/Lima", dateStyle: "medium", timeStyle: "short" });
+  const mono = "'JetBrains Mono','SFMono-Regular',Consolas,monospace";
+  const html = `<div style="background-color:#06090f;padding:32px 16px;font-family:'IBM Plex Sans','Segoe UI',Helvetica,Arial,sans-serif">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0a0e17" style="max-width:520px;margin:0 auto;background-color:#0a0e17;border:1px solid #5a2a2a;border-radius:8px">
+      <tr><td style="padding:20px 28px;border-bottom:1px solid #1f2638">
+        <span style="font-family:${mono};font-size:11px;letter-spacing:1.5px;color:#e4665b;border:1px solid #6b3330;border-radius:6px;padding:4px 8px">&#9679; ALERTA</span>
+        <span style="font-family:${mono};font-size:11px;letter-spacing:1.5px;color:#8a93a9;margin-left:10px">HUB-MEDIAUDIENCE</span>
+      </td></tr>
+      <tr><td style="padding:24px 28px">
+        <h1 style="margin:0 0 8px;font-size:22px;line-height:1.25;font-weight:600;color:#e9edf6">${asunto}</h1>
+        <p style="margin:0 0 18px;font-family:${mono};font-size:12px;color:#8a93a9">${ahora} (hora de Lima)</p>
+        <pre style="margin:0 0 18px;white-space:pre-wrap;background-color:#06090f;border:1px solid #1f2638;border-radius:6px;padding:14px 16px;font-family:${mono};font-size:12.5px;line-height:1.6;color:#b4bbcc">${detalleEscapado}</pre>
+        <a href="https://hub.mediaudience.com/" style="font-family:${mono};font-size:13px;color:#58b0ff;text-decoration:none">Abrir el hub &rarr;</a>
+      </td></tr>
+      <tr><td style="padding:14px 28px;border-top:1px solid #1f2638;font-family:${mono};font-size:11px;letter-spacing:1px;color:#8a93a9">MONITOREO AUTOMÁTICO CADA 5 MIN</td></tr>
+    </table>
   </div>`;
   try {
     const res = await fetch("https://api.resend.com/emails", {

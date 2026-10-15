@@ -133,7 +133,7 @@ export default function AdminActividad() {
           <Card className="overflow-x-auto">
             <table className="w-full text-sm min-w-[900px]">
               <thead>
-                <tr className="bg-brand-purple text-white text-left">
+                <tr className="bg-surface-2 text-gray-500 text-left label-mono">
                   <th className="px-4 py-3 font-semibold whitespace-nowrap">Fecha</th>
                   <th className="px-4 py-3 font-semibold">Usuario</th>
                   <th className="px-4 py-3 font-semibold">Rol</th>
@@ -166,7 +166,7 @@ export default function AdminActividad() {
                 type="button"
                 disabled={pagina <= 1}
                 onClick={() => setPagina((p) => p - 1)}
-                className="px-3 py-1.5 rounded-full border border-slate-200 disabled:opacity-40 hover:bg-slate-50"
+                className="px-3 py-1.5 rounded-md border border-slate-200 disabled:opacity-40 hover:bg-slate-50"
               >
                 Anterior
               </button>
@@ -174,7 +174,7 @@ export default function AdminActividad() {
                 type="button"
                 disabled={pagina >= totalPaginas}
                 onClick={() => setPagina((p) => p + 1)}
-                className="px-3 py-1.5 rounded-full border border-slate-200 disabled:opacity-40 hover:bg-slate-50"
+                className="px-3 py-1.5 rounded-md border border-slate-200 disabled:opacity-40 hover:bg-slate-50"
               >
                 Siguiente
               </button>

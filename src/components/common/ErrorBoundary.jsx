@@ -36,17 +36,17 @@ export default class ErrorBoundary extends Component {
       return (
         <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
           <div className="max-w-md w-full text-center">
-            <div className="mx-auto mb-4 h-14 w-14 rounded-2xl bg-brand-purple flex items-center justify-center text-white font-bold text-2xl">
+            <div className="mx-auto mb-4 h-14 w-14 rounded-md bg-brand-purple flex items-center justify-center text-on-accent font-bold text-2xl">
               !
             </div>
             <h1 className="text-lg font-semibold text-gray-900 mb-2">Algo salió mal</h1>
             <p className="text-sm text-slate-label mb-6">
-              Ocurrió un error inesperado. Ya quedó registrado — probá recargar la página.
+              Ocurrió un error inesperado. Ya quedó registrado — prueba recargar la página.
             </p>
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="inline-flex items-center justify-center rounded-lg bg-brand-purple px-5 py-2.5 text-sm font-medium text-white hover:opacity-90"
+              className="inline-flex items-center justify-center rounded-md bg-brand-purple px-5 py-2.5 text-sm font-medium text-on-accent hover:bg-accent-hover"
             >
               Recargar página
             </button>

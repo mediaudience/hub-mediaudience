@@ -47,12 +47,12 @@ function AnunciantesChips({ anunciantes }) {
   return (
     <div className="flex flex-wrap gap-1.5">
       {visibles.map((a) => (
-        <span key={a} className="px-2 py-0.5 rounded-full text-xs font-medium bg-brand-purple/10 text-brand-purple">
+        <span key={a} className="px-2 py-0.5 rounded-md text-xs font-medium bg-brand-purple/10 text-brand-purple">
           {a}
         </span>
       ))}
       {restantes > 0 && (
-        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-label">
+        <span className="px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-label">
           +{restantes} más
         </span>
       )}
@@ -79,7 +79,7 @@ function CanalesChips({ canales, canalLabel }) {
           <span
             key={c.canal}
             title={c.sheetId ? `${nombreId}: ${c.sheetId}` : `Falta configurar el ${nombreId.toLowerCase()}`}
-            className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+            className={`px-2 py-0.5 rounded-md text-xs font-medium ${
               c.sheetId ? "bg-brand-purple/10 text-brand-purple" : "bg-semaphore-orange/10 text-semaphore-orange"
             }`}
           >
@@ -458,7 +458,7 @@ export default function AdminClientes() {
               setEditandoAnunciante(null);
               setForm({ id: null, nombre: "", pais: "", canales: canalesVacios(canales), anunciantes: [], activo: true });
             }}
-            className="mb-4 bg-brand-magenta text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-brand-magenta/90"
+            className="mb-4 bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90"
           >
             + Nuevo Cliente
           </button>
@@ -471,7 +471,7 @@ export default function AdminClientes() {
             <Card className="overflow-x-auto">
               <table className="w-full text-sm min-w-[700px]">
                 <thead>
-                  <tr className="bg-brand-purple text-white text-left">
+                  <tr className="bg-surface-2 text-gray-500 text-left label-mono">
                     <th className="px-4 py-3 font-semibold">Nombre</th>
                     <th className="px-4 py-3 font-semibold">Anunciantes</th>
                     <th className="px-4 py-3 font-semibold">Servicios contratados</th>
@@ -491,7 +491,7 @@ export default function AdminClientes() {
                       </td>
                       <td className="px-4 py-2.5">
                         <span
-                          className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                          className={`px-2 py-0.5 rounded-md text-xs font-medium ${
                             c.activo ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
                           }`}
                         >
@@ -763,14 +763,14 @@ export default function AdminClientes() {
               <button
                 type="submit"
                 disabled={saving}
-                className="bg-brand-magenta text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-brand-magenta/90 disabled:opacity-60"
+                className="bg-brand-magenta text-on-accent text-sm font-medium px-5 py-2.5 rounded-md hover:bg-brand-magenta/90 disabled:opacity-60"
               >
                 {saving ? "Guardando..." : "Guardar"}
               </button>
               <button
                 type="button"
                 onClick={() => setForm(null)}
-                className="text-sm font-medium text-gray-600 px-5 py-2.5 rounded-full hover:bg-slate-50"
+                className="text-sm font-medium text-gray-600 px-5 py-2.5 rounded-md hover:bg-slate-50"
               >
                 Cancelar
               </button>

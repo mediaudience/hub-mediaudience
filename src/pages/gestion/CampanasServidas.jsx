@@ -160,7 +160,7 @@ export default function CampanasServidas() {
               ))}
             </colgroup>
             <thead>
-              <tr className="bg-brand-purple text-white text-left">
+              <tr className="bg-surface-2 text-gray-500 text-left label-mono">
                 {COLUMNS.map((c) => (
                   <th
                     key={c.key}
@@ -179,7 +179,7 @@ export default function CampanasServidas() {
                       return (
                         <td key={c.key} className="px-2.5 py-2 text-center">
                           <span
-                            className="inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold text-white"
+                            className="inline-block px-2 py-0.5 rounded-md text-[11px] font-semibold text-on-accent"
                             style={{ backgroundColor: TIER_COLORS[progressTier(r.porcentajeConsumo)] }}
                           >
                             {(r.porcentajeConsumo ?? 0).toFixed(2)}%

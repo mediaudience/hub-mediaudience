@@ -8,6 +8,13 @@ import EmptyState from "../components/common/EmptyState";
 // muestra solo para los grupos que useNavGroups ya filtró según el rol
 // (Gestión/Administración), Campañas tiene su propia sección de accesos
 // rápidos más arriba y no se repite acá.
+const ROL_LABEL = {
+  super_admin: "Super Admin",
+  admin: "Admin",
+  usuario_interno: "Equipo",
+  usuario_externo: "Cliente",
+};
+
 const GROUP_DESCRIPTIONS = {
   gestion: "Herramientas comerciales del equipo.",
   admin: "Gestión de clientes, usuarios y configuración general del panel.",
@@ -22,23 +29,14 @@ export default function Home() {
 
   return (
     <div>
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-purple to-brand-magenta px-6 py-8 sm:px-10 sm:py-10 mb-8">
-        <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
-          <svg className="absolute -right-8 -top-8 opacity-20" width="220" height="220" viewBox="0 0 220 220" fill="none">
-            <circle cx="110" cy="110" r="90" stroke="white" strokeWidth="2" />
-            <circle cx="110" cy="110" r="60" stroke="white" strokeWidth="2" />
-            <circle cx="110" cy="110" r="32" stroke="white" strokeWidth="2" />
-            <circle cx="110" cy="110" r="10" fill="white" />
-          </svg>
-        </div>
-        <div className="relative flex flex-col items-start gap-3">
-          <h1 className="text-white font-bold text-2xl md:text-3xl">
-            {primerNombre ? `Hola, ${primerNombre}` : "Bienvenido"}
-          </h1>
-          <p className="text-white/80 text-sm max-w-xl">
-            Este es el Hub de Mediaudience Latam. Elige una sección del menú para empezar, o usa los accesos de acá abajo.
-          </p>
-        </div>
+      <div className="flex flex-col gap-3 mb-12 pt-2">
+        <span className="label-mono text-brand-purple">{ROL_LABEL[user?.rol] ?? "Hub"} · Mediaudience Latam</span>
+        <h1 className="font-display font-medium text-gray-900 text-[36px] md:text-[44px] leading-tight tracking-tight">
+          {primerNombre ? `Hola, ${primerNombre}` : "Bienvenido"}
+        </h1>
+        <p className="text-gray-500 text-base max-w-xl leading-relaxed">
+          Elige un servicio para ver su rendimiento, o usa el menú para ir a otra sección.
+        </p>
       </div>
 
       {sinNadaQueMostrar && (
@@ -47,13 +45,13 @@ export default function Home() {
 
       {campanasGroup.items.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-sm font-bold text-slate-label mb-3">Tus servicios</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <h2 className="label-mono text-gray-500 mb-4">01 · Tus servicios</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {campanasGroup.items.map((item) => (
-              <Link key={item.path} to={item.path} className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-magenta rounded-[14px]">
-                <Card accent className="p-5 h-full flex flex-col justify-between">
-                  <span className="font-bold text-brand-purple">{item.label}</span>
-                  <span className="text-sm text-gray-500 mt-2">Ver rendimiento general →</span>
+              <Link key={item.path} to={item.path} className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple rounded-md">
+                <Card className="p-6 h-full flex flex-col justify-between gap-6">
+                  <span className="font-display font-medium text-[22px] text-gray-900">{item.label}</span>
+                  <span className="font-mono text-[12.5px] text-brand-purple">Ver rendimiento general →</span>
                 </Card>
               </Link>
             ))}
@@ -63,18 +61,18 @@ export default function Home() {
 
       {otrosGrupos.length > 0 && (
         <div>
-          <h2 className="text-sm font-bold text-slate-label mb-3">Qué más vas a encontrar</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <h2 className="label-mono text-gray-500 mb-4">02 · Qué más vas a encontrar</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {otrosGrupos.map((group) => (
               <Card key={group.id} className="p-5">
-                <span className="font-bold text-brand-magenta block mb-1">{group.label}</span>
+                <span className="label-mono text-brand-purple block mb-2">{group.label}</span>
                 {GROUP_DESCRIPTIONS[group.id] && (
                   <p className="text-sm text-gray-500 mb-3">{GROUP_DESCRIPTIONS[group.id]}</p>
                 )}
                 <ul className="text-sm text-gray-600 space-y-1">
                   {group.items.map((item) => (
                     <li key={item.path}>
-                      <Link to={item.path} className="hover:text-brand-magenta hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-magenta rounded">
+                      <Link to={item.path} className="hover:text-brand-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple rounded">
                         {item.label}
                       </Link>
                     </li>

@@ -145,7 +145,7 @@ export default function GestionSheets() {
                       type="button"
                       disabled={!sucio || guardando === p.codigo}
                       onClick={() => guardar(p.codigo)}
-                      className="shrink-0 bg-brand-magenta text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-brand-magenta/90 disabled:opacity-40"
+                      className="shrink-0 bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90 disabled:opacity-40"
                     >
                       {guardando === p.codigo ? "Guardando..." : "Guardar"}
                     </button>
@@ -153,7 +153,7 @@ export default function GestionSheets() {
                       type="button"
                       disabled={!sheets[p.codigo] || sincronizando === p.codigo}
                       onClick={() => sincronizar(p.codigo)}
-                      className="shrink-0 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full border border-brand-purple hover:bg-brand-purple/5 disabled:opacity-40"
+                      className="shrink-0 bg-transparent text-brand-purple text-sm font-medium px-4 py-2 rounded-md border border-brand-purple/50 hover:bg-brand-purple/10 disabled:opacity-40"
                     >
                       {sincronizando === p.codigo ? "Sincronizando..." : "Sincronizar ahora"}
                     </button>

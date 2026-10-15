@@ -34,28 +34,20 @@ export default function GradientHeader({
     onClearFilters?.();
   };
 
+  // Layout "Signal": ya no es un banner degradado -- título sobre el fondo y
+  // los filtros en una barra de superficie debajo. Se mantiene el nombre del
+  // componente para no tocar las páginas que lo usan.
+  const hayControles = filters.length > 0 || periodFilter || showDownload;
   return (
-    <div className="relative rounded-2xl bg-gradient-to-r from-brand-purple to-brand-magenta px-4 py-5 sm:px-6 sm:py-6 mb-6">
-      <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
-        <svg
-          className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-20"
-          width="220"
-          height="220"
-          viewBox="0 0 220 220"
-          fill="none"
-        >
-          <circle cx="60" cy="110" r="90" stroke="white" strokeWidth="2" />
-          <circle cx="60" cy="110" r="60" stroke="white" strokeWidth="2" />
-          <circle cx="60" cy="110" r="32" stroke="white" strokeWidth="2" />
-          <circle cx="60" cy="110" r="10" fill="white" />
-        </svg>
-      </div>
+    <div className="mb-6 flex flex-col gap-4">
+      <h1 className={`font-display font-medium text-gray-900 text-[28px] md:text-[34px] leading-tight tracking-tight ${noWrap ? "shrink-0" : ""}`}>
+        {title}
+      </h1>
 
+      {hayControles && (
       <div
-        className={`relative flex items-center justify-between gap-4 ${noWrap ? "flex-nowrap" : "flex-wrap"}`}
+        className={`flex items-center justify-between gap-3 bg-surface border border-line rounded-md p-2.5 ${noWrap ? "flex-nowrap" : "flex-wrap"}`}
       >
-        <h1 className={`text-white font-bold text-2xl md:text-3xl ${noWrap ? "shrink-0" : ""}`}>{title}</h1>
-
         <div className="flex flex-wrap items-center gap-2">
           {(filters.length > 0 || periodFilter) && (
             <>
@@ -83,7 +75,7 @@ export default function GradientHeader({
               <button
                 type="button"
                 onClick={handleClearFilters}
-                className="bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full border border-brand-purple whitespace-nowrap hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="h-10 bg-transparent text-gray-500 text-sm font-medium px-3.5 rounded-md border border-transparent whitespace-nowrap hover:text-gray-900 hover:border-line focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
               >
                 Borrar Filtros
               </button>
@@ -92,6 +84,7 @@ export default function GradientHeader({
           {showDownload && <DownloadButton onDownload={onDownload} />}
         </div>
       </div>
+      )}
     </div>
   );
 }

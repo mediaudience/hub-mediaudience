@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import mediaudienceLogo from "../assets/brand/mediaudience-logo.png";
+import AuthLayout from "../components/common/AuthLayout";
 
 export default function RestablecerPassword() {
   const { restablecerPassword } = useAuth();
@@ -37,17 +37,13 @@ export default function RestablecerPassword() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white px-8 py-12">
-      <div className="w-full max-w-sm">
-        <div className="mb-8">
-          <img src={mediaudienceLogo} alt="Mediaudience" className="h-16 w-auto" />
-        </div>
+    <AuthLayout>
 
-        <h1 className="text-[#3a4752] text-2xl font-bold mb-2">Elegí tu nueva contraseña</h1>
+        <h1 className="text-gray-900 font-display font-medium text-[30px] leading-tight tracking-tight mb-2">Elige tu nueva contraseña</h1>
 
         {!token ? (
           <>
-            <p className="text-slate-label text-sm mb-8 leading-relaxed">
+            <p className="text-gray-500 text-[15px] mb-8 leading-relaxed">
               Este enlace no es válido. Pedí uno nuevo desde la pantalla de inicio de sesión.
             </p>
             <Link to="/olvide-password" className="text-sm font-bold text-brand-purple hover:underline">
@@ -57,7 +53,7 @@ export default function RestablecerPassword() {
         ) : (
           <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
             <div>
-              <label htmlFor="passwordNueva" className="block text-sm font-bold text-gray-700 mb-1.5">
+              <label htmlFor="passwordNueva" className="block label-mono text-gray-500 mb-2">
                 Contraseña nueva
               </label>
               <input
@@ -68,11 +64,11 @@ export default function RestablecerPassword() {
                 autoComplete="new-password"
                 value={passwordNueva}
                 onChange={(e) => setPasswordNueva(e.target.value)}
-                className="w-full rounded-lg bg-[#e8f0fe] border border-transparent px-4 py-2 text-[15px] focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                className="w-full h-12 rounded-md bg-surface border border-line px-4 text-[15px] text-gray-900 focus:outline-none focus:border-brand-purple focus:ring-3 focus:ring-brand-purple/20"
               />
             </div>
             <div>
-              <label htmlFor="passwordConfirmar" className="block text-sm font-bold text-gray-700 mb-1.5">
+              <label htmlFor="passwordConfirmar" className="block label-mono text-gray-500 mb-2">
                 Confirmar contraseña
               </label>
               <input
@@ -83,12 +79,12 @@ export default function RestablecerPassword() {
                 autoComplete="new-password"
                 value={passwordConfirmar}
                 onChange={(e) => setPasswordConfirmar(e.target.value)}
-                className="w-full rounded-lg bg-[#e8f0fe] border border-transparent px-4 py-2 text-[15px] focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                className="w-full h-12 rounded-md bg-surface border border-line px-4 text-[15px] text-gray-900 focus:outline-none focus:border-brand-purple focus:ring-3 focus:ring-brand-purple/20"
               />
             </div>
 
             {error && (
-              <div role="alert" className="rounded-lg bg-red-50 px-3.5 py-2.5 text-sm text-red-600">
+              <div role="alert" className="rounded-md border border-semaphore-red/30 bg-red-50 px-3.5 py-2.5 text-sm text-red-600">
                 {error}
               </div>
             )}
@@ -96,13 +92,12 @@ export default function RestablecerPassword() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 rounded-full bg-brand-purple text-white font-bold text-sm py-2.5 px-4 hover:bg-brand-purple/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
+              className="w-full mt-2 h-12 rounded-md bg-brand-purple text-on-accent font-mono font-medium text-sm px-4 hover:bg-accent-hover disabled:opacity-60 disabled:cursor-not-allowed transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
             >
               {loading ? "Guardando..." : "Guardar contraseña"}
             </button>
           </form>
         )}
-      </div>
-    </div>
+    </AuthLayout>
   );
 }

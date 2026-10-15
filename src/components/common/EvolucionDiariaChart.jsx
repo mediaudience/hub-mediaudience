@@ -4,8 +4,8 @@ import Card from "./Card";
 import { calcularAgregado } from "../../utils/agregaciones";
 import { formatNumber } from "../../utils/format";
 
-const PURPLE = "#57007e";
-const MAGENTA = "#c4216f";
+const PURPLE = "#58B0FF";
+const MAGENTA = "#3FDDB0";
 
 // "2026-08-15" (fecha ya normalizada por el sync, ver parseFechaEs en
 // scripts/syncSheets.js) -> "15/08", más compacto para el eje X.
@@ -22,8 +22,8 @@ function TooltipEvolucion({ active, payload, tieneClics }) {
   if (!active || !payload?.length) return null;
   const row = payload[0].payload;
   return (
-    <div className="bg-[#201235] text-white text-xs rounded-lg px-3 py-2 shadow-lg">
-      <p className="font-semibold text-white/70 mb-1">{row.fecha}</p>
+    <div className="bg-ink-deep border border-line text-gray-900 text-xs rounded-lg px-3 py-2 shadow-lg">
+      <p className="font-semibold text-gray-500 mb-1">{row.fecha}</p>
       <p className="flex items-center gap-1.5">
         <span className="inline-block rounded-full" style={{ width: 7, height: 7, background: PURPLE }} />
         Impresiones: <b className="ml-0.5">{formatNumber(row.impresionesTotales)}</b>
@@ -91,9 +91,8 @@ export default function EvolucionDiariaChart({ rows, columns }) {
 
   return (
     <Card hover={false} className="relative overflow-hidden mb-6 p-0">
-      <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${PURPLE}, ${MAGENTA})` }} />
-      <div className="p-4 sm:p-5" style={{ background: "linear-gradient(160deg, #faf5ff 0%, #ffffff 45%)" }}>
-        <h3 className="text-sm font-bold text-brand-purple mb-1">Evolución Diaria</h3>
+      <div className="p-4 sm:p-5">
+        <h3 className="text-lg font-medium text-gray-900 mb-1">Evolución Diaria</h3>
         <p className="text-xs text-slate-label mb-3">
           {clicsCol ? "Impresiones por día — el tamaño del punto marca los clics de ese día" : "Impresiones por día"}
         </p>
@@ -118,13 +117,13 @@ export default function EvolucionDiariaChart({ rows, columns }) {
           <AreaChart data={porDia} margin={{ top: 10, right: 20, left: 20, bottom: 5 }}>
             <defs>
               <linearGradient id="evolucionAreaFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={PURPLE} stopOpacity={0.32} />
-                <stop offset="100%" stopColor={MAGENTA} stopOpacity={0.02} />
+                <stop offset="0%" stopColor={PURPLE} stopOpacity={0.28} />
+                <stop offset="100%" stopColor={PURPLE} stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="#eef2f8" vertical={false} />
-            <XAxis dataKey="fecha" tick={{ fontSize: 11, fill: "#64748b" }} axisLine={{ stroke: "#e2e8f0" }} minTickGap={28} />
-            <YAxis tick={{ fontSize: 12, fill: "#64748b" }} axisLine={false} tickFormatter={kFormat} width={46} />
+            <CartesianGrid stroke="rgba(255,255,255,0.06)" vertical={false} />
+            <XAxis dataKey="fecha" tick={{ fontSize: 11, fill: "#8A93A9" }} axisLine={{ stroke: "rgba(255,255,255,0.12)" }} minTickGap={28} />
+            <YAxis tick={{ fontSize: 12, fill: "#8A93A9" }} axisLine={false} tickFormatter={kFormat} width={46} />
             <Tooltip content={<TooltipEvolucion tieneClics={!!clicsCol} />} />
             <Area
               type="monotone"
@@ -132,7 +131,7 @@ export default function EvolucionDiariaChart({ rows, columns }) {
               stroke={PURPLE}
               strokeWidth={2.2}
               fill="url(#evolucionAreaFill)"
-              activeDot={{ r: 6, fill: PURPLE, stroke: "#fff", strokeWidth: 2 }}
+              activeDot={{ r: 6, fill: PURPLE, stroke: "#0A0E17", strokeWidth: 2 }}
               dot={
                 !clicsCol
                   ? false
@@ -144,7 +143,7 @@ export default function EvolucionDiariaChart({ rows, columns }) {
                           cy={cy}
                           r={radioDe(payload.clicsTotales ?? 0)}
                           fill={MAGENTA}
-                          stroke="#fff"
+                          stroke="#0A0E17"
                           strokeWidth={1.6}
                         />
                       )

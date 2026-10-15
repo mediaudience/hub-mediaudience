@@ -142,7 +142,7 @@ export default function Facturacion() {
           <Card className="overflow-x-auto">
             <table className="w-full text-sm min-w-[1100px]">
               <thead>
-                <tr className="bg-brand-purple text-white text-left">
+                <tr className="bg-surface-2 text-gray-500 text-left label-mono">
                   {COLUMNS.map((c) => (
                     <th key={c.key} className={`px-4 py-3 font-semibold ${c.align === "right" ? "text-right" : ""}`}>
                       {c.label}

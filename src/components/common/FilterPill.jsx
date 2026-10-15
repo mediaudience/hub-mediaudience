@@ -29,11 +29,11 @@ export default function FilterPill({ label, options = [], value, onChange, hideV
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex items-center gap-2 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
+        className="flex items-center gap-2 h-10 bg-ink-deep text-gray-800 border border-line text-sm font-medium px-3.5 rounded-md whitespace-nowrap hover:border-brand-purple/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
       >
         {hideValueInLabel || seleccionado === null ? label : `${label}: ${seleccionado}`}
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-          <path d="M6 9l6 6 6-6" stroke="#57007E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M6 9l6 6 6-6" stroke="#58B0FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
       {open && (

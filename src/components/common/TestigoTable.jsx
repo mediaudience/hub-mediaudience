@@ -12,7 +12,7 @@ function EstadoBadge({ estado }) {
   const esVerificado = estado === "Verificado";
   return (
     <span
-      className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+      className={`px-2 py-0.5 rounded-md text-xs font-medium ${
         esVerificado ? "bg-green-100 text-green-700" : "bg-semaphore-orange/10 text-semaphore-orange"
       }`}
     >
@@ -30,7 +30,7 @@ export default function TestigoTable({ rows, columns }) {
     <Card hover={false} className="overflow-x-auto">
       <table className="w-full text-sm min-w-[700px]">
         <thead>
-          <tr className="bg-brand-purple text-white text-left">
+          <tr className="bg-surface-2 text-gray-500 text-left label-mono">
             {columns.map((col) => (
               <th key={col.key} className="px-4 py-3 font-semibold">
                 {col.label}

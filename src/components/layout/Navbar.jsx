@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useClienteActivo } from "../../context/ClienteActivoContext";
-import mediaudienceLogoBlanco from "../../assets/brand/mediaudience-logo-blanco.png";
+import BrandLogo from "../common/BrandLogo";
 
 const ROL_LABEL = {
   super_admin: "Super Admin",
@@ -56,7 +56,7 @@ function AccountMenu() {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Cuenta"
-        className="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0 text-brand-purple font-bold text-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        className="w-9 h-9 rounded-md bg-surface-2 border border-brand-purple/40 flex items-center justify-center shrink-0 text-brand-purple font-display font-semibold text-xs hover:border-brand-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
       >
         {initials}
       </button>
@@ -64,20 +64,20 @@ function AccountMenu() {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 mt-2 w-60 bg-white rounded-lg shadow-lg border border-slate-100 py-1 z-50"
+          className="absolute right-0 mt-2 w-64 bg-surface rounded-md shadow-lg border border-line py-1 z-50"
         >
-          <div className="px-4 py-3 border-b border-slate-100">
+          <div className="px-4 py-3 border-b border-line">
             <p className="text-sm font-semibold text-gray-800 truncate">{user?.nombre}</p>
             <p className="text-xs text-slate-label truncate">{user?.email}</p>
             {user?.rol && (
-              <span className="inline-block mt-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium bg-brand-purple/10 text-brand-purple">
+              <span className="inline-block mt-2 px-2 py-0.5 rounded-md label-mono text-[10px] border border-brand-purple/40 bg-brand-purple/10 text-brand-purple">
                 {ROL_LABEL[user.rol] ?? user.rol}
               </span>
             )}
           </div>
 
           {clientes.length > 1 && (
-            <div className="px-4 py-3 border-b border-slate-100">
+            <div className="px-4 py-3 border-b border-line">
               <p className="text-xs font-medium text-slate-label mb-1.5">Cliente</p>
               <div className="max-h-56 overflow-y-auto flex flex-col gap-0.5">
                 <button
@@ -146,20 +146,20 @@ function AccountMenu() {
 
 export default function Navbar({ onToggleSidebar, sidebarOpen }) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 h-16 bg-brand-purple flex items-center justify-between px-3">
-      <div className="flex items-center gap-1">
+    <header className="fixed top-0 left-0 right-0 z-40 h-16 bg-ink-deep/95 backdrop-blur border-b border-line flex items-center justify-between px-3 sm:px-4">
+      <div className="flex items-center gap-2">
         <button
           type="button"
           onClick={onToggleSidebar}
           aria-label={sidebarOpen ? "Colapsar menú" : "Expandir menú"}
           aria-expanded={sidebarOpen}
-          className="text-white/90 hover:text-white p-1 rounded-md hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          className="text-gray-500 hover:text-gray-900 p-1.5 rounded-md hover:bg-surface-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
         >
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
-        <img src={mediaudienceLogoBlanco} alt="Mediaudience" className="h-10 w-auto" />
+        <BrandLogo size={18} showHub className="ml-2" />
       </div>
 
       <AccountMenu />

@@ -63,7 +63,7 @@ function agruparPorUbicacion(rows, columns) {
 // magenta más claro para la métrica de porcentaje) en vez de inventar un
 // cuarto hue -- el valor en sí sigue en tinta oscura (nunca coloreado),
 // el color solo vive en el punto identificador.
-const COLOR_POR_METRICA = ["#c4216f", "#57007e", "#e685ac"];
+const COLOR_POR_METRICA = ["#58B0FF", "#3FDDB0", "#D8B650"];
 
 function Tooltip({ x, y, titulo, metricas }) {
   const left = Math.min(Math.max(x - 90, 0), VIEW_W - 180);
@@ -235,9 +235,9 @@ export default function GeoMap({ rows, columns }) {
         <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="w-full h-full overflow-visible">
           <defs>
             <radialGradient id={gradId} cx={centro[0]} cy={centro[1]} r={Math.max(VIEW_W, VIEW_H) * 0.65} gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#c4216f" stopOpacity="0.12" />
-              <stop offset="55%" stopColor="#57007e" stopOpacity="0.05" />
-              <stop offset="100%" stopColor="#57007e" stopOpacity="0" />
+              <stop offset="0%" stopColor="#58B0FF" stopOpacity="0.10" />
+              <stop offset="55%" stopColor="#58B0FF" stopOpacity="0.05" />
+              <stop offset="100%" stopColor="#58B0FF" stopOpacity="0" />
             </radialGradient>
           </defs>
           <rect x={0} y={0} width={VIEW_W} height={VIEW_H} fill={`url(#${gradId})`} />
@@ -250,8 +250,8 @@ export default function GeoMap({ rows, columns }) {
               <path
                 key={f.properties.name}
                 d={trazador(f)}
-                fill={valor !== null ? colorPorMagnitud(normalizar01(valor)) : "#f1f0f4"}
-                stroke="white"
+                fill={valor !== null ? colorPorMagnitud(normalizar01(valor)) : "#1A2135"}
+                stroke="#0A0E17"
                 strokeWidth={1.5}
                 tabIndex={dato ? 0 : -1}
                 role={dato ? "button" : undefined}
@@ -280,7 +280,7 @@ export default function GeoMap({ rows, columns }) {
                   cy={y}
                   r={r}
                   fill={colorPorMagnitud(normalizar01(valor))}
-                  stroke="white"
+                  stroke="#0A0E17"
                   strokeWidth={2}
                   tabIndex={0}
                   role="button"

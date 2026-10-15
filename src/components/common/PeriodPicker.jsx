@@ -50,7 +50,7 @@ function Calendar({ label, year, month, onNav, selectedDay, onSelectDay }) {
               disabled={!d}
               onClick={() => d && onSelectDay({ year, month, day: d })}
               className={`text-xs h-7 w-7 mx-auto rounded-full transition-colors ${
-                !d ? "" : isSelected ? "bg-brand-purple text-white font-semibold" : "text-gray-700 hover:bg-slate-100"
+                !d ? "" : isSelected ? "bg-brand-purple text-on-accent font-semibold" : "text-gray-700 hover:bg-slate-100"
               }`}
             >
               {d || ""}
@@ -101,20 +101,20 @@ export default function PeriodPicker({ onApply, initialStartDay = null, initialE
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="flex items-center gap-2 bg-white text-brand-purple text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
+        className="flex items-center gap-2 h-10 bg-ink-deep text-gray-800 border border-line text-sm font-medium px-3.5 rounded-md whitespace-nowrap hover:border-brand-purple/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="5" width="18" height="16" rx="2" stroke="#57007E" strokeWidth="1.8" />
-          <path d="M3 9h18M8 3v4M16 3v4" stroke="#57007E" strokeWidth="1.8" strokeLinecap="round" />
+          <rect x="3" y="5" width="18" height="16" rx="2" stroke="#58B0FF" strokeWidth="1.8" />
+          <path d="M3 9h18M8 3v4M16 3v4" stroke="#58B0FF" strokeWidth="1.8" strokeLinecap="round" />
         </svg>
         {label}
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-          <path d="M6 9l6 6 6-6" stroke="#57007E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M6 9l6 6 6-6" stroke="#58B0FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
       {open && (
-        <div className="fixed left-1/2 top-20 -translate-x-1/2 sm:absolute sm:left-auto sm:top-full sm:translate-x-0 sm:right-0 sm:mt-2 z-30 bg-white rounded-xl shadow-xl border border-slate-100 p-4 w-[92vw] max-w-[520px]">
+        <div className="max-sm:fixed max-sm:left-1/2 max-sm:top-20 max-sm:-translate-x-1/2 sm:absolute sm:top-full sm:left-0 sm:mt-2 z-30 bg-white rounded-xl shadow-xl border border-slate-100 p-4 w-[92vw] max-w-[520px]">
           <div className="relative mb-4">
             <button
               type="button"
@@ -123,7 +123,7 @@ export default function PeriodPicker({ onApply, initialStartDay = null, initialE
             >
               {autoPeriod}
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                <path d="M6 9l6 6 6-6" stroke="#57007E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6 9l6 6 6-6" stroke="#58B0FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
             {autoOpen && (
@@ -168,7 +168,7 @@ export default function PeriodPicker({ onApply, initialStartDay = null, initialE
                 onApply?.({ startDay, endDay });
                 setOpen(false);
               }}
-              className="bg-brand-purple text-white text-sm font-medium px-6 py-2 rounded-full hover:bg-brand-purple/90"
+              className="bg-brand-purple text-on-accent text-sm font-medium px-6 py-2 rounded-md hover:bg-brand-purple/90"
             >
               Aplicar
             </button>

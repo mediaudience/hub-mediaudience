@@ -116,7 +116,7 @@ function ActividadesPanel({ prospectoId }) {
         <button
           type="submit"
           disabled={guardando}
-          className="bg-brand-magenta text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-brand-magenta/90 disabled:opacity-60 whitespace-nowrap"
+          className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90 disabled:opacity-60 whitespace-nowrap"
         >
           Agregar
         </button>
@@ -418,7 +418,7 @@ export default function Prospeccion() {
               <button
                 type="submit"
                 disabled={guardando}
-                className="bg-brand-magenta text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-brand-magenta/90 disabled:opacity-60"
+                className="bg-brand-magenta text-on-accent text-sm font-medium px-5 py-2.5 rounded-md hover:bg-brand-magenta/90 disabled:opacity-60"
               >
                 {guardando ? "Guardando..." : "Guardar"}
               </button>
@@ -426,7 +426,7 @@ export default function Prospeccion() {
                 <button
                   type="button"
                   onClick={() => convertir(form)}
-                  className="bg-green-600 text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-green-700"
+                  className="bg-green-600 text-on-accent text-sm font-medium px-5 py-2.5 rounded-md hover:bg-green-700"
                 >
                   Convertir a Cliente
                 </button>
@@ -460,7 +460,7 @@ export default function Prospeccion() {
                   <button
                     type="button"
                     onClick={abrirNuevo}
-                    className="bg-brand-magenta text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-brand-magenta/90"
+                    className="bg-brand-magenta text-on-accent text-sm font-medium px-5 py-2.5 rounded-md hover:bg-brand-magenta/90"
                   >
                     + Nuevo prospecto
                   </button>
@@ -572,7 +572,7 @@ function ReportePanel({ reporte }) {
         <ComboBarChart
           data={reporte.porEtapa.map((e) => ({ etapa: e.nombre, cantidad: e.cantidad }))}
           xKey="etapa"
-          series={[{ key: "cantidad", label: "Prospectos", color: "#57007E" }]}
+          series={[{ key: "cantidad", label: "Prospectos", color: "#58B0FF" }]}
         />
       </Card>
 
@@ -582,7 +582,7 @@ function ReportePanel({ reporte }) {
           <ComboBarChart
             data={reporte.ganadoPorMes.map((m) => ({ mes: m.mes, valor: m.valor }))}
             xKey="mes"
-            series={[{ key: "valor", label: "Valor ganado (USD)", color: "#57007E" }]}
+            series={[{ key: "valor", label: "Valor ganado (USD)", color: "#58B0FF" }]}
           />
         </Card>
       )}
