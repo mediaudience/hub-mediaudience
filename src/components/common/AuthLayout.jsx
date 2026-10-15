@@ -14,7 +14,7 @@ export default function AuthLayout({ children }) {
           backgroundSize: "48px 48px",
         }}
       >
-        <BrandLogo size={22} showHub />
+        <BrandLogo size={26} showHub />
         <div className="flex flex-col gap-5 max-w-[480px]">
           <span className="label-mono text-xs text-brand-purple">Insights · clientes y equipo</span>
           <p className="font-display font-medium text-[52px] leading-[1.05] tracking-[-0.03em] text-gray-900">
@@ -35,7 +35,7 @@ export default function AuthLayout({ children }) {
       <div className="flex items-center justify-center px-6 py-12 sm:px-8">
         <div className="w-full max-w-[400px]">
           <div className="mb-10 lg:hidden">
-            <BrandLogo size={20} showHub />
+            <BrandLogo size={24} showHub />
           </div>
           {children}
         </div>

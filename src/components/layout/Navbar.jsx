@@ -159,7 +159,7 @@ export default function Navbar({ onToggleSidebar, sidebarOpen }) {
             <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
-        <BrandLogo size={18} showHub className="ml-2" />
+        <BrandLogo size={22} showHub className="ml-2" />
       </div>
 
       <AccountMenu />
