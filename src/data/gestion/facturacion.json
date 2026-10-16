@@ -1378,7 +1378,7 @@
     "producto": "CTV",
     "estadoFactura": "Facturado",
     "ordenAgencia": "16270",
-    "pdfOrden": "https://drive.google.com/file/d/1LnpfoPGh1yt_0x9-8xg7RVjj54v6eKzp/view?usp=drive_link",
+    "pdfOrden": "https://drive.google.com/file/d/1BIT3Jkb0vMNp7v_6XyNWnRl-ThLvyRMQ/view?usp=drive_link",
     "pdfFactura": "https://drive.google.com/file/d/1pDtFwzyu_MQJJCA3RCvfpCv0ZtF_d078/view?usp=drive_link",
     "consumoNeto": 7000,
     "montoFacturado": 7000,
@@ -1392,7 +1392,7 @@
     "producto": "Tiktok",
     "estadoFactura": "Facturado",
     "ordenAgencia": "16661",
-    "pdfOrden": "https://drive.google.com/file/d/1wMMlq8I06cD1sHs3VUXn6DtYpR33OF_6/view?usp=drive_link",
+    "pdfOrden": "https://drive.google.com/file/d/1H1ygm8X8NYwsPlfmL3JJoUOY7g-iScF-/view?usp=drive_link",
     "pdfFactura": "https://drive.google.com/file/d/1bjCpphstOcMeL4qdgxbyk_I9lCCq9qKv/view?usp=drive_link",
     "consumoNeto": 10000,
     "montoFacturado": 10000,
@@ -1523,6 +1523,20 @@
     "consumoNeto": 1000,
     "montoFacturado": 1000,
     "montoPendiente": 0,
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Oct",
+    "agencia": "Paradais",
+    "cliente": "Banco Pacifico",
+    "producto": "Programatica",
+    "estadoFactura": "Pendiente",
+    "ordenAgencia": "16781",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 7000,
+    "montoFacturado": 0,
+    "montoPendiente": 7000,
     "pais": "Ecuador"
   },
   {
