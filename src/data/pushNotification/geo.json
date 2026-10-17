@@ -362,7 +362,7 @@
   {
     "campana": "PE_Starbucks_Cookies&Cream_06Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Cookies and Cream",
+    "motivo": "Abril_Cookies&Cream",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Arequipa",
@@ -374,7 +374,7 @@
   {
     "campana": "PE_Starbucks_Cookies&Cream_06Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Cookies and Cream",
+    "motivo": "Abril_Cookies&Cream",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Cajamarca",
@@ -386,7 +386,7 @@
   {
     "campana": "PE_Starbucks_Cookies&Cream_06Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Cookies and Cream",
+    "motivo": "Abril_Cookies&Cream",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Cusco",
@@ -398,7 +398,7 @@
   {
     "campana": "PE_Starbucks_Cookies&Cream_06Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Cookies and Cream",
+    "motivo": "Abril_Cookies&Cream",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Ica",
@@ -410,7 +410,7 @@
   {
     "campana": "PE_Starbucks_Cookies&Cream_06Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Cookies and Cream",
+    "motivo": "Abril_Cookies&Cream",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Junín",
@@ -422,7 +422,7 @@
   {
     "campana": "PE_Starbucks_Cookies&Cream_06Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Cookies and Cream",
+    "motivo": "Abril_Cookies&Cream",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Chiclayo",
@@ -434,7 +434,7 @@
   {
     "campana": "PE_Starbucks_Cookies&Cream_06Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Cookies and Cream",
+    "motivo": "Abril_Cookies&Cream",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Piura",
@@ -446,7 +446,7 @@
   {
     "campana": "PE_Starbucks_Cookies&Cream_06Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Cookies and Cream",
+    "motivo": "Abril_Cookies&Cream",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Lima",
@@ -458,7 +458,7 @@
   {
     "campana": "PE_Starbucks_Rewards_24Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Abril_Rewards",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Arequipa",
@@ -470,7 +470,7 @@
   {
     "campana": "PE_Starbucks_Rewards_24Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Abril_Rewards",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Cajamarca",
@@ -482,7 +482,7 @@
   {
     "campana": "PE_Starbucks_Rewards_24Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Abril_Rewards",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Cusco",
@@ -494,7 +494,7 @@
   {
     "campana": "PE_Starbucks_Rewards_24Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Abril_Rewards",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Ica",
@@ -506,7 +506,7 @@
   {
     "campana": "PE_Starbucks_Rewards_24Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Abril_Rewards",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Junín",
@@ -518,7 +518,7 @@
   {
     "campana": "PE_Starbucks_Rewards_24Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Abril_Rewards",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Chiclayo",
@@ -530,7 +530,7 @@
   {
     "campana": "PE_Starbucks_Rewards_24Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Abril_Rewards",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Piura",
@@ -542,7 +542,7 @@
   {
     "campana": "PE_Starbucks_Rewards_24Abril2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Abril_Rewards",
     "mes": "Abril",
     "formato": "Push Premium Display",
     "ubicacion": "Lima",
@@ -554,7 +554,7 @@
   {
     "campana": "PE_Starbucks_Otoño_25Mayo2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Otoño",
+    "motivo": "Mayo_Otoño",
     "mes": "Mayo",
     "formato": "Push Premium Display",
     "ubicacion": "Nacional",
@@ -566,7 +566,7 @@
   {
     "campana": "PE_Starbucks_Fall_11Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Fall",
+    "motivo": "Junio_Fall",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Nacional",
@@ -578,7 +578,7 @@
   {
     "campana": "PE_Starbucks_Protein_06Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Junio_Protein",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Arequipa",
@@ -590,7 +590,7 @@
   {
     "campana": "PE_Starbucks_Protein_06Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Junio_Protein",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Cajamarca",
@@ -602,7 +602,7 @@
   {
     "campana": "PE_Starbucks_Protein_06Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Junio_Protein",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Cusco",
@@ -614,7 +614,7 @@
   {
     "campana": "PE_Starbucks_Protein_06Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Junio_Protein",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Ica",
@@ -626,7 +626,7 @@
   {
     "campana": "PE_Starbucks_Protein_06Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Junio_Protein",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Junín",
@@ -638,7 +638,7 @@
   {
     "campana": "PE_Starbucks_Protein_06Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Junio_Protein",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Chiclayo",
@@ -650,7 +650,7 @@
   {
     "campana": "PE_Starbucks_Protein_06Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Junio_Protein",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Piura",
@@ -662,7 +662,7 @@
   {
     "campana": "PE_Starbucks_Protein_06Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Junio_Protein",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Lima",
@@ -674,7 +674,7 @@
   {
     "campana": "PE_Starbucks_Rewards_08Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Junio_Rewards",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Arequipa",
@@ -686,7 +686,7 @@
   {
     "campana": "PE_Starbucks_Rewards_08Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Junio_Rewards",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Cajamarca",
@@ -698,7 +698,7 @@
   {
     "campana": "PE_Starbucks_Rewards_08Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Junio_Rewards",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Cusco",
@@ -710,7 +710,7 @@
   {
     "campana": "PE_Starbucks_Rewards_08Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Junio_Rewards",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Ica",
@@ -722,7 +722,7 @@
   {
     "campana": "PE_Starbucks_Rewards_08Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Junio_Rewards",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Junín",
@@ -734,7 +734,7 @@
   {
     "campana": "PE_Starbucks_Rewards_08Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Junio_Rewards",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Chiclayo",
@@ -746,7 +746,7 @@
   {
     "campana": "PE_Starbucks_Rewards_08Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Junio_Rewards",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Piura",
@@ -758,7 +758,7 @@
   {
     "campana": "PE_Starbucks_Rewards_08Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Junio_Rewards",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "ubicacion": "Lima",
@@ -770,7 +770,7 @@
   {
     "campana": "PE_Starbucks_Protein_09Julio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Julio_Protein",
     "mes": "Julio",
     "formato": "Push Premium Display",
     "ubicacion": "Arequipa",
@@ -782,7 +782,7 @@
   {
     "campana": "PE_Starbucks_Protein_09Julio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Julio_Protein",
     "mes": "Julio",
     "formato": "Push Premium Display",
     "ubicacion": "Cajamarca",
@@ -794,7 +794,7 @@
   {
     "campana": "PE_Starbucks_Protein_09Julio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Julio_Protein",
     "mes": "Julio",
     "formato": "Push Premium Display",
     "ubicacion": "Cusco",
@@ -806,7 +806,7 @@
   {
     "campana": "PE_Starbucks_Protein_09Julio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Julio_Protein",
     "mes": "Julio",
     "formato": "Push Premium Display",
     "ubicacion": "Ica",
@@ -818,7 +818,7 @@
   {
     "campana": "PE_Starbucks_Protein_09Julio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Julio_Protein",
     "mes": "Julio",
     "formato": "Push Premium Display",
     "ubicacion": "Junín",
@@ -830,7 +830,7 @@
   {
     "campana": "PE_Starbucks_Protein_09Julio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Julio_Protein",
     "mes": "Julio",
     "formato": "Push Premium Display",
     "ubicacion": "Chiclayo",
@@ -842,7 +842,7 @@
   {
     "campana": "PE_Starbucks_Protein_09Julio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Julio_Protein",
     "mes": "Julio",
     "formato": "Push Premium Display",
     "ubicacion": "Piura",
@@ -854,7 +854,7 @@
   {
     "campana": "PE_Starbucks_Protein_09Julio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Protein",
+    "motivo": "Julio_Protein",
     "mes": "Julio",
     "formato": "Push Premium Display",
     "ubicacion": "Lima",
@@ -866,7 +866,7 @@
   {
     "campana": "PE_Starbucks_Peruanidad_25Julio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Peruanidad",
+    "motivo": "Julio_Peruanidad",
     "mes": "Julio",
     "formato": "Push Premium Display",
     "ubicacion": "Lima Metropolitana",
@@ -878,7 +878,7 @@
   {
     "campana": "PE_Starbucks_Rewards_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Agosto_Rewards",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Arequipa",
@@ -890,7 +890,7 @@
   {
     "campana": "PE_Starbucks_Rewards_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Agosto_Rewards",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Cajamarca",
@@ -902,7 +902,7 @@
   {
     "campana": "PE_Starbucks_Rewards_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Agosto_Rewards",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Cusco",
@@ -914,7 +914,7 @@
   {
     "campana": "PE_Starbucks_Rewards_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Agosto_Rewards",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Ica",
@@ -926,7 +926,7 @@
   {
     "campana": "PE_Starbucks_Rewards_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Agosto_Rewards",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Junín",
@@ -938,7 +938,7 @@
   {
     "campana": "PE_Starbucks_Rewards_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Agosto_Rewards",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Chiclayo",
@@ -950,7 +950,7 @@
   {
     "campana": "PE_Starbucks_Rewards_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Agosto_Rewards",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Piura",
@@ -962,7 +962,7 @@
   {
     "campana": "PE_Starbucks_Rewards_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Rewards",
+    "motivo": "Agosto_Rewards",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Lima",
@@ -974,7 +974,7 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Dúo Proteico",
+    "motivo": "Agosto_DúoProteico",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Arequipa",
@@ -986,7 +986,7 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Dúo Proteico",
+    "motivo": "Agosto_DúoProteico",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Cajamarca",
@@ -998,7 +998,7 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Dúo Proteico",
+    "motivo": "Agosto_DúoProteico",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Cusco",
@@ -1010,7 +1010,7 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Dúo Proteico",
+    "motivo": "Agosto_DúoProteico",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Ica",
@@ -1022,7 +1022,7 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Dúo Proteico",
+    "motivo": "Agosto_DúoProteico",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Junín",
@@ -1034,7 +1034,7 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Dúo Proteico",
+    "motivo": "Agosto_DúoProteico",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Chiclayo",
@@ -1046,7 +1046,7 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Dúo Proteico",
+    "motivo": "Agosto_DúoProteico",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Piura",
@@ -1058,7 +1058,7 @@
   {
     "campana": "PE_Starbucks_DúoProteico_21Agosto2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Dúo Proteico",
+    "motivo": "Agosto_DúoProteico",
     "mes": "Agosto",
     "formato": "Push Premium Display",
     "ubicacion": "Lima",
