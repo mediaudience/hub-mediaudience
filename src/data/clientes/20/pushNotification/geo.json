@@ -1,0 +1,62 @@
+[
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Octubre_KiaAutomundo",
+    "mes": "Octubre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Centro de Convenciones Metropolitano de Quito CCMQ",
+    "impresionesTotales": 2250,
+    "clicsTotales": 233,
+    "ctr": 10.36,
+    "cliente": "EC_Kia"
+  },
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Octubre_KiaAutomundo",
+    "mes": "Octubre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Quito Tenis",
+    "impresionesTotales": 2312,
+    "clicsTotales": 237,
+    "ctr": 10.25,
+    "cliente": "EC_Kia"
+  },
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Octubre_KiaAutomundo",
+    "mes": "Octubre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Condado Shopping",
+    "impresionesTotales": 2235,
+    "clicsTotales": 231,
+    "ctr": 10.34,
+    "cliente": "EC_Kia"
+  },
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Octubre_KiaAutomundo",
+    "mes": "Octubre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Cumbayá",
+    "impresionesTotales": 2328,
+    "clicsTotales": 239,
+    "ctr": 10.27,
+    "cliente": "EC_Kia"
+  },
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Octubre_KiaAutomundo",
+    "mes": "Octubre",
+    "formato": "Push Premium Video",
+    "ubicacion": "La Carolina",
+    "impresionesTotales": 2320,
+    "clicsTotales": 237,
+    "ctr": 10.22,
+    "cliente": "EC_Kia"
+  }
+]

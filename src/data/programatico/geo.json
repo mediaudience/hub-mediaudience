@@ -1306,5 +1306,17 @@
     "clicsTotales": 16327,
     "ctr": 14.37,
     "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Octubre_Congelados",
+    "mes": "Octubre",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 298713,
+    "clicsTotales": 819,
+    "ctr": 0.27,
+    "cliente": "EC_Alimentos Real"
   }
 ]

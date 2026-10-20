@@ -209,7 +209,7 @@
   {
     "campana": "PE_Starbucks_Fall_11Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Junio_Fall_Torta de Chocolate",
+    "motivo": "Junio_Fall_TortaDeChocolate",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "link": "https://drive.google.com/file/d/1oL-cDCz1z22iCoOX8NJR2BM8tufrP6Ym/view",
@@ -218,7 +218,7 @@
   {
     "campana": "PE_Starbucks_Fall_11Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Junio_Fall_Tres Leches",
+    "motivo": "Junio_Fall_TresLeches",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "link": "https://drive.google.com/file/d/1OPig41PshK9OPCoxtlDKouezKW7nF3T1/view",
@@ -245,7 +245,7 @@
   {
     "campana": "PE_Starbucks_Rewards_08Junio2026",
     "anunciante": "PE_Starbucks",
-    "motivo": "Junio_Rewards_100 estrellas",
+    "motivo": "Junio_Rewards_100Estrellas",
     "mes": "Junio",
     "formato": "Push Premium Display",
     "link": "https://drive.google.com/file/d/1RSrUPwzdgPNjhrk2LeoDiC5EGpMf9twi/view",
@@ -321,6 +321,15 @@
     "mes": "Octubre",
     "formato": "Push Premium Display",
     "link": "https://drive.google.com/file/d/1FM5yD_gVULG0bxoseqA_7z1dusqyuyUl/view?usp=sharing",
+    "cliente": "PE_Starbucks"
+  },
+  {
+    "campana": "PE_Starbucks_Peanut_16Octubre2026",
+    "anunciante": "PE_Starbucks",
+    "motivo": "Octubre_Peanut_DataExtra",
+    "mes": "Octubre",
+    "formato": "Push Premium Display",
+    "link": "https://docs.google.com/spreadsheets/d/10L07wXaXte_ypEWnaAT6ajvepbPXAlvB42wPVlRcSrA/edit?usp=sharing",
     "cliente": "PE_Starbucks"
   },
   {
@@ -403,5 +412,23 @@
     "formato": "Push Display",
     "link": "https://drive.google.com/drive/folders/1t-dBFwayimDpXOTYus4bUS7x9JEdHCqJ?usp=sharing",
     "cliente": "PE_Reset"
+  },
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Octubre_KiaAutomundo",
+    "mes": "Octubre",
+    "formato": "Push Premium Video",
+    "link": "https://drive.google.com/file/d/1hSoSZu_AGifMmaZLhW9DoAtFwvhHEyga/view?usp=sharing",
+    "cliente": "EC_Kia"
+  },
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Octubre_KiaAutomundo",
+    "mes": "Octubre",
+    "formato": "Push Premium Video",
+    "link": "https://docs.google.com/spreadsheets/d/1N2BA4bG1TaqXpyv8vqhMmgIDnb8P0bZrlkjSxT2EprU/edit?usp=sharing",
+    "cliente": "EC_Kia"
   }
 ]

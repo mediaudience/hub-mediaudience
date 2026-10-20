@@ -496,6 +496,10 @@
     "anunciante": "EC_Prefectura"
   },
   {
+    "campana": "EC_Prefectura_EntregaDeTablets_Octubre2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
     "campana": "PE_Alicorp_NosLavaremosLasManos_Junio2026",
     "anunciante": "PE_Alicorp"
   },
@@ -518,5 +522,13 @@
   {
     "campana": "PE_Alicorp_BolivarMissDior_Julio2026",
     "anunciante": "PE_Bolivar"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia"
   }
 ]

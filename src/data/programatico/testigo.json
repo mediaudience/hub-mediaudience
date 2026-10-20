@@ -646,5 +646,14 @@
     "formato": "Rich Media",
     "link": "",
     "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "EC_AlimentosReal",
+    "mes": "Octubre",
+    "formato": "Display Programático",
+    "link": "https://drive.google.com/drive/folders/1ywrNHiwFgYw5akNciaCFTQfhhqJWO-pR?usp=sharing",
+    "cliente": "EC_Alimentos Real"
   }
 ]
