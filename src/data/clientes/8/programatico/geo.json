@@ -562,5 +562,17 @@
     "clicsTotales": 613,
     "ctr": 0.64,
     "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_Octubre2026",
+    "anunciante": "EC_PanteónMetropolitano",
+    "motivo": "Octubre_BosqueDeLavida",
+    "mes": "Octubre",
+    "formato": "Display Programático",
+    "ubicacion": "Provincia del Guayas",
+    "impresionesTotales": 18576,
+    "clicsTotales": 109,
+    "ctr": 0.59,
+    "cliente": "EC_La Destilería"
   }
 ]

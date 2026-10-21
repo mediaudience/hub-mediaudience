@@ -414,6 +414,15 @@
     "cliente": "PE_Reset"
   },
   {
+    "campana": "PE_PlazaSanMigue_50Aniversario_Bonificado_06Octubre2026",
+    "anunciante": "PE_PlazaSanMiguel",
+    "motivo": "Septiembre_50Aniverario_Bonificado",
+    "mes": "",
+    "formato": "",
+    "link": "",
+    "cliente": "PE_Reset"
+  },
+  {
     "campana": "EC_Kia_KiaAutomundo_Octubre2026",
     "anunciante": "EC_Kia",
     "motivo": "Octubre_KiaAutomundo",
