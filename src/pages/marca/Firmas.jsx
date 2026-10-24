@@ -379,10 +379,16 @@ export default function Firmas() {
         <Card className="p-6" hover={false}>
           <div className="flex items-baseline justify-between gap-3 mb-4">
             <h2 className="label-mono text-[10.5px] text-gray-500 truncate">{tituloForm}</h2>
-            {modo.tipo !== "mia" && (
+            {modo.tipo !== "mia" ? (
               <button type="button" onClick={verMia} className="text-xs text-brand-purple hover:underline whitespace-nowrap">
                 Volver a mi firma
               </button>
+            ) : (
+              esStaff && (
+                <button type="button" onClick={nueva} className="text-xs text-brand-purple hover:underline whitespace-nowrap">
+                  + Nueva firma
+                </button>
+              )
             )}
           </div>
           <div className="flex flex-col gap-3">
@@ -423,9 +429,9 @@ export default function Firmas() {
                 type="button"
                 onClick={guardarManual}
                 disabled={!!ocupado}
-                className="text-sm font-medium px-5 py-2.5 rounded-md border border-line text-gray-800 hover:border-brand-purple/50 disabled:opacity-60"
+                className="w-full bg-brand-magenta text-on-accent text-sm font-medium px-5 py-2.5 rounded-md hover:bg-brand-magenta/90 disabled:opacity-60"
               >
-                {ocupado === "guardar" ? "Guardando..." : modo.tipo === "nueva" ? "Crear firma" : "Guardar"}
+                {ocupado === "guardar" ? "Guardando..." : "Guardar firma"}
               </button>
               <p className="mt-1.5 text-xs text-slate-label">
                 También se guarda sola al copiar o descargar.
