@@ -6,7 +6,6 @@ import { mkdir, rm } from 'node:fs/promises';
 import { requireUser, requireAdmin } from './middleware.js';
 import { registrarActividad } from './activityLog.js';
 import { CATEGORIAS_MARCA, PAIS_GLOBAL, MARCA_MAX_MB } from '../shared/marca.js';
-import { FIRMA_TEMAS } from '../shared/firma.js';
 import db from './db.js';
 
 // Admin > Firmas y Admin > Material Comercial. Lo ven Admin/Super Admin y
@@ -43,26 +42,126 @@ function limpiar(v, max = 120) {
   return String(v ?? '').trim().slice(0, max);
 }
 
+const SELECT_FIRMA = `
+  SELECT f.id, f.user_id, f.nombre, f.cargo, f.telefono, f.email, f.pais, f.created_at, f.updated_at,
+         c.nombre AS creado_por_nombre, a.nombre AS actualizado_por_nombre
+  FROM firmas f
+  LEFT JOIN users c ON c.id = f.creado_por
+  LEFT JOIN users a ON a.id = f.actualizado_por`;
+
+function datosFirma(body) {
+  const b = body || {};
+  return {
+    nombre: limpiar(b.nombre),
+    cargo: limpiar(b.cargo),
+    telefono: limpiar(b.telefono, 40),
+    email: limpiar(b.email).toLowerCase(),
+    pais: limpiar(b.pais, 60),
+  };
+}
+
+function validarFirma(d) {
+  if (!d.nombre) return 'Falta el nombre';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return 'Falta un correo válido';
+  return null;
+}
+
+function firmaPorEmail(email) {
+  return db.prepare('SELECT * FROM firmas WHERE lower(email) = lower(?)').get(email);
+}
+
+function guardarFirma(id, d, actorId) {
+  db.prepare(
+    `UPDATE firmas SET nombre = ?, cargo = ?, telefono = ?, email = ?, pais = ?,
+       actualizado_por = ?, updated_at = datetime('now') WHERE id = ?`
+  ).run(d.nombre, d.cargo, d.telefono, d.email, d.pais, actorId, id);
+}
+
+function crearFirma(d, { userId = null, actorId }) {
+  const { lastInsertRowid } = db
+    .prepare(
+      `INSERT INTO firmas (user_id, nombre, cargo, telefono, email, pais, creado_por, actualizado_por)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    )
+    .run(userId, d.nombre, d.cargo, d.telefono, d.email, d.pais, actorId, actorId);
+  return lastInsertRowid;
+}
+
+const CORREO_DUPLICADO = 'Ya hay una firma registrada con ese correo.';
+
+// Mi firma: la que cada usuario genera para sí mismo (socios incluidos).
 router.get('/firma', (req, res) => {
-  const guardada = db.prepare('SELECT nombre, cargo, telefono, email, pais, tema FROM usuario_firma WHERE user_id = ?').get(req.user.id);
-  if (guardada) return res.json({ firma: guardada });
+  const mia = db.prepare(`${SELECT_FIRMA} WHERE f.user_id = ?`).get(req.user.id);
+  if (mia) return res.json({ firma: mia });
   // Primera vez: se prellena con lo que el hub ya sabe del usuario.
   const pais = req.user.pais ? db.prepare('SELECT nombre FROM paises WHERE codigo = ?').get(req.user.pais)?.nombre : '';
-  res.json({
-    firma: { nombre: req.user.nombre || '', cargo: '', telefono: '', email: req.user.email || '', pais: pais || '', tema: 'oscuro' },
-  });
+  res.json({ firma: { nombre: req.user.nombre || '', cargo: '', telefono: '', email: req.user.email || '', pais: pais || '' } });
 });
 
+// Se llama al copiar/descargar o al tocar "Guardar". Si un Admin ya había
+// cargado una ficha con ese correo para esta persona (sin dueño), se la
+// asigna en vez de duplicarla.
 router.put('/firma', (req, res) => {
-  const b = req.body || {};
-  const tema = FIRMA_TEMAS.includes(b.tema) ? b.tema : 'oscuro';
-  db.prepare(
-    `INSERT INTO usuario_firma (user_id, nombre, cargo, telefono, email, pais, tema, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
-     ON CONFLICT(user_id) DO UPDATE SET nombre = excluded.nombre, cargo = excluded.cargo,
-       telefono = excluded.telefono, email = excluded.email, pais = excluded.pais,
-       tema = excluded.tema, updated_at = excluded.updated_at`
-  ).run(req.user.id, limpiar(b.nombre), limpiar(b.cargo), limpiar(b.telefono, 40), limpiar(b.email), limpiar(b.pais, 60), tema);
+  const d = datosFirma(req.body);
+  const invalido = validarFirma(d);
+  if (invalido) return res.status(400).json({ error: invalido });
+  const mia = db.prepare('SELECT * FROM firmas WHERE user_id = ?').get(req.user.id);
+  const otra = firmaPorEmail(d.email);
+  if (otra && otra.id !== mia?.id && (otra.user_id !== null || mia)) {
+    return res.status(409).json({ error: CORREO_DUPLICADO });
+  }
+  let id;
+  if (mia) {
+    id = mia.id;
+    guardarFirma(id, d, req.user.id);
+  } else if (otra) {
+    id = otra.id;
+    guardarFirma(id, d, req.user.id);
+    db.prepare('UPDATE firmas SET user_id = ? WHERE id = ?').run(req.user.id, id);
+  } else {
+    id = crearFirma(d, { userId: req.user.id, actorId: req.user.id });
+    registrarActividad(req, { actor: req.user, accion: 'firma_crear', detalle: `${d.nombre} <${d.email}>` });
+  }
+  res.json({ firma: db.prepare(`${SELECT_FIRMA} WHERE f.id = ?`).get(id) });
+});
+
+// Registro completo: solo Admin/Super Admin ven, crean, editan y borran
+// firmas de cualquiera (pedido de Jose 2026-10-24).
+router.get('/firmas', requireAdmin, (req, res) => {
+  res.json({ firmas: db.prepare(`${SELECT_FIRMA} ORDER BY f.nombre COLLATE NOCASE`).all() });
+});
+
+router.post('/firmas', requireAdmin, (req, res) => {
+  const d = datosFirma(req.body);
+  const invalido = validarFirma(d);
+  if (invalido) return res.status(400).json({ error: invalido });
+  if (firmaPorEmail(d.email)) return res.status(409).json({ error: CORREO_DUPLICADO });
+  // Si la persona tiene cuenta en el hub con ese correo, la ficha queda a su
+  // nombre: así la ve como "Mi firma" cuando entra.
+  const dueno = db.prepare('SELECT id FROM users WHERE lower(email) = lower(?)').get(d.email);
+  const id = crearFirma(d, { userId: dueno?.id ?? null, actorId: req.user.id });
+  registrarActividad(req, { actor: req.user, accion: 'firma_crear', detalle: `${d.nombre} <${d.email}>` });
+  res.status(201).json({ firma: db.prepare(`${SELECT_FIRMA} WHERE f.id = ?`).get(id) });
+});
+
+router.put('/firmas/:id', requireAdmin, (req, res) => {
+  const actual = db.prepare('SELECT * FROM firmas WHERE id = ?').get(req.params.id);
+  if (!actual) return res.status(404).json({ error: 'Firma no encontrada' });
+  const d = datosFirma(req.body);
+  const invalido = validarFirma(d);
+  if (invalido) return res.status(400).json({ error: invalido });
+  const otra = firmaPorEmail(d.email);
+  if (otra && otra.id !== actual.id) return res.status(409).json({ error: CORREO_DUPLICADO });
+  guardarFirma(actual.id, d, req.user.id);
+  registrarActividad(req, { actor: req.user, accion: 'firma_editar', detalle: `${d.nombre} <${d.email}>` });
+  res.json({ firma: db.prepare(`${SELECT_FIRMA} WHERE f.id = ?`).get(actual.id) });
+});
+
+router.delete('/firmas/:id', requireAdmin, (req, res) => {
+  const actual = db.prepare('SELECT * FROM firmas WHERE id = ?').get(req.params.id);
+  if (!actual) return res.status(404).json({ error: 'Firma no encontrada' });
+  db.prepare('DELETE FROM firmas WHERE id = ?').run(actual.id);
+  registrarActividad(req, { actor: req.user, accion: 'firma_borrar', detalle: `${actual.nombre} <${actual.email}>` });
   res.json({ ok: true });
 });
 

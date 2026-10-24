@@ -430,19 +430,29 @@ db.exec(`
 `)
 db.exec('CREATE INDEX IF NOT EXISTS idx_marca_archivos_pais ON marca_archivos (pais)')
 
-// Últimos datos que cada usuario usó en Admin > Firmas, para no tener que
-// volver a tipearlos. Solo lo propio: no es un directorio del equipo.
+// Registro de firmas de correo (Admin > Firmas). Una ficha por persona,
+// identificada por correo (único, sin distinguir mayúsculas). `user_id` es
+// el dueño cuando la persona tiene cuenta en el hub y generó la suya; las que
+// carga un Admin/Super Admin para alguien sin cuenta quedan con user_id null.
+// Reemplaza a `usuario_firma` (una fila por usuario, sin registro central),
+// que se borró vacía al hacer este cambio.
+db.exec(`DROP TABLE IF EXISTS usuario_firma`)
 db.exec(`
-  CREATE TABLE IF NOT EXISTS usuario_firma (
-    user_id INTEGER PRIMARY KEY REFERENCES users(id),
-    nombre TEXT,
+  CREATE TABLE IF NOT EXISTS firmas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES users(id),
+    nombre TEXT NOT NULL,
     cargo TEXT,
     telefono TEXT,
-    email TEXT,
+    email TEXT NOT NULL,
     pais TEXT,
-    tema TEXT,
+    creado_por INTEGER REFERENCES users(id),
+    actualizado_por INTEGER REFERENCES users(id),
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
 `)
+db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_firmas_email ON firmas (lower(email))')
+db.exec('CREATE INDEX IF NOT EXISTS idx_firmas_user ON firmas (user_id)')
 
 export default db

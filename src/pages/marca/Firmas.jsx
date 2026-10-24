@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
+import { useAuth } from "../../context/AuthContext";
 import { firmaHtml, FIRMA_TEMAS } from "../../../shared/firma";
 
 async function apiFetch(url, options) {
@@ -183,19 +184,37 @@ async function copiarHtml(html, textoPlano) {
 const CAMPOS = [
   { key: "nombre", label: "Nombre y apellido", placeholder: "Ej. Yván Ackerman", required: true },
   { key: "cargo", label: "Cargo", placeholder: "Ej. Director General" },
-  { key: "email", label: "Correo", placeholder: "nombre@mediaudience.com", type: "email" },
+  { key: "email", label: "Correo", placeholder: "nombre@mediaudience.com", type: "email", required: true },
   { key: "telefono", label: "Teléfono", placeholder: "Ej. +593 99 123 4567", type: "tel" },
 ];
 
 const inputClass =
   "w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-magenta";
 
+const VACIA = { nombre: "", cargo: "", telefono: "", email: "", pais: "" };
+
+function formatoFecha(iso) {
+  // updated_at viene en UTC de SQLite ("2026-10-24 15:30:00").
+  return new Date(`${iso.replace(" ", "T")}Z`).toLocaleDateString("es", { day: "2-digit", month: "short", year: "numeric" });
+}
+
 export default function Firmas() {
+  const { user } = useAuth();
+  const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
   const [datos, setDatos] = useState(null);
+  // Qué ficha muestra el formulario: la propia, una nueva (solo staff) o una
+  // del registro que se está editando (solo staff).
+  const [modo, setModo] = useState({ tipo: "mia" });
+  const [registro, setRegistro] = useState([]);
   const [paises, setPaises] = useState([]);
   const [error, setError] = useState("");
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState("");
+
+  async function cargarRegistro() {
+    const res = await apiFetch("/api/marca/firmas");
+    setRegistro(res.firmas);
+  }
 
   useEffect(() => {
     Promise.all([apiFetch("/api/marca/firma"), apiFetch("/api/marca/paises")])
@@ -204,7 +223,8 @@ export default function Firmas() {
         setPaises(p.paises.filter((x) => x.codigo !== "GLOBAL"));
       })
       .catch((err) => setError(err.message));
-  }, []);
+    if (esStaff) cargarRegistro().catch((err) => setError(err.message));
+  }, [esStaff]);
 
   useEffect(() => {
     if (!aviso) return;
@@ -231,15 +251,80 @@ export default function Firmas() {
   }
 
   const set = (key) => (e) => setDatos((d) => ({ ...d, [key]: e.target.value }));
-  const listo = datos.nombre.trim().length > 0;
+  const listo = datos.nombre.trim().length > 0 && datos.email.trim().length > 0;
 
-  // Guardar en segundo plano: que un fallo acá no frene la copia/descarga.
-  const guardar = () =>
-    apiFetch("/api/marca/firma", { method: "PUT", body: JSON.stringify(datos) }).catch(() => {});
+  // Guarda la ficha que está en el formulario donde corresponde según el
+  // modo. Una "nueva" pasa a "editar" apenas se crea, para que el siguiente
+  // guardado no intente crearla otra vez.
+  async function guardar() {
+    const body = JSON.stringify(datos);
+    let res;
+    if (modo.tipo === "mia") res = await apiFetch("/api/marca/firma", { method: "PUT", body });
+    else if (modo.tipo === "nueva") res = await apiFetch("/api/marca/firmas", { method: "POST", body });
+    else res = await apiFetch(`/api/marca/firmas/${modo.id}`, { method: "PUT", body });
+    if (modo.tipo === "nueva") setModo({ tipo: "editar", id: res.firma.id });
+    if (esStaff) await cargarRegistro();
+    return res.firma;
+  }
+
+  async function guardarManual() {
+    if (!listo) {
+      setError("Completa al menos el nombre y el correo.");
+      return;
+    }
+    setError("");
+    setOcupado("guardar");
+    try {
+      await guardar();
+      setAviso("Firma guardada en el registro.");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setOcupado("");
+    }
+  }
+
+  async function verMia() {
+    setError("");
+    setModo({ tipo: "mia" });
+    setDatos((await apiFetch("/api/marca/firma")).firma);
+  }
+
+  function nueva() {
+    setError("");
+    setModo({ tipo: "nueva" });
+    setDatos({ ...VACIA });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function editar(f) {
+    setError("");
+    // La propia se edita como "Mi firma" para que siga ligada al usuario.
+    setModo(f.user_id === user.id ? { tipo: "mia" } : { tipo: "editar", id: f.id });
+    setDatos({ nombre: f.nombre, cargo: f.cargo || "", telefono: f.telefono || "", email: f.email, pais: f.pais || "" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  async function borrar(f) {
+    if (!window.confirm(`¿Eliminar la firma de ${f.nombre}? Sale del registro; quien ya la pegó en su correo la conserva.`)) return;
+    setError("");
+    try {
+      await apiFetch(`/api/marca/firmas/${f.id}`, { method: "DELETE" });
+      if (modo.tipo === "editar" && modo.id === f.id) await verMia();
+      else if (f.user_id === user.id) await verMia();
+      await cargarRegistro();
+      setAviso(`Firma de ${f.nombre} eliminada.`);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  const tituloForm =
+    modo.tipo === "mia" ? "Tus datos" : modo.tipo === "nueva" ? "Nueva firma" : `Editando: ${datos.nombre || "firma"}`;
 
   async function accion(tipo, tema) {
     if (!listo) {
-      setError("Completa al menos tu nombre.");
+      setError("Completa al menos el nombre y el correo.");
       return;
     }
     setError("");
@@ -261,7 +346,9 @@ export default function Firmas() {
         descargar(await firmaPng(datos, tema), `${nombreArchivo(datos.nombre)}${sufijo}.png`);
         setAviso(`Firma ${version} descargada en PNG.`);
       }
-      guardar();
+      // La copia/descarga ya salió; si guardar falla (ej. correo repetido)
+      // solo se avisa, sin deshacer lo que la persona ya tiene.
+      await guardar().catch((err) => setError(`Se generó la firma, pero no se guardó en el registro: ${err.message}`));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -290,7 +377,14 @@ export default function Firmas() {
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] items-start">
         <Card className="p-6" hover={false}>
-          <h2 className="label-mono text-[10.5px] text-gray-500 mb-4">Tus datos</h2>
+          <div className="flex items-baseline justify-between gap-3 mb-4">
+            <h2 className="label-mono text-[10.5px] text-gray-500 truncate">{tituloForm}</h2>
+            {modo.tipo !== "mia" && (
+              <button type="button" onClick={verMia} className="text-xs text-brand-purple hover:underline whitespace-nowrap">
+                Volver a mi firma
+              </button>
+            )}
+          </div>
           <div className="flex flex-col gap-3">
             {CAMPOS.map((c) => (
               <div key={c.key}>
@@ -323,6 +417,19 @@ export default function Firmas() {
                   </option>
                 ))}
               </select>
+            </div>
+            <div className="pt-1">
+              <button
+                type="button"
+                onClick={guardarManual}
+                disabled={!!ocupado}
+                className="text-sm font-medium px-5 py-2.5 rounded-md border border-line text-gray-800 hover:border-brand-purple/50 disabled:opacity-60"
+              >
+                {ocupado === "guardar" ? "Guardando..." : modo.tipo === "nueva" ? "Crear firma" : "Guardar"}
+              </button>
+              <p className="mt-1.5 text-xs text-slate-label">
+                También se guarda sola al copiar o descargar.
+              </p>
             </div>
           </div>
         </Card>
@@ -411,6 +518,72 @@ export default function Firmas() {
           </Card>
         </div>
       </div>
+
+      {esStaff && (
+        <Card className="mt-6 overflow-hidden" hover={false}>
+          <div className="flex flex-wrap items-center justify-between gap-3 p-5 border-b border-line">
+            <div>
+              <h2 className="label-mono text-[10.5px] text-gray-500">
+                Firmas registradas <span className="text-gray-400">· {registro.length}</span>
+              </h2>
+              <p className="mt-1 text-xs text-slate-label">Solo lo ven Admin y Super Admin.</p>
+            </div>
+            <button
+              type="button"
+              onClick={nueva}
+              className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90"
+            >
+              + Nueva firma
+            </button>
+          </div>
+          {registro.length === 0 ? (
+            <p className="p-5 text-sm text-slate-label">Todavía no hay firmas registradas.</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm min-w-[760px]">
+                <thead>
+                  <tr className="bg-surface-2 text-gray-500 text-left label-mono">
+                    <th className="px-4 py-3 font-semibold">Nombre</th>
+                    <th className="px-4 py-3 font-semibold">Cargo</th>
+                    <th className="px-4 py-3 font-semibold">País</th>
+                    <th className="px-4 py-3 font-semibold">Correo</th>
+                    <th className="px-4 py-3 font-semibold">Última edición</th>
+                    <th className="px-4 py-3 font-semibold" />
+                  </tr>
+                </thead>
+                <tbody>
+                  {registro.map((f, i) => {
+                    const activa = (modo.tipo === "editar" && modo.id === f.id) || (modo.tipo === "mia" && f.user_id === user.id);
+                    return (
+                      <tr
+                        key={f.id}
+                        className={`${i % 2 === 0 ? "bg-white" : "bg-slate-50"} ${activa ? "shadow-[inset_2px_0_0_#58b0ff]" : ""}`}
+                      >
+                        <td className="px-4 py-2.5 text-gray-900 font-medium">{f.nombre}</td>
+                        <td className="px-4 py-2.5 text-gray-700">{f.cargo || "—"}</td>
+                        <td className="px-4 py-2.5 text-gray-700">{f.pais || "—"}</td>
+                        <td className="px-4 py-2.5 text-gray-700">{f.email}</td>
+                        <td className="px-4 py-2.5 text-gray-600 text-xs">
+                          {formatoFecha(f.updated_at)}
+                          {f.actualizado_por_nombre && <span className="block text-gray-500">por {f.actualizado_por_nombre}</span>}
+                        </td>
+                        <td className="px-4 py-2.5 text-right whitespace-nowrap">
+                          <button type="button" onClick={() => editar(f)} className="text-brand-purple hover:underline text-sm font-medium mr-4">
+                            Editar
+                          </button>
+                          <button type="button" onClick={() => borrar(f)} className="text-gray-500 hover:text-red-600 text-sm">
+                            Eliminar
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Card>
+      )}
     </div>
   );
 }
