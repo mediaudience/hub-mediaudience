@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
 import EmptyState from "../../components/common/EmptyState";
+import Tabs from "../../components/common/Tabs";
 import { useAuth } from "../../context/AuthContext";
 import { CATEGORIAS_MARCA, PAIS_GLOBAL, MARCA_MAX_MB } from "../../../shared/marca";
 
@@ -57,6 +58,12 @@ function formatoFecha(iso) {
     month: "short",
     year: "numeric",
   });
+}
+
+// Piezas pensadas para fondo claro (logos "-claro", "-mono-negro"): sobre la
+// tarjeta oscura no se verían, así que su miniatura va sobre Paper.
+function fondoClaro(a) {
+  return a.inline && /(-claro|mono-negro)/i.test(a.nombre) && !/fondo-videollamada/i.test(a.nombre);
 }
 
 function extension(nombre) {
@@ -234,7 +241,7 @@ function VistaPrevia({ a, esStaff, onBorrar, onCerrar }) {
             ×
           </button>
         </div>
-        <div className="flex-1 min-h-0 bg-ink-deep flex items-center justify-center">
+        <div className={`flex-1 min-h-0 flex items-center justify-center ${fondoClaro(a) ? "bg-[#E9EDF6]" : "bg-ink-deep"}`}>
           {a.inline ? (
             <img src={url} alt={a.nombre} className="max-w-full max-h-[70vh] object-contain" />
           ) : a.vista ? (
@@ -272,7 +279,9 @@ function TarjetaArchivo({ a, esStaff, onBorrar, onVer, paisNombre }) {
         type="button"
         onClick={() => onVer(a)}
         aria-label={`Vista previa de ${a.nombre}`}
-        className="aspect-[16/9] bg-surface-2 flex items-center justify-center overflow-hidden hover:opacity-90"
+        className={`aspect-[16/9] flex items-center justify-center overflow-hidden hover:opacity-90 ${
+          fondoClaro(a) ? "bg-[#E9EDF6]" : "bg-surface-2"
+        }`}
       >
         {a.inline ? (
           <img src={`/api/marca/archivos/${a.id}/ver?v=${a.tamano}`} alt="" loading="lazy" className="w-full h-full object-contain" />
@@ -308,9 +317,46 @@ function TarjetaArchivo({ a, esStaff, onBorrar, onVer, paisNombre }) {
   );
 }
 
+// Gestor de presentaciones (solo Super Admin): catálogo de productos y armado
+// de la presentación comercial por país. Por ahora reserva su lugar mientras
+// se construye; la base de Perú ya se genera fuera del hub.
+function GestorPresentaciones() {
+  const pasos = [
+    ["Catálogo de productos", "Cada producto (CTV, Mobile Push, programática, gaming o un formato de partner) con sus láminas en estilo Signal."],
+    ["Producto nuevo desde la PPT del partner", "Subes la presentación del partner y el hub arma un borrador del producto en nuestra plantilla para que lo revises."],
+    ["Armar la presentación", "Eliges país, productos y orden, y descargas un .pptx editable con portada, casos y cierre de ese país."],
+  ];
+  return (
+    <Card className="p-6" hover={false}>
+      <p className="label-mono text-[10.5px] text-brand-purple mb-2">En construcción</p>
+      <h2 className="font-display font-semibold text-xl text-gray-900 mb-1">Gestor de presentaciones</h2>
+      <p className="text-sm text-slate-label mb-5 max-w-2xl">
+        Acá vas a armar las presentaciones comerciales de cada país sin rehacerlas a mano. Solo lo ve el Super Admin.
+      </p>
+      <div className="grid gap-3 md:grid-cols-3">
+        {pasos.map(([t, d], i) => (
+          <div key={t} className="rounded-md border border-line bg-ink-deep p-4">
+            <p className="label-mono text-[10px] text-brand-purple mb-2">{String(i + 1).padStart(2, "0")}</p>
+            <p className="font-display font-semibold text-gray-900 mb-1">{t}</p>
+            <p className="text-sm text-gray-600">{d}</p>
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
+}
+
 export default function MaterialComercial() {
   const { user } = useAuth();
   const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
+  const esSuperAdmin = user?.rol === "super_admin";
+  // Pestañas internas, igual que en Campañas: "Línea gráfica" es el
+  // repositorio; "Gestor de presentaciones" solo para Super Admin.
+  const [seccion, setSeccion] = useState("linea");
+  const secciones = [
+    { key: "linea", label: "Línea gráfica", icon: "clip" },
+    ...(esSuperAdmin ? [{ key: "gestor", label: "Gestor de presentaciones", icon: "megaphone" }] : []),
+  ];
   const [paises, setPaises] = useState([]);
   const [archivos, setArchivos] = useState([]);
   // País elegido ("" = todos, que es como arranca la página).
@@ -398,7 +444,13 @@ export default function MaterialComercial() {
         </div>
       )}
 
-      {loading ? (
+      <div className="mb-6">
+        <Tabs tabs={secciones} active={seccion} onChange={setSeccion} />
+      </div>
+
+      {seccion === "gestor" && esSuperAdmin ? (
+        <GestorPresentaciones />
+      ) : loading ? (
         <Spinner label="Cargando material..." />
       ) : (
         <>
