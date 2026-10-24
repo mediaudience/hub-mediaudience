@@ -196,16 +196,85 @@ function FormSubida({ paises, paisActual, onSubido }) {
   );
 }
 
-function TarjetaArchivo({ a, esStaff, onBorrar }) {
+// Vista previa en grande: imagen o PDF dentro del hub; el resto (ZIP, PPT...)
+// muestra la ficha con su descarga, porque el navegador no puede abrirlos.
+function VistaPrevia({ a, esStaff, onBorrar, onCerrar }) {
+  useEffect(() => {
+    const alTeclear = (e) => e.key === "Escape" && onCerrar();
+    window.addEventListener("keydown", alTeclear);
+    return () => window.removeEventListener("keydown", alTeclear);
+  }, [onCerrar]);
+  const url = `/api/marca/archivos/${a.id}/ver?v=${a.tamano}`;
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Vista previa de ${a.nombre}`}
+      className="fixed inset-0 z-50 bg-black/75 flex items-center justify-center p-4"
+      onClick={onCerrar}
+    >
+      <div
+        className="w-full max-w-5xl max-h-full flex flex-col rounded-md border border-line bg-surface overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-line">
+          <div className="min-w-0">
+            <p className="text-sm font-medium text-gray-900 truncate">{a.nombre}</p>
+            <p className="label-mono text-[10px] text-gray-500">
+              {formatoTamano(a.tamano)} · {formatoFecha(a.created_at)}
+              {a.subido_por_nombre && ` · ${a.subido_por_nombre}`}
+            </p>
+          </div>
+          <button type="button" onClick={onCerrar} aria-label="Cerrar" className="text-gray-500 hover:text-gray-900 text-xl leading-none px-2">
+            ×
+          </button>
+        </div>
+        <div className="flex-1 min-h-0 bg-ink-deep flex items-center justify-center">
+          {a.inline ? (
+            <img src={url} alt={a.nombre} className="max-w-full max-h-[70vh] object-contain" />
+          ) : a.vista ? (
+            <iframe src={url} title={a.nombre} className="w-full h-[70vh] bg-white" />
+          ) : (
+            <div className="py-16 text-center">
+              <p className="font-mono text-2xl tracking-widest text-brand-purple">{extension(a.nombre)}</p>
+              <p className="mt-2 text-sm text-slate-label">Este tipo de archivo no se puede ver en el navegador. Descárgalo para abrirlo.</p>
+            </div>
+          )}
+        </div>
+        {a.descripcion && <p className="px-4 pt-3 text-sm text-gray-700">{a.descripcion}</p>}
+        <div className="flex items-center gap-3 px-4 py-3">
+          <a
+            href={`/api/marca/archivos/${a.id}/descargar`}
+            className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90"
+          >
+            Descargar
+          </a>
+          {esStaff && (
+            <button type="button" onClick={() => onBorrar(a)} className="text-sm text-gray-500 hover:text-red-600">
+              Borrar
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TarjetaArchivo({ a, esStaff, onBorrar, onVer }) {
   return (
     <div className="flex flex-col rounded-md border border-line bg-ink-deep overflow-hidden">
-      <div className="aspect-[16/9] bg-surface-2 flex items-center justify-center overflow-hidden">
+      <button
+        type="button"
+        onClick={() => onVer(a)}
+        aria-label={`Vista previa de ${a.nombre}`}
+        className="aspect-[16/9] bg-surface-2 flex items-center justify-center overflow-hidden hover:opacity-90"
+      >
         {a.inline ? (
-          <img src={`/api/marca/archivos/${a.id}/ver`} alt="" loading="lazy" className="w-full h-full object-contain" />
+          <img src={`/api/marca/archivos/${a.id}/ver?v=${a.tamano}`} alt="" loading="lazy" className="w-full h-full object-contain" />
         ) : (
           <span className="font-mono text-sm tracking-widest text-brand-purple">{extension(a.nombre)}</span>
         )}
-      </div>
+      </button>
       <div className="p-3 flex flex-col gap-1 flex-1">
         <p className="text-sm font-medium text-gray-900 break-words">{a.nombre}</p>
         {a.descripcion && <p className="text-xs text-gray-600">{a.descripcion}</p>}
@@ -219,8 +288,11 @@ function TarjetaArchivo({ a, esStaff, onBorrar }) {
           >
             Descargar
           </a>
+          <button type="button" onClick={() => onVer(a)} className="text-xs font-medium text-brand-purple hover:underline">
+            Vista previa
+          </button>
           {esStaff && (
-            <button type="button" onClick={() => onBorrar(a)} className="text-xs text-gray-500 hover:text-red-600">
+            <button type="button" onClick={() => onBorrar(a)} className="ml-auto text-xs text-gray-500 hover:text-red-600">
               Borrar
             </button>
           )}
@@ -236,6 +308,9 @@ export default function MaterialComercial() {
   const [paises, setPaises] = useState([]);
   const [archivos, setArchivos] = useState([]);
   const [tab, setTab] = useState(null);
+  // Filtro por categoría dentro del país elegido ("" = todas).
+  const [categoria, setCategoria] = useState("");
+  const [viendo, setViendo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -262,7 +337,7 @@ export default function MaterialComercial() {
     return c;
   }, [archivos]);
 
-  const grupos = useMemo(
+  const gruposDelPais = useMemo(
     () =>
       CATEGORIAS_MARCA.map((cat) => ({
         ...cat,
@@ -270,12 +345,20 @@ export default function MaterialComercial() {
       })).filter((g) => g.items.length > 0),
     [archivos, tab]
   );
+  const totalDelPais = gruposDelPais.reduce((n, g) => n + g.items.length, 0);
+  const grupos = categoria ? gruposDelPais.filter((g) => g.codigo === categoria) : gruposDelPais;
+
+  function elegirPais(codigo) {
+    setTab(codigo);
+    setCategoria("");
+  }
 
   async function borrar(a) {
     if (!window.confirm(`¿Borrar "${a.nombre}"? Nadie podrá volver a descargarlo.`)) return;
     setError("");
     try {
       await apiFetch(`/api/marca/archivos/${a.id}`, { method: "DELETE" });
+      setViendo(null);
       await cargar();
     } catch (err) {
       setError(err.message);
@@ -283,7 +366,7 @@ export default function MaterialComercial() {
   }
 
   async function onSubido(pais) {
-    if (pais) setTab(pais);
+    if (pais) elegirPais(pais);
     await cargar().catch((err) => setError(err.message));
   }
 
@@ -321,7 +404,7 @@ export default function MaterialComercial() {
                   type="button"
                   role="tab"
                   aria-selected={activo}
-                  onClick={() => setTab(p.codigo)}
+                  onClick={() => elegirPais(p.codigo)}
                   className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm border transition-colors ${
                     activo
                       ? "bg-brand-purple/10 border-brand-purple/60 text-gray-900"
@@ -336,6 +419,33 @@ export default function MaterialComercial() {
               );
             })}
           </div>
+
+          {gruposDelPais.length > 1 && (
+            <div role="group" aria-label="Categoría" className="flex flex-wrap items-center gap-1.5 mb-6">
+              <span className="label-mono text-[10px] text-gray-500 mr-1">Categoría</span>
+              {[{ codigo: "", nombre: "Todas", n: totalDelPais }, ...gruposDelPais.map((g) => ({ ...g, n: g.items.length }))].map(
+                (c) => {
+                  const activa = c.codigo === categoria;
+                  return (
+                    <button
+                      key={c.codigo || "todas"}
+                      type="button"
+                      aria-pressed={activa}
+                      onClick={() => setCategoria(c.codigo)}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs border transition-colors ${
+                        activa
+                          ? "bg-brand-purple text-on-accent border-brand-purple font-medium"
+                          : "border-line text-gray-600 hover:text-gray-900 hover:border-brand-purple/35"
+                      }`}
+                    >
+                      {c.nombre}
+                      <span className={`font-mono text-[10px] ${activa ? "text-on-accent/70" : "text-gray-400"}`}>{c.n}</span>
+                    </button>
+                  );
+                }
+              )}
+            </div>
+          )}
 
           {grupos.length === 0 ? (
             <Card hover={false}>
@@ -356,7 +466,7 @@ export default function MaterialComercial() {
                   </h2>
                   <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
                     {g.items.map((a) => (
-                      <TarjetaArchivo key={a.id} a={a} esStaff={esStaff} onBorrar={borrar} />
+                      <TarjetaArchivo key={a.id} a={a} esStaff={esStaff} onBorrar={borrar} onVer={setViendo} />
                     ))}
                   </div>
                 </section>
@@ -365,6 +475,7 @@ export default function MaterialComercial() {
           )}
         </>
       )}
+      {viendo && <VistaPrevia a={viendo} esStaff={esStaff} onBorrar={borrar} onCerrar={() => setViendo(null)} />}
     </div>
   );
 }

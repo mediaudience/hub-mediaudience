@@ -20,6 +20,10 @@ const MAX_BYTES = MARCA_MAX_MB * 1024 * 1024;
 // Solo estos tipos se sirven inline (miniaturas). SVG queda afuera a
 // propósito: inline en el mismo origen podría ejecutar scripts.
 const MIME_INLINE = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
+// Vista previa (Admin > Material Comercial): además de las imágenes, el PDF
+// se abre en el visor del navegador, que lo aísla del resto de la página.
+const MIME_VISTA = [...MIME_INLINE, 'application/pdf'];
+const ficha = (a) => ({ ...a, inline: MIME_INLINE.includes(a.mime), vista: MIME_VISTA.includes(a.mime) });
 
 const router = Router();
 router.use(requireUser);
@@ -174,7 +178,7 @@ const SELECT_ARCHIVO = `
 
 router.get('/archivos', (req, res) => {
   const archivos = db.prepare(`${SELECT_ARCHIVO} ORDER BY a.created_at DESC, a.id DESC`).all();
-  res.json({ archivos: archivos.map((a) => ({ ...a, inline: MIME_INLINE.includes(a.mime) })) });
+  res.json({ archivos: archivos.map(ficha) });
 });
 
 // El cuerpo es el archivo crudo (fetch con body = File), no multipart: evita
@@ -232,7 +236,7 @@ router.post('/archivos', requireAdmin, async (req, res, next) => {
       .run(pais, categoria, nombre, descripcion, archivo, mime, tamano, req.user.id);
     registrarActividad(req, { actor: req.user, accion: 'marca_subir', detalle: `${nombre} (${pais}, ${categoria})` });
     const creado = db.prepare(`${SELECT_ARCHIVO} WHERE a.id = ?`).get(lastInsertRowid);
-    res.status(201).json({ archivo: { ...creado, inline: MIME_INLINE.includes(creado.mime) } });
+    res.status(201).json({ archivo: ficha(creado) });
   } catch (err) {
     await rm(destino, { force: true });
     if (err.status === 413) return res.status(413).json({ error: `El archivo supera el máximo de ${MARCA_MAX_MB} MB` });
@@ -255,7 +259,7 @@ router.get('/archivos/:id/descargar', (req, res, next) => {
 
 router.get('/archivos/:id/ver', (req, res, next) => {
   const a = buscarArchivo(req.params.id);
-  if (!a || !MIME_INLINE.includes(a.mime)) return res.status(404).json({ error: 'Archivo no encontrado' });
+  if (!a || !MIME_VISTA.includes(a.mime)) return res.status(404).json({ error: 'Archivo no encontrado' });
   res.set('X-Content-Type-Options', 'nosniff');
   res.set('Cache-Control', 'private, max-age=86400');
   res.type(a.mime).sendFile(path.join(MARCA_DIR, a.archivo), (err) => {
