@@ -99,6 +99,22 @@ textarea {
   color-scheme: dark;
 }
 
+/* La lista desplegable nativa de <select> (sobre todo Chrome/Edge en
+   Windows) toma el fondo del select: si es transparente cae a blanco y
+   hereda el texto claro del hub, ilegible. Se fija fondo y texto oscuros. */
+select {
+  background-color: var(--color-surface);
+  color: var(--color-gray-900);
+}
+select option,
+select optgroup {
+  background-color: var(--color-surface);
+  color: var(--color-gray-900);
+}
+select option:checked {
+  background-color: var(--color-surface-2);
+}
+
 * {
   box-sizing: border-box;
 }
