@@ -714,8 +714,8 @@
     "mes": "Octubre",
     "formato": "Display Programático",
     "ubicacion": "Provincia del Guayas",
-    "impresionesTotales": 18576,
-    "clicsTotales": 109,
+    "impresionesTotales": 23107,
+    "clicsTotales": 136,
     "ctr": 0.59,
     "cliente": "EC_La Destilería"
   },
@@ -1326,9 +1326,9 @@
     "mes": "Octubre",
     "formato": "Display Programático",
     "ubicacion": "Ecuador",
-    "impresionesTotales": 298713,
-    "clicsTotales": 819,
-    "ctr": 0.27,
+    "impresionesTotales": 374570,
+    "clicsTotales": 1047,
+    "ctr": 0.28,
     "cliente": "EC_Alimentos Real"
   }
 ]
