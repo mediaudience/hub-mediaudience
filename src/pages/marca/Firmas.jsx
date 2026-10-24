@@ -315,6 +315,8 @@ export default function Firmas() {
               </label>
               <select id="firma-pais" value={datos.pais ?? ""} onChange={set("pais")} className={inputClass}>
                 <option value="">Sin país (solo "Mediaudience")</option>
+                {/* Latam = corporativo regional, no es un país del catálogo. */}
+                <option value="Latam">Latam (corporativo)</option>
                 {paises.map((p) => (
                   <option key={p.codigo} value={p.nombre}>
                     {p.nombre}
