@@ -67,7 +67,7 @@ function extension(nombre) {
 const inputClass =
   "w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-magenta";
 
-function FormSubida({ paises, paisActual, onSubido }) {
+function FormSubida({ paises, paisActual, onSubido, onCerrar }) {
   const [archivos, setArchivos] = useState([]);
   const [pais, setPais] = useState(paisActual);
   const [categoria, setCategoria] = useState(CATEGORIAS_MARCA[0].codigo);
@@ -107,7 +107,12 @@ function FormSubida({ paises, paisActual, onSubido }) {
 
   return (
     <Card className="p-6 mb-6" hover={false}>
-      <h2 className="label-mono text-[10.5px] text-gray-500 mb-1">Subir material</h2>
+      <div className="flex items-baseline justify-between gap-3 mb-1">
+        <h2 className="label-mono text-[10.5px] text-gray-500">Subir material</h2>
+        <button type="button" onClick={onCerrar} className="text-xs text-gray-500 hover:text-gray-900">
+          Cerrar
+        </button>
+      </div>
       <p className="text-sm text-slate-label mb-4">
         Solo Admin y Super Admin pueden subir o borrar. Máximo {MARCA_MAX_MB} MB por archivo.
       </p>
@@ -260,7 +265,7 @@ function VistaPrevia({ a, esStaff, onBorrar, onCerrar }) {
   );
 }
 
-function TarjetaArchivo({ a, esStaff, onBorrar, onVer }) {
+function TarjetaArchivo({ a, esStaff, onBorrar, onVer, paisNombre }) {
   return (
     <div className="flex flex-col rounded-md border border-line bg-ink-deep overflow-hidden">
       <button
@@ -279,6 +284,7 @@ function TarjetaArchivo({ a, esStaff, onBorrar, onVer }) {
         <p className="text-sm font-medium text-gray-900 break-words">{a.nombre}</p>
         {a.descripcion && <p className="text-xs text-gray-600">{a.descripcion}</p>}
         <p className="label-mono text-[10px] text-gray-500 mt-auto pt-1">
+          {paisNombre && <span className="text-brand-purple">{paisNombre} · </span>}
           {formatoTamano(a.tamano)} · {formatoFecha(a.created_at)}
         </p>
         <div className="flex items-center gap-3 pt-2">
@@ -307,7 +313,9 @@ export default function MaterialComercial() {
   const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
   const [paises, setPaises] = useState([]);
   const [archivos, setArchivos] = useState([]);
-  const [tab, setTab] = useState(null);
+  // País elegido ("" = todos, que es como arranca la página).
+  const [tab, setTab] = useState("");
+  const [subiendo, setSubiendo] = useState(false);
   // Filtro por categoría dentro del país elegido ("" = todas).
   const [categoria, setCategoria] = useState("");
   const [viendo, setViendo] = useState(null);
@@ -324,8 +332,6 @@ export default function MaterialComercial() {
       .then(([p, a]) => {
         setPaises(p.paises);
         setArchivos(a.archivos);
-        // Arranca en el país del usuario si tiene uno; si no, en Global.
-        setTab(p.paises.some((x) => x.codigo === user?.pais) ? user.pais : PAIS_GLOBAL.codigo);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -341,7 +347,7 @@ export default function MaterialComercial() {
     () =>
       CATEGORIAS_MARCA.map((cat) => ({
         ...cat,
-        items: archivos.filter((a) => a.pais === tab && a.categoria === cat.codigo),
+        items: archivos.filter((a) => (!tab || a.pais === tab) && a.categoria === cat.codigo),
       })).filter((g) => g.items.length > 0),
     [archivos, tab]
   );
@@ -366,7 +372,10 @@ export default function MaterialComercial() {
   }
 
   async function onSubido(pais) {
-    if (pais) elegirPais(pais);
+    if (pais) {
+      elegirPais(pais);
+      setSubiendo(false);
+    }
     await cargar().catch((err) => setError(err.message));
   }
 
@@ -393,14 +402,34 @@ export default function MaterialComercial() {
         <Spinner label="Cargando material..." />
       ) : (
         <>
-          {esStaff && tab && <FormSubida paises={paises} paisActual={tab} onSubido={onSubido} />}
+          {/* Plegado por defecto: abierto, sus selectores de País/Categoría se
+              confundían con los filtros de la lista (2026-10-24). */}
+          {esStaff &&
+            (subiendo ? (
+              <FormSubida
+                paises={paises}
+                paisActual={tab || PAIS_GLOBAL.codigo}
+                onSubido={onSubido}
+                onCerrar={() => setSubiendo(false)}
+              />
+            ) : (
+              <div className="mb-5 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setSubiendo(true)}
+                  className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90"
+                >
+                  + Subir material
+                </button>
+              </div>
+            ))}
 
           <div role="tablist" aria-label="País" className="flex flex-wrap gap-2 mb-5">
-            {paises.map((p) => {
+            {[{ codigo: "", nombre: "Todos" }, ...paises].map((p) => {
               const activo = p.codigo === tab;
               return (
                 <button
-                  key={p.codigo}
+                  key={p.codigo || "todos"}
                   type="button"
                   role="tab"
                   aria-selected={activo}
@@ -413,14 +442,14 @@ export default function MaterialComercial() {
                 >
                   {p.nombre}
                   <span className={`font-mono text-[11px] ${activo ? "text-brand-purple" : "text-gray-400"}`}>
-                    {conteo[p.codigo] || 0}
+                    {p.codigo ? conteo[p.codigo] || 0 : archivos.length}
                   </span>
                 </button>
               );
             })}
           </div>
 
-          {gruposDelPais.length > 1 && (
+          {gruposDelPais.length > 0 && (
             <div role="group" aria-label="Categoría" className="flex flex-wrap items-center gap-1.5 mb-6">
               <span className="label-mono text-[10px] text-gray-500 mr-1">Categoría</span>
               {[{ codigo: "", nombre: "Todas", n: totalDelPais }, ...gruposDelPais.map((g) => ({ ...g, n: g.items.length }))].map(
@@ -452,8 +481,8 @@ export default function MaterialComercial() {
               <EmptyState
                 message={
                   esStaff
-                    ? "Todavía no hay material para este país. Súbelo desde el formulario de arriba."
-                    : "Todavía no hay material para este país."
+                    ? "Todavía no hay material con este filtro. Súbelo con «+ Subir material»."
+                    : "Todavía no hay material con este filtro."
                 }
               />
             </Card>
@@ -466,7 +495,14 @@ export default function MaterialComercial() {
                   </h2>
                   <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
                     {g.items.map((a) => (
-                      <TarjetaArchivo key={a.id} a={a} esStaff={esStaff} onBorrar={borrar} onVer={setViendo} />
+                      <TarjetaArchivo
+                        key={a.id}
+                        a={a}
+                        esStaff={esStaff}
+                        onBorrar={borrar}
+                        onVer={setViendo}
+                        paisNombre={tab ? null : paises.find((x) => x.codigo === a.pais)?.nombre}
+                      />
                     ))}
                   </div>
                 </section>
