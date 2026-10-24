@@ -20,6 +20,8 @@ import CampanasServidas from "./pages/gestion/CampanasServidas";
 import Facturacion from "./pages/gestion/Facturacion";
 import CanalRendimientoGeneral from "./pages/CanalRendimientoGeneral";
 import Home from "./pages/Home";
+import Firmas from "./pages/marca/Firmas";
+import MaterialComercial from "./pages/marca/MaterialComercial";
 
 export default function App() {
   return (
@@ -42,6 +44,10 @@ export default function App() {
                 entran acá -- antes vivía bajo RequireAdmin, que se lo bloqueaba a
                 cualquier usuario_interno sin importar su perfil. */}
             <Route path="gestion/metas-comerciales" element={<EnDesarrollo titulo="Metas Comerciales" />} />
+            {/* Bajo Administración en el menú, pero abiertas a usuario_interno
+                (socios/equipo por país) -- ver internoVisible en navConfig.js. */}
+            <Route path="admin/firmas" element={<Firmas />} />
+            <Route path="admin/material-comercial" element={<MaterialComercial />} />
           </Route>
 
           <Route element={<RequireAdmin />}>

@@ -26,7 +26,11 @@ export default function useNavGroups() {
 
   const adminGroup = {
     ...ADMIN_NAV_GROUP,
-    items: ADMIN_NAV_GROUP.items.filter((i) => !i.superAdminOnly || user?.rol === "super_admin"),
+    items: esStaff
+      ? ADMIN_NAV_GROUP.items.filter((i) => !i.superAdminOnly || user?.rol === "super_admin")
+      : esInterno
+      ? ADMIN_NAV_GROUP.items.filter((i) => i.internoVisible)
+      : [],
   };
 
   const gestionItems = esStaff
@@ -39,7 +43,7 @@ export default function useNavGroups() {
   const groups = [
     ...(campanasItems.length > 0 ? [campanasGroup] : []),
     ...(gestionItems.length > 0 ? [gestionGroup] : []),
-    ...(esStaff ? [adminGroup] : []),
+    ...(adminGroup.items.length > 0 ? [adminGroup] : []),
   ];
 
   return { groups, campanasGroup, gestionGroup, adminGroup, esStaff, canalesContratados };

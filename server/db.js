@@ -409,4 +409,40 @@ db.exec(`
 `)
 db.exec('CREATE INDEX IF NOT EXISTS idx_prospecto_actividades_prospecto ON prospecto_actividades (prospecto_id)')
 
+// Material Comercial (Admin > Material Comercial): repositorio de línea
+// gráfica por país. El binario vive en disco (MARCA_DIR, ver
+// server/marcaRoutes.js), fuera del repo y del build -- acá solo la ficha.
+// `pais` es 'GLOBAL' o un código del catálogo `paises`, sin FOREIGN KEY por
+// el mismo criterio de columna-etiqueta que `prospectos.pais`.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS marca_archivos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pais TEXT NOT NULL,
+    categoria TEXT NOT NULL,
+    nombre TEXT NOT NULL,
+    descripcion TEXT,
+    archivo TEXT NOT NULL UNIQUE,
+    mime TEXT,
+    tamano INTEGER NOT NULL,
+    subido_por INTEGER REFERENCES users(id),
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`)
+db.exec('CREATE INDEX IF NOT EXISTS idx_marca_archivos_pais ON marca_archivos (pais)')
+
+// Últimos datos que cada usuario usó en Admin > Firmas, para no tener que
+// volver a tipearlos. Solo lo propio: no es un directorio del equipo.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS usuario_firma (
+    user_id INTEGER PRIMARY KEY REFERENCES users(id),
+    nombre TEXT,
+    cargo TEXT,
+    telefono TEXT,
+    email TEXT,
+    pais TEXT,
+    tema TEXT,
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`)
+
 export default db

@@ -5,6 +5,9 @@
 
 // Solo visible para rol admin -- Sidebar lo agrega aparte de los canales.
 // "Servicios" además requiere super_admin (ver superAdminOnly en Sidebar.jsx).
+// Firmas y Material Comercial (`internoVisible`) también los ve
+// usuario_interno: son para socios y equipo de cada país, no solo staff
+// (ver useNavGroups.js).
 export const ADMIN_NAV_GROUP = {
   id: "admin",
   label: "Administración",
@@ -16,6 +19,8 @@ export const ADMIN_NAV_GROUP = {
     { label: "Etapas de Prospección", path: "/admin/etapas-prospeccion", superAdminOnly: true },
     { label: "Actividad", path: "/admin/actividad", superAdminOnly: true },
     { label: "Sheets de Gestión", path: "/admin/gestion-sheets" },
+    { label: "Firmas", path: "/admin/firmas", internoVisible: true },
+    { label: "Material Comercial", path: "/admin/material-comercial", internoVisible: true },
   ],
 };
 
