@@ -206,6 +206,8 @@ async function generar(pais, config, user, req) {
     await correr('pdftoppm', ['-jpeg', '-jpegopt', 'quality=90', '-scale-to-x', '2560', '-scale-to-y', '-1',
       path.join(tmp, 'presentacion.pdf'), path.join(tmp, 'l')]);
     await rm(path.join(tmp, 'presentacion.pdf'), { force: true });
+    // Paquete para presentar sin internet (ZIP con un reproductor HTML, las láminas y los videos).
+    await correr(PYTHON, ['paquete_offline.py', tmp, `Mediaudience ${pais.nombre}`], { cwd: DECK_DIR });
     await rm(json, { force: true });
     const laminas = (await readdir(tmp)).filter((f) => /^l-\d+\.jpg$/.test(f)).length;
     await writeFile(path.join(tmp, 'meta.json'), JSON.stringify({
@@ -312,6 +314,15 @@ router.get('/:pais/vista/:tipo/video/:archivo', (req, res, next) => {
   res.type('video/mp4').sendFile(path.join(dirVista(pais.codigo, tipo), 'videos', archivo), (err) => {
     if (err && !res.headersSent) next(err);
   });
+});
+
+router.get('/:pais/vista/:tipo/offline', (req, res, next) => {
+  const pais = paisValido(req.params.pais);
+  if (!pais || !['borrador', 'publicada'].includes(req.params.tipo)) return res.status(404).json({ error: 'No encontrado' });
+  res.download(path.join(dirVista(pais.codigo, req.params.tipo), 'offline.zip'),
+    `Mediaudience_${pais.codigo}_presentar_sin_internet.zip`, (err) => {
+      if (err && !res.headersSent) res.status(404).json({ error: 'Todavía no hay paquete sin internet: vuelve a generar la presentación.' });
+    });
 });
 
 router.get('/:pais/borrador/descargar', (req, res, next) => {

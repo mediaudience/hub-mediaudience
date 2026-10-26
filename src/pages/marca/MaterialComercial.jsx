@@ -681,7 +681,7 @@ function VideoLamina({ src, v, todos }) {
           setAndando(false);
         } else play();
       }}>
-      <video ref={ref} src={src} loop playsInline preload="auto" className="w-full h-full object-fill" />
+      <video ref={ref} src={src} loop playsInline preload="auto" className="w-full h-full object-cover" />
       {v.audio && (
         // Control de volumen (solo en los videos que traen sonido).
         <div onClick={(e) => e.stopPropagation()}
@@ -920,6 +920,13 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
                         className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md bg-brand-purple/15 text-brand-purple border border-brand-purple/50 hover:bg-brand-purple/25">
                         ▶ Presentar
                       </button>
+                    ) : null}
+                    {m?.laminas ? (
+                      <a href={`/api/presentaciones/${pais}/vista/${clave}/offline`}
+                        title="ZIP con las láminas, los videos y un archivo presentar.html que se abre sin internet"
+                        className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md border border-line text-gray-900 hover:border-brand-purple/50">
+                        ⬇ Para presentar sin internet
+                      </a>
                     ) : null}
                   </h3>
                   {m?.laminas ? (
