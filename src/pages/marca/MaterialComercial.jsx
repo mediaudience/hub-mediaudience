@@ -660,6 +660,14 @@ function GestorPresentaciones({ paisInicial, onVerVista }) {
 function VideoLamina({ src, v, todos }) {
   const ref = useRef(null);
   const [andando, setAndando] = useState(false);
+  const [volumen, setVolumen] = useState(0.8);
+  const cambiarVolumen = (x) => {
+    setVolumen(x);
+    if (ref.current) {
+      ref.current.volume = x;
+      ref.current.muted = x === 0;
+    }
+  };
   const play = () => ref.current?.play().then(() => setAndando(true)).catch(() => {});
   useEffect(() => {
     if (todos > 0) play();
@@ -674,6 +682,18 @@ function VideoLamina({ src, v, todos }) {
         } else play();
       }}>
       <video ref={ref} src={src} loop playsInline preload="auto" className="w-full h-full object-fill" />
+      {v.audio && (
+        // Control de volumen (solo en los videos que traen sonido).
+        <div onClick={(e) => e.stopPropagation()}
+          className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-white">
+          <button type="button" aria-label={volumen === 0 ? "Activar sonido" : "Silenciar"} className="text-base leading-none"
+            onClick={() => cambiarVolumen(volumen === 0 ? 0.8 : 0)}>
+            {volumen === 0 ? "🔇" : "🔊"}
+          </button>
+          <input type="range" min="0" max="1" step="0.05" value={volumen} aria-label="Volumen"
+            onChange={(e) => cambiarVolumen(Number(e.target.value))} className="w-20 accent-[#58b0ff]" />
+        </div>
+      )}
       {!andando && (
         <span className="absolute inset-0 flex items-center justify-center">
           <span className="w-14 h-14 rounded-full bg-[#58b0ff]/90 text-[#040b17] flex items-center justify-center text-2xl shadow-lg">▶</span>
