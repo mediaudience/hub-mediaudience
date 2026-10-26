@@ -3,6 +3,7 @@ import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
 import { useAuth } from "../../context/AuthContext";
 import { firmaHtml, FIRMA_TEMAS } from "../../../shared/firma";
+import { gestionaFirmas, paisFirmasManager } from "../../../shared/marca";
 
 async function apiFetch(url, options) {
   const res = await fetch(url, {
@@ -200,7 +201,8 @@ function formatoFecha(iso) {
 
 export default function Firmas() {
   const { user } = useAuth();
-  const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
+  // Registro de firmas: Admin, Super Admin y Manager de país.
+  const esStaff = gestionaFirmas(user);
   const [datos, setDatos] = useState(null);
   // Qué ficha muestra el formulario: la propia, una nueva (solo staff) o una
   // del registro que se está editando (solo staff).
@@ -208,6 +210,9 @@ export default function Firmas() {
   const [registro, setRegistro] = useState([]);
   const [paises, setPaises] = useState([]);
   const [error, setError] = useState("");
+  // Manager de país: las fichas que crea o edita del registro quedan fijas
+  // en su país (el backend lo fuerza igual).
+  const paisFijo = paises.find((p) => p.codigo === paisFirmasManager(user))?.nombre || "";
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState("");
 
@@ -293,7 +298,7 @@ export default function Firmas() {
   function nueva() {
     setError("");
     setModo({ tipo: "nueva" });
-    setDatos({ ...VACIA });
+    setDatos({ ...VACIA, pais: paisFijo });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -413,7 +418,13 @@ export default function Firmas() {
               <label htmlFor="firma-pais" className="block text-sm font-medium text-gray-700 mb-1.5">
                 País
               </label>
-              <select id="firma-pais" value={datos.pais ?? ""} onChange={set("pais")} className={inputClass}>
+              <select
+                id="firma-pais"
+                value={datos.pais ?? ""}
+                onChange={set("pais")}
+                disabled={!!paisFijo && modo.tipo !== "mia"}
+                className={inputClass}
+              >
                 <option value="">Sin país (solo "Mediaudience")</option>
                 {/* Latam = corporativo regional, no es un país del catálogo. */}
                 <option value="Latam">Latam (corporativo)</option>

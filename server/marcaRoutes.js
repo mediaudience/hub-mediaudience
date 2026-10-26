@@ -5,7 +5,7 @@ import { createWriteStream } from 'node:fs';
 import { mkdir, rm } from 'node:fs/promises';
 import { requireUser, requireAdmin } from './middleware.js';
 import { registrarActividad } from './activityLog.js';
-import { CATEGORIAS_MARCA, PAIS_GLOBAL, MARCA_MAX_MB } from '../shared/marca.js';
+import { CATEGORIAS_MARCA, PAIS_GLOBAL, MARCA_MAX_MB, gestionaFirmas, paisFirmasManager } from '../shared/marca.js';
 import db from './db.js';
 
 // Admin > Firmas y Admin > Material Comercial. Lo ven Admin/Super Admin y
@@ -93,6 +93,23 @@ function crearFirma(d, { userId = null, actorId }) {
 
 const CORREO_DUPLICADO = 'Ya hay una firma registrada con ese correo.';
 
+function requireGestionFirmas(req, res, next) {
+  if (!gestionaFirmas(req.user)) return res.status(403).json({ error: 'No autorizado' });
+  // Manager de país: todo el registro queda acotado a su país (firmas.pais
+  // guarda el nombre, igual que el selector de la página).
+  const codigo = paisFirmasManager(req.user);
+  if (codigo) {
+    req.paisFirmas = db.prepare('SELECT nombre FROM paises WHERE codigo = ?').get(codigo)?.nombre;
+    if (!req.paisFirmas) return res.status(403).json({ error: 'No autorizado' });
+  }
+  next();
+}
+
+// Un Manager solo toca fichas de su país (o la suya propia).
+function fueraDeAlcance(req, firma) {
+  return req.paisFirmas && firma.pais !== req.paisFirmas && firma.user_id !== req.user.id;
+}
+
 // Mi firma: la que cada usuario genera para sí mismo (socios incluidos).
 router.get('/firma', (req, res) => {
   const mia = db.prepare(`${SELECT_FIRMA} WHERE f.user_id = ?`).get(req.user.id);
@@ -129,14 +146,18 @@ router.put('/firma', (req, res) => {
   res.json({ firma: db.prepare(`${SELECT_FIRMA} WHERE f.id = ?`).get(id) });
 });
 
-// Registro completo: solo Admin/Super Admin ven, crean, editan y borran
-// firmas de cualquiera (pedido de Jose 2026-10-24).
-router.get('/firmas', requireAdmin, (req, res) => {
-  res.json({ firmas: db.prepare(`${SELECT_FIRMA} ORDER BY f.nombre COLLATE NOCASE`).all() });
+// Registro: Admin/Super Admin ven, crean, editan y borran firmas de
+// cualquiera; los Manager, solo las de su país (gestionaFirmas en shared/marca.js).
+router.get('/firmas', requireGestionFirmas, (req, res) => {
+  const firmas = req.paisFirmas
+    ? db.prepare(`${SELECT_FIRMA} WHERE f.pais = ? OR f.user_id = ? ORDER BY f.nombre COLLATE NOCASE`).all(req.paisFirmas, req.user.id)
+    : db.prepare(`${SELECT_FIRMA} ORDER BY f.nombre COLLATE NOCASE`).all();
+  res.json({ firmas });
 });
 
-router.post('/firmas', requireAdmin, (req, res) => {
+router.post('/firmas', requireGestionFirmas, (req, res) => {
   const d = datosFirma(req.body);
+  if (req.paisFirmas) d.pais = req.paisFirmas;
   const invalido = validarFirma(d);
   if (invalido) return res.status(400).json({ error: invalido });
   if (firmaPorEmail(d.email)) return res.status(409).json({ error: CORREO_DUPLICADO });
@@ -148,10 +169,11 @@ router.post('/firmas', requireAdmin, (req, res) => {
   res.status(201).json({ firma: db.prepare(`${SELECT_FIRMA} WHERE f.id = ?`).get(id) });
 });
 
-router.put('/firmas/:id', requireAdmin, (req, res) => {
+router.put('/firmas/:id', requireGestionFirmas, (req, res) => {
   const actual = db.prepare('SELECT * FROM firmas WHERE id = ?').get(req.params.id);
-  if (!actual) return res.status(404).json({ error: 'Firma no encontrada' });
+  if (!actual || fueraDeAlcance(req, actual)) return res.status(404).json({ error: 'Firma no encontrada' });
   const d = datosFirma(req.body);
+  if (req.paisFirmas && actual.user_id !== req.user.id) d.pais = req.paisFirmas;
   const invalido = validarFirma(d);
   if (invalido) return res.status(400).json({ error: invalido });
   const otra = firmaPorEmail(d.email);
@@ -161,9 +183,9 @@ router.put('/firmas/:id', requireAdmin, (req, res) => {
   res.json({ firma: db.prepare(`${SELECT_FIRMA} WHERE f.id = ?`).get(actual.id) });
 });
 
-router.delete('/firmas/:id', requireAdmin, (req, res) => {
+router.delete('/firmas/:id', requireGestionFirmas, (req, res) => {
   const actual = db.prepare('SELECT * FROM firmas WHERE id = ?').get(req.params.id);
-  if (!actual) return res.status(404).json({ error: 'Firma no encontrada' });
+  if (!actual || fueraDeAlcance(req, actual)) return res.status(404).json({ error: 'Firma no encontrada' });
   db.prepare('DELETE FROM firmas WHERE id = ?').run(actual.id);
   registrarActividad(req, { actor: req.user, accion: 'firma_borrar', detalle: `${actual.nombre} <${actual.email}>` });
   res.json({ ok: true });
