@@ -388,7 +388,7 @@ function GestorPresentaciones() {
   const [guardando, setGuardando] = useState(false);
   const [aviso, setAviso] = useState("");
   const [error, setError] = useState("");
-  const [abierta, setAbierta] = useState("general");
+  const [abierta, setAbierta] = useState("portada");
 
   const cargarPaises = () => apiFetch("/api/presentaciones").then((r) => setPaises(r.paises));
 
@@ -480,7 +480,7 @@ function GestorPresentaciones() {
     ...PRODUCTOS_PRESENTACION.filter((p) => !productos.includes(p.clave)),
   ];
   const secciones = SECCIONES_PRESENTACION.filter(
-    (s) => s.clave === "general" || productos.includes(s.clave)
+    (s) => s.clave === "portada" || s.clave === "general" || productos.includes(s.clave)
   ).filter((s) => CAMPOS_PRESENTACION.some((c) => c.seccion === s.clave));
 
   return (
