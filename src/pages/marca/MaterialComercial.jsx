@@ -379,7 +379,11 @@ function CampoDato({ campo, valor, onChange }) {
 function GestorPresentaciones() {
   const [paises, setPaises] = useState([]);
   const [pais, setPais] = useState("PE");
-  const [productos, setProductos] = useState([]);
+  // `orden` tiene los 8 productos del catálogo en el orden de la presentación;
+  // `incluidos`, los que van. Marcar o desmarcar no mueve nada: el orden solo
+  // cambia con las flechas.
+  const [orden, setOrden] = useState(PRODUCTOS_PRESENTACION.map((p) => p.clave));
+  const [incluidos, setIncluidos] = useState([]);
   const [form, setForm] = useState({});
   const [info, setInfo] = useState(null);
   const [trabajo, setTrabajo] = useState(null);
@@ -403,7 +407,8 @@ function GestorPresentaciones() {
     setArchivo(null);
     apiFetch(`/api/presentaciones/${pais}`)
       .then((r) => {
-        setProductos(r.productos);
+        setOrden([...r.productos, ...PRODUCTOS_PRESENTACION.map((p) => p.clave).filter((c) => !r.productos.includes(c))]);
+        setIncluidos(r.productos);
         setForm(Object.fromEntries(CAMPOS_PRESENTACION.map((c) => [c.clave, aTexto(c, r.datos[c.clave])])));
         setInfo(r);
         setTrabajo(r.trabajo);
@@ -430,16 +435,17 @@ function GestorPresentaciones() {
     return () => clearInterval(t);
   }, [trabajo?.estado, pais]);
 
+  const productos = orden.filter((c) => incluidos.includes(c));
   const datos = () => Object.fromEntries(CAMPOS_PRESENTACION.map((c) => [c.clave, deTexto(c, form[c.clave])]));
   const laminas =
     LAMINAS_FIJAS + productos.reduce((n, p) => n + (PRODUCTOS_PRESENTACION.find((x) => x.clave === p)?.laminas || 0), 0);
 
   function alternar(clave) {
-    setProductos((ps) => (ps.includes(clave) ? ps.filter((p) => p !== clave) : [...ps, clave]));
+    setIncluidos((ps) => (ps.includes(clave) ? ps.filter((p) => p !== clave) : [...ps, clave]));
   }
 
   function mover(clave, paso) {
-    setProductos((ps) => {
+    setOrden((ps) => {
       const i = ps.indexOf(clave);
       const j = i + paso;
       if (j < 0 || j >= ps.length) return ps;
@@ -474,14 +480,20 @@ function GestorPresentaciones() {
 
   const nombrePais = paises.find((p) => p.codigo === pais)?.nombre || pais;
   const generando = trabajo?.estado === "generando";
-  // Orden en pantalla: primero los elegidos (en su orden), después el resto.
-  const ordenados = [
-    ...productos.map((c) => PRODUCTOS_PRESENTACION.find((p) => p.clave === c)).filter(Boolean),
-    ...PRODUCTOS_PRESENTACION.filter((p) => !productos.includes(p.clave)),
+  const ordenados = orden.map((c) => PRODUCTOS_PRESENTACION.find((p) => p.clave === c)).filter(Boolean);
+  // Portada y datos generales arriba; después cada producto, en el orden de la lista.
+  const secciones = [
+    ...SECCIONES_PRESENTACION.filter((s) => s.clave === "portada" || s.clave === "general"),
+    ...ordenados,
   ];
-  const secciones = SECCIONES_PRESENTACION.filter(
-    (s) => s.clave === "portada" || s.clave === "general" || productos.includes(s.clave)
-  ).filter((s) => CAMPOS_PRESENTACION.some((c) => c.seccion === s.clave));
+
+  function verDatos(clave) {
+    setAbierta(clave);
+    // En pantallas angostas los datos quedan debajo de la lista.
+    requestAnimationFrame(() =>
+      document.getElementById(`seccion-${clave}`)?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+    );
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -525,30 +537,36 @@ function GestorPresentaciones() {
             </div>
             <ul className="flex flex-col gap-1.5">
               {ordenados.map((p) => {
-                const activo = productos.includes(p.clave);
-                const i = productos.indexOf(p.clave);
+                const activo = incluidos.includes(p.clave);
+                const n = productos.indexOf(p.clave);
+                const i = orden.indexOf(p.clave);
+                const viendo = abierta === p.clave;
                 return (
                   <li key={p.clave}
-                    className={`flex items-center gap-2 rounded-md border px-3 py-2 ${activo ? "border-brand-purple/40 bg-ink-deep" : "border-line"}`}>
+                    className={`flex items-center gap-2 rounded-md border px-3 py-2 ${
+                      viendo ? "border-brand-purple" : activo ? "border-brand-purple/40" : "border-line"
+                    } ${activo ? "bg-ink-deep" : ""}`}>
                     <input id={`prod-${p.clave}`} type="checkbox" checked={activo} onChange={() => alternar(p.clave)}
-                      className="accent-brand-purple" />
-                    <label htmlFor={`prod-${p.clave}`} className={`flex-1 text-sm ${activo ? "text-gray-900" : "text-gray-500"}`}>
-                      {activo && <span className="font-mono text-[11px] text-brand-purple mr-2">{String(i + 1).padStart(2, "0")}</span>}
-                      {p.nombre}
-                    </label>
-                    {activo && (
-                      <span className="flex gap-1">
-                        <button type="button" aria-label={`Subir ${p.nombre}`} disabled={i === 0} onClick={() => mover(p.clave, -1)}
-                          className="px-1.5 text-gray-500 hover:text-gray-900 disabled:opacity-30">↑</button>
-                        <button type="button" aria-label={`Bajar ${p.nombre}`} disabled={i === productos.length - 1}
-                          onClick={() => mover(p.clave, 1)} className="px-1.5 text-gray-500 hover:text-gray-900 disabled:opacity-30">↓</button>
+                      aria-label={`Incluir ${p.nombre}`} className="accent-brand-purple" />
+                    <button type="button" onClick={() => verDatos(p.clave)} title="Ver sus datos"
+                      className={`flex-1 text-left text-sm hover:text-brand-purple ${activo ? "text-gray-900" : "text-gray-500"}`}>
+                      <span className="font-mono text-[11px] text-brand-purple mr-2 inline-block w-5">
+                        {activo ? String(n + 1).padStart(2, "0") : "—"}
                       </span>
-                    )}
+                      {p.nombre}
+                    </button>
+                    <span className="flex gap-1">
+                      <button type="button" aria-label={`Subir ${p.nombre}`} disabled={i === 0} onClick={() => mover(p.clave, -1)}
+                        className="px-1.5 text-gray-500 hover:text-gray-900 disabled:opacity-30">↑</button>
+                      <button type="button" aria-label={`Bajar ${p.nombre}`} disabled={i === orden.length - 1}
+                        onClick={() => mover(p.clave, 1)} className="px-1.5 text-gray-500 hover:text-gray-900 disabled:opacity-30">↓</button>
+                    </span>
                   </li>
                 );
               })}
             </ul>
             <p className="text-xs text-gray-500 mt-3">
+              El casillero incluye o saca el producto; las flechas cambian el orden. Toca el nombre para ver sus datos.
               Siempre van portada, quiénes somos, objetivo, full funnel, clientes y cierre.
             </p>
           </Card>
@@ -557,19 +575,31 @@ function GestorPresentaciones() {
             <h3 className="label-mono text-[10.5px] text-gray-500 mb-3">Datos de {nombrePais}</h3>
             <div className="flex flex-col gap-2">
               {secciones.map((sec) => (
-                <section key={sec.clave} className="rounded-md border border-line">
+                <section key={sec.clave} id={`seccion-${sec.clave}`}
+                  className={`rounded-md border ${abierta === sec.clave ? "border-brand-purple/50" : "border-line"}`}>
                   <button type="button" aria-expanded={abierta === sec.clave}
                     onClick={() => setAbierta(abierta === sec.clave ? "" : sec.clave)}
                     className="w-full flex justify-between items-center px-4 py-3 text-left text-sm font-medium text-gray-900">
-                    {sec.nombre}
+                    <span>
+                      {sec.nombre}
+                      {sec.laminas && !incluidos.includes(sec.clave) && (
+                        <span className="label-mono text-[9.5px] text-gray-400 ml-2">no incluido</span>
+                      )}
+                    </span>
                     <span className="text-gray-500">{abierta === sec.clave ? "−" : "+"}</span>
                   </button>
                   {abierta === sec.clave && (
                     <div className="flex flex-col gap-4 px-4 pb-4">
-                      {CAMPOS_PRESENTACION.filter((c) => c.seccion === sec.clave).map((c) => (
-                        <CampoDato key={c.clave} campo={c} valor={form[c.clave]}
-                          onChange={(v) => setForm((f) => ({ ...f, [c.clave]: v }))} />
-                      ))}
+                      {CAMPOS_PRESENTACION.some((c) => c.seccion === sec.clave) ? (
+                        CAMPOS_PRESENTACION.filter((c) => c.seccion === sec.clave).map((c) => (
+                          <CampoDato key={c.clave} campo={c} valor={form[c.clave]}
+                            onChange={(v) => setForm((f) => ({ ...f, [c.clave]: v }))} />
+                        ))
+                      ) : (
+                        <p className="text-sm text-gray-500">
+                          Este producto no tiene datos para editar: sus {sec.laminas} láminas son iguales para todos los países.
+                        </p>
+                      )}
                     </div>
                   )}
                 </section>
