@@ -45,7 +45,7 @@ function configDe(pais) {
     .get(pais.codigo);
   const b = base();
   if (!fila) {
-    return { productos: pais.codigo === 'PE' ? b.productos : [], datos: datosIniciales(b.datos, pais), guardado: false };
+    return { productos: pais.codigo === 'PE' ? b.productos : [], datos: datosIniciales(b.datos, pais), compacta: [], guardado: false };
   }
   // Un campo nuevo en el catálogo que este país todavía no tiene arranca
   // con el valor inicial, sin pisar lo que ya editaron.
@@ -53,6 +53,7 @@ function configDe(pais) {
   return {
     productos: JSON.parse(fila.productos),
     datos,
+    compacta: fila.compacta ? JSON.parse(fila.compacta) : [],
     guardado: true,
     updated_at: fila.updated_at,
     actualizado_por_nombre: fila.actualizado_por_nombre,
@@ -107,19 +108,29 @@ router.get('/:pais', (req, res) => {
   res.json({ pais, ...configDe(pais), trabajo: trabajos.get(pais.codigo) ?? null });
 });
 
+// Versión compacta (pedido de Jose 2026-10-27): él elige qué láminas de la
+// completa van, por su clave en laminas.json ("intro-1", "push-2"...). Si la
+// pantalla no la manda, queda la que estaba.
+function limpiarCompacta(v) {
+  return listaDe(v, 200)
+    .map((c) => texto(c, 40))
+    .filter((c, i, arr) => /^[a-z]+-\d+$/.test(c) && arr.indexOf(c) === i);
+}
+
 function guardar(pais, body, user) {
   const productos = listaDe(body?.productos, CLAVES_PRODUCTO.length).filter(
     (p, i, arr) => CLAVES_PRODUCTO.includes(p) && arr.indexOf(p) === i
   );
   const actual = configDe(pais);
   const datos = { ...actual.datos, ...limpiarDatos(body?.datos) };
+  const compacta = Array.isArray(body?.compacta) ? limpiarCompacta(body.compacta) : actual.compacta;
   db.prepare(
-    `INSERT INTO presentaciones_pais (pais, productos, datos, actualizado_por, updated_at)
-     VALUES (?, ?, ?, ?, datetime('now'))
-     ON CONFLICT(pais) DO UPDATE SET productos = excluded.productos, datos = excluded.datos,
+    `INSERT INTO presentaciones_pais (pais, productos, datos, compacta, actualizado_por, updated_at)
+     VALUES (?, ?, ?, ?, ?, datetime('now'))
+     ON CONFLICT(pais) DO UPDATE SET productos = excluded.productos, datos = excluded.datos, compacta = excluded.compacta,
        actualizado_por = excluded.actualizado_por, updated_at = excluded.updated_at`
-  ).run(pais.codigo, JSON.stringify(productos), JSON.stringify(datos), user.id);
-  return { productos, datos };
+  ).run(pais.codigo, JSON.stringify(productos), JSON.stringify(datos), JSON.stringify(compacta), user.id);
+  return { productos, datos, compacta };
 }
 
 router.put('/:pais', (req, res) => {
@@ -144,8 +155,11 @@ const VISTAS_DIR = path.join(PRESENTACIONES_DIR, 'vistas');
 const LO_PERFIL = `file://${path.join(PRESENTACIONES_DIR, 'lo-perfil')}`;
 const trabajos = new Map();
 
+// La compacta tiene sus propias carpetas (borrador-compacta, publicada-compacta).
+const TIPOS = ['borrador', 'publicada', 'borrador-compacta', 'publicada-compacta'];
 const dirVista = (pais, tipo) => path.join(VISTAS_DIR, pais, tipo);
-const nombrePptx = (pais) => `${pais}_Mediaudience_Presentacion-Comercial_Signal_2026.pptx`;
+const nombrePptx = (pais, compacta = false) =>
+  `${pais}_Mediaudience_Presentacion-Comercial_Signal_2026${compacta ? '_Compacta' : ''}.pptx`;
 
 function leerMeta(pais, tipo) {
   try {
@@ -182,42 +196,64 @@ function enCola(fn) {
   return r;
 }
 
+// Videos, imágenes de vista previa, paquete sin internet y meta.json de una
+// versión (completa o compacta) ya generada en `dir`/presentacion.pptx.
+async function prepararVista(dir, titulo, meta) {
+  const pptx = path.join(dir, 'presentacion.pptx');
+  // Videos aparte (con su posición en la lámina) para el modo Presentar.
+  await correr(PYTHON, ['extraer_videos.py', pptx, dir], { cwd: DECK_DIR });
+  await enCola(() =>
+    correr('soffice', [`-env:UserInstallation=${LO_PERFIL}`, '--headless', '--convert-to', 'pdf', '--outdir', dir, pptx], {
+      cwd: dir,
+      env: { ...process.env, HOME: dir },
+    })
+  );
+  // 2560 px y calidad alta: en el modo Presentar se ven a pantalla completa, también en pantallas retina.
+  await correr('pdftoppm', ['-jpeg', '-jpegopt', 'quality=90', '-scale-to-x', '2560', '-scale-to-y', '-1',
+    path.join(dir, 'presentacion.pdf'), path.join(dir, 'l')]);
+  await rm(path.join(dir, 'presentacion.pdf'), { force: true });
+  // Paquete para presentar sin internet (ZIP con un reproductor HTML, las láminas y los videos).
+  await correr(PYTHON, ['paquete_offline.py', dir, titulo], { cwd: DECK_DIR });
+  const laminas = (await readdir(dir)).filter((f) => /^l-\d+\.jpg$/.test(f)).length;
+  await writeFile(path.join(dir, 'meta.json'), JSON.stringify({ at: new Date().toISOString(), laminas, ...meta }));
+  return laminas;
+}
+
+async function existe(ruta) {
+  return stat(ruta).then(() => true, () => false);
+}
+
 async function generar(pais, config, user, req) {
   const id = crypto.randomUUID();
   const tmp = path.join(PRESENTACIONES_DIR, 'tmp', id);
+  const tmpCompacta = `${tmp}-compacta`;
   const fase = (texto) => trabajos.set(pais.codigo, { ...trabajos.get(pais.codigo), fase: texto });
   try {
     await mkdir(tmp, { recursive: true });
+    await mkdir(tmpCompacta, { recursive: true });
     const json = path.join(tmp, 'datos.json');
-    const pptx = path.join(tmp, 'presentacion.pptx');
-    await writeFile(json, JSON.stringify({ productos: config.productos, datos: config.datos }));
+    await writeFile(json, JSON.stringify({ productos: config.productos, datos: config.datos, compacta: config.compacta }));
     fase('Armando las láminas');
-    await correr(PYTHON, ['generar.py', json, pptx], { cwd: DECK_DIR });
-    // Videos aparte (con su posición en la lámina) para el modo Presentar.
-    await correr(PYTHON, ['extraer_videos.py', pptx, tmp], { cwd: DECK_DIR });
-    fase('Dibujando la vista previa');
-    await enCola(() =>
-      correr('soffice', [`-env:UserInstallation=${LO_PERFIL}`, '--headless', '--convert-to', 'pdf', '--outdir', tmp, pptx], {
-        cwd: tmp,
-        env: { ...process.env, HOME: tmp },
-      })
-    );
-    // 2560 px y calidad alta: en el modo Presentar se ven a pantalla completa, también en pantallas retina.
-    await correr('pdftoppm', ['-jpeg', '-jpegopt', 'quality=90', '-scale-to-x', '2560', '-scale-to-y', '-1',
-      path.join(tmp, 'presentacion.pdf'), path.join(tmp, 'l')]);
-    await rm(path.join(tmp, 'presentacion.pdf'), { force: true });
-    // Paquete para presentar sin internet (ZIP con un reproductor HTML, las láminas y los videos).
-    await correr(PYTHON, ['paquete_offline.py', tmp, `Mediaudience ${pais.nombre}`], { cwd: DECK_DIR });
+    await correr(PYTHON, ['generar.py', json, path.join(tmp, 'presentacion.pptx'), path.join(tmpCompacta, 'presentacion.pptx')],
+      { cwd: DECK_DIR });
     await rm(json, { force: true });
-    const laminas = (await readdir(tmp)).filter((f) => /^l-\d+\.jpg$/.test(f)).length;
-    await writeFile(path.join(tmp, 'meta.json'), JSON.stringify({
-      at: new Date().toISOString(), laminas, productos: config.productos, por: user.nombre || user.email,
-    }));
-    // Reemplaza el borrador anterior de un solo movimiento.
+    const por = user.nombre || user.email;
+    fase('Dibujando la vista previa');
+    const laminas = await prepararVista(tmp, `Mediaudience ${pais.nombre}`, { productos: config.productos, por });
+    // Sin láminas elegidas el generador no arma la compacta.
+    const hayCompacta = await existe(path.join(tmpCompacta, 'presentacion.pptx'));
+    if (hayCompacta) {
+      fase('Dibujando la versión compacta');
+      await prepararVista(tmpCompacta, `Mediaudience ${pais.nombre} · Compacta`, { productos: config.productos, por, compacta: true });
+    }
+    // Reemplaza el borrador anterior (y su compacta) de un solo movimiento.
     const destino = dirVista(pais.codigo, 'borrador');
+    const destinoCompacta = dirVista(pais.codigo, 'borrador-compacta');
     await mkdir(path.dirname(destino), { recursive: true });
     await rm(destino, { recursive: true, force: true });
+    await rm(destinoCompacta, { recursive: true, force: true });
     await rename(tmp, destino);
+    if (hayCompacta) await rename(tmpCompacta, destinoCompacta);
     registrarActividad(req, { actor: user, accion: 'presentacion_borrador', detalle: `${pais.nombre} (${laminas} láminas)` });
     trabajos.set(pais.codigo, { estado: 'listo', fin: new Date().toISOString() });
   } catch (err) {
@@ -225,6 +261,7 @@ async function generar(pais, config, user, req) {
     trabajos.set(pais.codigo, { estado: 'error', error: 'No se pudo generar la presentación. ' + String(err.message || '').slice(0, 300) });
   } finally {
     await rm(tmp, { recursive: true, force: true });
+    await rm(tmpCompacta, { recursive: true, force: true });
   }
 }
 
@@ -250,27 +287,31 @@ router.get('/:pais/estado', (req, res) => {
 
 // Presentación vigente del país en Material Comercial: la que publicó el
 // gestor o, antes de usarlo, la subida a mano con el mismo nombre.
-function archivoPublicado(pais) {
-  const id = db.prepare('SELECT archivo_id FROM presentaciones_pais WHERE pais = ?').get(pais.codigo)?.archivo_id;
+function archivoPublicado(pais, compacta = false) {
+  const fila = db.prepare('SELECT archivo_id, archivo_compacta_id FROM presentaciones_pais WHERE pais = ?').get(pais.codigo);
+  const id = compacta ? fila?.archivo_compacta_id : fila?.archivo_id;
   const sel = 'SELECT id, nombre, tamano, created_at, archivo FROM marca_archivos';
   return (
     (id && db.prepare(`${sel} WHERE id = ?`).get(id)) ||
-    db.prepare(`${sel} WHERE pais = ? AND categoria = 'presentaciones' AND nombre = ? ORDER BY id DESC`).get(pais.codigo, nombrePptx(pais.codigo)) ||
+    db.prepare(`${sel} WHERE pais = ? AND categoria = 'presentaciones' AND nombre = ? ORDER BY id DESC`)
+      .get(pais.codigo, nombrePptx(pais.codigo, compacta)) ||
     null
   );
 }
 
+const conArchivo = (meta, a) =>
+  a ? { ...meta, archivo: { id: a.id, nombre: a.nombre, tamano: a.tamano, created_at: a.created_at } } : null;
+
 router.get('/:pais/vista', (req, res) => {
   const pais = paisValido(req.params.pais);
   if (!pais) return res.status(404).json({ error: 'País no encontrado' });
-  const archivo = archivoPublicado(pais);
   res.json({
     pais,
     trabajo: trabajos.get(pais.codigo) ?? null,
     borrador: leerMeta(pais.codigo, 'borrador'),
-    publicada: archivo
-      ? { ...leerMeta(pais.codigo, 'publicada'), archivo: { id: archivo.id, nombre: archivo.nombre, tamano: archivo.tamano, created_at: archivo.created_at } }
-      : null,
+    publicada: conArchivo(leerMeta(pais.codigo, 'publicada'), archivoPublicado(pais)),
+    'borrador-compacta': leerMeta(pais.codigo, 'borrador-compacta'),
+    'publicada-compacta': conArchivo(leerMeta(pais.codigo, 'publicada-compacta'), archivoPublicado(pais, true)),
   });
 });
 
@@ -280,7 +321,7 @@ router.get('/:pais/vista/:tipo/:n', (req, res, next) => {
   const pais = paisValido(req.params.pais);
   const { tipo } = req.params;
   const n = Number(req.params.n);
-  if (!pais || !['borrador', 'publicada'].includes(tipo) || !Number.isInteger(n) || n < 1 || n > 200) {
+  if (!pais || !TIPOS.includes(tipo) || !Number.isInteger(n) || n < 1 || n > 200) {
     return res.status(404).json({ error: 'Lámina no encontrada' });
   }
   const meta = leerMeta(pais.codigo, tipo);
@@ -293,10 +334,21 @@ router.get('/:pais/vista/:tipo/:n', (req, res, next) => {
   });
 });
 
+// Índice de láminas (clave, producto, título) para elegir la compacta.
+router.get('/:pais/vista/:tipo/laminas.json', (req, res) => {
+  const pais = paisValido(req.params.pais);
+  if (!pais || !TIPOS.includes(req.params.tipo)) return res.status(404).json({ error: 'No encontrado' });
+  try {
+    res.json(JSON.parse(readFileSync(path.join(dirVista(pais.codigo, req.params.tipo), 'laminas.json'), 'utf8')));
+  } catch {
+    res.json([]);
+  }
+});
+
 // Modo Presentar: posiciones de los videos por lámina y los videos en sí.
 router.get('/:pais/vista/:tipo/videos.json', (req, res) => {
   const pais = paisValido(req.params.pais);
-  if (!pais || !['borrador', 'publicada'].includes(req.params.tipo)) return res.status(404).json({ error: 'No encontrado' });
+  if (!pais || !TIPOS.includes(req.params.tipo)) return res.status(404).json({ error: 'No encontrado' });
   try {
     res.json(JSON.parse(readFileSync(path.join(dirVista(pais.codigo, req.params.tipo), 'videos.json'), 'utf8')));
   } catch {
@@ -307,7 +359,7 @@ router.get('/:pais/vista/:tipo/videos.json', (req, res) => {
 router.get('/:pais/vista/:tipo/video/:archivo', (req, res, next) => {
   const pais = paisValido(req.params.pais);
   const { tipo, archivo } = req.params;
-  if (!pais || !['borrador', 'publicada'].includes(tipo) || !/^v_[0-9a-f]{8}\.mp4$/.test(archivo)) {
+  if (!pais || !TIPOS.includes(tipo) || !/^v_[0-9a-f]{8}\.mp4$/.test(archivo)) {
     return res.status(404).json({ error: 'Video no encontrado' });
   }
   res.set('Cache-Control', 'private, max-age=3600');
@@ -318,61 +370,95 @@ router.get('/:pais/vista/:tipo/video/:archivo', (req, res, next) => {
 
 router.get('/:pais/vista/:tipo/offline', (req, res, next) => {
   const pais = paisValido(req.params.pais);
-  if (!pais || !['borrador', 'publicada'].includes(req.params.tipo)) return res.status(404).json({ error: 'No encontrado' });
+  if (!pais || !TIPOS.includes(req.params.tipo)) return res.status(404).json({ error: 'No encontrado' });
   res.download(path.join(dirVista(pais.codigo, req.params.tipo), 'offline.zip'),
-    `Mediaudience_${pais.codigo}_presentar_sin_internet.zip`, (err) => {
+    `Mediaudience_${pais.codigo}${req.params.tipo.endsWith('-compacta') ? '_compacta' : ''}_presentar_sin_internet.zip`, (err) => {
       if (err && !res.headersSent) res.status(404).json({ error: 'Todavía no hay paquete sin internet: vuelve a generar la presentación.' });
     });
 });
 
+// ?compacta=1 baja el borrador de la versión compacta.
 router.get('/:pais/borrador/descargar', (req, res, next) => {
   const pais = paisValido(req.params.pais);
-  if (!pais || !leerMeta(pais.codigo, 'borrador')) return res.status(404).json({ error: 'No hay borrador' });
-  res.download(path.join(dirVista(pais.codigo, 'borrador'), 'presentacion.pptx'), nombrePptx(pais.codigo).replace('.pptx', '_borrador.pptx'), (err) => {
+  const compacta = req.query.compacta === '1';
+  const tipo = compacta ? 'borrador-compacta' : 'borrador';
+  if (!pais || !leerMeta(pais.codigo, tipo)) return res.status(404).json({ error: 'No hay borrador' });
+  res.download(path.join(dirVista(pais.codigo, tipo), 'presentacion.pptx'), nombrePptx(pais.codigo, compacta).replace('.pptx', '_borrador.pptx'), (err) => {
     if (err && !res.headersSent) next(err);
   });
 });
 
-// Pasa el borrador a Material Comercial y reemplaza la presentación vigente.
-router.post('/:pais/publicar', async (req, res, next) => {
-  const pais = paisValido(req.params.pais);
-  if (!pais) return res.status(404).json({ error: 'País no encontrado' });
-  const meta = leerMeta(pais.codigo, 'borrador');
-  if (!meta) return res.status(400).json({ error: 'No hay un borrador para publicar. Genéralo desde el Gestor.' });
-  if (trabajos.get(pais.codigo)?.estado === 'generando') {
-    return res.status(409).json({ error: 'Se está generando un borrador nuevo; espera a que termine.' });
+// Pasa un borrador (completa o compacta) a Material Comercial, reemplazando la
+// versión vigente del país, y mueve sus imágenes a la vista publicada.
+async function publicarVersion(pais, compacta, user) {
+  const sufijo = compacta ? '-compacta' : '';
+  const meta = leerMeta(pais.codigo, `borrador${sufijo}`);
+  const viejo = archivoPublicado(pais, compacta);
+  const columna = compacta ? 'archivo_compacta_id' : 'archivo_id';
+  const publicada = dirVista(pais.codigo, `publicada${sufijo}`);
+  if (!meta) {
+    // La completa sin borrador no se publica. Una compacta sin borrador es que
+    // se quitaron todas sus láminas: se retira la que estaba publicada.
+    if (compacta && viejo) {
+      db.prepare('DELETE FROM marca_archivos WHERE id = ?').run(viejo.id);
+      db.prepare('UPDATE presentaciones_pais SET archivo_compacta_id = NULL WHERE pais = ?').run(pais.codigo);
+      await rm(path.join(MARCA_DIR, viejo.archivo), { force: true });
+      await rm(publicada, { recursive: true, force: true });
+    }
+    return null;
   }
-  const borrador = dirVista(pais.codigo, 'borrador');
+  const borrador = dirVista(pais.codigo, `borrador${sufijo}`);
   const archivo = `${crypto.randomUUID()}.pptx`;
   try {
     await mkdir(MARCA_DIR, { recursive: true });
     await copyFile(path.join(borrador, 'presentacion.pptx'), path.join(MARCA_DIR, archivo));
     const { size } = await stat(path.join(MARCA_DIR, archivo));
-    const viejo = archivoPublicado(pais);
     const { lastInsertRowid } = db
       .prepare(
         `INSERT INTO marca_archivos (pais, categoria, nombre, descripcion, archivo, mime, tamano, subido_por)
          VALUES (?, 'presentaciones', ?, ?, ?, ?, ?, ?)`
       )
-      .run(pais.codigo, nombrePptx(pais.codigo), `${meta.laminas} láminas · Gestor de presentaciones`, archivo,
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation', size, req.user.id);
+      .run(pais.codigo, nombrePptx(pais.codigo, compacta),
+        `${compacta ? 'Versión compacta · ' : ''}${meta.laminas} láminas · Gestor de presentaciones`, archivo,
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation', size, user.id);
     db.prepare(
-      `INSERT INTO presentaciones_pais (pais, productos, datos, archivo_id, actualizado_por) VALUES (?, '[]', '{}', ?, ?)
-       ON CONFLICT(pais) DO UPDATE SET archivo_id = excluded.archivo_id`
-    ).run(pais.codigo, lastInsertRowid, req.user.id);
+      `INSERT INTO presentaciones_pais (pais, productos, datos, ${columna}, actualizado_por) VALUES (?, '[]', '{}', ?, ?)
+       ON CONFLICT(pais) DO UPDATE SET ${columna} = excluded.${columna}`
+    ).run(pais.codigo, lastInsertRowid, user.id);
     if (viejo) {
       db.prepare('DELETE FROM marca_archivos WHERE id = ?').run(viejo.id);
       await rm(path.join(MARCA_DIR, viejo.archivo), { force: true });
     }
-    // Las imágenes del borrador pasan a ser las de lo publicado.
-    const publicada = dirVista(pais.codigo, 'publicada');
     await rm(publicada, { recursive: true, force: true });
     await rm(path.join(borrador, 'presentacion.pptx'), { force: true });
     await rename(borrador, publicada);
-    registrarActividad(req, { actor: req.user, accion: 'presentacion_publicar', detalle: `${pais.nombre} (${meta.laminas} láminas)` });
-    res.json({ ok: true, archivo_id: lastInsertRowid });
+    return { id: lastInsertRowid, laminas: meta.laminas };
   } catch (err) {
     await rm(path.join(MARCA_DIR, archivo), { force: true });
+    throw err;
+  }
+}
+
+// Publica la completa y, si la hay, la compacta.
+router.post('/:pais/publicar', async (req, res, next) => {
+  const pais = paisValido(req.params.pais);
+  if (!pais) return res.status(404).json({ error: 'País no encontrado' });
+  if (!leerMeta(pais.codigo, 'borrador')) {
+    return res.status(400).json({ error: 'No hay un borrador para publicar. Genéralo desde el Gestor.' });
+  }
+  if (trabajos.get(pais.codigo)?.estado === 'generando') {
+    return res.status(409).json({ error: 'Se está generando un borrador nuevo; espera a que termine.' });
+  }
+  try {
+    const completa = await publicarVersion(pais, false, req.user);
+    const compacta = await publicarVersion(pais, true, req.user);
+    registrarActividad(req, {
+      actor: req.user,
+      accion: 'presentacion_publicar',
+      detalle: `${pais.nombre} (${completa.laminas} láminas${compacta ? ` + compacta de ${compacta.laminas}` : ''})`,
+    });
+    res.json({ ok: true, archivo_id: completa.id, archivo_compacta_id: compacta?.id ?? null });
+  } catch (err) {
     next(err);
   }
 });

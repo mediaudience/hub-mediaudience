@@ -376,6 +376,106 @@ function CampoDato({ campo, valor, onChange }) {
   );
 }
 
+// Versión compacta: Jose marca sobre las miniaturas de la completa qué láminas
+// van. Usa la última completa generada (el borrador si hay, si no la
+// publicada); cada lámina se identifica por su clave de laminas.json.
+function SelectorCompacta({ pais, nombrePais, valor, onChange }) {
+  const [fuente, setFuente] = useState(null);
+  const [laminas, setLaminas] = useState([]);
+  const [cargando, setCargando] = useState(true);
+
+  useEffect(() => {
+    let vivo = true;
+    setCargando(true);
+    (async () => {
+      const v = await apiFetch(`/api/presentaciones/${pais}/vista`);
+      const tipo = v.borrador?.laminas ? "borrador" : v.publicada?.laminas ? "publicada" : null;
+      const lista = tipo ? await apiFetch(`/api/presentaciones/${pais}/vista/${tipo}/laminas.json`) : [];
+      if (!vivo) return;
+      setFuente(tipo ? { tipo, at: v[tipo].at } : null);
+      setLaminas(lista);
+    })()
+      .catch(() => vivo && setLaminas([]))
+      .finally(() => vivo && setCargando(false));
+    return () => {
+      vivo = false;
+    };
+  }, [pais]);
+
+  const elegidas = laminas.filter((l) => valor.includes(l.clave)).length;
+  const alternar = (clave) => onChange(valor.includes(clave) ? valor.filter((c) => c !== clave) : [...valor, clave]);
+  const grupos = laminas.reduce((acc, l, i) => {
+    const g = acc[acc.length - 1];
+    if (g && g.bloque === l.bloque) g.items.push({ ...l, n: i + 1 });
+    else acc.push({ bloque: l.bloque, items: [{ ...l, n: i + 1 }] });
+    return acc;
+  }, []);
+
+  return (
+    <Card className="p-5" hover={false}>
+      <div className="flex flex-wrap items-baseline justify-between gap-3 mb-1">
+        <h3 className="font-display font-semibold text-gray-900">Versión compacta de {nombrePais}</h3>
+        {laminas.length > 0 && (
+          <span className="flex items-center gap-3">
+            <span className="font-mono text-[11px] text-brand-purple">
+              {elegidas} de {laminas.length} láminas
+            </span>
+            {elegidas > 0 && (
+              <button type="button" onClick={() => onChange([])} className="text-xs text-gray-500 hover:text-gray-900">
+                Quitar todas
+              </button>
+            )}
+          </span>
+        )}
+      </div>
+      <p className="text-sm text-slate-label mb-4 max-w-3xl">
+        Toca las láminas de la completa que van en la compacta. Se arma con «Guardar y generar», junto con la completa,
+        y se numera sola. Sin láminas elegidas no hay versión compacta.
+      </p>
+      {cargando ? (
+        <Spinner label="Cargando láminas..." />
+      ) : laminas.length === 0 ? (
+        <p className="text-sm text-gray-600">
+          Para elegir hace falta generar la completa una vez más (las miniaturas salen de ahí). Usa «Guardar y generar
+          vista previa» y vuelve aquí.
+        </p>
+      ) : (
+        <div className="flex flex-col gap-5">
+          {grupos.map((g, gi) => (
+            <section key={`${g.bloque}-${gi}`}>
+              <h4 className="label-mono text-[10px] text-gray-500 mb-2">{g.bloque}</h4>
+              <div className="grid gap-3 grid-cols-2 md:grid-cols-4 xl:grid-cols-6">
+                {g.items.map((l) => {
+                  const activa = valor.includes(l.clave);
+                  return (
+                    <button key={l.clave} type="button" onClick={() => alternar(l.clave)} aria-pressed={activa}
+                      title={l.titulo || `Lámina ${l.n}`}
+                      className={`relative text-left rounded-md overflow-hidden border-2 transition ${
+                        activa ? "border-brand-purple" : "border-line opacity-60 hover:opacity-100"
+                      }`}>
+                      <img src={`/api/presentaciones/${pais}/vista/${fuente.tipo}/${l.n}?v=${encodeURIComponent(fuente.at || "")}`}
+                        alt={l.titulo || `Lámina ${l.n}`} loading="lazy" className="block w-full aspect-video object-cover bg-ink-deep" />
+                      <span className={`absolute top-1.5 right-1.5 w-5 h-5 rounded-full grid place-items-center text-[11px] font-bold ${
+                        activa ? "bg-brand-purple text-white" : "bg-black/60 text-white/70 border border-white/40"
+                      }`}>
+                        {activa ? "✓" : ""}
+                      </span>
+                      <span className="block px-2 py-1.5 text-[11px] text-gray-600 truncate">
+                        <span className="font-mono text-brand-purple mr-1.5">{String(l.n).padStart(2, "0")}</span>
+                        {l.titulo || "—"}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
+    </Card>
+  );
+}
+
 function GestorPresentaciones({ paisInicial, onVerVista }) {
   const [paises, setPaises] = useState([]);
   const [pais, setPais] = useState(paisInicial || "PE");
@@ -384,6 +484,7 @@ function GestorPresentaciones({ paisInicial, onVerVista }) {
   // cambia con las flechas.
   const [orden, setOrden] = useState(PRODUCTOS_PRESENTACION.map((p) => p.clave));
   const [incluidos, setIncluidos] = useState([]);
+  const [compacta, setCompacta] = useState([]);
   const [form, setForm] = useState({});
   const [info, setInfo] = useState(null);
   const [trabajo, setTrabajo] = useState(null);
@@ -407,6 +508,7 @@ function GestorPresentaciones({ paisInicial, onVerVista }) {
       .then((r) => {
         setOrden([...r.productos, ...PRODUCTOS_PRESENTACION.map((p) => p.clave).filter((c) => !r.productos.includes(c))]);
         setIncluidos(r.productos);
+        setCompacta(r.compacta || []);
         setForm(Object.fromEntries(CAMPOS_PRESENTACION.map((c) => [c.clave, aTexto(c, r.datos[c.clave])])));
         setInfo(r);
         setTrabajo(r.trabajo);
@@ -455,7 +557,7 @@ function GestorPresentaciones({ paisInicial, onVerVista }) {
     setAviso("");
     setError("");
     try {
-      const body = JSON.stringify({ productos, datos: datos() });
+      const body = JSON.stringify({ productos, datos: datos(), compacta });
       if (generar) {
         const r = await apiFetch(`/api/presentaciones/${pais}/generar`, { method: "POST", body });
         setTrabajo(r.trabajo);
@@ -649,6 +751,8 @@ function GestorPresentaciones({ paisInicial, onVerVista }) {
           </Card>
         </div>
       )}
+
+      {!cargando && <SelectorCompacta pais={pais} nombrePais={nombrePais} valor={compacta} onChange={setCompacta} />}
     </div>
   );
 }
@@ -785,6 +889,9 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
   const [pais, setPais] = useState(paisInicial || "PE");
   const [vista, setVista] = useState(null);
   const [tipo, setTipo] = useState("borrador");
+  // Completa o compacta: cada una tiene su borrador y su publicada.
+  const [variante, setVariante] = useState("completa");
+  const suf = variante === "compacta" ? "-compacta" : "";
   const [grande, setGrande] = useState(null);
   const [presentando, setPresentando] = useState(null);
   const [cargando, setCargando] = useState(true);
@@ -800,7 +907,7 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
   async function cargar(codigo = pais) {
     const r = await apiFetch(`/api/presentaciones/${codigo}/vista`);
     setVista(r);
-    setTipo(r.borrador ? "borrador" : "publicada");
+    setTipo(r[`borrador${suf}`] ? `borrador${suf}` : `publicada${suf}`);
     return r;
   }
 
@@ -821,6 +928,13 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
     return () => clearInterval(t);
   }, [vista?.trabajo?.estado, pais]);
 
+  function cambiarVersion(v) {
+    const s = v === "compacta" ? "-compacta" : "";
+    setVariante(v);
+    setTipo(vista?.[`borrador${s}`] ? `borrador${s}` : `publicada${s}`);
+    setGrande(null);
+  }
+
   function elegir(codigo) {
     setPais(codigo);
     onCambiarPais(codigo);
@@ -832,7 +946,7 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
     try {
       await apiFetch(`/api/presentaciones/${pais}/publicar`, { method: "POST" });
       await cargar();
-      setTipo("publicada");
+      setTipo(`publicada${suf}`);
       setConfirmar(false);
       setAviso("Publicada. Ya está en Línea gráfica › " + (paises.find((p) => p.codigo === pais)?.nombre || pais) + " › Presentaciones comerciales.");
     } catch (err) {
@@ -905,10 +1019,26 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
         <Spinner label="Cargando vista previa..." />
       ) : (
         <>
+          <div role="tablist" aria-label="Versión" className="flex flex-wrap gap-2">
+            {[
+              ["completa", "Completa", vista?.borrador || vista?.publicada],
+              ["compacta", "Compacta", vista?.["borrador-compacta"] || vista?.["publicada-compacta"]],
+            ].map(([clave, titulo, m]) => (
+              <button key={clave} type="button" role="tab" aria-selected={variante === clave} onClick={() => cambiarVersion(clave)}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm border transition-colors ${
+                  variante === clave
+                    ? "bg-brand-purple/10 border-brand-purple/60 text-gray-900"
+                    : "border-line text-gray-600 hover:text-gray-900 hover:border-brand-purple/35"
+                }`}>
+                {titulo}
+                <span className="label-mono text-[9.5px] text-brand-purple">{m?.laminas ? `${m.laminas} láminas` : "sin generar"}</span>
+              </button>
+            ))}
+          </div>
           <div className="grid gap-3 md:grid-cols-2">
             {[
-              ["borrador", "Borrador", vista?.borrador],
-              ["publicada", "Publicada", vista?.publicada],
+              [`borrador${suf}`, "Borrador", vista?.[`borrador${suf}`]],
+              [`publicada${suf}`, "Publicada", vista?.[`publicada${suf}`]],
             ].map(([clave, titulo, m]) => (
               <Card key={clave} hover={false}
                 className={`p-5 ${tipo === clave ? "ring-1 ring-brand-purple" : ""}`}>
@@ -935,7 +1065,7 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
                     </button>
                   ) : null}
                 </div>
-                {clave === "borrador" ? (
+                {clave.startsWith("borrador") ? (
                   vista?.trabajo?.estado === "generando" ? (
                     <p className="text-sm text-gray-600">{vista.trabajo.fase || "Generando"}... esta página se actualiza sola.</p>
                   ) : m ? (
@@ -943,6 +1073,7 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
                       <p className="text-sm text-gray-600 mb-4">
                         {m.laminas} láminas · generado {fecha(m.at)}
                         {m.por ? ` por ${m.por}` : ""}. Todavía no está en Línea gráfica.
+                        {vista?.["borrador-compacta"] ? " Al publicar se publican la completa y la compacta juntas." : ""}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {confirmar ? (
@@ -962,7 +1093,7 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
                               className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90">
                               Publicar en Línea gráfica
                             </button>
-                            <a href={`/api/presentaciones/${pais}/borrador/descargar`}
+                            <a href={`/api/presentaciones/${pais}/borrador/descargar${suf ? "?compacta=1" : ""}`}
                               className="text-sm px-4 py-2 rounded-md border border-line text-gray-900 hover:border-brand-purple/35">
                               Descargar borrador (.pptx)
                             </a>
@@ -972,9 +1103,9 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
                     </>
                   ) : (
                     <p className="text-sm text-gray-600">
-                      No hay borrador.{" "}
+                      {suf ? "No hay borrador de la compacta. Elige sus láminas y genera " : "No hay borrador. "}
                       <button type="button" onClick={() => onEditar(pais)} className="text-brand-purple hover:underline">
-                        Genéralo desde el Gestor
+                        {suf ? "desde el Gestor" : "Genéralo desde el Gestor"}
                       </button>
                       .
                     </p>
@@ -991,7 +1122,9 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
                     </a>
                   </>
                 ) : (
-                  <p className="text-sm text-gray-600">{nombrePais} todavía no tiene presentación publicada.</p>
+                  <p className="text-sm text-gray-600">
+                    {nombrePais} todavía no tiene {suf ? "versión compacta" : "presentación"} publicada.
+                  </p>
                 )}
               </Card>
             ))}
@@ -1000,7 +1133,8 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
           {laminas > 0 ? (
             <section>
               <h3 className="label-mono text-[10.5px] text-gray-500 mb-3">
-                {tipo === "borrador" ? "Borrador" : "Publicada"} · {nombrePais} · {laminas} láminas
+                {tipo.startsWith("borrador") ? "Borrador" : "Publicada"} · {variante === "compacta" ? "Compacta" : "Completa"} ·{" "}
+                {nombrePais} · {laminas} láminas
               </h3>
               <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                 {Array.from({ length: laminas }, (_, i) => i + 1).map((n) => (

@@ -444,6 +444,14 @@ db.exec(`
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
 `)
+// Versión compacta (pedido de Jose 2026-10-27): `compacta` es la lista (JSON)
+// de claves de lámina que eligió de la completa ("intro-1", "push-2"...);
+// archivo_compacta_id, la compacta vigente en marca_archivos.
+{
+  const cols = db.prepare('PRAGMA table_info(presentaciones_pais)').all().map((c) => c.name)
+  if (!cols.includes('compacta')) db.exec('ALTER TABLE presentaciones_pais ADD COLUMN compacta TEXT')
+  if (!cols.includes('archivo_compacta_id')) db.exec('ALTER TABLE presentaciones_pais ADD COLUMN archivo_compacta_id INTEGER')
+}
 
 // Registro de firmas de correo (Admin > Firmas). Una ficha por persona,
 // identificada por correo (único, sin distinguir mayúsculas). `user_id` es
