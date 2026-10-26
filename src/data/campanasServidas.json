@@ -152,54 +152,6 @@
     "anunciante": "PE_Starbucks"
   },
   {
-    "campana": "EC_Bambú_22Junio2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_22Junio2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_15Julio2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_15Julio2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_07Agosto2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_07Agosto2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
     "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
     "anunciante": "EC_Netlife"
   },
@@ -508,10 +460,6 @@
     "anunciante": "EC_Kia"
   },
   {
-    "campana": "EC_Tips_ConcursoGalápagos_14Octubre2026_Interacciones",
-    "anunciante": "EC_Tips"
-  },
-  {
     "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
     "anunciante": "EC_Prefectura"
   },
@@ -550,5 +498,57 @@
   {
     "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Vistas",
     "anunciante": "EC_GoldenBear"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Tips_ConcursoGalápagos_14Octubre2026_Interacciones",
+    "anunciante": "EC_Tips"
   }
 ]

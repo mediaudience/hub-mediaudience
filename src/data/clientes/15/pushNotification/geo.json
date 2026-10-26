@@ -294,9 +294,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "San Miguel",
-    "impresionesTotales": 780,
-    "clicsTotales": 59,
-    "ctr": 7.56,
+    "impresionesTotales": 999,
+    "clicsTotales": 75,
+    "ctr": 7.51,
     "cliente": "PE_Reset"
   },
   {
@@ -306,9 +306,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Pueblo Libre",
-    "impresionesTotales": 782,
-    "clicsTotales": 60,
-    "ctr": 7.67,
+    "impresionesTotales": 1001,
+    "clicsTotales": 76,
+    "ctr": 7.59,
     "cliente": "PE_Reset"
   },
   {
@@ -318,9 +318,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Magdalena del Mar",
-    "impresionesTotales": 782,
-    "clicsTotales": 60,
-    "ctr": 7.67,
+    "impresionesTotales": 1001,
+    "clicsTotales": 76,
+    "ctr": 7.59,
     "cliente": "PE_Reset"
   },
   {
@@ -330,9 +330,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Breña",
-    "impresionesTotales": 783,
-    "clicsTotales": 62,
-    "ctr": 7.92,
+    "impresionesTotales": 1003,
+    "clicsTotales": 79,
+    "ctr": 7.88,
     "cliente": "PE_Reset"
   },
   {
@@ -342,9 +342,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Jesus María",
-    "impresionesTotales": 783,
-    "clicsTotales": 62,
-    "ctr": 7.92,
+    "impresionesTotales": 1002,
+    "clicsTotales": 78,
+    "ctr": 7.78,
     "cliente": "PE_Reset"
   },
   {
@@ -354,9 +354,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "La Victoria",
-    "impresionesTotales": 782,
-    "clicsTotales": 62,
-    "ctr": 7.93,
+    "impresionesTotales": 1001,
+    "clicsTotales": 77,
+    "ctr": 7.69,
     "cliente": "PE_Reset"
   },
   {
@@ -366,9 +366,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "San Borja",
-    "impresionesTotales": 781,
-    "clicsTotales": 59,
-    "ctr": 7.55,
+    "impresionesTotales": 999,
+    "clicsTotales": 75,
+    "ctr": 7.51,
     "cliente": "PE_Reset"
   },
   {
@@ -378,9 +378,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "San Isidro",
-    "impresionesTotales": 803,
-    "clicsTotales": 60,
-    "ctr": 7.47,
+    "impresionesTotales": 1028,
+    "clicsTotales": 77,
+    "ctr": 7.49,
     "cliente": "PE_Reset"
   },
   {
@@ -390,9 +390,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Callao",
-    "impresionesTotales": 783,
-    "clicsTotales": 62,
-    "ctr": 7.92,
+    "impresionesTotales": 1003,
+    "clicsTotales": 78,
+    "ctr": 7.78,
     "cliente": "PE_Reset"
   },
   {
@@ -402,9 +402,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Bellavista",
-    "impresionesTotales": 784,
-    "clicsTotales": 63,
-    "ctr": 8.04,
+    "impresionesTotales": 1003,
+    "clicsTotales": 79,
+    "ctr": 7.88,
     "cliente": "PE_Reset"
   },
   {
@@ -414,9 +414,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "La Perla",
-    "impresionesTotales": 783,
-    "clicsTotales": 62,
-    "ctr": 7.92,
+    "impresionesTotales": 1002,
+    "clicsTotales": 78,
+    "ctr": 7.78,
     "cliente": "PE_Reset"
   },
   {
@@ -426,9 +426,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "La Punta",
-    "impresionesTotales": 782,
-    "clicsTotales": 62,
-    "ctr": 7.93,
+    "impresionesTotales": 1001,
+    "clicsTotales": 78,
+    "ctr": 7.79,
     "cliente": "PE_Reset"
   },
   {
@@ -438,9 +438,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Lima",
-    "impresionesTotales": 1091,
-    "clicsTotales": 83,
-    "ctr": 7.61,
+    "impresionesTotales": 1397,
+    "clicsTotales": 105,
+    "ctr": 7.52,
     "cliente": "PE_Reset"
   },
   {
@@ -450,9 +450,9 @@
     "mes": "Octubre",
     "formato": "Push Display",
     "ubicacion": "Rimac",
-    "impresionesTotales": 781,
-    "clicsTotales": 60,
-    "ctr": 7.68,
+    "impresionesTotales": 1000,
+    "clicsTotales": 75,
+    "ctr": 7.5,
     "cliente": "PE_Reset"
   }
 ]
