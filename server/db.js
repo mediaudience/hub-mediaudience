@@ -430,6 +430,21 @@ db.exec(`
 `)
 db.exec('CREATE INDEX IF NOT EXISTS idx_marca_archivos_pais ON marca_archivos (pais)')
 
+// Gestor de presentaciones (Admin > Material Comercial): por país, qué
+// productos lleva la presentación comercial (JSON, en orden) y sus datos
+// editables (JSON, claves de shared/presentaciones.js). archivo_id es la
+// presentación generada vigente en marca_archivos.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS presentaciones_pais (
+    pais TEXT PRIMARY KEY,
+    productos TEXT NOT NULL,
+    datos TEXT NOT NULL,
+    archivo_id INTEGER,
+    actualizado_por INTEGER REFERENCES users(id),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`)
+
 // Registro de firmas de correo (Admin > Firmas). Una ficha por persona,
 // identificada por correo (único, sin distinguir mayúsculas). `user_id` es
 // el dueño cuando la persona tiene cuenta en el hub y generó la suya; las que

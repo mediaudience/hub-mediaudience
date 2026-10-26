@@ -10,6 +10,7 @@ import adminRouter from './adminRoutes.js'
 import prospeccionRouter from './prospeccionRoutes.js'
 import gestionRouter from './gestionRoutes.js'
 import marcaRouter from './marcaRoutes.js'
+import presentacionesRouter from './presentacionesRoutes.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const SQLiteStore = SQLiteStoreFactory(session)
@@ -86,6 +87,7 @@ app.use('/api/admin', adminRouter)
 app.use('/api/prospeccion', prospeccionRouter)
 app.use('/api/gestion', gestionRouter)
 app.use('/api/marca', marcaRouter)
+app.use('/api/presentaciones', presentacionesRouter)
 
 app.use((err, req, res, next) => {
   console.error(err)

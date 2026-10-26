@@ -5,6 +5,12 @@ import EmptyState from "../../components/common/EmptyState";
 import Tabs from "../../components/common/Tabs";
 import { useAuth } from "../../context/AuthContext";
 import { CATEGORIAS_MARCA, PAIS_GLOBAL, MARCA_MAX_MB } from "../../../shared/marca";
+import {
+  CAMPOS_PRESENTACION,
+  LAMINAS_FIJAS,
+  PRODUCTOS_PRESENTACION,
+  SECCIONES_PRESENTACION,
+} from "../../../shared/presentaciones";
 
 async function apiFetch(url, options) {
   const res = await fetch(url, {
@@ -317,32 +323,292 @@ function TarjetaArchivo({ a, esStaff, onBorrar, onVer, paisNombre }) {
   );
 }
 
-// Gestor de presentaciones (solo Super Admin): catálogo de productos y armado
-// de la presentación comercial por país. Por ahora reserva su lugar mientras
-// se construye; la base de Perú ya se genera fuera del hub.
-function GestorPresentaciones() {
-  const pasos = [
-    ["Catálogo de productos", "Cada producto (CTV, Mobile Push, programática, gaming o un formato de partner) con sus láminas en estilo Signal."],
-    ["Producto nuevo desde la PPT del partner", "Subes la presentación del partner y el hub arma un borrador del producto en nuestra plantilla para que lo revises."],
-    ["Armar la presentación", "Eliges país, productos y orden, y descargas un .pptx editable con portada, casos y cierre de ese país."],
-  ];
+// Gestor de presentaciones (solo Super Admin): por país, qué productos lleva
+// la presentación comercial, en qué orden y con qué datos (cifras, telcos,
+// casos). "Guardar y generar" arma el .pptx en el server y lo publica en
+// Material Comercial del país, reemplazando la versión anterior.
+
+// Los datos viajan como arrays; en pantalla, listas y cifras se editan como
+// texto (un ítem por línea, columnas separadas por "|").
+function aTexto(campo, v) {
+  if (campo.tipo === "lista") return (v || []).join("\n");
+  if (campo.tipo === "kpis" || campo.tipo === "filas") return (v || []).map((f) => f.join(" | ")).join("\n");
+  if (campo.tipo === "kpi") return v || ["", ""];
+  return v ?? "";
+}
+
+function deTexto(campo, v) {
+  const lineas = (t) => String(t).split("\n").map((l) => l.trim()).filter(Boolean);
+  if (campo.tipo === "lista") return lineas(v);
+  if (campo.tipo === "kpis" || campo.tipo === "filas") return lineas(v).map((l) => l.split("|").map((c) => c.trim()));
+  return v;
+}
+
+function CampoDato({ campo, valor, onChange }) {
+  const id = `campo-${campo.clave}`;
+  const ayuda = {
+    lista: "Uno por línea.",
+    kpis: "Uno por línea: cifra | texto. Ej: +24M | dispositivos en Perú",
+    filas: `Una fila por línea: ${(campo.columnas || []).join(" | ")}`,
+  }[campo.tipo];
   return (
-    <Card className="p-6" hover={false}>
-      <p className="label-mono text-[10.5px] text-brand-purple mb-2">En construcción</p>
-      <h2 className="font-display font-semibold text-xl text-gray-900 mb-1">Gestor de presentaciones</h2>
-      <p className="text-sm text-slate-label mb-5 max-w-2xl">
-        Acá vas a armar las presentaciones comerciales de cada país sin rehacerlas a mano. Solo lo ve el Super Admin.
-      </p>
-      <div className="grid gap-3 md:grid-cols-3">
-        {pasos.map(([t, d], i) => (
-          <div key={t} className="rounded-md border border-line bg-ink-deep p-4">
-            <p className="label-mono text-[10px] text-brand-purple mb-2">{String(i + 1).padStart(2, "0")}</p>
-            <p className="font-display font-semibold text-gray-900 mb-1">{t}</p>
-            <p className="text-sm text-gray-600">{d}</p>
-          </div>
-        ))}
-      </div>
-    </Card>
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="text-sm text-gray-900">
+        {campo.etiqueta}
+        {campo.pais && <span className="label-mono text-[9.5px] text-brand-purple ml-2">propio del país</span>}
+      </label>
+      {campo.tipo === "kpi" ? (
+        <div className="flex gap-2">
+          <input id={id} className={`${inputClass} max-w-[8rem]`} placeholder="Cifra" value={valor[0]}
+            onChange={(e) => onChange([e.target.value, valor[1]])} />
+          <input aria-label={`${campo.etiqueta} · texto`} className={inputClass} placeholder="Texto" value={valor[1]}
+            onChange={(e) => onChange([valor[0], e.target.value])} />
+        </div>
+      ) : campo.tipo === "texto" ? (
+        <input id={id} className={inputClass} value={valor} onChange={(e) => onChange(e.target.value)} />
+      ) : (
+        <textarea id={id} className={`${inputClass} font-mono text-[13px]`} value={valor}
+          rows={Math.min(8, Math.max(2, String(valor).split("\n").length + 1))}
+          onChange={(e) => onChange(e.target.value)} />
+      )}
+      {ayuda && <p className="text-xs text-gray-500">{ayuda}</p>}
+    </div>
+  );
+}
+
+function GestorPresentaciones() {
+  const [paises, setPaises] = useState([]);
+  const [pais, setPais] = useState("PE");
+  const [productos, setProductos] = useState([]);
+  const [form, setForm] = useState({});
+  const [info, setInfo] = useState(null);
+  const [trabajo, setTrabajo] = useState(null);
+  const [archivo, setArchivo] = useState(null);
+  const [cargando, setCargando] = useState(true);
+  const [guardando, setGuardando] = useState(false);
+  const [aviso, setAviso] = useState("");
+  const [error, setError] = useState("");
+  const [abierta, setAbierta] = useState("general");
+
+  const cargarPaises = () => apiFetch("/api/presentaciones").then((r) => setPaises(r.paises));
+
+  useEffect(() => {
+    cargarPaises().catch((err) => setError(err.message));
+  }, []);
+
+  useEffect(() => {
+    setCargando(true);
+    setAviso("");
+    setError("");
+    setArchivo(null);
+    apiFetch(`/api/presentaciones/${pais}`)
+      .then((r) => {
+        setProductos(r.productos);
+        setForm(Object.fromEntries(CAMPOS_PRESENTACION.map((c) => [c.clave, aTexto(c, r.datos[c.clave])])));
+        setInfo(r);
+        setTrabajo(r.trabajo);
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setCargando(false));
+  }, [pais]);
+
+  // Mientras genera, se consulta el estado cada 3 s.
+  useEffect(() => {
+    if (trabajo?.estado !== "generando") return;
+    const t = setInterval(async () => {
+      try {
+        const r = await apiFetch(`/api/presentaciones/${pais}/estado`);
+        setTrabajo(r.trabajo);
+        if (r.trabajo?.estado !== "generando") {
+          setArchivo(r.archivo);
+          cargarPaises();
+        }
+      } catch (err) {
+        setError(err.message);
+      }
+    }, 3000);
+    return () => clearInterval(t);
+  }, [trabajo?.estado, pais]);
+
+  const datos = () => Object.fromEntries(CAMPOS_PRESENTACION.map((c) => [c.clave, deTexto(c, form[c.clave])]));
+  const laminas =
+    LAMINAS_FIJAS + productos.reduce((n, p) => n + (PRODUCTOS_PRESENTACION.find((x) => x.clave === p)?.laminas || 0), 0);
+
+  function alternar(clave) {
+    setProductos((ps) => (ps.includes(clave) ? ps.filter((p) => p !== clave) : [...ps, clave]));
+  }
+
+  function mover(clave, paso) {
+    setProductos((ps) => {
+      const i = ps.indexOf(clave);
+      const j = i + paso;
+      if (j < 0 || j >= ps.length) return ps;
+      const nuevo = [...ps];
+      [nuevo[i], nuevo[j]] = [nuevo[j], nuevo[i]];
+      return nuevo;
+    });
+  }
+
+  async function guardar(generar) {
+    setGuardando(true);
+    setAviso("");
+    setError("");
+    setArchivo(null);
+    try {
+      const body = JSON.stringify({ productos, datos: datos() });
+      if (generar) {
+        const r = await apiFetch(`/api/presentaciones/${pais}/generar`, { method: "POST", body });
+        setTrabajo(r.trabajo);
+      } else {
+        const r = await apiFetch(`/api/presentaciones/${pais}`, { method: "PUT", body });
+        setInfo(r);
+        setAviso("Datos guardados.");
+      }
+      cargarPaises();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setGuardando(false);
+    }
+  }
+
+  const nombrePais = paises.find((p) => p.codigo === pais)?.nombre || pais;
+  const generando = trabajo?.estado === "generando";
+  // Orden en pantalla: primero los elegidos (en su orden), después el resto.
+  const ordenados = [
+    ...productos.map((c) => PRODUCTOS_PRESENTACION.find((p) => p.clave === c)).filter(Boolean),
+    ...PRODUCTOS_PRESENTACION.filter((p) => !productos.includes(p.clave)),
+  ];
+  const secciones = SECCIONES_PRESENTACION.filter(
+    (s) => s.clave === "general" || productos.includes(s.clave)
+  ).filter((s) => CAMPOS_PRESENTACION.some((c) => c.seccion === s.clave));
+
+  return (
+    <div className="flex flex-col gap-5">
+      <Card className="p-6" hover={false}>
+        <h2 className="font-display font-semibold text-xl text-gray-900 mb-1">Gestor de presentaciones</h2>
+        <p className="text-sm text-slate-label max-w-3xl">
+          Elige el país, marca los productos y su orden, y revisa los datos. Al generar, la presentación se publica en
+          Material Comercial del país y reemplaza a la anterior. Un dato vacío no sale en la presentación (si falta el
+          caso o la cifra de un país, ese bloque se omite).
+        </p>
+        <div role="tablist" aria-label="País" className="flex flex-wrap gap-2 mt-5">
+          {paises.map((p) => (
+            <button key={p.codigo} type="button" role="tab" aria-selected={p.codigo === pais}
+              onClick={() => setPais(p.codigo)}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm border transition-colors ${
+                p.codigo === pais
+                  ? "bg-brand-purple/10 border-brand-purple/60 text-gray-900"
+                  : "border-line text-gray-600 hover:text-gray-900 hover:border-brand-purple/35"
+              }`}>
+              {p.nombre}
+              <span className={`label-mono text-[9.5px] ${p.guardado ? "text-brand-purple" : "text-gray-400"}`}>
+                {p.generando ? "generando" : p.guardado ? `${p.productos} productos` : "sin armar"}
+              </span>
+            </button>
+          ))}
+        </div>
+      </Card>
+
+      {error && (
+        <div role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>
+      )}
+
+      {cargando ? (
+        <Spinner label="Cargando datos del país..." />
+      ) : (
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] items-start">
+          <Card className="p-5" hover={false}>
+            <div className="flex items-baseline justify-between mb-3">
+              <h3 className="label-mono text-[10.5px] text-gray-500">Productos de {nombrePais}</h3>
+              <span className="font-mono text-[11px] text-brand-purple">{laminas} láminas</span>
+            </div>
+            <ul className="flex flex-col gap-1.5">
+              {ordenados.map((p) => {
+                const activo = productos.includes(p.clave);
+                const i = productos.indexOf(p.clave);
+                return (
+                  <li key={p.clave}
+                    className={`flex items-center gap-2 rounded-md border px-3 py-2 ${activo ? "border-brand-purple/40 bg-ink-deep" : "border-line"}`}>
+                    <input id={`prod-${p.clave}`} type="checkbox" checked={activo} onChange={() => alternar(p.clave)}
+                      className="accent-brand-purple" />
+                    <label htmlFor={`prod-${p.clave}`} className={`flex-1 text-sm ${activo ? "text-gray-900" : "text-gray-500"}`}>
+                      {activo && <span className="font-mono text-[11px] text-brand-purple mr-2">{String(i + 1).padStart(2, "0")}</span>}
+                      {p.nombre}
+                    </label>
+                    {activo && (
+                      <span className="flex gap-1">
+                        <button type="button" aria-label={`Subir ${p.nombre}`} disabled={i === 0} onClick={() => mover(p.clave, -1)}
+                          className="px-1.5 text-gray-500 hover:text-gray-900 disabled:opacity-30">↑</button>
+                        <button type="button" aria-label={`Bajar ${p.nombre}`} disabled={i === productos.length - 1}
+                          onClick={() => mover(p.clave, 1)} className="px-1.5 text-gray-500 hover:text-gray-900 disabled:opacity-30">↓</button>
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="text-xs text-gray-500 mt-3">
+              Siempre van portada, quiénes somos, objetivo, full funnel, clientes y cierre.
+            </p>
+          </Card>
+
+          <Card className="p-5" hover={false}>
+            <h3 className="label-mono text-[10.5px] text-gray-500 mb-3">Datos de {nombrePais}</h3>
+            <div className="flex flex-col gap-2">
+              {secciones.map((sec) => (
+                <section key={sec.clave} className="rounded-md border border-line">
+                  <button type="button" aria-expanded={abierta === sec.clave}
+                    onClick={() => setAbierta(abierta === sec.clave ? "" : sec.clave)}
+                    className="w-full flex justify-between items-center px-4 py-3 text-left text-sm font-medium text-gray-900">
+                    {sec.nombre}
+                    <span className="text-gray-500">{abierta === sec.clave ? "−" : "+"}</span>
+                  </button>
+                  {abierta === sec.clave && (
+                    <div className="flex flex-col gap-4 px-4 pb-4">
+                      {CAMPOS_PRESENTACION.filter((c) => c.seccion === sec.clave).map((c) => (
+                        <CampoDato key={c.clave} campo={c} valor={form[c.clave]}
+                          onChange={(v) => setForm((f) => ({ ...f, [c.clave]: v }))} />
+                      ))}
+                    </div>
+                  )}
+                </section>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 mt-5 pt-4 border-t border-line">
+              <button type="button" disabled={guardando || generando} onClick={() => guardar(true)}
+                className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90 disabled:opacity-50">
+                {generando ? "Generando..." : "Guardar y generar presentación"}
+              </button>
+              <button type="button" disabled={guardando || generando} onClick={() => guardar(false)}
+                className="text-sm px-4 py-2 rounded-md border border-line text-gray-900 hover:border-brand-purple/35 disabled:opacity-50">
+                Solo guardar
+              </button>
+              <span role="status" className="text-sm text-gray-600">
+                {generando && "Armando las láminas y los videos: tarda cerca de medio minuto."}
+                {!generando && aviso}
+                {!generando && trabajo?.estado === "error" && <span className="text-red-600">{trabajo.error}</span>}
+                {!generando && trabajo?.estado === "listo" && archivo && (
+                  <>
+                    Lista y publicada en Material Comercial › {nombrePais}.{" "}
+                    <a href={`/api/marca/archivos/${archivo.id}/descargar`} className="text-brand-purple hover:underline">
+                      Descargar ({formatoTamano(archivo.tamano)})
+                    </a>
+                  </>
+                )}
+              </span>
+            </div>
+            {info?.updated_at && (
+              <p className="text-xs text-gray-500 mt-3">
+                Última edición: {formatoFecha(info.updated_at)}
+                {info.actualizado_por_nombre ? ` · ${info.actualizado_por_nombre}` : ""}
+              </p>
+            )}
+          </Card>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -399,6 +665,11 @@ export default function MaterialComercial() {
   );
   const totalDelPais = gruposDelPais.reduce((n, g) => n + g.items.length, 0);
   const grupos = categoria ? gruposDelPais.filter((g) => g.codigo === categoria) : gruposDelPais;
+
+  // Al volver del gestor se recarga: puede haber publicado una presentación.
+  useEffect(() => {
+    if (seccion === "linea" && !loading) cargar().catch((err) => setError(err.message));
+  }, [seccion]);
 
   function elegirPais(codigo) {
     setTab(codigo);
