@@ -23,7 +23,17 @@ function ClipIcon({ active }) {
   );
 }
 
-const ICONS = { megaphone: MegaphoneIcon, clip: ClipIcon };
+function EyeIcon({ active }) {
+  const c = active ? "#58B0FF" : "#7782A3";
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z" stroke={c} strokeWidth="1.6" />
+      <circle cx="12" cy="12" r="2.6" fill={c} />
+    </svg>
+  );
+}
+
+const ICONS = { megaphone: MegaphoneIcon, clip: ClipIcon, eye: EyeIcon };
 
 // `actions`: nodo opcional que se ancla al extremo derecho de la barra de
 // pestañas (ej. el botón Descargar en ChannelRendimientoGeneral.jsx) -- así

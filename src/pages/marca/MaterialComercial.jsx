@@ -376,9 +376,9 @@ function CampoDato({ campo, valor, onChange }) {
   );
 }
 
-function GestorPresentaciones() {
+function GestorPresentaciones({ paisInicial, onVerVista }) {
   const [paises, setPaises] = useState([]);
-  const [pais, setPais] = useState("PE");
+  const [pais, setPais] = useState(paisInicial || "PE");
   // `orden` tiene los 8 productos del catálogo en el orden de la presentación;
   // `incluidos`, los que van. Marcar o desmarcar no mueve nada: el orden solo
   // cambia con las flechas.
@@ -387,7 +387,6 @@ function GestorPresentaciones() {
   const [form, setForm] = useState({});
   const [info, setInfo] = useState(null);
   const [trabajo, setTrabajo] = useState(null);
-  const [archivo, setArchivo] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [guardando, setGuardando] = useState(false);
   const [aviso, setAviso] = useState("");
@@ -404,7 +403,6 @@ function GestorPresentaciones() {
     setCargando(true);
     setAviso("");
     setError("");
-    setArchivo(null);
     apiFetch(`/api/presentaciones/${pais}`)
       .then((r) => {
         setOrden([...r.productos, ...PRODUCTOS_PRESENTACION.map((p) => p.clave).filter((c) => !r.productos.includes(c))]);
@@ -424,10 +422,7 @@ function GestorPresentaciones() {
       try {
         const r = await apiFetch(`/api/presentaciones/${pais}/estado`);
         setTrabajo(r.trabajo);
-        if (r.trabajo?.estado !== "generando") {
-          setArchivo(r.archivo);
-          cargarPaises();
-        }
+        if (r.trabajo?.estado !== "generando") cargarPaises();
       } catch (err) {
         setError(err.message);
       }
@@ -459,7 +454,6 @@ function GestorPresentaciones() {
     setGuardando(true);
     setAviso("");
     setError("");
-    setArchivo(null);
     try {
       const body = JSON.stringify({ productos, datos: datos() });
       if (generar) {
@@ -500,9 +494,9 @@ function GestorPresentaciones() {
       <Card className="p-6" hover={false}>
         <h2 className="font-display font-semibold text-xl text-gray-900 mb-1">Gestor de presentaciones</h2>
         <p className="text-sm text-slate-label max-w-3xl">
-          Elige el país, marca los productos y su orden, y revisa los datos. Al generar, la presentación se publica en
-          Material Comercial del país y reemplaza a la anterior. Un dato vacío no sale en la presentación (si falta el
-          caso o la cifra de un país, ese bloque se omite).
+          Elige el país, marca los productos y su orden, y revisa los datos. Al generar se arma un borrador que ves en
+          Vista previa; desde ahí lo descargas o lo publicas en Material Comercial. Un dato vacío no sale en la
+          presentación (si falta el caso o la cifra de un país, ese bloque se omite).
         </p>
         <div role="tablist" aria-label="País" className="flex flex-wrap gap-2 mt-5">
           {paises.map((p) => (
@@ -626,22 +620,22 @@ function GestorPresentaciones() {
             <div className="flex flex-wrap items-center gap-3 mt-5 pt-4 border-t border-line">
               <button type="button" disabled={guardando || generando} onClick={() => guardar(true)}
                 className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90 disabled:opacity-50">
-                {generando ? "Generando..." : "Guardar y generar presentación"}
+                {generando ? "Generando..." : "Guardar y generar vista previa"}
               </button>
               <button type="button" disabled={guardando || generando} onClick={() => guardar(false)}
                 className="text-sm px-4 py-2 rounded-md border border-line text-gray-900 hover:border-brand-purple/35 disabled:opacity-50">
                 Solo guardar
               </button>
               <span role="status" className="text-sm text-gray-600">
-                {generando && "Armando las láminas y los videos: tarda cerca de medio minuto."}
+                {generando && `${trabajo.fase || "Generando"}... tarda cerca de un minuto.`}
                 {!generando && aviso}
                 {!generando && trabajo?.estado === "error" && <span className="text-red-600">{trabajo.error}</span>}
-                {!generando && trabajo?.estado === "listo" && archivo && (
+                {!generando && trabajo?.estado === "listo" && (
                   <>
-                    Lista y publicada en Material Comercial › {nombrePais}.{" "}
-                    <a href={`/api/marca/archivos/${archivo.id}/descargar`} className="text-brand-purple hover:underline">
-                      Descargar ({formatoTamano(archivo.tamano)})
-                    </a>
+                    Borrador listo. Revísalo antes de publicarlo.{" "}
+                    <button type="button" onClick={() => onVerVista(pais)} className="text-brand-purple font-medium hover:underline">
+                      Ver vista previa →
+                    </button>
                   </>
                 )}
               </span>
@@ -659,6 +653,236 @@ function GestorPresentaciones() {
   );
 }
 
+
+// Vista previa (solo Super Admin): el borrador que armó el Gestor, lámina por
+// lámina, con Descargar y Publicar; y la presentación publicada del país.
+function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
+  const [paises, setPaises] = useState([]);
+  const [pais, setPais] = useState(paisInicial || "PE");
+  const [vista, setVista] = useState(null);
+  const [tipo, setTipo] = useState("borrador");
+  const [grande, setGrande] = useState(null);
+  const [cargando, setCargando] = useState(true);
+  const [publicando, setPublicando] = useState(false);
+  const [confirmar, setConfirmar] = useState(false);
+  const [aviso, setAviso] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    apiFetch("/api/presentaciones").then((r) => setPaises(r.paises)).catch((err) => setError(err.message));
+  }, []);
+
+  async function cargar(codigo = pais) {
+    const r = await apiFetch(`/api/presentaciones/${codigo}/vista`);
+    setVista(r);
+    setTipo(r.borrador ? "borrador" : "publicada");
+    return r;
+  }
+
+  useEffect(() => {
+    setCargando(true);
+    setAviso("");
+    setError("");
+    setConfirmar(false);
+    cargar(pais)
+      .catch((err) => setError(err.message))
+      .finally(() => setCargando(false));
+  }, [pais]);
+
+  // Si el borrador todavía se está generando, se espera y se recarga.
+  useEffect(() => {
+    if (vista?.trabajo?.estado !== "generando") return;
+    const t = setInterval(() => cargar().catch(() => {}), 3000);
+    return () => clearInterval(t);
+  }, [vista?.trabajo?.estado, pais]);
+
+  function elegir(codigo) {
+    setPais(codigo);
+    onCambiarPais(codigo);
+  }
+
+  async function publicar() {
+    setPublicando(true);
+    setError("");
+    try {
+      await apiFetch(`/api/presentaciones/${pais}/publicar`, { method: "POST" });
+      await cargar();
+      setTipo("publicada");
+      setConfirmar(false);
+      setAviso("Publicada. Ya está en Línea gráfica › " + (paises.find((p) => p.codigo === pais)?.nombre || pais) + " › Presentaciones comerciales.");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setPublicando(false);
+    }
+  }
+
+  const nombrePais = paises.find((p) => p.codigo === pais)?.nombre || pais;
+  const meta = vista?.[tipo];
+  const laminas = meta?.laminas || 0;
+  const version = encodeURIComponent(meta?.at || "");
+  const src = (n) => `/api/presentaciones/${pais}/vista/${tipo}/${n}?v=${version}`;
+  const fecha = (iso) =>
+    new Date(iso).toLocaleString("es", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "America/Lima" });
+
+  useEffect(() => {
+    if (!grande) return;
+    const tecla = (e) => {
+      if (e.key === "Escape") setGrande(null);
+      if (e.key === "ArrowRight") setGrande((n) => Math.min(laminas, n + 1));
+      if (e.key === "ArrowLeft") setGrande((n) => Math.max(1, n - 1));
+    };
+    window.addEventListener("keydown", tecla);
+    return () => window.removeEventListener("keydown", tecla);
+  }, [grande, laminas]);
+
+  return (
+    <div className="flex flex-col gap-5">
+      <Card className="p-6" hover={false}>
+        <h2 className="font-display font-semibold text-xl text-gray-900 mb-1">Vista previa</h2>
+        <p className="text-sm text-slate-label max-w-3xl">
+          Acá ves lámina por lámina lo que generó el Gestor. Si está bien, lo publicas y reemplaza a la presentación
+          del país en Línea gráfica. La presentación publicada siempre se descarga desde acá o desde Línea gráfica ›
+          país › Presentaciones comerciales.
+        </p>
+        <div role="tablist" aria-label="País" className="flex flex-wrap gap-2 mt-5">
+          {paises.map((p) => (
+            <button key={p.codigo} type="button" role="tab" aria-selected={p.codigo === pais} onClick={() => elegir(p.codigo)}
+              className={`px-4 py-2 rounded-md text-sm border transition-colors ${
+                p.codigo === pais
+                  ? "bg-brand-purple/10 border-brand-purple/60 text-gray-900"
+                  : "border-line text-gray-600 hover:text-gray-900 hover:border-brand-purple/35"
+              }`}>
+              {p.nombre}
+            </button>
+          ))}
+        </div>
+      </Card>
+
+      {error && <div role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
+      {aviso && <div role="status" className="rounded-lg border border-brand-purple/40 px-4 py-3 text-sm text-gray-900">{aviso}</div>}
+
+      {cargando ? (
+        <Spinner label="Cargando vista previa..." />
+      ) : (
+        <>
+          <div className="grid gap-3 md:grid-cols-2">
+            {[
+              ["borrador", "Borrador", vista?.borrador],
+              ["publicada", "Publicada", vista?.publicada],
+            ].map(([clave, titulo, m]) => (
+              <Card key={clave} hover={false}
+                className={`p-5 ${tipo === clave ? "ring-1 ring-brand-purple" : ""}`}>
+                <div className="flex items-baseline justify-between gap-3 mb-1">
+                  <h3 className="font-display font-semibold text-gray-900">{titulo}</h3>
+                  {m?.laminas ? (
+                    <button type="button" onClick={() => setTipo(clave)} className="text-xs text-brand-purple hover:underline">
+                      {tipo === clave ? "Viendo" : "Ver láminas"}
+                    </button>
+                  ) : null}
+                </div>
+                {clave === "borrador" ? (
+                  vista?.trabajo?.estado === "generando" ? (
+                    <p className="text-sm text-gray-600">{vista.trabajo.fase || "Generando"}... esta página se actualiza sola.</p>
+                  ) : m ? (
+                    <>
+                      <p className="text-sm text-gray-600 mb-4">
+                        {m.laminas} láminas · generado {fecha(m.at)}
+                        {m.por ? ` por ${m.por}` : ""}. Todavía no está en Línea gráfica.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {confirmar ? (
+                          <>
+                            <button type="button" disabled={publicando} onClick={publicar}
+                              className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90 disabled:opacity-50">
+                              {publicando ? "Publicando..." : `Sí, reemplazar la de ${nombrePais}`}
+                            </button>
+                            <button type="button" onClick={() => setConfirmar(false)}
+                              className="text-sm px-4 py-2 rounded-md border border-line text-gray-900">
+                              Cancelar
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button type="button" onClick={() => setConfirmar(true)}
+                              className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90">
+                              Publicar en Línea gráfica
+                            </button>
+                            <a href={`/api/presentaciones/${pais}/borrador/descargar`}
+                              className="text-sm px-4 py-2 rounded-md border border-line text-gray-900 hover:border-brand-purple/35">
+                              Descargar borrador (.pptx)
+                            </a>
+                          </>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-sm text-gray-600">
+                      No hay borrador.{" "}
+                      <button type="button" onClick={() => onEditar(pais)} className="text-brand-purple hover:underline">
+                        Genéralo desde el Gestor
+                      </button>
+                      .
+                    </p>
+                  )
+                ) : m ? (
+                  <>
+                    <p className="text-sm text-gray-600 mb-4">
+                      {m.archivo.nombre} · {formatoTamano(m.archivo.tamano)} · publicada {formatoFecha(m.archivo.created_at)}
+                      {!m.laminas && ". Se publicó antes del gestor: sus láminas no se pueden ver acá, solo descargar."}
+                    </p>
+                    <a href={`/api/marca/archivos/${m.archivo.id}/descargar`}
+                      className="inline-block bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90">
+                      Descargar presentación publicada (.pptx)
+                    </a>
+                  </>
+                ) : (
+                  <p className="text-sm text-gray-600">{nombrePais} todavía no tiene presentación publicada.</p>
+                )}
+              </Card>
+            ))}
+          </div>
+
+          {laminas > 0 ? (
+            <section>
+              <h3 className="label-mono text-[10.5px] text-gray-500 mb-3">
+                {tipo === "borrador" ? "Borrador" : "Publicada"} · {nombrePais} · {laminas} láminas
+              </h3>
+              <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+                {Array.from({ length: laminas }, (_, i) => i + 1).map((n) => (
+                  <figure key={n} className="m-0">
+                    <button type="button" onClick={() => setGrande(n)} aria-label={`Ver lámina ${n} en grande`}
+                      className="block w-full rounded-md overflow-hidden border border-line hover:border-brand-purple/60 bg-ink-deep aspect-video">
+                      <img src={src(n)} alt={`Lámina ${n}`} loading="lazy" className="w-full h-full object-contain" />
+                    </button>
+                    <figcaption className="font-mono text-[11px] text-gray-500 mt-1.5">{String(n).padStart(2, "0")}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          ) : null}
+        </>
+      )}
+
+      {grande && (
+        <div role="dialog" aria-modal="true" aria-label={`Lámina ${grande}`} onClick={() => setGrande(null)}
+          className="fixed inset-0 z-50 bg-black/85 flex flex-col items-center justify-center p-4">
+          <img src={src(grande)} alt={`Lámina ${grande}`} onClick={(e) => e.stopPropagation()}
+            className="max-w-full max-h-[82vh] rounded-md" />
+          <div className="flex items-center gap-4 mt-4 text-sm text-white" onClick={(e) => e.stopPropagation()}>
+            <button type="button" disabled={grande === 1} onClick={() => setGrande(grande - 1)}
+              className="px-3 py-1.5 rounded-md border border-white/30 disabled:opacity-30">← Anterior</button>
+            <span className="font-mono">{grande} / {laminas}</span>
+            <button type="button" disabled={grande === laminas} onClick={() => setGrande(grande + 1)}
+              className="px-3 py-1.5 rounded-md border border-white/30 disabled:opacity-30">Siguiente →</button>
+            <button type="button" onClick={() => setGrande(null)} className="px-3 py-1.5 rounded-md border border-white/30">Cerrar</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function MaterialComercial() {
   const { user } = useAuth();
   const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
@@ -668,8 +892,15 @@ export default function MaterialComercial() {
   const [seccion, setSeccion] = useState("linea");
   const secciones = [
     { key: "linea", label: "Línea gráfica", icon: "clip" },
-    ...(esSuperAdmin ? [{ key: "gestor", label: "Gestor de presentaciones", icon: "megaphone" }] : []),
+    ...(esSuperAdmin
+      ? [
+          { key: "gestor", label: "Gestor de presentaciones", icon: "megaphone" },
+          { key: "vista", label: "Vista previa", icon: "eye" },
+        ]
+      : []),
   ];
+  // País que se ve en Gestor y Vista previa (se comparte al pasar de una a otra).
+  const [paisPres, setPaisPres] = useState("PE");
   const [paises, setPaises] = useState([]);
   const [archivos, setArchivos] = useState([]);
   // País elegido ("" = todos, que es como arranca la página).
@@ -767,7 +998,22 @@ export default function MaterialComercial() {
       </div>
 
       {seccion === "gestor" && esSuperAdmin ? (
-        <GestorPresentaciones />
+        <GestorPresentaciones
+          paisInicial={paisPres}
+          onVerVista={(p) => {
+            setPaisPres(p);
+            setSeccion("vista");
+          }}
+        />
+      ) : seccion === "vista" && esSuperAdmin ? (
+        <VistaPresentaciones
+          paisInicial={paisPres}
+          onCambiarPais={setPaisPres}
+          onEditar={(p) => {
+            setPaisPres(p);
+            setSeccion("gestor");
+          }}
+        />
       ) : loading ? (
         <Spinner label="Cargando material..." />
       ) : (
