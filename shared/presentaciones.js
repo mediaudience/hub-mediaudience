@@ -34,7 +34,8 @@ export const CAMPOS_PRESENTACION = [
   { clave: "QUIENES_PUNTOS", seccion: "general", etiqueta: "Quiénes somos · puntos", tipo: "lista" },
   { clave: "QUIENES_KPIS", seccion: "general", etiqueta: "Quiénes somos · cifras", tipo: "kpis" },
   { clave: "PRESENCIA", seccion: "general", etiqueta: "Países con presencia", tipo: "lista" },
-  { clave: "FUNNEL", seccion: "general", etiqueta: "Full funnel", tipo: "filas", columnas: ["Etapa", "Soluciones", "Para qué"] },
+  { clave: "FUNNEL_LISTA", seccion: "general", etiqueta: "Full funnel · lista de productos (izquierda)", tipo: "lista" },
+  { clave: "FUNNEL", seccion: "general", etiqueta: "Full funnel · etapas del embudo (una por línea)", tipo: "filas", columnas: ["Etapa"] },
   { clave: "CONTACTO", seccion: "general", etiqueta: "Contacto en el cierre", tipo: "lista", pais: true },
 
   { clave: "CTV_OPORTUNIDADES", seccion: "ctv", etiqueta: "Impresiones del país", tipo: "kpi", pais: true },
