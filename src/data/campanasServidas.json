@@ -508,6 +508,10 @@
     "anunciante": "EC_Kia"
   },
   {
+    "campana": "EC_Tips_ConcursoGalápagos_14Octubre2026_Interacciones",
+    "anunciante": "EC_Tips"
+  },
+  {
     "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
     "anunciante": "EC_Prefectura"
   },
@@ -541,14 +545,10 @@
   },
   {
     "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Interacciones",
-    "anunciante": "Golden Bear"
+    "anunciante": "EC_GoldenBear"
   },
   {
     "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Vistas",
-    "anunciante": "Golden Bear"
-  },
-  {
-    "campana": "EC_Tips_ConcursoGalápagos_14Octubre2026_Interacciones",
-    "anunciante": "EC_Tips"
+    "anunciante": "EC_GoldenBear"
   }
 ]

@@ -273,6 +273,8 @@ router.get('/:pais/vista', (req, res) => {
 });
 
 router.get('/:pais/vista/:tipo/:n', (req, res, next) => {
+  // "videos.json" también cae en este patrón: que siga a su propia ruta.
+  if (!/^\d+$/.test(req.params.n)) return next();
   const pais = paisValido(req.params.pais);
   const { tipo } = req.params;
   const n = Number(req.params.n);

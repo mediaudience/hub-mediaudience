@@ -729,6 +729,17 @@ function Presentador({ total, src, base, onCerrar }) {
         {(videos[String(n)] || []).map((v, i) => (
           <VideoLamina key={`${n}-${i}`} src={`${base}/video/${v.v}`} v={v} todos={todos} />
         ))}
+        {n === 1 && (
+          // Portada: el isotipo late y emite la onda de radar, igual que el logo del hub (brand-dot /
+          // brand-ping en index.css). Posición = la del isotipo en Deck.portada_logo (logo de 8,4"
+          // centrado a 2,05" del borde superior en una lámina de 13,333" × 7,5").
+          <svg viewBox="0 0 28 28" aria-hidden="true" className="absolute overflow-visible pointer-events-none"
+            style={{ left: "19.38%", top: "28.92%", width: "9.35%", height: "16.62%" }}>
+            <circle cx="14" cy="14" r="4.2" fill="#0a0e17" />
+            <circle className="brand-ping" cx="14" cy="14" r="3.5" fill="none" stroke="#58B0FF" strokeWidth="1.2" />
+            <circle className="brand-dot" cx="14" cy="14" r="3.5" fill="#58B0FF" />
+          </svg>
+        )}
       </div>
       {(videos[String(n)] || []).length > 0 && (
         <button type="button"

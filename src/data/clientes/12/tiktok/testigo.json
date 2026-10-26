@@ -1,7 +1,7 @@
 [
   {
     "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Interacciones",
-    "anunciante": "Golden Bear",
+    "anunciante": "EC_GoldenBear",
     "motivo": "Septiembre_TecnologíaDeOtraGalaxia_Interacciones",
     "mes": "Septiembre",
     "formato": "In-Feed",
@@ -10,11 +10,182 @@
   },
   {
     "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Vistas",
-    "anunciante": "Golden Bear",
+    "anunciante": "EC_GoldenBear",
     "motivo": "Septiembre_TecnologíaDeOtraGalaxia_Vistas",
     "mes": "Septiembre",
     "formato": "In-Feed",
     "link": "https://drive.google.com/drive/folders/1iQZ4FvznU3xZrwp4DAYXaTlKGUym0NrQ?usp=sharing",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Alcance",
+    "anunciante": "EC_Bambú",
+    "motivo": "Junio_Bambú Alcance",
+    "mes": "Junio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1mlrY0MhXOJB3sufOoL_N1YNi8nTFSgXl/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Interacciones",
+    "anunciante": "EC_Bambú",
+    "motivo": "Junio_Bambú Interacciones",
+    "mes": "Junio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1ybeWcJW1Phz-h9PPUq3T5VQB8VTQAy2k/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Alcance",
+    "anunciante": "EC_Bambú",
+    "motivo": "Julio_La Elegancia Alcance",
+    "mes": "Julio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1yqTDomN_egjsJ2vIYh4GHP3vHs1DeI3X/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Alcance",
+    "anunciante": "EC_Bambú",
+    "motivo": "Julio_La Rosé Gold Alcance",
+    "mes": "Julio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1t0YGwAhWqy50TJn1Xnn-HNmkRrdnwFqO/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Alcance",
+    "anunciante": "EC_Bambú",
+    "motivo": "Julio_Tengo Planes Alcance",
+    "mes": "Julio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/15zakVZSDnisZbQcO3tJMCdcFRmDfBKsQ/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Alcance",
+    "anunciante": "EC_Bambú",
+    "motivo": "Julio_Una Esencia Alcance",
+    "mes": "Julio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1gmZLyCR18OKIIkZg5BOzafXMOoVp-Y9d/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Interacciones",
+    "anunciante": "EC_Bambú",
+    "motivo": "Julio_La Elegancia Interacciones",
+    "mes": "Julio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1kJ1Nd5yk-sYTlIfofJu_kEiaGazuWIHC/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Interacciones",
+    "anunciante": "EC_Bambú",
+    "motivo": "Julio_La Rosé Gold Interacciones",
+    "mes": "Julio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1xS1KFEDW-z1M7uPBy1wkHriYhEuJqCy9/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Interacciones",
+    "anunciante": "EC_Bambú",
+    "motivo": "Julio_Tengo Planes Interacciones",
+    "mes": "Julio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1OH4cijgIu-Pwkck645tKLMXWkHR7CqsM/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Interacciones",
+    "anunciante": "EC_Bambú",
+    "motivo": "Julio_Una Esencia Interacciones",
+    "mes": "Julio",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1yaQN_6LafhV4yB-TcvJ5vtk0q1-nH4zu/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Alcance",
+    "anunciante": "EC_Bambú",
+    "motivo": "Agosto_Crea Momentos Alcance",
+    "mes": "Agosto",
+    "formato": "In-Feed",
+    "link": "https://v-ttam.tiktok.com/s/ZSqkPLuka/",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Alcance",
+    "anunciante": "EC_Bambú",
+    "motivo": "Agosto_Tus Frascos Alcance",
+    "mes": "Agosto",
+    "formato": "In-Feed",
+    "link": "https://v-ttam.tiktok.com/s/ZSqkPReDG/",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Interacciones",
+    "anunciante": "EC_Bambú",
+    "motivo": "Agosto_Crea Momentos Interacciones",
+    "mes": "Agosto",
+    "formato": "In-Feed",
+    "link": "https://v-ttam.tiktok.com/s/ZSqkfGJ5C/",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Interacciones",
+    "anunciante": "EC_Bambú",
+    "motivo": "Agosto_Tus Frascos Interacciones",
+    "mes": "Agosto",
+    "formato": "In-Feed",
+    "link": "https://v-ttam.tiktok.com/s/ZSqkfGUeL/",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú",
+    "motivo": "Septiembre_Rosé Gold Alcance",
+    "mes": "Septiembre",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1QUqmUtUj-KTBD13OKj81QQ2YuKH3Y53W/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú",
+    "motivo": "Septiembre_Mejor Premio Alcance",
+    "mes": "Septiembre",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1e4Jc1UQ-DDIeZYzRZzu5tizGd1tI3tWd/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú",
+    "motivo": "Septiembre_Rosé Gold Interacciones",
+    "mes": "Septiembre",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1QUqmUtUj-KTBD13OKj81QQ2YuKH3Y53W/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Bambú_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú",
+    "motivo": "Septiembre_Mejor Premio Interacciones",
+    "mes": "Septiembre",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/file/d/1e4Jc1UQ-DDIeZYzRZzu5tizGd1tI3tWd/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Tips_ConcursoGalápagos_14Octubre2026_Interacciones",
+    "anunciante": "EC_Tips",
+    "motivo": "Octubre_ConcursoGalápagos_Interacciones",
+    "mes": "Octubre",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/drive/folders/1dXPFOSa042_yYMl3uARcoYPUKB4qRPTB?usp=sharing",
     "cliente": "EC_Paradais"
   }
 ]
