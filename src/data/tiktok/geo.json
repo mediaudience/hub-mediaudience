@@ -390,5 +390,19 @@
     "vistas6seg": 8434,
     "seguidores": 25,
     "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Tips_ConcursoGalápagos_14Octubre2026_Interacciones",
+    "anunciante": "EC_Tips",
+    "motivo": "Octubre_ConcursoGalápagos_Interacciones",
+    "mes": "Octubre",
+    "formato": "In-Feed",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 4167,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "vistas6seg": 221,
+    "seguidores": 203,
+    "cliente": "EC_Tips"
   }
 ]

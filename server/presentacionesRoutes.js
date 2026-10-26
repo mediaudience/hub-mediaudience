@@ -193,6 +193,8 @@ async function generar(pais, config, user, req) {
     await writeFile(json, JSON.stringify({ productos: config.productos, datos: config.datos }));
     fase('Armando las láminas');
     await correr(PYTHON, ['generar.py', json, pptx], { cwd: DECK_DIR });
+    // Videos aparte (con su posición en la lámina) para el modo Presentar.
+    await correr(PYTHON, ['extraer_videos.py', pptx, tmp], { cwd: DECK_DIR });
     fase('Dibujando la vista previa');
     await enCola(() =>
       correr('soffice', [`-env:UserInstallation=${LO_PERFIL}`, '--headless', '--convert-to', 'pdf', '--outdir', tmp, pptx], {
@@ -200,7 +202,8 @@ async function generar(pais, config, user, req) {
         env: { ...process.env, HOME: tmp },
       })
     );
-    await correr('pdftoppm', ['-jpeg', '-jpegopt', 'quality=80', '-scale-to-x', '1600', '-scale-to-y', '-1',
+    // 2560 px y calidad alta: en el modo Presentar se ven a pantalla completa, también en pantallas retina.
+    await correr('pdftoppm', ['-jpeg', '-jpegopt', 'quality=90', '-scale-to-x', '2560', '-scale-to-y', '-1',
       path.join(tmp, 'presentacion.pdf'), path.join(tmp, 'l')]);
     await rm(path.join(tmp, 'presentacion.pdf'), { force: true });
     await rm(json, { force: true });
@@ -282,6 +285,29 @@ router.get('/:pais/vista/:tipo/:n', (req, res, next) => {
   const ancho = String(meta.laminas).length;
   res.set('Cache-Control', 'private, no-cache');
   res.type('image/jpeg').sendFile(path.join(dirVista(pais.codigo, tipo), `l-${String(n).padStart(ancho, '0')}.jpg`), (err) => {
+    if (err && !res.headersSent) next(err);
+  });
+});
+
+// Modo Presentar: posiciones de los videos por lámina y los videos en sí.
+router.get('/:pais/vista/:tipo/videos.json', (req, res) => {
+  const pais = paisValido(req.params.pais);
+  if (!pais || !['borrador', 'publicada'].includes(req.params.tipo)) return res.status(404).json({ error: 'No encontrado' });
+  try {
+    res.json(JSON.parse(readFileSync(path.join(dirVista(pais.codigo, req.params.tipo), 'videos.json'), 'utf8')));
+  } catch {
+    res.json({});
+  }
+});
+
+router.get('/:pais/vista/:tipo/video/:archivo', (req, res, next) => {
+  const pais = paisValido(req.params.pais);
+  const { tipo, archivo } = req.params;
+  if (!pais || !['borrador', 'publicada'].includes(tipo) || !/^v_[0-9a-f]{8}\.mp4$/.test(archivo)) {
+    return res.status(404).json({ error: 'Video no encontrado' });
+  }
+  res.set('Cache-Control', 'private, max-age=3600');
+  res.type('video/mp4').sendFile(path.join(dirVista(pais.codigo, tipo), 'videos', archivo), (err) => {
     if (err && !res.headersSent) next(err);
   });
 });

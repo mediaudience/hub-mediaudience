@@ -820,8 +820,8 @@
     "fechaInicio": "2026-10-02",
     "fechaFin": "2026-10-30",
     "objetivo": 2242,
-    "consumo": 886,
-    "porcentajeConsumo": 39.52,
+    "consumo": 1636,
+    "porcentajeConsumo": 72.98,
     "reporte": "No enviado",
     "pais": "Perú"
   },
@@ -834,8 +834,8 @@
     "fechaInicio": "2026-10-02",
     "fechaFin": "2026-10-31",
     "objetivo": 7034,
-    "consumo": 2938,
-    "porcentajeConsumo": 41.77,
+    "consumo": 4238,
+    "porcentajeConsumo": 60.25,
     "reporte": "No enviado",
     "pais": "Perú"
   },
@@ -854,6 +854,20 @@
     "pais": "Perú"
   },
   {
+    "anunciante": "Starbucks",
+    "campana": "Peanuts Octubre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Push Display Premium",
+    "tipoVenta": "CPC",
+    "fechaInicio": "2026-10-16",
+    "fechaFin": "2026-10-31",
+    "objetivo": 1587,
+    "consumo": 631,
+    "porcentajeConsumo": 39.75,
+    "reporte": "No enviado",
+    "pais": "Perú"
+  },
+  {
     "anunciante": "DeVida",
     "campana": "Consecuencias: Tráfico Ilícito de Drogas Septiembre",
     "ejecutivo": "Danny Miller",
@@ -862,8 +876,8 @@
     "fechaInicio": "2026-09-07",
     "fechaFin": "2026-11-05",
     "objetivo": 1864410,
-    "consumo": 1129893,
-    "porcentajeConsumo": 60.6,
+    "consumo": 1516750,
+    "porcentajeConsumo": 81.35,
     "reporte": "No enviado",
     "pais": "Perú"
   },
@@ -896,17 +910,31 @@
     "pais": "Perú"
   },
   {
-    "anunciante": "Starbucks",
-    "campana": "Peanuts Octubre",
-    "ejecutivo": "Danny Miller",
-    "formato": "Push Display Premium",
-    "tipoVenta": "CPC",
-    "fechaInicio": "2026-10-16",
-    "fechaFin": "2026-10-31",
-    "objetivo": 1587,
-    "consumo": 0,
+    "anunciante": "",
+    "campana": "",
+    "ejecutivo": "",
+    "formato": "",
+    "tipoVenta": "",
+    "fechaInicio": "",
+    "fechaFin": "",
+    "objetivo": 0,
+    "consumo": 1694,
     "porcentajeConsumo": 0,
-    "reporte": "No enviado",
+    "reporte": "",
+    "pais": "Perú"
+  },
+  {
+    "anunciante": "",
+    "campana": "",
+    "ejecutivo": "",
+    "formato": "",
+    "tipoVenta": "",
+    "fechaInicio": "",
+    "fechaFin": "",
+    "objetivo": 0,
+    "consumo": 58,
+    "porcentajeConsumo": 0,
+    "reporte": "",
     "pais": "Perú"
   }
 ]

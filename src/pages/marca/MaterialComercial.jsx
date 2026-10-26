@@ -657,9 +657,46 @@ function GestorPresentaciones({ paisInicial, onVerVista }) {
 // Modo presentación: las láminas a pantalla completa, una por vez. Avanza con
 // clic, flechas o barra espaciadora; Esc sale. Por ahora usa las imágenes de la
 // vista previa (los videos se ven como cuadro fijo; se mejora después).
-function Presentador({ total, src, onCerrar }) {
+function VideoLamina({ src, v, todos }) {
+  const ref = useRef(null);
+  const [andando, setAndando] = useState(false);
+  const play = () => ref.current?.play().then(() => setAndando(true)).catch(() => {});
+  useEffect(() => {
+    if (todos > 0) play();
+  }, [todos]);
+  return (
+    <div className="absolute" style={{ left: `${v.x * 100}%`, top: `${v.y * 100}%`, width: `${v.w * 100}%`, height: `${v.h * 100}%` }}
+      onClick={(e) => {
+        e.stopPropagation();
+        if (andando) {
+          ref.current?.pause();
+          setAndando(false);
+        } else play();
+      }}>
+      <video ref={ref} src={src} loop playsInline preload="auto" className="w-full h-full object-fill" />
+      {!andando && (
+        <span className="absolute inset-0 flex items-center justify-center">
+          <span className="w-14 h-14 rounded-full bg-[#58b0ff]/90 text-[#040b17] flex items-center justify-center text-2xl shadow-lg">▶</span>
+        </span>
+      )}
+    </div>
+  );
+}
+
+function Presentador({ total, src, base, onCerrar }) {
   const ref = useRef(null);
   const [n, setN] = useState(1);
+  // Videos de cada lámina con su posición (fracciones de la lámina). Arrancan con su botón ▶ o con
+  // "Reproducir videos" (todos los de la lámina); `todos` es un contador que cada video escucha.
+  const [videos, setVideos] = useState({});
+  const [todos, setTodos] = useState(0);
+  useEffect(() => setTodos(0), [n]);
+  useEffect(() => {
+    fetch(`${base}/videos.json`, { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : {}))
+      .then(setVideos)
+      .catch(() => {});
+  }, [base]);
   useEffect(() => {
     ref.current?.requestFullscreen?.().catch(() => {});
     const salir = () => !document.fullscreenElement && onCerrar();
@@ -686,7 +723,23 @@ function Presentador({ total, src, onCerrar }) {
     <div ref={ref} role="dialog" aria-modal="true" aria-label="Modo presentación"
       onClick={(e) => (e.clientX < window.innerWidth / 4 ? setN((x) => Math.max(1, x - 1)) : setN((x) => Math.min(total, x + 1)))}
       className="fixed inset-0 z-[60] bg-black flex items-center justify-center cursor-pointer select-none group">
-      <img src={src(n)} alt={`Lámina ${n}`} className="max-w-full max-h-full w-full h-full object-contain" />
+      {/* Caja 16:9 que entra en la pantalla: la lámina de fondo y los videos encima, en su lugar. */}
+      <div className="relative" style={{ width: "min(100vw, calc(100vh * 16 / 9))", aspectRatio: "16 / 9" }}>
+        <img src={src(n)} alt={`Lámina ${n}`} className="absolute inset-0 w-full h-full object-contain" />
+        {(videos[String(n)] || []).map((v, i) => (
+          <VideoLamina key={`${n}-${i}`} src={`${base}/video/${v.v}`} v={v} todos={todos} />
+        ))}
+      </div>
+      {(videos[String(n)] || []).length > 0 && (
+        <button type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setTodos((t) => t + 1);
+          }}
+          className="absolute top-4 right-4 inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full bg-[#58b0ff] text-[#040b17] shadow-lg hover:opacity-90">
+          ▶ Reproducir videos
+        </button>
+      )}
       <div className="absolute bottom-3 right-4 font-mono text-xs text-white/40 opacity-0 group-hover:opacity-100 transition-opacity">
         {n} / {total} · Esc para salir
       </div>
@@ -930,6 +983,7 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
       {presentando && (
         <Presentador
           total={presentando.total}
+          base={`/api/presentaciones/${pais}/vista/${presentando.tipo}`}
           src={(k) => `/api/presentaciones/${pais}/vista/${presentando.tipo}/${k}?v=${encodeURIComponent(presentando.at || "")}`}
           onCerrar={() => setPresentando(null)}
         />
