@@ -725,6 +725,20 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
   const fecha = (iso) =>
     new Date(iso).toLocaleString("es", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "America/Lima" });
 
+  // El visor se abre en pantalla completa (si el navegador lo permite) para leer bien los textos.
+  const visorRef = useRef(null);
+  const abierto = !!grande;
+  useEffect(() => {
+    if (!abierto) return;
+    visorRef.current?.requestFullscreen?.().catch(() => {});
+    const salir = () => !document.fullscreenElement && setGrande(null);
+    document.addEventListener("fullscreenchange", salir);
+    return () => {
+      document.removeEventListener("fullscreenchange", salir);
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    };
+  }, [abierto]);
+
   useEffect(() => {
     if (!grande) return;
     const tecla = (e) => {
@@ -865,17 +879,17 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
       )}
 
       {grande && (
-        <div role="dialog" aria-modal="true" aria-label={`Lámina ${grande}`} onClick={() => setGrande(null)}
-          className="fixed inset-0 z-50 bg-black/85 flex flex-col items-center justify-center p-4">
+        <div ref={visorRef} role="dialog" aria-modal="true" aria-label={`Lámina ${grande}`} onClick={() => setGrande(null)}
+          className="fixed inset-0 z-50 bg-[#06090f] flex flex-col items-center justify-center p-3">
           <img src={src(grande)} alt={`Lámina ${grande}`} onClick={(e) => e.stopPropagation()}
-            className="max-w-full max-h-[82vh] rounded-md" />
-          <div className="flex items-center gap-4 mt-4 text-sm text-white" onClick={(e) => e.stopPropagation()}>
+            className="w-full h-full max-h-[calc(100vh-4.5rem)] object-contain rounded-md" />
+          <div className="flex items-center gap-4 mt-3 text-sm text-white" onClick={(e) => e.stopPropagation()}>
             <button type="button" disabled={grande === 1} onClick={() => setGrande(grande - 1)}
               className="px-3 py-1.5 rounded-md border border-white/30 disabled:opacity-30">← Anterior</button>
             <span className="font-mono">{grande} / {laminas}</span>
             <button type="button" disabled={grande === laminas} onClick={() => setGrande(grande + 1)}
               className="px-3 py-1.5 rounded-md border border-white/30 disabled:opacity-30">Siguiente →</button>
-            <button type="button" onClick={() => setGrande(null)} className="px-3 py-1.5 rounded-md border border-white/30">Cerrar</button>
+            <button type="button" onClick={() => setGrande(null)} className="px-3 py-1.5 rounded-md border border-white/30">Cerrar (Esc)</button>
           </div>
         </div>
       )}
