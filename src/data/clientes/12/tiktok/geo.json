@@ -1,0 +1,30 @@
+[
+  {
+    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Interacciones",
+    "anunciante": "Golden Bear",
+    "motivo": "Septiembre_TecnologíaDeOtraGalaxia_Interacciones",
+    "mes": "Septiembre",
+    "formato": "In-Feed",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 55473,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "vistas6seg": 3706,
+    "seguidores": 846,
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Vistas",
+    "anunciante": "Golden Bear",
+    "motivo": "Septiembre_TecnologíaDeOtraGalaxia_Vistas",
+    "mes": "Septiembre",
+    "formato": "In-Feed",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 50331,
+    "clicsTotales": 105,
+    "ctr": 0.21,
+    "vistas6seg": 8434,
+    "seguidores": 25,
+    "cliente": "EC_Paradais"
+  }
+]

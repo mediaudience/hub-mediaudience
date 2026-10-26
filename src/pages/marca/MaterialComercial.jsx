@@ -654,6 +654,46 @@ function GestorPresentaciones({ paisInicial, onVerVista }) {
 }
 
 
+// Modo presentación: las láminas a pantalla completa, una por vez. Avanza con
+// clic, flechas o barra espaciadora; Esc sale. Por ahora usa las imágenes de la
+// vista previa (los videos se ven como cuadro fijo; se mejora después).
+function Presentador({ total, src, onCerrar }) {
+  const ref = useRef(null);
+  const [n, setN] = useState(1);
+  useEffect(() => {
+    ref.current?.requestFullscreen?.().catch(() => {});
+    const salir = () => !document.fullscreenElement && onCerrar();
+    const tecla = (e) => {
+      if (["ArrowRight", "ArrowDown", " ", "PageDown", "Enter"].includes(e.key)) setN((x) => Math.min(total, x + 1));
+      if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(e.key)) setN((x) => Math.max(1, x - 1));
+      if (e.key === "Home") setN(1);
+      if (e.key === "End") setN(total);
+      if (e.key === "Escape") onCerrar();
+    };
+    document.addEventListener("fullscreenchange", salir);
+    window.addEventListener("keydown", tecla);
+    return () => {
+      document.removeEventListener("fullscreenchange", salir);
+      window.removeEventListener("keydown", tecla);
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    };
+  }, [total]);
+  // Precarga la siguiente lámina para que el cambio sea instantáneo.
+  useEffect(() => {
+    if (n < total) new Image().src = src(n + 1);
+  }, [n]);
+  return (
+    <div ref={ref} role="dialog" aria-modal="true" aria-label="Modo presentación"
+      onClick={(e) => (e.clientX < window.innerWidth / 4 ? setN((x) => Math.max(1, x - 1)) : setN((x) => Math.min(total, x + 1)))}
+      className="fixed inset-0 z-[60] bg-black flex items-center justify-center cursor-pointer select-none group">
+      <img src={src(n)} alt={`Lámina ${n}`} className="max-w-full max-h-full w-full h-full object-contain" />
+      <div className="absolute bottom-3 right-4 font-mono text-xs text-white/40 opacity-0 group-hover:opacity-100 transition-opacity">
+        {n} / {total} · Esc para salir
+      </div>
+    </div>
+  );
+}
+
 // Vista previa (solo Super Admin): el borrador que armó el Gestor, lámina por
 // lámina, con Descargar y Publicar; y la presentación publicada del país.
 function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
@@ -662,6 +702,7 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
   const [vista, setVista] = useState(null);
   const [tipo, setTipo] = useState("borrador");
   const [grande, setGrande] = useState(null);
+  const [presentando, setPresentando] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [publicando, setPublicando] = useState(false);
   const [confirmar, setConfirmar] = useState(false);
@@ -788,7 +829,15 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
               <Card key={clave} hover={false}
                 className={`p-5 ${tipo === clave ? "ring-1 ring-brand-purple" : ""}`}>
                 <div className="flex items-baseline justify-between gap-3 mb-1">
-                  <h3 className="font-display font-semibold text-gray-900">{titulo}</h3>
+                  <h3 className="font-display font-semibold text-gray-900 flex items-center gap-3">
+                    {titulo}
+                    {m?.laminas ? (
+                      <button type="button" onClick={() => setPresentando({ tipo: clave, total: m.laminas, at: m.at })}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md bg-brand-purple/15 text-brand-purple border border-brand-purple/50 hover:bg-brand-purple/25">
+                        ▶ Presentar
+                      </button>
+                    ) : null}
+                  </h3>
                   {m?.laminas ? (
                     <button type="button" onClick={() => setTipo(clave)} className="text-xs text-brand-purple hover:underline">
                       {tipo === clave ? "Viendo" : "Ver láminas"}
@@ -876,6 +925,14 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
             </section>
           ) : null}
         </>
+      )}
+
+      {presentando && (
+        <Presentador
+          total={presentando.total}
+          src={(k) => `/api/presentaciones/${pais}/vista/${presentando.tipo}/${k}?v=${encodeURIComponent(presentando.at || "")}`}
+          onCerrar={() => setPresentando(null)}
+        />
       )}
 
       {grande && (

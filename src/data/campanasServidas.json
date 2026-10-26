@@ -476,6 +476,38 @@
     "anunciante": "PE_PlazaSanMiguel"
   },
   {
+    "campana": "PE_Alicorp_NosLavaremosLasManos_Junio2026",
+    "anunciante": "PE_Alicorp"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsRelanzamiento_Mayo2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Junio2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Julio2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsPromoYape_Julio2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_BolivarMissDior_Julio2026",
+    "anunciante": "PE_Bolivar"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia"
+  },
+  {
     "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
     "anunciante": "EC_Prefectura"
   },
@@ -508,35 +540,11 @@
     "anunciante": "EC_Prefectura"
   },
   {
-    "campana": "PE_Alicorp_NosLavaremosLasManos_Junio2026",
-    "anunciante": "PE_Alicorp"
+    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Interacciones",
+    "anunciante": "Golden Bear"
   },
   {
-    "campana": "PE_Alicorp_InkachipsRelanzamiento_Mayo2026",
-    "anunciante": "PE_Inakachips"
-  },
-  {
-    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Junio2026",
-    "anunciante": "PE_Inakachips"
-  },
-  {
-    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Julio2026",
-    "anunciante": "PE_Inakachips"
-  },
-  {
-    "campana": "PE_Alicorp_InkachipsPromoYape_Julio2026",
-    "anunciante": "PE_Inakachips"
-  },
-  {
-    "campana": "PE_Alicorp_BolivarMissDior_Julio2026",
-    "anunciante": "PE_Bolivar"
-  },
-  {
-    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
-    "anunciante": "EC_AlimentosReal"
-  },
-  {
-    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
-    "anunciante": "EC_Kia"
+    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Vistas",
+    "anunciante": "Golden Bear"
   }
 ]
