@@ -531,6 +531,23 @@ function GestorPresentaciones() {
       ) : (
         <div className="grid gap-5 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] items-start">
           <Card className="p-5" hover={false}>
+            <h3 className="label-mono text-[10.5px] text-gray-500 mb-3">Siempre van</h3>
+            <ul className="flex flex-col gap-1.5 mb-5">
+              {[
+                { clave: "portada", nombre: "Portada", detalle: "Título, bajada, edición y canales" },
+                { clave: "general", nombre: "Datos generales", detalle: "Quiénes somos, full funnel y contacto" },
+              ].map((f) => (
+                <li key={f.clave}>
+                  <button type="button" onClick={() => verDatos(f.clave)}
+                    className={`w-full text-left rounded-md border bg-ink-deep px-3 py-2 hover:border-brand-purple ${
+                      abierta === f.clave ? "border-brand-purple" : "border-brand-purple/40"
+                    }`}>
+                    <span className="block text-sm text-gray-900">{f.nombre}</span>
+                    <span className="block text-xs text-gray-500">{f.detalle}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
             <div className="flex items-baseline justify-between mb-3">
               <h3 className="label-mono text-[10.5px] text-gray-500">Productos de {nombrePais}</h3>
               <span className="font-mono text-[11px] text-brand-purple">{laminas} láminas</span>
@@ -567,7 +584,7 @@ function GestorPresentaciones() {
             </ul>
             <p className="text-xs text-gray-500 mt-3">
               El casillero incluye o saca el producto; las flechas cambian el orden. Toca el nombre para ver sus datos.
-              Siempre van portada, quiénes somos, objetivo, full funnel, clientes y cierre.
+              Además de los productos, siempre van portada, quiénes somos, objetivo, full funnel, clientes y cierre.
             </p>
           </Card>
 
