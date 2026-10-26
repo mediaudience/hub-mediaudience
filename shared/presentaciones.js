@@ -27,11 +27,9 @@ export const LAMINAS_FIJAS = 6;
 export const CAMPOS_PRESENTACION = [
   { clave: "PAIS", seccion: "general", etiqueta: "Nombre del país", tipo: "texto", pais: true },
   { clave: "ETIQUETA", seccion: "general", etiqueta: "Pie de cada lámina", tipo: "texto", pais: true },
-  { clave: "EDICION", seccion: "portada", etiqueta: "Edición (arriba del título; va con el nombre del país)", tipo: "texto" },
-  { clave: "PORTADA_TITULO", seccion: "portada", etiqueta: "Título", tipo: "texto" },
-  { clave: "PORTADA_ACENTO", seccion: "portada", etiqueta: "Título · segunda línea (en azul)", tipo: "texto" },
-  { clave: "PORTADA_BAJADA", seccion: "portada", etiqueta: "Bajada", tipo: "largo" },
-  { clave: "CANALES", seccion: "portada", etiqueta: "Canales (al pie de la portada)", tipo: "lista" },
+  // La portada es solo el logo grande y el slogan (pedido de Jose 2026-10-26).
+  { clave: "PORTADA_FRASE", seccion: "portada", etiqueta: "Frase debajo del logo (las palabras entre *asteriscos* van en celeste)", tipo: "texto" },
+  { clave: "PORTADA_SLOGAN", seccion: "portada", etiqueta: "Slogan (al pie)", tipo: "texto" },
   { clave: "QUIENES_TITULO", seccion: "general", etiqueta: "Quiénes somos · título", tipo: "texto" },
   { clave: "QUIENES_PUNTOS", seccion: "general", etiqueta: "Quiénes somos · puntos", tipo: "lista" },
   { clave: "QUIENES_KPIS", seccion: "general", etiqueta: "Quiénes somos · cifras", tipo: "kpis" },

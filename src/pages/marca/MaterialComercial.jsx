@@ -528,7 +528,7 @@ function GestorPresentaciones({ paisInicial, onVerVista }) {
             <h3 className="label-mono text-[10.5px] text-gray-500 mb-3">Siempre van</h3>
             <ul className="flex flex-col gap-1.5 mb-5">
               {[
-                { clave: "portada", nombre: "Portada", detalle: "Título, bajada, edición y canales" },
+                { clave: "portada", nombre: "Portada", detalle: "Logo grande, frase y slogan" },
                 { clave: "general", nombre: "Datos generales", detalle: "Quiénes somos, full funnel y contacto" },
               ].map((f) => (
                 <li key={f.clave}>
