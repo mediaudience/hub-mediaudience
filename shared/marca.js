@@ -1,3 +1,5 @@
+import { perfilPuedeVer } from "./perfilesInterno.js";
+
 // Catálogo fijo de categorías de Admin > Material Comercial. Compartido entre
 // server/marcaRoutes.js (validación) y src/pages/marca (agrupado y selector)
 // para que nunca queden desincronizados.
@@ -32,4 +34,23 @@ export function gestionaFirmas(user) {
 export function paisFirmasManager(user) {
   if (user?.rol !== "usuario_interno" || user.perfil !== "manager") return null;
   return user.pais || null;
+}
+
+// Material Comercial por país (pedido de Jose 2026-10-28). Admin y Super Admin
+// ven todos los países; un usuario_interno entra solo si su perfil incluye
+// "materialComercial" (Manager y Ejecutivo Comercial) y ve Global + su país.
+export function accedeMaterial(user) {
+  if (user?.rol === "super_admin" || user?.rol === "admin") return true;
+  return user?.rol === "usuario_interno" && perfilPuedeVer(user.perfil, "materialComercial");
+}
+
+// Países de Material Comercial que ve el usuario. null = todos.
+export function paisesMaterial(user) {
+  if (user?.rol === "super_admin" || user?.rol === "admin") return null;
+  return [PAIS_GLOBAL.codigo, ...(user?.pais ? [user.pais] : [])];
+}
+
+export function puedeVerMaterial(user, pais) {
+  const permitidos = paisesMaterial(user);
+  return !permitidos || permitidos.includes(pais);
 }

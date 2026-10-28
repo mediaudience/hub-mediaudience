@@ -20,13 +20,13 @@ export const ADMIN_NAV_GROUP = {
     { label: "Actividad", path: "/admin/actividad", superAdminOnly: true },
     { label: "Sheets de Gestión", path: "/admin/gestion-sheets" },
     { label: "Firmas", path: "/admin/firmas", internoVisible: true },
-    { label: "Material Comercial", path: "/admin/material-comercial", internoVisible: true },
+    { label: "Material Comercial", path: "/admin/material-comercial", internoVisible: true, seccionInterno: "materialComercial" },
   ],
 };
 
 // Visible para Admin/Super Admin (los 4 items) y además para usuario_interno,
 // acotado por `seccionInterno` según su perfil (Manager/Ejecutivo Comercial/
-// Operaciones/Administrativo -- ver shared/perfilesInterno.js y
+// Administrativo -- ver shared/perfilesInterno.js y
 // useNavGroups.js, que aplica el filtro). Metas Comerciales sigue sin
 // desarrollar (usa src/pages/gestion/EnDesarrollo.jsx, solo reserva su lugar).
 export const GESTION_NAV_GROUP = {

@@ -4,7 +4,7 @@ import Spinner from "../../components/common/Spinner";
 import EmptyState from "../../components/common/EmptyState";
 import Tabs from "../../components/common/Tabs";
 import { useAuth } from "../../context/AuthContext";
-import { CATEGORIAS_MARCA, PAIS_GLOBAL, MARCA_MAX_MB } from "../../../shared/marca";
+import { CATEGORIAS_MARCA, PAIS_GLOBAL, MARCA_MAX_MB, accedeMaterial, puedeVerMaterial } from "../../../shared/marca";
 import {
   CAMPOS_PRESENTACION,
   LAMINAS_FIJAS,
@@ -884,7 +884,8 @@ function Presentador({ total, src, base, onCerrar }) {
 
 // Vista previa (solo Super Admin): el borrador que armó el Gestor, lámina por
 // lámina, con Descargar y Publicar; y la presentación publicada del país.
-function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
+// soloLectura (pestaña "Presentar" del resto): solo la publicada de sus países.
+function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar, soloLectura = false }) {
   const [paises, setPaises] = useState([]);
   const [pais, setPais] = useState(paisInicial || "PE");
   const [vista, setVista] = useState(null);
@@ -901,7 +902,13 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    apiFetch("/api/presentaciones").then((r) => setPaises(r.paises)).catch((err) => setError(err.message));
+    apiFetch("/api/presentaciones")
+      .then((r) => {
+        setPaises(r.paises);
+        // Un Ejecutivo de Ecuador no puede abrir Perú: arranca en el suyo.
+        if (r.paises.length && !r.paises.some((p) => p.codigo === pais)) setPais(r.paises[0].codigo);
+      })
+      .catch((err) => setError(err.message));
   }, []);
 
   async function cargar(codigo = pais) {
@@ -912,6 +919,7 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
   }
 
   useEffect(() => {
+    if (soloLectura && !paises.some((p) => p.codigo === pais)) return;
     setCargando(true);
     setAviso("");
     setError("");
@@ -919,7 +927,7 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
     cargar(pais)
       .catch((err) => setError(err.message))
       .finally(() => setCargando(false));
-  }, [pais]);
+  }, [pais, soloLectura && paises.length]);
 
   // Si el borrador todavía se está generando, se espera y se recarga.
   useEffect(() => {
@@ -992,11 +1000,11 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
   return (
     <div className="flex flex-col gap-5">
       <Card className="p-6" hover={false}>
-        <h2 className="font-display font-semibold text-xl text-gray-900 mb-1">Vista previa</h2>
+        <h2 className="font-display font-semibold text-xl text-gray-900 mb-1">{soloLectura ? "Presentar" : "Vista previa"}</h2>
         <p className="text-sm text-slate-label max-w-3xl">
-          Acá ves lámina por lámina lo que generó el Gestor. Si está bien, lo publicas y reemplaza a la presentación
-          del país en Línea gráfica. La presentación publicada siempre se descarga desde acá o desde Línea gráfica ›
-          país › Presentaciones comerciales.
+          {soloLectura
+            ? "La presentación comercial vigente, lámina por lámina. Preséntala en pantalla completa, descárgala en .pptx o baja el paquete para presentar sin internet."
+            : "Acá ves lámina por lámina lo que generó el Gestor. Si está bien, lo publicas y reemplaza a la presentación del país en Línea gráfica. La presentación publicada siempre se descarga desde acá o desde Línea gráfica › país › Presentaciones comerciales."}
         </p>
         <div role="tablist" aria-label="País" className="flex flex-wrap gap-2 mt-5">
           {paises.map((p) => (
@@ -1035,9 +1043,9 @@ function VistaPresentaciones({ paisInicial, onCambiarPais, onEditar }) {
               </button>
             ))}
           </div>
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className={`grid gap-3 ${soloLectura ? "" : "md:grid-cols-2"}`}>
             {[
-              [`borrador${suf}`, "Borrador", vista?.[`borrador${suf}`]],
+              ...(soloLectura ? [] : [[`borrador${suf}`, "Borrador", vista?.[`borrador${suf}`]]]),
               [`publicada${suf}`, "Publicada", vista?.[`publicada${suf}`]],
             ].map(([clave, titulo, m]) => (
               <Card key={clave} hover={false}
@@ -1185,7 +1193,8 @@ export default function MaterialComercial() {
   const esStaff = user?.rol === "super_admin" || user?.rol === "admin";
   const esSuperAdmin = user?.rol === "super_admin";
   // Pestañas internas, igual que en Campañas: "Línea gráfica" es el
-  // repositorio; "Gestor de presentaciones" solo para Super Admin.
+  // repositorio; "Gestor de presentaciones" y "Vista previa" solo para Super
+  // Admin. El resto tiene "Presentar": la publicada de sus países.
   const [seccion, setSeccion] = useState("linea");
   const secciones = [
     { key: "linea", label: "Línea gráfica", icon: "clip" },
@@ -1194,6 +1203,8 @@ export default function MaterialComercial() {
           { key: "gestor", label: "Gestor de presentaciones", icon: "megaphone" },
           { key: "vista", label: "Vista previa", icon: "eye" },
         ]
+      : accedeMaterial(user)
+      ? [{ key: "vista", label: "Presentar", icon: "eye" }]
       : []),
   ];
   // País que se ve en Gestor y Vista previa (se comparte al pasar de una a otra).
@@ -1217,7 +1228,7 @@ export default function MaterialComercial() {
   useEffect(() => {
     Promise.all([apiFetch("/api/marca/paises"), apiFetch("/api/marca/archivos")])
       .then(([p, a]) => {
-        setPaises(p.paises);
+        setPaises(p.paises.filter((x) => puedeVerMaterial(user, x.codigo)));
         setArchivos(a.archivos);
       })
       .catch((err) => setError(err.message))
@@ -1302,8 +1313,9 @@ export default function MaterialComercial() {
             setSeccion("vista");
           }}
         />
-      ) : seccion === "vista" && esSuperAdmin ? (
+      ) : seccion === "vista" ? (
         <VistaPresentaciones
+          soloLectura={!esSuperAdmin}
           paisInicial={paisPres}
           onCambiarPais={setPaisPres}
           onEditar={(p) => {

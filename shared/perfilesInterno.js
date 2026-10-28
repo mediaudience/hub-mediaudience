@@ -1,5 +1,5 @@
 // Perfiles dentro del rol usuario_interno (Manager / Ejecutivo Comercial /
-// Operaciones / Administrativo) -- capa adicional que no reemplaza país ni
+// Administrativo; Operaciones se quitó el 2026-10-28) -- capa adicional que no reemplaza país ni
 // clientes asignados (server/db.js), que siguen controlando qué DATOS ve.
 // Esto controla qué SECCIONES de Gestión/Campañas puede abrir. Un solo
 // archivo compartido entre server/ y src/ para que el nav del frontend y el
@@ -13,14 +13,13 @@
 export const PERFILES_INTERNO = [
   { codigo: "manager", nombre: "Manager" },
   { codigo: "ejecutivo_comercial", nombre: "Ejecutivo Comercial" },
-  { codigo: "operaciones", nombre: "Operaciones" },
   { codigo: "administrativo", nombre: "Administrativo" },
 ];
 
 const SECCIONES_POR_PERFIL = {
-  manager: ["campanas", "prospeccion", "campanasServidas", "facturacion", "metasComerciales"],
-  ejecutivo_comercial: ["campanas", "prospeccion", "campanasServidas", "facturacion", "metasComerciales"],
-  operaciones: ["campanas", "campanasServidas"],
+  manager: ["campanas", "prospeccion", "campanasServidas", "facturacion", "metasComerciales", "materialComercial"],
+  // Sin Facturación (pedido de Jose 2026-10-28): eso queda para el Manager.
+  ejecutivo_comercial: ["campanas", "prospeccion", "campanasServidas", "metasComerciales", "materialComercial"],
   administrativo: ["campanasServidas", "facturacion"],
 };
 
@@ -33,7 +32,7 @@ export function perfilPuedeVer(perfil, seccion) {
 // que se les asigne -- ofrecerles además el checklist manual de clientes
 // puntuales (Admin > Usuarios) queda redundante y solo agrega ruido. País
 // pasa a ser obligatorio para estos dos perfiles (es su única palanca de
-// acceso). Operaciones/Administrativo siguen con el mecanismo manual de
+// acceso). Administrativo sigue con el mecanismo manual de
 // siempre.
 const PERFILES_PAIS_COMPLETO = ["manager", "ejecutivo_comercial"];
 export function veTodosLosClientesDelPais(perfil) {

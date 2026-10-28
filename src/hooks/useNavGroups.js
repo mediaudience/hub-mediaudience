@@ -14,7 +14,7 @@ export default function useNavGroups() {
   const canalesContratados = clienteActivo ? canalesDelClienteActivo : user?.canalesContratados ?? [];
 
   // Dentro de usuario_interno, el perfil (Manager/Ejecutivo Comercial/
-  // Operaciones/Administrativo) decide si la sección "Campañas" (dashboards
+  // Administrativo) decide si la sección "Campañas" (dashboards
   // por servicio) le corresponde -- Administrativo, por ejemplo, no la ve.
   const campanasItems =
     esInterno && !perfilPuedeVer(user.perfil, "campanas")
@@ -29,7 +29,9 @@ export default function useNavGroups() {
     items: esStaff
       ? ADMIN_NAV_GROUP.items.filter((i) => !i.superAdminOnly || user?.rol === "super_admin")
       : esInterno
-      ? ADMIN_NAV_GROUP.items.filter((i) => i.internoVisible)
+      ? ADMIN_NAV_GROUP.items.filter(
+          (i) => i.internoVisible && (!i.seccionInterno || perfilPuedeVer(user.perfil, i.seccionInterno))
+        )
       : [],
   };
 

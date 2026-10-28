@@ -5,7 +5,7 @@ import { createWriteStream } from 'node:fs';
 import { mkdir, rm } from 'node:fs/promises';
 import { requireUser, requireAdmin } from './middleware.js';
 import { registrarActividad } from './activityLog.js';
-import { CATEGORIAS_MARCA, PAIS_GLOBAL, MARCA_MAX_MB, gestionaFirmas, paisFirmasManager } from '../shared/marca.js';
+import { CATEGORIAS_MARCA, PAIS_GLOBAL, MARCA_MAX_MB, gestionaFirmas, paisFirmasManager, accedeMaterial, puedeVerMaterial } from '../shared/marca.js';
 import db from './db.js';
 
 // Admin > Firmas y Admin > Material Comercial. Lo ven Admin/Super Admin y
@@ -198,9 +198,16 @@ const SELECT_ARCHIVO = `
          u.nombre AS subido_por_nombre
   FROM marca_archivos a LEFT JOIN users u ON u.id = a.subido_por`;
 
+// Material Comercial: solo los perfiles que lo tienen, y cada uno ve Global +
+// su país (ver accedeMaterial en shared/marca.js). Firmas no pasa por acá.
+router.use('/archivos', (req, res, next) => {
+  if (!accedeMaterial(req.user)) return res.status(403).json({ error: 'No autorizado' });
+  next();
+});
+
 router.get('/archivos', (req, res) => {
   const archivos = db.prepare(`${SELECT_ARCHIVO} ORDER BY a.created_at DESC, a.id DESC`).all();
-  res.json({ archivos: archivos.map(ficha) });
+  res.json({ archivos: archivos.filter((a) => puedeVerMaterial(req.user, a.pais)).map(ficha) });
 });
 
 // El cuerpo es el archivo crudo (fetch con body = File), no multipart: evita
@@ -272,7 +279,7 @@ function buscarArchivo(id) {
 
 router.get('/archivos/:id/descargar', (req, res, next) => {
   const a = buscarArchivo(req.params.id);
-  if (!a) return res.status(404).json({ error: 'Archivo no encontrado' });
+  if (!a || !puedeVerMaterial(req.user, a.pais)) return res.status(404).json({ error: 'Archivo no encontrado' });
   res.set('X-Content-Type-Options', 'nosniff');
   res.download(path.join(MARCA_DIR, a.archivo), a.nombre, (err) => {
     if (err && !res.headersSent) next(err);
@@ -281,7 +288,7 @@ router.get('/archivos/:id/descargar', (req, res, next) => {
 
 router.get('/archivos/:id/ver', (req, res, next) => {
   const a = buscarArchivo(req.params.id);
-  if (!a || !MIME_VISTA.includes(a.mime)) return res.status(404).json({ error: 'Archivo no encontrado' });
+  if (!a || !MIME_VISTA.includes(a.mime) || !puedeVerMaterial(req.user, a.pais)) return res.status(404).json({ error: 'Archivo no encontrado' });
   res.set('X-Content-Type-Options', 'nosniff');
   res.set('Cache-Control', 'private, max-age=86400');
   res.type(a.mime).sendFile(path.join(MARCA_DIR, a.archivo), (err) => {

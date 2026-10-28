@@ -7,6 +7,7 @@ import { copyFile, mkdir, readdir, rename, rm, stat, writeFile } from 'node:fs/p
 import { requireUser, requireSuperAdmin } from './middleware.js';
 import { registrarActividad } from './activityLog.js';
 import { CAMPOS_PRESENTACION, PRODUCTOS_PRESENTACION, datosIniciales } from '../shared/presentaciones.js';
+import { accedeMaterial, puedeVerMaterial } from '../shared/marca.js';
 import db from './db.js';
 
 // Admin > Material Comercial > Gestor de presentaciones (solo Super Admin).
@@ -21,7 +22,22 @@ const MARCA_DIR = process.env.MARCA_DIR || '/var/lib/mediaudience/marca';
 const MAX_SEGUNDOS = 300;
 
 const router = Router();
-router.use(requireUser, requireSuperAdmin);
+router.use(requireUser);
+
+// Presentar (pedido de Jose 2026-10-28): quien abre Material Comercial puede
+// ver, presentar y bajar la presentación PUBLICADA de los países que le tocan
+// (Admin todos; Manager y Ejecutivo Comercial solo el suyo). Gestor,
+// borradores y Publicar siguen siendo solo de Super Admin.
+const LECTURA = /^\/(?:([^/]+)\/vista(?:\/publicada(?:-compacta)?\/(?:[^/]+|video\/[^/]+))?)?\/?$/;
+router.use((req, res, next) => {
+  if (req.user.rol === 'super_admin') return next();
+  const m = req.method === 'GET' ? req.path.match(LECTURA) : null;
+  if (!m || !accedeMaterial(req.user) || (m[1] && !puedeVerMaterial(req.user, m[1]))) {
+    return res.status(403).json({ error: 'No autorizado' });
+  }
+  req.soloPublicada = true;
+  next();
+});
 
 const CLAVES_PRODUCTO = PRODUCTOS_PRESENTACION.map((p) => p.clave);
 const CAMPOS = new Map(CAMPOS_PRESENTACION.map((c) => [c.clave, c]));
@@ -92,7 +108,7 @@ router.get('/', (req, res) => {
   const filas = db.prepare('SELECT pais, productos, updated_at, archivo_id FROM presentaciones_pais').all();
   const porPais = Object.fromEntries(filas.map((f) => [f.pais, f]));
   res.json({
-    paises: paises.map((p) => ({
+    paises: paises.filter((p) => !req.soloPublicada || puedeVerMaterial(req.user, p.codigo)).map((p) => ({
       ...p,
       guardado: !!porPais[p.codigo],
       productos: porPais[p.codigo] ? JSON.parse(porPais[p.codigo].productos).length : 0,
@@ -305,6 +321,13 @@ const conArchivo = (meta, a) =>
 router.get('/:pais/vista', (req, res) => {
   const pais = paisValido(req.params.pais);
   if (!pais) return res.status(404).json({ error: 'País no encontrado' });
+  if (req.soloPublicada) {
+    return res.json({
+      pais,
+      publicada: conArchivo(leerMeta(pais.codigo, 'publicada'), archivoPublicado(pais)),
+      'publicada-compacta': conArchivo(leerMeta(pais.codigo, 'publicada-compacta'), archivoPublicado(pais, true)),
+    });
+  }
   res.json({
     pais,
     trabajo: trabajos.get(pais.codigo) ?? null,
