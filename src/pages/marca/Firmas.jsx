@@ -246,7 +246,7 @@ export default function Firmas() {
   async function copiarUrl(url, etiqueta) {
     try {
       await navigator.clipboard.writeText(url);
-      setAviso(`URL ${etiqueta} copiada. En Gmail: Insertar imagen → Dirección web (URL).`);
+      setAviso(`Link ${etiqueta} copiado. En Gmail: Insertar imagen → Dirección web (URL).`);
     } catch {
       setError("No se pudo copiar. Selecciona la URL y cópiala a mano.");
     }
@@ -440,7 +440,7 @@ export default function Firmas() {
                           onClick={() => copiarUrl(firmaImagenUrl(window.location.origin, datos.token, tema), VERSIONES[tema].label.toLowerCase())}
                           className="text-sm font-medium px-4 py-2 rounded-md border border-line text-gray-800 hover:border-brand-purple/50 whitespace-nowrap"
                         >
-                          Copiar URL
+                          Copiar link
                         </button>
                       </div>
                     ) : (
@@ -471,7 +471,7 @@ export default function Firmas() {
               <div className="md:col-span-2">
                 <h3 className="font-display font-semibold text-gray-900 mb-2">Gmail con la URL de imagen</h3>
                 <ol className="list-decimal pl-5 space-y-1">
-                  <li>Toca <b>Copiar URL</b> en la versión que prefieras.</li>
+                  <li>Toca <b>Copiar link</b> en la versión que prefieras.</li>
                   <li>En Gmail: engranaje → <b>Ver todos los ajustes</b> → <b>General</b> → <b>Firma</b> → <b>Crear</b>.</li>
                   <li>En la barra de la firma, toca el ícono <b>Insertar imagen</b> → pestaña <b>Dirección web (URL)</b>.</li>
                   <li>Pega la URL y toca <b>Seleccionar</b>. La imagen ya viene al tamaño justo para el correo.</li>
@@ -524,7 +524,7 @@ export default function Firmas() {
             <p className="p-5 text-sm text-slate-label">Todavía no hay firmas registradas.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm min-w-[900px]">
+              <table className="w-full text-sm min-w-[1100px]">
                 <thead>
                   <tr className="bg-surface-2 text-gray-500 text-left label-mono">
                     <th className="px-4 py-3 font-semibold">Nombre</th>
@@ -548,18 +548,32 @@ export default function Firmas() {
                         <td className="px-4 py-2.5 text-gray-700">{f.cargo || "—"}</td>
                         <td className="px-4 py-2.5 text-gray-700">{f.pais || "—"}</td>
                         <td className="px-4 py-2.5 text-gray-700">{f.email}</td>
-                        <td className="px-4 py-2.5 whitespace-nowrap">
-                          {FIRMA_TEMAS.map((tema) => (
-                            <button
-                              key={tema}
-                              type="button"
-                              onClick={() => copiarUrl(firmaImagenUrl(window.location.origin, f.token, tema), `${VERSIONES[tema].label.toLowerCase()} de ${f.nombre}`)}
-                              title={firmaImagenUrl(window.location.origin, f.token, tema)}
-                              className="text-xs font-medium px-2.5 py-1 mr-1.5 rounded border border-line text-gray-700 hover:border-brand-purple/50"
-                            >
-                              {VERSIONES[tema].label}
-                            </button>
-                          ))}
+                        <td className="px-4 py-2.5 min-w-[340px]">
+                          <div className="flex flex-col gap-1.5">
+                            {FIRMA_TEMAS.map((tema) => {
+                              const url = firmaImagenUrl(window.location.origin, f.token, tema);
+                              return (
+                                <div key={tema} className="flex items-center gap-2">
+                                  <span className="w-10 shrink-0 text-xs text-gray-500">{VERSIONES[tema].label}</span>
+                                  <a
+                                    href={url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="min-w-0 flex-1 break-all font-mono text-[11px] leading-4 text-brand-purple hover:underline"
+                                  >
+                                    {url}
+                                  </a>
+                                  <button
+                                    type="button"
+                                    onClick={() => copiarUrl(url, `${VERSIONES[tema].label.toLowerCase()} de ${f.nombre}`)}
+                                    className="shrink-0 text-xs font-medium px-2.5 py-1 rounded border border-line text-gray-700 hover:border-brand-purple/50"
+                                  >
+                                    Copiar link
+                                  </button>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </td>
                         <td className="px-4 py-2.5 text-gray-600 text-xs">
                           {formatoFecha(f.updated_at)}
