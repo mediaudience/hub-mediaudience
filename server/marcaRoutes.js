@@ -47,7 +47,7 @@ function limpiar(v, max = 120) {
 }
 
 const SELECT_FIRMA = `
-  SELECT f.id, f.user_id, f.nombre, f.cargo, f.telefono, f.email, f.pais, f.created_at, f.updated_at,
+  SELECT f.id, f.user_id, f.nombre, f.cargo, f.telefono, f.email, f.pais, f.token, f.created_at, f.updated_at,
          c.nombre AS creado_por_nombre, a.nombre AS actualizado_por_nombre
   FROM firmas f
   LEFT JOIN users c ON c.id = f.creado_por
@@ -84,10 +84,10 @@ function guardarFirma(id, d, actorId) {
 function crearFirma(d, { userId = null, actorId }) {
   const { lastInsertRowid } = db
     .prepare(
-      `INSERT INTO firmas (user_id, nombre, cargo, telefono, email, pais, creado_por, actualizado_por)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO firmas (user_id, nombre, cargo, telefono, email, pais, creado_por, actualizado_por, token)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
-    .run(userId, d.nombre, d.cargo, d.telefono, d.email, d.pais, actorId, actorId);
+    .run(userId, d.nombre, d.cargo, d.telefono, d.email, d.pais, actorId, actorId, crypto.randomBytes(12).toString('hex'));
   return lastInsertRowid;
 }
 

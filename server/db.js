@@ -478,4 +478,12 @@ db.exec(`
 db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_firmas_email ON firmas (lower(email))')
 db.exec('CREATE INDEX IF NOT EXISTS idx_firmas_user ON firmas (user_id)')
 
+// Token de la URL pública de la imagen de cada firma (server/firmaImagen.js),
+// para pegarla en Gmail. Las fichas existentes reciben uno al arrancar.
+if (!db.prepare('PRAGMA table_info(firmas)').all().some((c) => c.name === 'token')) {
+  db.exec('ALTER TABLE firmas ADD COLUMN token TEXT')
+}
+db.exec('UPDATE firmas SET token = lower(hex(randomblob(12))) WHERE token IS NULL')
+db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_firmas_token ON firmas (token)')
+
 export default db

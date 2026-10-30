@@ -3,6 +3,7 @@ import Card from "../../components/common/Card";
 import Spinner from "../../components/common/Spinner";
 import { useAuth } from "../../context/AuthContext";
 import { firmaHtml, FIRMA_TEMAS } from "../../../shared/firma";
+import { dibujarFirma, firmaImagenUrl } from "../../../shared/firmaPng";
 import { gestionaFirmas, paisFirmasManager } from "../../../shared/marca";
 
 async function apiFetch(url, options) {
@@ -53,99 +54,16 @@ function cargarImagen(src) {
   });
 }
 
-// Versión imagen de la firma: misma composición que shared/firma.js, dibujada
-// a mano en canvas (x2 para pantallas retina) con las fuentes de marca que el
-// hub ya tiene cargadas. Es el respaldo para quien no puede pegar HTML.
-const COLORES_PNG = {
-  oscuro: { fondo: "#0A0E17", borde: "#1A2135", nombre: "#E9EDF6", texto: "#8A93A9", acento: "#58B0FF" },
-  claro: { fondo: "#FFFFFF", borde: "#E9EDF6", nombre: "#0A0E17", texto: "#565E76", acento: "#1F74BF" },
-};
-
+// La composición vive en shared/firmaPng.js, compartida con la imagen pública
+// que sirve el backend: el PNG descargado y el de la URL de Gmail son iguales.
 async function firmaPng(datos, tema) {
-  const c = COLORES_PNG[tema] || COLORES_PNG.oscuro;
   await document.fonts.ready;
   const [isotipo, wordmark] = await Promise.all([
     cargarImagen(`/firma/isotipo-${tema}.png`),
     cargarImagen(`/firma/wordmark-${tema}.png`),
   ]);
-  const ESCALA = 2;
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-  const fNombre = '600 18px "Space Grotesk", Arial, sans-serif';
-  const fTexto = '400 13px "IBM Plex Sans", Arial, sans-serif';
-  const fMono = '500 10px "JetBrains Mono", monospace';
-  const CANALES = "CTV · MOBILE PUSH · PROGRAMMATIC · GAMING";
-
-  const lineas = [
-    datos.cargo && { t: datos.cargo, color: c.acento, font: '600 14px "IBM Plex Sans", Arial, sans-serif', alto: 22 },
-    { t: datos.pais ? `Mediaudience ${datos.pais}` : "Mediaudience", color: c.texto },
-    "gap",
-    datos.telefono && { t: datos.telefono, color: c.nombre },
-    datos.email && { t: datos.email, color: c.acento },
-  ].filter(Boolean);
-
-  const medir = (font, t, spacing = 0) => {
-    ctx.font = font;
-    ctx.letterSpacing = `${spacing}px`;
-    const w = ctx.measureText(t).width;
-    ctx.letterSpacing = "0px";
-    return w;
-  };
-  const xTexto = 20 + 56 + 18 + 1 + 18;
-  const anchoTexto = Math.max(
-    medir(fNombre, datos.nombre || ""),
-    ...lineas.filter((l) => l !== "gap").map((l) => medir(l.font || fTexto, l.t))
-  );
-  const altoTexto = 24 + lineas.reduce((acc, l) => acc + (l === "gap" ? 8 : l.alto || 20), 0);
-  const anchoPie = 20 + 106 + 24 + medir(fMono, CANALES, 1) + 24;
-  const ancho = Math.ceil(Math.max(xTexto + anchoTexto + 24, anchoPie));
-  const ySeparador = 20 + Math.max(altoTexto, 58) + 18;
-  const alto = ySeparador + 1 + 12 + 20 + 14;
-
-  canvas.width = ancho * ESCALA;
-  canvas.height = alto * ESCALA;
-  ctx.scale(ESCALA, ESCALA);
-  ctx.textBaseline = "middle";
-
-  ctx.beginPath();
-  ctx.roundRect(0.5, 0.5, ancho - 1, alto - 1, 10);
-  ctx.fillStyle = c.fondo;
-  ctx.fill();
-  ctx.strokeStyle = c.borde;
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  ctx.drawImage(isotipo, 20, 22, 56, 56);
-  ctx.fillStyle = c.borde;
-  ctx.fillRect(20 + 56 + 18, 20, 1, altoTexto);
-
-  let y = 20;
-  ctx.font = fNombre;
-  ctx.fillStyle = c.nombre;
-  ctx.fillText(datos.nombre || "", xTexto, y + 12);
-  y += 24;
-  ctx.font = fTexto;
-  for (const l of lineas) {
-    if (l === "gap") {
-      y += 8;
-      continue;
-    }
-    ctx.font = l.font || fTexto;
-    ctx.fillStyle = l.color;
-    ctx.fillText(l.t, xTexto, y + (l.alto || 20) / 2);
-    y += l.alto || 20;
-  }
-
-  ctx.fillStyle = c.borde;
-  ctx.fillRect(20, ySeparador, ancho - 44, 1);
-  const yPie = ySeparador + 1 + 12;
-  ctx.drawImage(wordmark, 20, yPie, 106, 20);
-  ctx.font = fMono;
-  ctx.letterSpacing = "1px";
-  ctx.fillStyle = c.acento;
-  ctx.textAlign = "right";
-  ctx.fillText(CANALES, ancho - 24, yPie + 10);
-
+  const crearCanvas = (width, height) => Object.assign(document.createElement("canvas"), { width, height });
+  const canvas = dibujarFirma({ datos, tema, crearCanvas, isotipo, wordmark });
   return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
 }
 
@@ -268,6 +186,7 @@ export default function Firmas() {
     else if (modo.tipo === "nueva") res = await apiFetch("/api/marca/firmas", { method: "POST", body });
     else res = await apiFetch(`/api/marca/firmas/${modo.id}`, { method: "PUT", body });
     if (modo.tipo === "nueva") setModo({ tipo: "editar", id: res.firma.id });
+    setDatos((d) => ({ ...d, token: res.firma.token }));
     if (esStaff) await cargarRegistro();
     return res.firma;
   }
@@ -306,12 +225,12 @@ export default function Firmas() {
     setError("");
     // La propia se edita como "Mi firma" para que siga ligada al usuario.
     setModo(f.user_id === user.id ? { tipo: "mia" } : { tipo: "editar", id: f.id });
-    setDatos({ nombre: f.nombre, cargo: f.cargo || "", telefono: f.telefono || "", email: f.email, pais: f.pais || "" });
+    setDatos({ nombre: f.nombre, cargo: f.cargo || "", telefono: f.telefono || "", email: f.email, pais: f.pais || "", token: f.token });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   async function borrar(f) {
-    if (!window.confirm(`¿Eliminar la firma de ${f.nombre}? Sale del registro; quien ya la pegó en su correo la conserva.`)) return;
+    if (!window.confirm(`¿Eliminar la firma de ${f.nombre}? Sale del registro y su URL de imagen deja de funcionar: si alguien la usa en Gmail, se verá rota.`)) return;
     setError("");
     try {
       await apiFetch(`/api/marca/firmas/${f.id}`, { method: "DELETE" });
@@ -321,6 +240,15 @@ export default function Firmas() {
       setAviso(`Firma de ${f.nombre} eliminada.`);
     } catch (err) {
       setError(err.message);
+    }
+  }
+
+  async function copiarUrl(url, etiqueta) {
+    try {
+      await navigator.clipboard.writeText(url);
+      setAviso(`URL ${etiqueta} copiada. En Gmail: Insertar imagen → Dirección web (URL).`);
+    } catch {
+      setError("No se pudo copiar. Selecciona la URL y cópiala a mano.");
     }
   }
 
@@ -494,6 +422,31 @@ export default function Firmas() {
                       {ocupado === `png-${tema}` ? "Generando..." : "Descargar PNG"}
                     </button>
                   </div>
+                  <div className="mt-3">
+                    <label htmlFor={`firma-url-${tema}`} className="block text-xs font-medium text-gray-700 mb-1">
+                      URL de la imagen para Gmail
+                    </label>
+                    {datos.token ? (
+                      <div className="flex gap-2">
+                        <input
+                          id={`firma-url-${tema}`}
+                          readOnly
+                          value={firmaImagenUrl(window.location.origin, datos.token, tema)}
+                          onFocus={(e) => e.target.select()}
+                          className="min-w-0 flex-1 rounded-md border border-slate-200 px-3 py-2 text-xs font-mono text-gray-700"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => copiarUrl(firmaImagenUrl(window.location.origin, datos.token, tema), VERSIONES[tema].label.toLowerCase())}
+                          className="text-sm font-medium px-4 py-2 rounded-md border border-line text-gray-800 hover:border-brand-purple/50 whitespace-nowrap"
+                        >
+                          Copiar URL
+                        </button>
+                      </div>
+                    ) : (
+                      <p className="text-xs text-slate-label">Guarda la firma para obtener su URL.</p>
+                    )}
+                  </div>
                 </section>
               ))}
             </div>
@@ -515,6 +468,20 @@ export default function Firmas() {
                   <li>Baja hasta el final y toca <b>Guardar cambios</b>.</li>
                 </ol>
               </div>
+              <div className="md:col-span-2">
+                <h3 className="font-display font-semibold text-gray-900 mb-2">Gmail con la URL de imagen</h3>
+                <ol className="list-decimal pl-5 space-y-1">
+                  <li>Toca <b>Copiar URL</b> en la versión que prefieras.</li>
+                  <li>En Gmail: engranaje → <b>Ver todos los ajustes</b> → <b>General</b> → <b>Firma</b> → <b>Crear</b>.</li>
+                  <li>En la barra de la firma, toca el ícono <b>Insertar imagen</b> → pestaña <b>Dirección web (URL)</b>.</li>
+                  <li>Pega la URL y toca <b>Seleccionar</b>. La imagen ya viene al tamaño justo para el correo.</li>
+                  <li>Baja hasta el final y toca <b>Guardar cambios</b>.</li>
+                </ol>
+                <p className="mt-2 text-xs text-slate-label">
+                  La imagen muestra la última versión guardada de la firma. Si cambias tus datos, la URL sigue siendo la
+                  misma y la imagen se actualiza sola (Gmail puede tardar un rato en mostrar el cambio).
+                </p>
+              </div>
               <div>
                 <h3 className="font-display font-semibold text-gray-900 mb-2">Outlook</h3>
                 <ol className="list-decimal pl-5 space-y-1">
@@ -528,9 +495,9 @@ export default function Firmas() {
               </div>
             </div>
             <p className="mt-4 text-xs text-slate-label">
-              Recomendamos <b>Copiar firma</b>: el correo y el teléfono quedan como enlaces y el texto se ve nítido. El
-              PNG es un respaldo; como firma de correo, una imagen sola no tiene enlaces y algunos filtros la marcan como
-              spam.
+              Con <b>Copiar firma</b> el correo y el teléfono quedan como enlaces y el texto se ve nítido. La imagen
+              (URL o PNG) es la alternativa cuando pegar no funciona: no tiene enlaces y algunos filtros marcan como
+              spam los correos con solo una imagen de firma.
             </p>
           </Card>
         </div>
@@ -557,13 +524,14 @@ export default function Firmas() {
             <p className="p-5 text-sm text-slate-label">Todavía no hay firmas registradas.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm min-w-[760px]">
+              <table className="w-full text-sm min-w-[900px]">
                 <thead>
                   <tr className="bg-surface-2 text-gray-500 text-left label-mono">
                     <th className="px-4 py-3 font-semibold">Nombre</th>
                     <th className="px-4 py-3 font-semibold">Cargo</th>
                     <th className="px-4 py-3 font-semibold">País</th>
                     <th className="px-4 py-3 font-semibold">Correo</th>
+                    <th className="px-4 py-3 font-semibold">URL para Gmail</th>
                     <th className="px-4 py-3 font-semibold">Última edición</th>
                     <th className="px-4 py-3 font-semibold" />
                   </tr>
@@ -580,6 +548,19 @@ export default function Firmas() {
                         <td className="px-4 py-2.5 text-gray-700">{f.cargo || "—"}</td>
                         <td className="px-4 py-2.5 text-gray-700">{f.pais || "—"}</td>
                         <td className="px-4 py-2.5 text-gray-700">{f.email}</td>
+                        <td className="px-4 py-2.5 whitespace-nowrap">
+                          {FIRMA_TEMAS.map((tema) => (
+                            <button
+                              key={tema}
+                              type="button"
+                              onClick={() => copiarUrl(firmaImagenUrl(window.location.origin, f.token, tema), `${VERSIONES[tema].label.toLowerCase()} de ${f.nombre}`)}
+                              title={firmaImagenUrl(window.location.origin, f.token, tema)}
+                              className="text-xs font-medium px-2.5 py-1 mr-1.5 rounded border border-line text-gray-700 hover:border-brand-purple/50"
+                            >
+                              {VERSIONES[tema].label}
+                            </button>
+                          ))}
+                        </td>
                         <td className="px-4 py-2.5 text-gray-600 text-xs">
                           {formatoFecha(f.updated_at)}
                           {f.actualizado_por_nombre && <span className="block text-gray-500">por {f.actualizado_por_nombre}</span>}
