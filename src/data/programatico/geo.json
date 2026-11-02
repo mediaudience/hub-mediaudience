@@ -132,6 +132,18 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
+    "campana": "EC_LoteríaNacional_LoteríaNavidad_13Octubre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Octubre_LoteríaNavidad",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 537382,
+    "clicsTotales": 3592,
+    "ctr": 0.67,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
     "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
     "anunciante": "EC_Netlife",
     "motivo": "Septiembre_NetlifeBusiness",
