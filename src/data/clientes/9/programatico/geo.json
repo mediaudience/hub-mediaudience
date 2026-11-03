@@ -142,5 +142,17 @@
     "clicsTotales": 3592,
     "ctr": 0.67,
     "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_RetargetingCarros_22Octubre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Octubre_RetargetingCarros",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 143179,
+    "clicsTotales": 989,
+    "ctr": 0.69,
+    "cliente": "EC_Lotería Nacional"
   }
 ]

@@ -144,6 +144,18 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
+    "campana": "EC_LoteríaNacional_RetargetingCarros_22Octubre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Octubre_RetargetingCarros",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 143179,
+    "clicsTotales": 989,
+    "ctr": 0.69,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
     "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
     "anunciante": "EC_Netlife",
     "motivo": "Septiembre_NetlifeBusiness",
@@ -1425,6 +1437,18 @@
     "impresionesTotales": 508851,
     "clicsTotales": 1459,
     "ctr": 0.29,
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Octubre_AtúnReal",
+    "mes": "Octubre",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 177352,
+    "clicsTotales": 496,
+    "ctr": 0.28,
     "cliente": "EC_Alimentos Real"
   }
 ]

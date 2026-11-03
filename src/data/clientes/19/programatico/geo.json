@@ -10,5 +10,17 @@
     "clicsTotales": 1459,
     "ctr": 0.29,
     "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Octubre_AtúnReal",
+    "mes": "Octubre",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 177352,
+    "clicsTotales": 496,
+    "ctr": 0.28,
+    "cliente": "EC_Alimentos Real"
   }
 ]

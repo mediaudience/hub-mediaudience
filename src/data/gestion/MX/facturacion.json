@@ -1,0 +1,16 @@
+[
+  {
+    "mes": "",
+    "agencia": "Agencia 1",
+    "cliente": "",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 0,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "pais": "México"
+  }
+]

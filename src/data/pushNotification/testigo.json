@@ -405,21 +405,12 @@
     "cliente": "PE_Reset"
   },
   {
-    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "campana": "PE_PlazaSanMiguel_50Aniversario_08Septiembre2026",
     "anunciante": "PE_PlazaSanMiguel",
-    "motivo": "Septiembre_50Aniverario",
+    "motivo": "Septiembre_50Aniversario",
     "mes": "Septiembre",
     "formato": "Push Display",
     "link": "https://drive.google.com/drive/folders/1t-dBFwayimDpXOTYus4bUS7x9JEdHCqJ?usp=sharing",
-    "cliente": "PE_Reset"
-  },
-  {
-    "campana": "PE_PlazaSanMigue_50Aniversario_Bonificado_06Octubre2026",
-    "anunciante": "PE_PlazaSanMiguel",
-    "motivo": "Septiembre_50Aniverario_Bonificado",
-    "mes": "",
-    "formato": "",
-    "link": "",
     "cliente": "PE_Reset"
   },
   {
@@ -448,5 +439,14 @@
     "formato": "Push Premium Video",
     "link": "https://drive.google.com/drive/folders/1OWDvOMw31INvF0jGWU_DMEDRHjupxZG8?usp=sharing",
     "cliente": "PE_PromPerú"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Octubre_AtúnReal",
+    "mes": "Octubre",
+    "formato": "Push Display",
+    "link": "https://drive.google.com/file/d/1D3_2fzLxXFpmniH7faDAz9IH9zlIsPOI/view?usp=sharing",
+    "cliente": "EC_Alimentos Real"
   }
 ]

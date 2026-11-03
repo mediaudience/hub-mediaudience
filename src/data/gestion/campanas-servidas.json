@@ -9504,5 +9504,47 @@
     "porcentajeConsumo": 0,
     "reporte": "",
     "pais": "Perú"
+  },
+  {
+    "anunciante": "",
+    "campana": "",
+    "ejecutivo": "",
+    "formato": "",
+    "tipoVenta": "",
+    "fechaInicio": "",
+    "fechaFin": "",
+    "objetivo": 0,
+    "consumo": 0,
+    "porcentajeConsumo": 0,
+    "reporte": "",
+    "pais": "México"
+  },
+  {
+    "anunciante": "Lotería Nacional",
+    "campana": "Lotería de Navidad Retargeting",
+    "ejecutivo": "Diego León",
+    "formato": "Rich Media",
+    "tipoVenta": "CPM",
+    "fechaInicio": "2026-09-28",
+    "fechaFin": "2026-09-30",
+    "objetivo": 142857,
+    "consumo": 159270,
+    "porcentajeConsumo": 111.49,
+    "reporte": "Enviado",
+    "pais": "México"
+  },
+  {
+    "anunciante": "Crissal",
+    "campana": "¿Quien más es Cris Sal? - Comercial",
+    "ejecutivo": "Diego Reyes",
+    "formato": "YouTube",
+    "tipoVenta": "CPM",
+    "fechaInicio": "2026-09-23",
+    "fechaFin": "2026-10-22",
+    "objetivo": 388572,
+    "consumo": 239796,
+    "porcentajeConsumo": 61.71,
+    "reporte": "Enviado",
+    "pais": "México"
   }
 ]

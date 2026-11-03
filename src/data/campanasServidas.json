@@ -60,6 +60,10 @@
     "anunciante": "EC_LoteríaNacional"
   },
   {
+    "campana": "EC_LoteríaNacional_RetargetingCarros_22Octubre2026",
+    "anunciante": "EC_LoteríaNacional"
+  },
+  {
     "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
     "anunciante": "EC_Bet593"
   },
@@ -452,11 +456,11 @@
     "anunciante": "PE_Verisure"
   },
   {
-    "campana": "PE_PlazaSanMigue_50Aniversario_08Septiembre2026",
+    "campana": "PE_PlazaSanMiguel_50Aniversario_08Septiembre2026",
     "anunciante": "PE_PlazaSanMiguel"
   },
   {
-    "campana": "PE_PlazaSanMigue_50Aniversario_Bonificado_06Octubre2026",
+    "campana": "PE_PlazaSanMiguel_50Aniversario_Bonificado_06Octubre2026",
     "anunciante": "PE_PlazaSanMiguel"
   },
   {
@@ -482,10 +486,6 @@
   {
     "campana": "PE_Alicorp_BolivarMissDior_Julio2026",
     "anunciante": "PE_Bolivar"
-  },
-  {
-    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
-    "anunciante": "EC_AlimentosReal"
   },
   {
     "campana": "EC_Kia_KiaAutomundo_Octubre2026",
@@ -594,5 +594,13 @@
   {
     "campana": "PE_PromPerú_PerúMuchoGusto_02Octubre2026",
     "anunciante": "PE_PromPerú"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
+    "anunciante": "EC_AlimentosReal"
   }
 ]
