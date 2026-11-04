@@ -1074,9 +1074,9 @@
     "mes": "Octubre",
     "formato": "Push Premium Display",
     "ubicacion": "Lima Metropolitana",
-    "impresionesTotales": 6683,
-    "clicsTotales": 999,
-    "ctr": 14.95,
+    "impresionesTotales": 10804,
+    "clicsTotales": 1592,
+    "ctr": 14.74,
     "cliente": "PE_Starbucks"
   },
   {
@@ -1158,9 +1158,9 @@
     "mes": "Octubre",
     "formato": "Push Premium Video",
     "ubicacion": "Lima",
-    "impresionesTotales": 25340,
-    "clicsTotales": 3205,
-    "ctr": 12.65,
+    "impresionesTotales": 29366,
+    "clicsTotales": 3602,
+    "ctr": 12.27,
     "cliente": "PE_Clínica Aviva"
   },
   {
@@ -1170,9 +1170,9 @@
     "mes": "Octubre",
     "formato": "Push Premium Video",
     "ubicacion": "Callao",
-    "impresionesTotales": 23887,
-    "clicsTotales": 3077,
-    "ctr": 12.88,
+    "impresionesTotales": 27683,
+    "clicsTotales": 3474,
+    "ctr": 12.55,
     "cliente": "PE_Clínica Aviva"
   },
   {
