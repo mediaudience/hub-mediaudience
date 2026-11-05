@@ -144,7 +144,7 @@
     "cliente": "PE_Alicorp"
   },
   {
-    "campana": "PE_Alicorp_BolivarMissDior_Julio2026",
+    "campana": "PE_Alicorp_BolivarMissDior_Septiembre2026",
     "anunciante": "PE_Bolivar",
     "motivo": "Septiembre_MissDior",
     "mes": "Septiembre",
@@ -153,12 +153,21 @@
     "cliente": "PE_Alicorp"
   },
   {
-    "campana": "PE_Alicorp_BolivarMissDior_Julio2026",
+    "campana": "PE_Alicorp_BolivarMissDior_Septiembre2026",
     "anunciante": "PE_Bolivar",
     "motivo": "Septiembre_MissDior",
     "mes": "Septiembre",
     "formato": "CTV",
     "link": "https://docs.google.com/spreadsheets/d/18Zb7vy-N3aASZr6WxSedvpWgN1tDSjhPio3pzghH8MM/edit?gid=1246478566#gid=1246478566",
+    "cliente": "PE_Alicorp"
+  },
+  {
+    "campana": "PE_Alicorp_BolivarMissDior_Octubre2026",
+    "anunciante": "PE_Bolivar",
+    "motivo": "Octubre_MissDior",
+    "mes": "Octubre",
+    "formato": "CTV",
+    "link": "https://drive.google.com/file/d/1oscGtGaZbAmap2mURXfNroSHV52Hq9S4/view?usp=sharing",
     "cliente": "PE_Alicorp"
   }
 ]

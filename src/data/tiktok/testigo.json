@@ -54,6 +54,15 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
+    "campana": "EC_GOA_CuidadoCapilar_26Octubre2026_Alcance",
+    "anunciante": "EC_GOA",
+    "motivo": "Octubre_CuidadoCapilar_Alcance",
+    "mes": "Octubre",
+    "formato": "In-Feed",
+    "link": "https://drive.google.com/drive/folders/1sZWTgVllSCT7sYVBVNtCJADoE3JTAiOf?usp=sharing",
+    "cliente": "EC_GOA"
+  },
+  {
     "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Interacciones",
     "anunciante": "EC_GoldenBear",
     "motivo": "Septiembre_TecnologíaDeOtraGalaxia_Interacciones",

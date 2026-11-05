@@ -84,6 +84,20 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
+    "campana": "EC_GOA_CuidadoCapilar_26Octubre2026_Alcance",
+    "anunciante": "EC_GOA",
+    "motivo": "Octubre_CuidadoCapilar_Alcance",
+    "mes": "Octubre",
+    "formato": "In-Feed",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 559983,
+    "clicsTotales": 632,
+    "ctr": 0.11,
+    "vistas6seg": 4960,
+    "seguidores": 24,
+    "cliente": "EC_GOA"
+  },
+  {
     "campana": "EC_Bambú_07Agosto2026_Alcance",
     "anunciante": "EC_Bambú",
     "motivo": "Agosto_Crea Momentos Alcance",

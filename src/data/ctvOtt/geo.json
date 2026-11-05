@@ -600,7 +600,7 @@
     "cliente": "PE_Alicorp"
   },
   {
-    "campana": "PE_Alicorp_BolivarMissDior_Julio2026",
+    "campana": "PE_Alicorp_BolivarMissDior_Septiembre2026",
     "anunciante": "PE_Bolivar",
     "motivo": "Septiembre_MissDior",
     "mes": "Septiembre",
@@ -609,6 +609,18 @@
     "impresionesTotales": 118214,
     "quartil100": 117987,
     "vtr": 99.81,
+    "cliente": "PE_Alicorp"
+  },
+  {
+    "campana": "PE_Alicorp_BolivarMissDior_Octubre2026",
+    "anunciante": "PE_Bolivar",
+    "motivo": "Octubre_MissDior",
+    "mes": "Octubre",
+    "formato": "CTV",
+    "ubicacion": "Perú",
+    "impresionesTotales": 474688,
+    "quartil100": 468159,
+    "vtr": 98.62,
     "cliente": "PE_Alicorp"
   }
 ]

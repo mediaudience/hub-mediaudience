@@ -16,5 +16,23 @@
     "formato": "Display Programático",
     "link": "",
     "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_Congelados",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "",
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_AtúnReal",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "",
+    "cliente": "EC_Alimentos Real"
   }
 ]

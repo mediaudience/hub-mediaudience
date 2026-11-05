@@ -22,5 +22,29 @@
     "clicsTotales": 496,
     "ctr": 0.28,
     "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_Congelados",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 61498,
+    "clicsTotales": 251,
+    "ctr": 0.41,
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_AtúnReal",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 42978,
+    "clicsTotales": 138,
+    "ctr": 0.32,
+    "cliente": "EC_Alimentos Real"
   }
 ]

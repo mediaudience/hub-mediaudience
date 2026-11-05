@@ -151,5 +151,14 @@
     "formato": "Rich Media",
     "link": "https://drive.google.com/drive/folders/1pcYsw7I0Xdh5UkRQ2KZ5TNrzssS4UFhq?usp=sharing",
     "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_NuevaImagen_30Octubre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Octubre_NuevaImagen",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
   }
 ]

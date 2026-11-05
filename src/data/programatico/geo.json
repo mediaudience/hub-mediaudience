@@ -156,6 +156,30 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
+    "campana": "EC_LoteríaNacional_NuevaImagen_30Octubre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Octubre_NuevaImagen",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 41100,
+    "clicsTotales": 301,
+    "ctr": 0.73,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_NuevaImagen_30Octubre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Octubre_NuevaImagen",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 67493,
+    "clicsTotales": 507,
+    "ctr": 0.75,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
     "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
     "anunciante": "EC_Netlife",
     "motivo": "Septiembre_NetlifeBusiness",
@@ -1450,5 +1474,53 @@
     "clicsTotales": 496,
     "ctr": 0.28,
     "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_Congelados",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 61498,
+    "clicsTotales": 251,
+    "ctr": 0.41,
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_AtúnReal",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 42978,
+    "clicsTotales": 138,
+    "ctr": 0.32,
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_Etafashion_72HorasBllackFriday_31Octubre2026",
+    "anunciante": "EC_Etafashion",
+    "motivo": "Octubre_72HorasBlackFriday",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 35619,
+    "clicsTotales": 69,
+    "ctr": 0.19,
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Etafashion_MinutoDorado_01Noviembre2026",
+    "anunciante": "EC_Etafashion",
+    "motivo": "Noviembre_MinutoDorado",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 31332,
+    "clicsTotales": 42,
+    "ctr": 0.13,
+    "cliente": "EC_Paradais"
   }
 ]

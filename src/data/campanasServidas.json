@@ -64,6 +64,10 @@
     "anunciante": "EC_LoteríaNacional"
   },
   {
+    "campana": "EC_LoteríaNacional_NuevaImagen_30Octubre2026",
+    "anunciante": "EC_LoteríaNacional"
+  },
+  {
     "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
     "anunciante": "EC_Bet593"
   },
@@ -484,12 +488,52 @@
     "anunciante": "PE_Inakachips"
   },
   {
-    "campana": "PE_Alicorp_BolivarMissDior_Julio2026",
+    "campana": "PE_Alicorp_BolivarMissDior_Septiembre2026",
+    "anunciante": "PE_Bolivar"
+  },
+  {
+    "campana": "PE_Alicorp_BolivarMissDior_Octubre2026",
     "anunciante": "PE_Bolivar"
   },
   {
     "campana": "EC_Kia_KiaAutomundo_Octubre2026",
     "anunciante": "EC_Kia"
+  },
+  {
+    "campana": "PE_PromPerú_PerúMuchoGusto_02Octubre2026",
+    "anunciante": "PE_PromPerú"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_GOA_CuidadoCapilar_YT_21Octubre2026_CPM",
+    "anunciante": "EC_GOA"
+  },
+  {
+    "campana": "EC_GOA_CuidadoCapilar_26Octubre2026_Alcance",
+    "anunciante": "EC_GOA"
+  },
+  {
+    "campana": "EC_Etafashion_72HorasBllackFriday_31Octubre2026",
+    "anunciante": "EC_Etafashion"
+  },
+  {
+    "campana": "EC_Etafashion_MinutoDorado_01Noviembre2026",
+    "anunciante": "EC_Etafashion"
   },
   {
     "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
@@ -590,17 +634,5 @@
   {
     "campana": "EC_Tips_AONDifusor_28Octubre2026_Alcance",
     "anunciante": "EC_Tips"
-  },
-  {
-    "campana": "PE_PromPerú_PerúMuchoGusto_02Octubre2026",
-    "anunciante": "PE_PromPerú"
-  },
-  {
-    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
-    "anunciante": "EC_AlimentosReal"
-  },
-  {
-    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
-    "anunciante": "EC_AlimentosReal"
   }
 ]

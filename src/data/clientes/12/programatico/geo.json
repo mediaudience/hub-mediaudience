@@ -1,0 +1,26 @@
+[
+  {
+    "campana": "EC_Etafashion_72HorasBllackFriday_31Octubre2026",
+    "anunciante": "EC_Etafashion",
+    "motivo": "Octubre_72HorasBlackFriday",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 35619,
+    "clicsTotales": 69,
+    "ctr": 0.19,
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Etafashion_MinutoDorado_01Noviembre2026",
+    "anunciante": "EC_Etafashion",
+    "motivo": "Noviembre_MinutoDorado",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 31332,
+    "clicsTotales": 42,
+    "ctr": 0.13,
+    "cliente": "EC_Paradais"
+  }
+]
