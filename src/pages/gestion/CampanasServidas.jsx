@@ -6,7 +6,7 @@ import EmptyState from "../../components/common/EmptyState";
 import useApiData from "../../hooks/useApiData";
 import { formatNumber, progressTier, TIER_COLORS } from "../../utils/format";
 import { downloadCSV } from "../../utils/csv";
-import { columnasExtras, valorColumna, filasParaDescarga } from "../../utils/gestionExtras";
+import { columnasExtras, valorColumna, filasParaDescarga, esUrl } from "../../utils/gestionExtras";
 import { estePeriodoISO } from "../../components/common/PeriodFilterPill";
 
 function dentroDelPeriodo(fecha, periodo) {
@@ -186,6 +186,15 @@ export default function CampanasServidas() {
                           >
                             {(r.porcentajeConsumo ?? 0).toFixed(2)}%
                           </span>
+                        </td>
+                      );
+                    }
+                    if (c.extra && esUrl(valorColumna(r, c))) {
+                      return (
+                        <td key={c.key} className="px-2.5 py-2">
+                          <a href={valorColumna(r, c)} target="_blank" rel="noreferrer" className="text-brand-purple hover:underline">
+                            Ver
+                          </a>
                         </td>
                       );
                     }

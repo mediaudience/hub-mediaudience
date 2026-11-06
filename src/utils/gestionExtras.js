@@ -13,7 +13,21 @@ export function columnasExtras(filas, extra = {}) {
   for (const f of filas) {
     for (const h of Object.keys(f.extras ?? {})) if (!headers.includes(h)) headers.push(h);
   }
-  return headers.map((h) => ({ key: `extra:${h}`, header: h, label: titulo(h), extra: true, ...extra }));
+  return headers.map((h) => ({
+    key: `extra:${h}`,
+    header: h,
+    label: titulo(h),
+    extra: true,
+    // Si la celda trae una URL, en la tabla se ve "Ver" y en el Excel
+    // "Ver orden interna" (vinculado), nunca la URL cruda.
+    link: true,
+    linkLabel: `Ver ${titulo(h).toLowerCase()}`,
+    ...extra,
+  }));
+}
+
+export function esUrl(v) {
+  return /^https?:\/\//i.test(String(v ?? "").trim());
 }
 
 export function valorColumna(fila, c) {
