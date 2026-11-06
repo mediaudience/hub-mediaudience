@@ -17,21 +17,44 @@ function normalizarHeader(h) {
   return String(h ?? '').replace(/\s+/g, ' ').trim();
 }
 
-function filasDesdeSheet(rows, campos) {
+// Columnas que el Sheet ya traía el 2026-11-06 y que NO se muestran a
+// propósito (además de las mapeadas en `campos`). Cualquier columna que
+// aparezca en el Sheet y no esté ni acá ni en `campos` se considera NUEVA y
+// se sincroniza sola en `extras` ({header: valor}) -- el frontend la agrega
+// como columna al final de la tabla. Pedido de Jose 2026-11-06: "siempre que
+// se agregue algo al Sheet, que aparezca en el hub" (primera fue ORDEN
+// INTERNA en Facturación).
+function filasDesdeSheet(rows, campos, ignoradas = []) {
   if (!rows || rows.length < 2) return [];
   const [header, ...data] = rows;
   const headerNorm = header.map(normalizarHeader);
+  const conocidas = new Set([...campos.map((c) => c.header), ...ignoradas].map((h) => normalizarHeader(h).toLowerCase()));
+  const extrasIdx = headerNorm
+    .map((h, i) => ({ h, i }))
+    .filter(({ h }) => h !== '' && !conocidas.has(h.toLowerCase()));
   return data
     .filter((r) => r.some((v) => String(v ?? '').trim() !== ''))
-    .map((r) =>
-      Object.fromEntries(
+    .map((r) => {
+      const fila = Object.fromEntries(
         campos.map((c) => {
           const idx = headerNorm.indexOf(normalizarHeader(c.header));
           return [c.key, idx === -1 ? parseValor(undefined, c.type) : parseValor(r[idx], c.type)];
         })
-      )
-    );
+      );
+      if (extrasIdx.length > 0) {
+        fila.extras = Object.fromEntries(extrasIdx.map(({ h, i }) => [h, String(r[i] ?? '').trim()]));
+      }
+      return fila;
+    });
 }
+
+const IGNORADAS_CAMPANAS_SERVIDAS = [
+  'País', 'Año', 'Mes', 'Estado', 'Inversión de la Campaña', 'Venta Costo Cliente', 'MAX. Gasto Plataforma',
+];
+const IGNORADAS_FACTURACION = [
+  'ESTADO', 'AÑO', 'EJECUTIVO', 'PROVEEDOR', 'MONEDA', 'CAMPAÑA', 'OBJETIVO', 'FORMATO', 'PERIODO',
+  'TIPO DE COMPRA', 'KPIS (IMP.CLICS.LEADS:ETC)', 'Factura MA',
+];
 
 // Headers relevados 2026-08-29 contra el Sheet real de Ecuador (ver imágenes
 // que mandó Jose, EC_Campañas Servidas.png / EC_Facturación.png) -- solo se
@@ -83,8 +106,8 @@ async function syncGestionPaisInterno({ pais, paisNombre, sheetId }) {
     fetchTabRows(sheetId, 'Campañas Servidas'),
     fetchTabRows(sheetId, 'Facturación'),
   ]);
-  const campanasServidas = filasDesdeSheet(rowsCampanas, CAMPOS_CAMPANAS_SERVIDAS).map((r) => ({ ...r, pais: paisNombre }));
-  const facturacion = filasDesdeSheet(rowsFacturacion, CAMPOS_FACTURACION).map((r) => ({ ...r, pais: paisNombre }));
+  const campanasServidas = filasDesdeSheet(rowsCampanas, CAMPOS_CAMPANAS_SERVIDAS, IGNORADAS_CAMPANAS_SERVIDAS).map((r) => ({ ...r, pais: paisNombre }));
+  const facturacion = filasDesdeSheet(rowsFacturacion, CAMPOS_FACTURACION, IGNORADAS_FACTURACION).map((r) => ({ ...r, pais: paisNombre }));
 
   const dir = path.join(GESTION_DIR, pais);
   await writeJson(path.join(dir, 'campanas-servidas.json'), campanasServidas);

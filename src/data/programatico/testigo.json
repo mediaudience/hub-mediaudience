@@ -153,12 +153,30 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
+    "campana": "EC_LoteríaNacional_LoteríaNavidad_13Octubre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Octubre_LoteríaNavidad",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "link": "https://drive.google.com/drive/folders/1yi4vV0naPxFzGBykJe6QmCcTmi-OskX0?usp=sharing",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_RetargetingCarros_22Octubre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Octubre_RetargetingCarros",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "link": "https://drive.google.com/drive/folders/1YMnuVf40AIKRkG9UdddWLvfnm45iIfUg?usp=sharing",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
     "campana": "EC_LoteríaNacional_NuevaImagen_30Octubre2026",
     "anunciante": "EC_LoteríaNacional",
     "motivo": "Octubre_NuevaImagen",
     "mes": "Octubre",
     "formato": "Rich Media",
-    "link": "",
+    "link": "https://drive.google.com/drive/folders/1n305h1QJ1rdYEq6pjWAhLTSKN8ofcSNJ?usp=sharing",
     "cliente": "EC_Lotería Nacional"
   },
   {
@@ -689,7 +707,7 @@
     "motivo": "Octubre_AtúnReal",
     "mes": "Octubre",
     "formato": "Display Programático",
-    "link": "",
+    "link": "https://drive.google.com/drive/folders/1fa0gOZp2CYeRo0tBp5NUHn2mggz8mPL8?usp=sharing",
     "cliente": "EC_Alimentos Real"
   },
   {

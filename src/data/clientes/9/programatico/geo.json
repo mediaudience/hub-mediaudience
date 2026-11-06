@@ -162,21 +162,9 @@
     "mes": "Octubre",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
-    "impresionesTotales": 41100,
-    "clicsTotales": 301,
-    "ctr": 0.73,
-    "cliente": "EC_Lotería Nacional"
-  },
-  {
-    "campana": "EC_LoteríaNacional_NuevaImagen_30Octubre2026",
-    "anunciante": "EC_LoteríaNacional",
-    "motivo": "Octubre_NuevaImagen",
-    "mes": "Noviembre",
-    "formato": "Rich Media",
-    "ubicacion": "Ecuador",
-    "impresionesTotales": 67493,
-    "clicsTotales": 507,
-    "ctr": 0.75,
+    "impresionesTotales": 108593,
+    "clicsTotales": 808,
+    "ctr": 0.74,
     "cliente": "EC_Lotería Nacional"
   }
 ]

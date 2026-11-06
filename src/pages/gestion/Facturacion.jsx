@@ -7,6 +7,7 @@ import EmptyState from "../../components/common/EmptyState";
 import useApiData from "../../hooks/useApiData";
 import { formatCurrency } from "../../utils/format";
 import { downloadCSV } from "../../utils/csv";
+import { columnasExtras, valorColumna, filasParaDescarga } from "../../utils/gestionExtras";
 
 // El Sheet de Gestión lo edita Admin/Super Admin -- si alguna celda trajera
 // una URI no-http (ej. "javascript:...") no debe renderizarse como link
@@ -53,6 +54,7 @@ export default function Facturacion() {
   const [mes, setMes] = useState(undefined);
 
   const filas = data?.filas ?? [];
+  const columnas = useMemo(() => [...COLUMNS, ...columnasExtras(filas)], [filas]);
 
   const paisesDisponibles = useMemo(() => [...new Set(filas.map((r) => r.pais).filter(Boolean))].sort(), [filas]);
   const filasDelPais = useMemo(() => filas.filter((r) => !pais || r.pais === pais), [filas, pais]);
@@ -123,7 +125,7 @@ export default function Facturacion() {
           setEstadoFactura(null);
           setMes(undefined);
         }}
-        onDownload={filtradas.length > 0 ? () => downloadCSV("facturacion", filtradas, COLUMNS) : undefined}
+        onDownload={filtradas.length > 0 ? () => downloadCSV("facturacion", filasParaDescarga(filtradas, columnas), columnas) : undefined}
       />
 
       {loading ? (
@@ -143,7 +145,7 @@ export default function Facturacion() {
             <table className="w-full text-sm min-w-[1100px]">
               <thead>
                 <tr className="bg-surface-2 text-gray-500 text-left label-mono">
-                  {COLUMNS.map((c) => (
+                  {columnas.map((c) => (
                     <th key={c.key} className={`px-4 py-3 font-semibold ${c.align === "right" ? "text-right" : ""}`}>
                       {c.label}
                     </th>
@@ -155,12 +157,12 @@ export default function Facturacion() {
               <tbody>
                 {filtradas.map((r, i) => (
                   <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                    {COLUMNS.map((c) => (
+                    {columnas.map((c) => (
                       <td
                         key={c.key}
                         className={`px-4 py-2.5 text-gray-800 whitespace-nowrap ${c.align === "right" ? "text-right" : ""}`}
                       >
-                        {c.key === "consumoNeto" ? formatCurrency(r[c.key]) : r[c.key] ?? ""}
+                        {c.key === "consumoNeto" ? formatCurrency(r[c.key]) : valorColumna(r, c) ?? ""}
                       </td>
                     ))}
                     <td className="px-4 py-2.5">

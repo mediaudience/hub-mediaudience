@@ -6,6 +6,7 @@ import EmptyState from "../../components/common/EmptyState";
 import useApiData from "../../hooks/useApiData";
 import { formatNumber, progressTier, TIER_COLORS } from "../../utils/format";
 import { downloadCSV } from "../../utils/csv";
+import { columnasExtras, valorColumna, filasParaDescarga } from "../../utils/gestionExtras";
 import { estePeriodoISO } from "../../components/common/PeriodFilterPill";
 
 function dentroDelPeriodo(fecha, periodo) {
@@ -85,6 +86,7 @@ export default function CampanasServidas() {
   const [periodo, setPeriodo] = useState(() => estePeriodoISO("Este mes"));
 
   const filas = data?.filas ?? [];
+  const columnas = useMemo(() => [...COLUMNS, ...columnasExtras(filas, { width: 8 })], [filas]);
 
   const paisesDisponibles = useMemo(() => [...new Set(filas.map((r) => r.pais).filter(Boolean))].sort(), [filas]);
   const filasDelPais = useMemo(() => filas.filter((r) => !pais || r.pais === pais), [filas, pais]);
@@ -140,7 +142,7 @@ export default function CampanasServidas() {
           setEjecutivo(null);
           setPeriodo(estePeriodoISO("Este mes"));
         }}
-        onDownload={filtradas.length > 0 ? () => downloadCSV("campanas-servidas", filtradas, COLUMNS) : undefined}
+        onDownload={filtradas.length > 0 ? () => downloadCSV("campanas-servidas", filasParaDescarga(filtradas, columnas), columnas) : undefined}
       />
 
       <AvanceLegend />
@@ -155,13 +157,13 @@ export default function CampanasServidas() {
         <Card className="overflow-x-auto">
           <table className="text-xs" style={{ tableLayout: "fixed", width: "100%" }}>
             <colgroup>
-              {COLUMNS.map((c) => (
+              {columnas.map((c) => (
                 <col key={c.key} style={{ width: `${c.width}%` }} />
               ))}
             </colgroup>
             <thead>
               <tr className="bg-surface-2 text-gray-500 text-left label-mono">
-                {COLUMNS.map((c) => (
+                {columnas.map((c) => (
                   <th
                     key={c.key}
                     className={`px-2.5 py-2.5 font-semibold truncate ${c.align === "right" ? "text-right" : c.align === "center" ? "text-center" : ""}`}
@@ -174,7 +176,7 @@ export default function CampanasServidas() {
             <tbody>
               {filtradas.map((r, i) => (
                 <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                  {COLUMNS.map((c) => {
+                  {columnas.map((c) => {
                     if (c.key === "porcentajeConsumo") {
                       return (
                         <td key={c.key} className="px-2.5 py-2 text-center">
@@ -200,7 +202,7 @@ export default function CampanasServidas() {
                       ? formatNumber(r[c.key])
                       : esFecha
                       ? formatFechaCorta(r[c.key])
-                      : r[c.key] ?? "";
+                      : valorColumna(r, c) ?? "";
                     return (
                       <td
                         key={c.key}
