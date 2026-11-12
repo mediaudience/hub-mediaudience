@@ -178,5 +178,23 @@
     "formato": "Rich Media",
     "link": "https://drive.google.com/drive/folders/1n305h1QJ1rdYEq6pjWAhLTSKN8ofcSNJ?usp=sharing",
     "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_EventoLotería_06Noviembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Noviembre_EventoLotería_42Segundos",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_EventoLotería_06Noviembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Noviembre_EventoLotería_20Segundos",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
   }
 ]

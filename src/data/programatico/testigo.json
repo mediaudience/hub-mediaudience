@@ -180,6 +180,24 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
+    "campana": "EC_LoteríaNacional_EventoLotería_06Noviembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Noviembre_EventoLotería_42Segundos",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_EventoLotería_06Noviembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Noviembre_EventoLotería_20Segundos",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
     "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
     "anunciante": "EC_Netlife",
     "motivo": "Septiembre_NetlifeBusiness",

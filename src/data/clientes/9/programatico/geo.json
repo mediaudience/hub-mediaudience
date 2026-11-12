@@ -166,5 +166,29 @@
     "clicsTotales": 1468,
     "ctr": 0.75,
     "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_EventoLotería_06Noviembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Noviembre_EventoLotería_42Segundos",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 41384,
+    "clicsTotales": 309,
+    "ctr": 0.75,
+    "cliente": "EC_Lotería Nacional"
+  },
+  {
+    "campana": "EC_LoteríaNacional_EventoLotería_06Noviembre2026",
+    "anunciante": "EC_LoteríaNacional",
+    "motivo": "Noviembre_EventoLotería_20Segundos",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 22621,
+    "clicsTotales": 171,
+    "ctr": 0.76,
+    "cliente": "EC_Lotería Nacional"
   }
 ]
