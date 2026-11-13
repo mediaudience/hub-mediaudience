@@ -1,11 +1,20 @@
 [
   {
-    "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
-    "anunciante": "EC_Netlife",
-    "motivo": "Septiembre_NetlifeBusiness",
+    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
+    "anunciante": "EC_NetlifeBusiness",
+    "motivo": "Septiembre_CrecerTuNegocio",
     "mes": "Septiembre",
     "formato": "Display Programático",
     "link": "https://drive.google.com/drive/folders/1mDCNFlDtPcF80AlqklBPm1-fN89pxHxE?usp=sharing",
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
+    "anunciante": "EC_NetlifeBusiness",
+    "motivo": "Noviembre_CreadorDigital",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "",
     "cliente": "EC_Netlife"
   }
 ]

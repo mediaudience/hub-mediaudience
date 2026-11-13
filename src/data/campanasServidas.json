@@ -168,8 +168,12 @@
     "anunciante": "PE_Starbucks"
   },
   {
-    "campana": "EC_Netlife_NetlifeBusiness_08Septiembre2026",
-    "anunciante": "EC_Netlife"
+    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
+    "anunciante": "EC_NetlifeBusiness"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
+    "anunciante": "EC_NetlifeBusiness"
   },
   {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
