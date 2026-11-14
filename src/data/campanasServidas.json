@@ -168,14 +168,6 @@
     "anunciante": "PE_Starbucks"
   },
   {
-    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
-    "anunciante": "EC_NetlifeBusiness"
-  },
-  {
-    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
-    "anunciante": "EC_NetlifeBusiness"
-  },
-  {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato"
   },
@@ -512,6 +504,14 @@
     "anunciante": "PE_PromPerú"
   },
   {
+    "campana": "PE_PromPerú_PerúMuchoGusto_07Noviembre2026",
+    "anunciante": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_Coyunturales_13Noviembre2026",
+    "anunciante": "PE_PromPerú"
+  },
+  {
     "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
     "anunciante": "EC_AlimentosReal"
   },
@@ -642,5 +642,13 @@
   {
     "campana": "EC_Tips_AONDifusor_28Octubre2026_Alcance",
     "anunciante": "EC_Tips"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
+    "anunciante": "EC_NetlifeBusiness"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
+    "anunciante": "EC_NetlifeBusiness"
   }
 ]

@@ -192,66 +192,6 @@
     "cliente": "EC_Lotería Nacional"
   },
   {
-    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
-    "anunciante": "EC_NetlifeBusiness",
-    "motivo": "Septiembre_CrecerTuNegocio",
-    "mes": "Septiembre",
-    "formato": "Display Programático",
-    "ubicacion": "Ecuador",
-    "impresionesTotales": 582783,
-    "clicsTotales": 980,
-    "ctr": 0.17,
-    "cliente": "EC_Netlife"
-  },
-  {
-    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
-    "anunciante": "EC_NetlifeBusiness",
-    "motivo": "Noviembre_CreadorDigital",
-    "mes": "Noviembre",
-    "formato": "Rich Media",
-    "ubicacion": "Quito",
-    "impresionesTotales": 0,
-    "clicsTotales": 0,
-    "ctr": 0,
-    "cliente": "EC_Netlife"
-  },
-  {
-    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
-    "anunciante": "EC_NetlifeBusiness",
-    "motivo": "Noviembre_CreadorDigital",
-    "mes": "Noviembre",
-    "formato": "Rich Media",
-    "ubicacion": "Cuenca",
-    "impresionesTotales": 0,
-    "clicsTotales": 0,
-    "ctr": 0,
-    "cliente": "EC_Netlife"
-  },
-  {
-    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
-    "anunciante": "EC_NetlifeBusiness",
-    "motivo": "Noviembre_CreadorDigital",
-    "mes": "Noviembre",
-    "formato": "Rich Media",
-    "ubicacion": "Manta",
-    "impresionesTotales": 0,
-    "clicsTotales": 0,
-    "ctr": 0,
-    "cliente": "EC_Netlife"
-  },
-  {
-    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
-    "anunciante": "EC_NetlifeBusiness",
-    "motivo": "Noviembre_CreadorDigital",
-    "mes": "Noviembre",
-    "formato": "Rich Media",
-    "ubicacion": "Guayaquil",
-    "impresionesTotales": 0,
-    "clicsTotales": 0,
-    "ctr": 0,
-    "cliente": "EC_Netlife"
-  },
-  {
     "campana": "EC_Ferrisariato_MesDeLaConstrucción_Agosto2026",
     "anunciante": "EC_Ferrisariato",
     "motivo": "Agosto_MesDeLaConstrucción",
@@ -1582,5 +1522,65 @@
     "clicsTotales": 42,
     "ctr": 0.13,
     "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
+    "anunciante": "EC_NetlifeBusiness",
+    "motivo": "Septiembre_CrecerTuNegocio",
+    "mes": "Septiembre",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 582783,
+    "clicsTotales": 980,
+    "ctr": 0.17,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
+    "anunciante": "EC_NetlifeBusiness",
+    "motivo": "Noviembre_CreadorDigital",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Quito",
+    "impresionesTotales": 4924,
+    "clicsTotales": 12,
+    "ctr": 0.24,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
+    "anunciante": "EC_NetlifeBusiness",
+    "motivo": "Noviembre_CreadorDigital",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Cuenca",
+    "impresionesTotales": 1303,
+    "clicsTotales": 6,
+    "ctr": 0.46,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
+    "anunciante": "EC_NetlifeBusiness",
+    "motivo": "Noviembre_CreadorDigital",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Manta",
+    "impresionesTotales": 133,
+    "clicsTotales": 2,
+    "ctr": 1.5,
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
+    "anunciante": "EC_NetlifeBusiness",
+    "motivo": "Noviembre_CreadorDigital",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Guayaquil",
+    "impresionesTotales": 5318,
+    "clicsTotales": 9,
+    "ctr": 0.17,
+    "cliente": "EC_Netlife"
   }
 ]

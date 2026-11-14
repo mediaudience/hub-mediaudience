@@ -1704,6 +1704,66 @@
     "cliente": "PE_PromPerú"
   },
   {
+    "campana": "PE_PromPerú_PerúMuchoGusto_07Noviembre2026",
+    "anunciante": "PE_PromPerú",
+    "motivo": "Noviembre_PerúMuchoGusto_Ayacucho_Apurimac",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Ayacucho",
+    "impresionesTotales": 5210,
+    "clicsTotales": 557,
+    "ctr": 10.69,
+    "cliente": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_PerúMuchoGusto_07Noviembre2026",
+    "anunciante": "PE_PromPerú",
+    "motivo": "Noviembre_PerúMuchoGusto_Ayacucho_Apurimac",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Apurimac",
+    "impresionesTotales": 1303,
+    "clicsTotales": 115,
+    "ctr": 8.83,
+    "cliente": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_PerúMuchoGusto_07Noviembre2026",
+    "anunciante": "PE_PromPerú",
+    "motivo": "Noviembre_PerúMuchoGusto_Lima_Ica",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Lima",
+    "impresionesTotales": 2966,
+    "clicsTotales": 338,
+    "ctr": 11.4,
+    "cliente": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_PerúMuchoGusto_07Noviembre2026",
+    "anunciante": "PE_PromPerú",
+    "motivo": "Noviembre_PerúMuchoGusto_Lima_Ica",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Ica",
+    "impresionesTotales": 536,
+    "clicsTotales": 22,
+    "ctr": 4.1,
+    "cliente": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_Coyunturales_13Noviembre2026",
+    "anunciante": "PE_PromPerú",
+    "motivo": "Noviembre_Coyunturales",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Perú",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "PE_PromPerú"
+  },
+  {
     "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
     "anunciante": "EC_AlimentosReal",
     "motivo": "Octubre_AtúnReal",

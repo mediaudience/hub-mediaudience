@@ -7,5 +7,32 @@
     "formato": "Push Premium Video",
     "link": "https://drive.google.com/drive/folders/1OWDvOMw31INvF0jGWU_DMEDRHjupxZG8?usp=sharing",
     "cliente": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_PerúMuchoGusto_07Noviembre2026",
+    "anunciante": "PE_PromPerú",
+    "motivo": "Noviembre_PerúMuchoGusto_Ayacucho_Apurimac",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "link": "https://drive.google.com/drive/folders/1qbrvNGssqHaS44s9uswY18GOCAdRtzLA?usp=sharing",
+    "cliente": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_PerúMuchoGusto_07Noviembre2026",
+    "anunciante": "PE_PromPerú",
+    "motivo": "Noviembre_PerúMuchoGusto_Lima_Ica",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "link": "https://drive.google.com/drive/folders/1qbrvNGssqHaS44s9uswY18GOCAdRtzLA?usp=sharing",
+    "cliente": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_Coyunturales_13Noviembre2026",
+    "anunciante": "PE_PromPerú",
+    "motivo": "Noviembre_Coyunturales",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "link": "https://drive.google.com/drive/folders/1xIPXEjM-FfGNIM5Ij7tsTv9iSIXjDFIn?usp=sharing",
+    "cliente": "PE_PromPerú"
   }
 ]
