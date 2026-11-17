@@ -8520,9 +8520,9 @@
     "fechaInicio": "2026-11-11",
     "fechaFin": "2026-11-14",
     "objetivo": 151515,
-    "consumo": 105855,
-    "porcentajeConsumo": 69.86,
-    "reporte": "No enviado",
+    "consumo": 211830,
+    "porcentajeConsumo": 139.81,
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8534,9 +8534,9 @@
     "fechaInicio": "2026-10-23",
     "fechaFin": "2026-11-15",
     "objetivo": 1250000,
-    "consumo": 1073084,
-    "porcentajeConsumo": 85.85,
-    "reporte": "No enviado",
+    "consumo": 1252206,
+    "porcentajeConsumo": 100.18,
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8548,9 +8548,9 @@
     "fechaInicio": "2026-10-23",
     "fechaFin": "2026-11-15",
     "objetivo": 1250000,
-    "consumo": 1172034,
-    "porcentajeConsumo": 93.76,
-    "reporte": "No enviado",
+    "consumo": 1311668,
+    "porcentajeConsumo": 104.93,
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8562,9 +8562,9 @@
     "fechaInicio": "2026-10-23",
     "fechaFin": "2026-11-15",
     "objetivo": 1250000,
-    "consumo": 1098821,
-    "porcentajeConsumo": 87.91,
-    "reporte": "No enviado",
+    "consumo": 1266194,
+    "porcentajeConsumo": 101.3,
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8578,7 +8578,49 @@
     "objetivo": 141667,
     "consumo": 161879,
     "porcentajeConsumo": 114.27,
-    "reporte": "No enviado",
+    "reporte": "Enviado",
+    "pais": "Ecuador"
+  },
+  {
+    "anunciante": "Asiauto",
+    "campana": "Auto Vitrina Ambato Noviembre",
+    "ejecutivo": "Diego León",
+    "formato": "Meta",
+    "tipoVenta": "CPM",
+    "fechaInicio": "2026-11-14",
+    "fechaFin": "2026-11-15",
+    "objetivo": 45455,
+    "consumo": 45952,
+    "porcentajeConsumo": 101.09,
+    "reporte": "Enviado",
+    "pais": "Ecuador"
+  },
+  {
+    "anunciante": "Asiauto",
+    "campana": "Auto Vitrina Latacunga Noviembre",
+    "ejecutivo": "Diego León",
+    "formato": "Meta",
+    "tipoVenta": "CPM",
+    "fechaInicio": "2026-11-14",
+    "fechaFin": "2026-11-15",
+    "objetivo": 22727,
+    "consumo": 33324,
+    "porcentajeConsumo": 146.63,
+    "reporte": "Enviado",
+    "pais": "Ecuador"
+  },
+  {
+    "anunciante": "Asiauto",
+    "campana": "Auto Vitrina Guaranda Noviembre",
+    "ejecutivo": "Diego León",
+    "formato": "Meta",
+    "tipoVenta": "CPM",
+    "fechaInicio": "2026-11-14",
+    "fechaFin": "2026-11-15",
+    "objetivo": 12576,
+    "consumo": 27673,
+    "porcentajeConsumo": 220.05,
+    "reporte": "Enviado",
     "pais": "Ecuador"
   },
   {
@@ -8590,8 +8632,8 @@
     "fechaInicio": "2026-10-26",
     "fechaFin": "2026-11-21",
     "objetivo": 2000000,
-    "consumo": 1343015,
-    "porcentajeConsumo": 67.15,
+    "consumo": 1670392,
+    "porcentajeConsumo": 83.52,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8884,8 +8926,8 @@
     "fechaInicio": "2026-11-06",
     "fechaFin": "2026-11-30",
     "objetivo": 1212120,
-    "consumo": 348849,
-    "porcentajeConsumo": 28.78,
+    "consumo": 447170,
+    "porcentajeConsumo": 36.89,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8909,11 +8951,11 @@
     "ejecutivo": "Omar Rosillo",
     "formato": "Push Premium Video",
     "tipoVenta": "CPC",
-    "fechaInicio": "2026-11-10",
+    "fechaInicio": "2026-11-11",
     "fechaFin": "2026-11-30",
     "objetivo": 2353,
-    "consumo": 0,
-    "porcentajeConsumo": 0,
+    "consumo": 804,
+    "porcentajeConsumo": 34.17,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -8946,48 +8988,6 @@
     "pais": "Ecuador"
   },
   {
-    "anunciante": "Asiauto",
-    "campana": "Auto Vitrina Ambato Noviembre",
-    "ejecutivo": "Diego León",
-    "formato": "Meta",
-    "tipoVenta": "CPM",
-    "fechaInicio": "2026-11-14",
-    "fechaFin": "2026-11-15",
-    "objetivo": 45455,
-    "consumo": 0,
-    "porcentajeConsumo": 0,
-    "reporte": "No enviado",
-    "pais": "Ecuador"
-  },
-  {
-    "anunciante": "Asiauto",
-    "campana": "Auto Vitrina Latacunga Noviembre",
-    "ejecutivo": "Diego León",
-    "formato": "Meta",
-    "tipoVenta": "CPM",
-    "fechaInicio": "2026-11-14",
-    "fechaFin": "2026-11-15",
-    "objetivo": 22727,
-    "consumo": 0,
-    "porcentajeConsumo": 0,
-    "reporte": "No enviado",
-    "pais": "Ecuador"
-  },
-  {
-    "anunciante": "Asiauto",
-    "campana": "Auto Vitrina Guaranda Noviembre",
-    "ejecutivo": "Diego León",
-    "formato": "Meta",
-    "tipoVenta": "CPM",
-    "fechaInicio": "2026-11-14",
-    "fechaFin": "2026-11-15",
-    "objetivo": 12576,
-    "consumo": 0,
-    "porcentajeConsumo": 0,
-    "reporte": "No enviado",
-    "pais": "Ecuador"
-  },
-  {
     "anunciante": "Crissal",
     "campana": "Apugol Vistas Noviembre",
     "ejecutivo": "Diego León",
@@ -8996,8 +8996,8 @@
     "fechaInicio": "2026-11-06",
     "fechaFin": "2026-12-15",
     "objetivo": 36723,
-    "consumo": 8628,
-    "porcentajeConsumo": 23.5,
+    "consumo": 11549,
+    "porcentajeConsumo": 31.45,
     "reporte": "No enviado",
     "pais": "Ecuador"
   },
@@ -9041,6 +9041,11 @@
     "consumo": 1305,
     "porcentajeConsumo": 110.97,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9055,6 +9060,11 @@
     "consumo": 1476179,
     "porcentajeConsumo": 100,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9069,6 +9079,11 @@
     "consumo": 4160,
     "porcentajeConsumo": 100.36,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9083,6 +9098,11 @@
     "consumo": 1196,
     "porcentajeConsumo": 100.76,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9097,6 +9117,11 @@
     "consumo": 481,
     "porcentajeConsumo": 105.25,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9111,6 +9136,11 @@
     "consumo": 349,
     "porcentajeConsumo": 101.16,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9125,6 +9155,11 @@
     "consumo": 6809,
     "porcentajeConsumo": 101.78,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9139,6 +9174,11 @@
     "consumo": 5328,
     "porcentajeConsumo": 108.98,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9153,6 +9193,11 @@
     "consumo": 3299,
     "porcentajeConsumo": 116.41,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9167,6 +9212,11 @@
     "consumo": 3337,
     "porcentajeConsumo": 100.09,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9181,6 +9231,11 @@
     "consumo": 1668,
     "porcentajeConsumo": 100.06,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9195,6 +9250,11 @@
     "consumo": 6958,
     "porcentajeConsumo": 104.71,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9209,6 +9269,11 @@
     "consumo": 1177,
     "porcentajeConsumo": 100.09,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9223,6 +9288,11 @@
     "consumo": 1667,
     "porcentajeConsumo": 100.06,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9237,6 +9307,11 @@
     "consumo": 614,
     "porcentajeConsumo": 104.24,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9251,6 +9326,11 @@
     "consumo": 3746,
     "porcentajeConsumo": 112.36,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9265,6 +9345,11 @@
     "consumo": 2562,
     "porcentajeConsumo": 108.84,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9279,6 +9364,11 @@
     "consumo": 2582,
     "porcentajeConsumo": 103.28,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9293,6 +9383,11 @@
     "consumo": 3071,
     "porcentajeConsumo": 110.55,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9307,6 +9402,11 @@
     "consumo": 981,
     "porcentajeConsumo": 123.55,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9321,6 +9421,11 @@
     "consumo": 1075,
     "porcentajeConsumo": 107.5,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9335,6 +9440,11 @@
     "consumo": 895,
     "porcentajeConsumo": 107.44,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9349,6 +9459,11 @@
     "consumo": 32980,
     "porcentajeConsumo": 100.34,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9363,6 +9478,11 @@
     "consumo": 5566,
     "porcentajeConsumo": 100.2,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9377,6 +9497,11 @@
     "consumo": 349249,
     "porcentajeConsumo": 104.77,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9391,6 +9516,11 @@
     "consumo": 5914,
     "porcentajeConsumo": 101.39,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9405,6 +9535,11 @@
     "consumo": 113249,
     "porcentajeConsumo": 101.92,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9419,6 +9554,11 @@
     "consumo": 245,
     "porcentajeConsumo": 100,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9433,6 +9573,11 @@
     "consumo": 247,
     "porcentajeConsumo": 100.82,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9447,6 +9592,11 @@
     "consumo": 245,
     "porcentajeConsumo": 100,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9461,6 +9611,11 @@
     "consumo": 255,
     "porcentajeConsumo": 104.51,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9475,6 +9630,11 @@
     "consumo": 435848,
     "porcentajeConsumo": 100.18,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9489,6 +9649,11 @@
     "consumo": 3649,
     "porcentajeConsumo": 100,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9503,6 +9668,11 @@
     "consumo": 5006,
     "porcentajeConsumo": 100.12,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9517,6 +9687,11 @@
     "consumo": 3323,
     "porcentajeConsumo": 169.79,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9531,6 +9706,11 @@
     "consumo": 1972,
     "porcentajeConsumo": 100.76,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9545,6 +9725,11 @@
     "consumo": 1983,
     "porcentajeConsumo": 101.32,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9559,6 +9744,11 @@
     "consumo": 135643,
     "porcentajeConsumo": 100.86,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9573,6 +9763,11 @@
     "consumo": 24239,
     "porcentajeConsumo": 484.78,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9587,6 +9782,11 @@
     "consumo": 235628,
     "porcentajeConsumo": 102.69,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9601,6 +9801,11 @@
     "consumo": 161380,
     "porcentajeConsumo": 100,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "0",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9615,6 +9820,11 @@
     "consumo": 3044,
     "porcentajeConsumo": 101.47,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "-22",
+      "Órdenes Internas": "BONIFICADO"
+    },
     "pais": "Perú"
   },
   {
@@ -9629,6 +9839,11 @@
     "consumo": 3504,
     "porcentajeConsumo": 101.44,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "-50",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9643,6 +9858,11 @@
     "consumo": 22239,
     "porcentajeConsumo": 101.1,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9657,6 +9877,11 @@
     "consumo": 185318,
     "porcentajeConsumo": 101.93,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9671,6 +9896,11 @@
     "consumo": 5010,
     "porcentajeConsumo": 100.2,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "-10",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9685,6 +9915,11 @@
     "consumo": 3055,
     "porcentajeConsumo": 100,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "0",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9699,6 +9934,11 @@
     "consumo": 674,
     "porcentajeConsumo": 114.79,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "25",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9713,6 +9953,11 @@
     "consumo": 9302,
     "porcentajeConsumo": 100,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9727,6 +9972,11 @@
     "consumo": 982,
     "porcentajeConsumo": 100.41,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "-4",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9741,6 +9991,11 @@
     "consumo": 176,
     "porcentajeConsumo": 105.6,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9755,6 +10010,11 @@
     "consumo": 5000,
     "porcentajeConsumo": 100,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "0",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9769,6 +10029,11 @@
     "consumo": 227283,
     "porcentajeConsumo": 100,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9783,6 +10048,11 @@
     "consumo": 2780,
     "porcentajeConsumo": 101.06,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9797,6 +10067,11 @@
     "consumo": 1004,
     "porcentajeConsumo": 102.6,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9811,6 +10086,11 @@
     "consumo": 2572,
     "porcentajeConsumo": 100.01,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": "10-PUSH WORTISE_PERU_MA_VERISURE_SEP26.xlsx"
+    },
     "pais": "Perú"
   },
   {
@@ -9825,6 +10105,11 @@
     "consumo": 7328,
     "porcentajeConsumo": 104.18,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": "09-PUSH WORTISE_PERU_MA_CLÍNICA AVIVA_SEP26.xlsx"
+    },
     "pais": "Perú"
   },
   {
@@ -9839,6 +10124,11 @@
     "consumo": 118214,
     "porcentajeConsumo": 100.48,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9850,9 +10140,14 @@
     "fechaInicio": "2026-10-02",
     "fechaFin": "2026-10-30",
     "objetivo": 2242,
-    "consumo": 1636,
-    "porcentajeConsumo": 72.98,
-    "reporte": "No enviado",
+    "consumo": 3569,
+    "porcentajeConsumo": 159.21,
+    "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": "10-PUSH RICHADS_PERU_MA_PROMPERÚ_PERÚMUCHOGUSTO_OCT26.xlsx"
+    },
     "pais": "Perú"
   },
   {
@@ -9864,23 +10159,33 @@
     "fechaInicio": "2026-10-02",
     "fechaFin": "2026-10-31",
     "objetivo": 7034,
-    "consumo": 4238,
-    "porcentajeConsumo": 60.25,
-    "reporte": "No enviado",
+    "consumo": 7076,
+    "porcentajeConsumo": 100.6,
+    "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "-2",
+      "Órdenes Internas": "10-PUSH WORTISE_PERU_MA_CLÍNICA AVIVA_OCT26.xlsx"
+    },
     "pais": "Perú"
   },
   {
     "anunciante": "Alicorp",
-    "campana": "Bolivar Mis Dior Octubre",
+    "campana": "Suavizante Bolivar Miss Dior Octubre",
     "ejecutivo": "Danny Miller",
     "formato": "CTV",
     "tipoVenta": "CPV",
     "fechaInicio": "2026-10-01",
     "fechaFin": "2026-10-31",
     "objetivo": 467902,
-    "consumo": 0,
-    "porcentajeConsumo": 0,
-    "reporte": "No enviado",
+    "consumo": 468159,
+    "porcentajeConsumo": 100.05,
+    "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9892,9 +10197,14 @@
     "fechaInicio": "2026-10-16",
     "fechaFin": "2026-10-31",
     "objetivo": 1587,
-    "consumo": 631,
-    "porcentajeConsumo": 39.75,
-    "reporte": "No enviado",
+    "consumo": 1592,
+    "porcentajeConsumo": 100.3,
+    "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9906,9 +10216,52 @@
     "fechaInicio": "2026-09-07",
     "fechaFin": "2026-11-05",
     "objetivo": 1864410,
-    "consumo": 1516750,
-    "porcentajeConsumo": 81.35,
+    "consumo": 1882505,
+    "porcentajeConsumo": 100.97,
+    "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": "10-YOUTUBE_GOOGLE ADS_PERU_MA_DEVIDA_DROGAS ILÍCITASOCT26.xlsx"
+    },
+    "pais": "Perú"
+  },
+  {
+    "anunciante": "Promperú",
+    "campana": "Coyunturales Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Push Premium Video",
+    "tipoVenta": "CPC",
+    "fechaInicio": "2026-11-13",
+    "fechaFin": "2026-11-22",
+    "objetivo": 3261,
+    "consumo": 975,
+    "porcentajeConsumo": 29.9,
     "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "327",
+      "Órdenes Internas": "326"
+    },
+    "pais": "Perú"
+  },
+  {
+    "anunciante": "Ministerio de Agricultura",
+    "campana": "Perú Responsable Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Meta",
+    "tipoVenta": "CPV",
+    "fechaInicio": "2026-11-10",
+    "fechaFin": "2026-11-23",
+    "objetivo": 240000,
+    "consumo": 113501,
+    "porcentajeConsumo": 47.29,
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "18.071",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
@@ -9920,9 +10273,14 @@
     "fechaInicio": "2026-09-07",
     "fechaFin": "2026-11-30",
     "objetivo": 5557,
-    "consumo": 2245,
-    "porcentajeConsumo": 40.4,
+    "consumo": 4388,
+    "porcentajeConsumo": 78.96,
     "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "",
+      "Órdenes Internas": "09-PUSH WORTISE_PERU_MA_PLAZA SAN MIGUEL_SEP26.xlsx"
+    },
     "pais": "Perú"
   },
   {
@@ -9934,51 +10292,181 @@
     "fechaInicio": "2026-10-06",
     "fechaFin": "2026-11-30",
     "objetivo": 2000,
+    "consumo": 1505,
+    "porcentajeConsumo": 75.25,
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "35",
+      "Órdenes Internas": "BONIFICADO"
+    },
+    "pais": "Perú"
+  },
+  {
+    "anunciante": "Alicorp",
+    "campana": "Suavizante Bolivar Miss Dior Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "CTV",
+    "tipoVenta": "CPV",
+    "fechaInicio": "2026-10-01",
+    "fechaFin": "2026-11-30",
+    "objetivo": 403843,
+    "consumo": 222148,
+    "porcentajeConsumo": 55.01,
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "Pausado el 16",
+      "Órdenes Internas": ""
+    },
+    "pais": "Perú"
+  },
+  {
+    "anunciante": "Te Apuesto",
+    "campana": "Casino Online Push Programático Bonificado Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Push Programático",
+    "tipoVenta": "CPC",
+    "fechaInicio": "2026-11-16",
+    "fechaFin": "2026-11-30",
+    "objetivo": 1500,
+    "consumo": 105,
+    "porcentajeConsumo": 7,
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "100",
+      "Órdenes Internas": ""
+    },
+    "pais": "Perú"
+  },
+  {
+    "anunciante": "Te Apuesto",
+    "campana": "Casino Online Display Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Display Programático",
+    "tipoVenta": "CPM",
+    "fechaInicio": "2026-11-16",
+    "fechaFin": "2026-11-30",
+    "objetivo": 1267500,
     "consumo": 0,
     "porcentajeConsumo": 0,
     "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "84.500",
+      "Órdenes Internas": ""
+    },
     "pais": "Perú"
   },
   {
-    "anunciante": "",
-    "campana": "",
-    "ejecutivo": "",
-    "formato": "",
-    "tipoVenta": "",
-    "fechaInicio": "",
-    "fechaFin": "",
-    "objetivo": 0,
-    "consumo": 1694,
+    "anunciante": "Te Apuesto",
+    "campana": "Casino Online Push Premium Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Push Premium Video",
+    "tipoVenta": "CPM",
+    "fechaInicio": "2026-11-16",
+    "fechaFin": "2026-11-30",
+    "objetivo": 5000,
+    "consumo": 0,
     "porcentajeConsumo": 0,
-    "reporte": "",
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "333",
+      "Órdenes Internas": "11-PUSH WORTISE_PERU_MA_TE APUESTO_ CASINO ONLINE_NOVIEMBRE2026.xlsx"
+    },
     "pais": "Perú"
   },
   {
-    "anunciante": "",
-    "campana": "",
-    "ejecutivo": "",
-    "formato": "",
-    "tipoVenta": "",
-    "fechaInicio": "",
-    "fechaFin": "",
-    "objetivo": 0,
-    "consumo": 58,
+    "anunciante": "Promperú",
+    "campana": "Perú Mucho Gusto Ayacucho Apurimac Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Push Premium Video",
+    "tipoVenta": "CPC",
+    "fechaInicio": "2026-11-07",
+    "fechaFin": "2026-12-04",
+    "objetivo": 3143,
+    "consumo": 1105,
+    "porcentajeConsumo": 35.15,
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "113",
+      "Órdenes Internas": "784"
+    },
+    "pais": "Perú"
+  },
+  {
+    "anunciante": "Promperú",
+    "campana": "Perú Mucho Gusto Lima Ica Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Push Premium Video",
+    "tipoVenta": "CPC",
+    "fechaInicio": "2026-11-07",
+    "fechaFin": "2026-12-04",
+    "objetivo": 1693,
+    "consumo": 619,
+    "porcentajeConsumo": 36.57,
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "60",
+      "Órdenes Internas": "420"
+    },
+    "pais": "Perú"
+  },
+  {
+    "anunciante": "KFC",
+    "campana": "Descarga la APP Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Push Display Premium",
+    "tipoVenta": "CPC",
+    "fechaInicio": "2026-11-17",
+    "fechaFin": "2026-11-30",
+    "objetivo": 2564,
+    "consumo": 0,
     "porcentajeConsumo": 0,
-    "reporte": "",
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "183",
+      "Órdenes Internas": "11-PUSH WORTISE_PERU_MA_TE APUESTO_ CASINO ONLINE_NOVIEMBRE2026.xlsx"
+    },
     "pais": "Perú"
   },
   {
-    "anunciante": "",
-    "campana": "",
-    "ejecutivo": "",
-    "formato": "",
-    "tipoVenta": "",
+    "anunciante": "BMR Store",
+    "campana": "Afiliados",
+    "ejecutivo": "Gilberto Rodríguez",
+    "formato": "Afiliados",
+    "tipoVenta": "CPA",
+    "fechaInicio": "2026-11-11",
+    "fechaFin": "2026-12-10",
+    "objetivo": 0,
+    "consumo": 0,
+    "porcentajeConsumo": 0,
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": ""
+    },
+    "pais": "México"
+  },
+  {
+    "anunciante": "Vexi",
+    "campana": "Afiliados",
+    "ejecutivo": "Gilberto Rodríguez",
+    "formato": "Afiliados",
+    "tipoVenta": "CPA",
     "fechaInicio": "",
     "fechaFin": "",
     "objetivo": 0,
     "consumo": 0,
     "porcentajeConsumo": 0,
-    "reporte": "",
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": ""
+    },
     "pais": "México"
   },
   {
@@ -9993,6 +10481,9 @@
     "consumo": 159270,
     "porcentajeConsumo": 111.49,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": ""
+    },
     "pais": "México"
   },
   {
@@ -10007,6 +10498,9 @@
     "consumo": 239796,
     "porcentajeConsumo": 61.71,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": ""
+    },
     "pais": "México"
   }
 ]

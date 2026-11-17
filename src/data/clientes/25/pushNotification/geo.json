@@ -1,0 +1,26 @@
+[
+  {
+    "campana": "PE_TeApuesto_CasinoOnline_Bonificado_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline_Bonificado",
+    "mes": "Noviembre",
+    "formato": "Push Programático",
+    "ubicacion": "Lima Metropolitana",
+    "impresionesTotales": 9548,
+    "clicsTotales": 105,
+    "ctr": 1.1,
+    "cliente": "PE_Te Apuesto"
+  },
+  {
+    "campana": "PE_TeApuesto_CasinoOnline_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Lima Metropolitana",
+    "impresionesTotales": 0,
+    "clicsTotales": 0,
+    "ctr": 0,
+    "cliente": "PE_Te Apuesto"
+  }
+]

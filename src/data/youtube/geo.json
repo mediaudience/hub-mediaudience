@@ -1020,18 +1020,6 @@
     "cliente": "EC_Alimentos los Andes"
   },
   {
-    "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
-    "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Testimonio PYME",
-    "mes": "Junio",
-    "formato": "YouTube",
-    "ubicacion": "Ecuador",
-    "impresionesTotales": 485518,
-    "clicsTotales": 470,
-    "vistasTotales": 111485,
-    "cliente": "EC_Banco del Pacífico"
-  },
-  {
     "campana": "EC_GOA_CuidadoCapilar_YT_21Octubre2026_CPM",
     "anunciante": "EC_GOA",
     "motivo": "Octubre_CuidadoCapilar_CPM",
@@ -2014,5 +2002,17 @@
     "clicsTotales": 497,
     "vistasTotales": 12802,
     "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Testimonio PYME",
+    "mes": "Junio",
+    "formato": "YouTube",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 485518,
+    "clicsTotales": 470,
+    "vistasTotales": 111485,
+    "cliente": "EC_Banco del Pacífico"
   }
 ]

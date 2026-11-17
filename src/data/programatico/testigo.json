@@ -270,6 +270,87 @@
     "cliente": "EC_La Destilería"
   },
   {
+    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Octubre_Congelados",
+    "mes": "Octubre",
+    "formato": "Display Programático",
+    "link": "https://drive.google.com/drive/folders/1ywrNHiwFgYw5akNciaCFTQfhhqJWO-pR?usp=sharing",
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Octubre_AtúnReal",
+    "mes": "Octubre",
+    "formato": "Display Programático",
+    "link": "https://drive.google.com/drive/folders/1fa0gOZp2CYeRo0tBp5NUHn2mggz8mPL8?usp=sharing",
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_Congelados",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "",
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_AtúnReal",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "",
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_Etafashion_72HorasBllackFriday_31Octubre2026",
+    "anunciante": "EC_Etafashion",
+    "motivo": "Octubre_72HorasBlackFriday",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Etafashion_MinutoDorado_01Noviembre2026",
+    "anunciante": "EC_Etafashion",
+    "motivo": "Noviembre_MinutoDorado",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
+    "anunciante": "EC_NetlifeBusiness",
+    "motivo": "Septiembre_CrecerTuNegocio",
+    "mes": "Septiembre",
+    "formato": "Display Programático",
+    "link": "https://drive.google.com/drive/folders/1mDCNFlDtPcF80AlqklBPm1-fN89pxHxE?usp=sharing",
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
+    "anunciante": "EC_NetlifeBusiness",
+    "motivo": "Noviembre_CreadorDigital",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "https://drive.google.com/drive/folders/1yuEtxpGJEAXohFYqgVL_s6JulWZBwzZH?usp=sharing",
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "EC_NetlifeHogar_SúbeteAlPlan_10Noviembre2026",
+    "anunciante": "EC_NetlifeHogar",
+    "motivo": "Noviembre_SúbeteAlPlan",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "https://drive.google.com/drive/folders/1K5zRTHzOqSU4Ya9EfJGS1PDBABaTW9fm?usp=sharing",
+    "cliente": "EC_Netlife"
+  },
+  {
     "campana": "EC_BancoDelPacífico_Institucional_MiCasaPropia_Enero2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Enero_Institucional_Mi Casa Propia",
@@ -720,84 +801,12 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
-    "anunciante": "EC_AlimentosReal",
-    "motivo": "Octubre_Congelados",
-    "mes": "Octubre",
-    "formato": "Display Programático",
-    "link": "https://drive.google.com/drive/folders/1ywrNHiwFgYw5akNciaCFTQfhhqJWO-pR?usp=sharing",
-    "cliente": "EC_Alimentos Real"
-  },
-  {
-    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
-    "anunciante": "EC_AlimentosReal",
-    "motivo": "Octubre_AtúnReal",
-    "mes": "Octubre",
-    "formato": "Display Programático",
-    "link": "https://drive.google.com/drive/folders/1fa0gOZp2CYeRo0tBp5NUHn2mggz8mPL8?usp=sharing",
-    "cliente": "EC_Alimentos Real"
-  },
-  {
-    "campana": "EC_AlimentosReal_Congelados_01Noviembre2026",
-    "anunciante": "EC_AlimentosReal",
-    "motivo": "Noviembre_Congelados",
+    "campana": "PE_TeApuesto_CasinoOnline_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline",
     "mes": "Noviembre",
     "formato": "Display Programático",
-    "link": "",
-    "cliente": "EC_Alimentos Real"
-  },
-  {
-    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
-    "anunciante": "EC_AlimentosReal",
-    "motivo": "Noviembre_AtúnReal",
-    "mes": "Noviembre",
-    "formato": "Display Programático",
-    "link": "",
-    "cliente": "EC_Alimentos Real"
-  },
-  {
-    "campana": "EC_Etafashion_72HorasBllackFriday_31Octubre2026",
-    "anunciante": "EC_Etafashion",
-    "motivo": "Octubre_72HorasBlackFriday",
-    "mes": "Octubre",
-    "formato": "Rich Media",
-    "link": "",
-    "cliente": "EC_Paradais"
-  },
-  {
-    "campana": "EC_Etafashion_MinutoDorado_01Noviembre2026",
-    "anunciante": "EC_Etafashion",
-    "motivo": "Noviembre_MinutoDorado",
-    "mes": "Noviembre",
-    "formato": "Rich Media",
-    "link": "",
-    "cliente": "EC_Paradais"
-  },
-  {
-    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
-    "anunciante": "EC_NetlifeBusiness",
-    "motivo": "Septiembre_CrecerTuNegocio",
-    "mes": "Septiembre",
-    "formato": "Display Programático",
-    "link": "https://drive.google.com/drive/folders/1mDCNFlDtPcF80AlqklBPm1-fN89pxHxE?usp=sharing",
-    "cliente": "EC_Netlife"
-  },
-  {
-    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
-    "anunciante": "EC_NetlifeBusiness",
-    "motivo": "Noviembre_CreadorDigital",
-    "mes": "Noviembre",
-    "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1yuEtxpGJEAXohFYqgVL_s6JulWZBwzZH?usp=sharing",
-    "cliente": "EC_Netlife"
-  },
-  {
-    "campana": "EC_NetlifeHogar_SúbeteAlPlan_10Noviembre2026",
-    "anunciante": "EC_NetlifeHogar",
-    "motivo": "Noviembre_SúbeteAlPlan",
-    "mes": "Noviembre",
-    "formato": "Rich Media",
-    "link": "https://drive.google.com/drive/folders/1K5zRTHzOqSU4Ya9EfJGS1PDBABaTW9fm?usp=sharing",
-    "cliente": "EC_Netlife"
+    "link": "https://drive.google.com/drive/folders/19R4LA3wLvTPovIGshLnc6C-KW6F5R-8y?usp=sharing",
+    "cliente": "PE_Te Apuesto"
   }
 ]

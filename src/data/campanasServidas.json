@@ -184,6 +184,230 @@
     "anunciante": "EC_Ferrisariato"
   },
   {
+    "campana": "EC_Granasa_Chevrolet_Junio2026",
+    "anunciante": "EC_Chevrolet"
+  },
+  {
+    "campana": "EC_Granasa_BancoPichincha_Junio2026",
+    "anunciante": "EC_BancoPichincha"
+  },
+  {
+    "campana": "EC_Granasa_Gigabytes_Julio2026",
+    "anunciante": "EC_Gigabytes"
+  },
+  {
+    "campana": "EC_Granasa_1xBet_Julio2026",
+    "anunciante": "EC_1xBet"
+  },
+  {
+    "campana": "PE_ClínicaAviva_09Septiembre2026",
+    "anunciante": "PE_ClínicaAviva"
+  },
+  {
+    "campana": "PE_ClínicaAviva_02Octubre2026",
+    "anunciante": "PE_ClínicaAviva"
+  },
+  {
+    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
+    "anunciante": "PE_Verisure"
+  },
+  {
+    "campana": "PE_PlazaSanMiguel_50Aniversario_08Septiembre2026",
+    "anunciante": "PE_PlazaSanMiguel"
+  },
+  {
+    "campana": "PE_PlazaSanMiguel_50Aniversario_Bonificado_06Octubre2026",
+    "anunciante": "PE_PlazaSanMiguel"
+  },
+  {
+    "campana": "PE_Alicorp_NosLavaremosLasManos_Junio2026",
+    "anunciante": "PE_Alicorp"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsRelanzamiento_Mayo2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Junio2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Julio2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_InkachipsPromoYape_Julio2026",
+    "anunciante": "PE_Inakachips"
+  },
+  {
+    "campana": "PE_Alicorp_BolivarMissDior_Septiembre2026",
+    "anunciante": "PE_Bolivar"
+  },
+  {
+    "campana": "PE_Alicorp_BolivarMissDior_Octubre2026",
+    "anunciante": "PE_Bolivar"
+  },
+  {
+    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia"
+  },
+  {
+    "campana": "PE_PromPerú_PerúMuchoGusto_02Octubre2026",
+    "anunciante": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_PerúMuchoGusto_07Noviembre2026",
+    "anunciante": "PE_PromPerú"
+  },
+  {
+    "campana": "PE_PromPerú_Coyunturales_13Noviembre2026",
+    "anunciante": "PE_PromPerú"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_AlimentosReal_Congelados_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal"
+  },
+  {
+    "campana": "EC_GOA_CuidadoCapilar_YT_21Octubre2026_CPM",
+    "anunciante": "EC_GOA"
+  },
+  {
+    "campana": "EC_GOA_CuidadoCapilar_26Octubre2026_Alcance",
+    "anunciante": "EC_GOA"
+  },
+  {
+    "campana": "EC_Etafashion_72HorasBllackFriday_31Octubre2026",
+    "anunciante": "EC_Etafashion"
+  },
+  {
+    "campana": "EC_Etafashion_MinutoDorado_01Noviembre2026",
+    "anunciante": "EC_Etafashion"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Bumper_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Comercial_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal"
+  },
+  {
+    "campana": "EC_CrisSal_QuienMásQueCrisSal_Short_YT_23Septiembre2026_CPM",
+    "anunciante": "EC_CrisSal"
+  },
+  {
+    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_03Octubre2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_Prefectura_EntregaDeTablets_Octubre2026",
+    "anunciante": "EC_Prefectura"
+  },
+  {
+    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Interacciones",
+    "anunciante": "EC_GoldenBear"
+  },
+  {
+    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Vistas",
+    "anunciante": "EC_GoldenBear"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_22Junio2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_15Julio2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_07Agosto2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Alcance",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Interacciones",
+    "anunciante": "EC_Bambú"
+  },
+  {
+    "campana": "EC_Tips_ConcursoGalápagos_14Octubre2026_Interacciones",
+    "anunciante": "EC_Tips"
+  },
+  {
+    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_22Octubre2026_Interacciones",
+    "anunciante": "EC_GoldenBear"
+  },
+  {
+    "campana": "EC_Tips_AONDifusor_28Octubre2026_Alcance",
+    "anunciante": "EC_Tips"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
+    "anunciante": "EC_NetlifeBusiness"
+  },
+  {
+    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
+    "anunciante": "EC_NetlifeBusiness"
+  },
+  {
+    "campana": "EC_NetlifeHogar_SúbeteAlPlan_10Noviembre2026",
+    "anunciante": "EC_NetlifeHogar"
+  },
+  {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico"
   },
@@ -412,6 +636,10 @@
     "anunciante": "EC_BancoDelPacífico"
   },
   {
+    "campana": "EC_BancoDelPacífico_Pacificard_Noviembre2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
     "campana": "EC_BancoDelPacífico_TestimoniosPYME_23Junio2026",
     "anunciante": "EC_BancoDelPacífico"
   },
@@ -436,227 +664,11 @@
     "anunciante": "EC_BancoDelPacífico"
   },
   {
-    "campana": "EC_Granasa_Chevrolet_Junio2026",
-    "anunciante": "EC_Chevrolet"
+    "campana": "PE_TeApuesto_CasinoOnline_16Noviembre2026",
+    "anunciante": "PE_TeApuesto"
   },
   {
-    "campana": "EC_Granasa_BancoPichincha_Junio2026",
-    "anunciante": "EC_BancoPichincha"
-  },
-  {
-    "campana": "EC_Granasa_Gigabytes_Julio2026",
-    "anunciante": "EC_Gigabytes"
-  },
-  {
-    "campana": "EC_Granasa_1xBet_Julio2026",
-    "anunciante": "EC_1xBet"
-  },
-  {
-    "campana": "PE_ClínicaAviva_09Septiembre2026",
-    "anunciante": "PE_ClínicaAviva"
-  },
-  {
-    "campana": "PE_ClínicaAviva_02Octubre2026",
-    "anunciante": "PE_ClínicaAviva"
-  },
-  {
-    "campana": "PE_Verisure_CalculadoraTresPasos_09Septiembre2026",
-    "anunciante": "PE_Verisure"
-  },
-  {
-    "campana": "PE_PlazaSanMiguel_50Aniversario_08Septiembre2026",
-    "anunciante": "PE_PlazaSanMiguel"
-  },
-  {
-    "campana": "PE_PlazaSanMiguel_50Aniversario_Bonificado_06Octubre2026",
-    "anunciante": "PE_PlazaSanMiguel"
-  },
-  {
-    "campana": "PE_Alicorp_NosLavaremosLasManos_Junio2026",
-    "anunciante": "PE_Alicorp"
-  },
-  {
-    "campana": "PE_Alicorp_InkachipsRelanzamiento_Mayo2026",
-    "anunciante": "PE_Inakachips"
-  },
-  {
-    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Junio2026",
-    "anunciante": "PE_Inakachips"
-  },
-  {
-    "campana": "PE_Alicorp_InkachipsAuténticaAtracción_Julio2026",
-    "anunciante": "PE_Inakachips"
-  },
-  {
-    "campana": "PE_Alicorp_InkachipsPromoYape_Julio2026",
-    "anunciante": "PE_Inakachips"
-  },
-  {
-    "campana": "PE_Alicorp_BolivarMissDior_Septiembre2026",
-    "anunciante": "PE_Bolivar"
-  },
-  {
-    "campana": "PE_Alicorp_BolivarMissDior_Octubre2026",
-    "anunciante": "PE_Bolivar"
-  },
-  {
-    "campana": "EC_Kia_KiaAutomundo_Octubre2026",
-    "anunciante": "EC_Kia"
-  },
-  {
-    "campana": "PE_PromPerú_PerúMuchoGusto_02Octubre2026",
-    "anunciante": "PE_PromPerú"
-  },
-  {
-    "campana": "PE_PromPerú_PerúMuchoGusto_07Noviembre2026",
-    "anunciante": "PE_PromPerú"
-  },
-  {
-    "campana": "PE_PromPerú_Coyunturales_13Noviembre2026",
-    "anunciante": "PE_PromPerú"
-  },
-  {
-    "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
-    "anunciante": "EC_AlimentosReal"
-  },
-  {
-    "campana": "EC_AlimentosReal_AtúnReal_29Octubre2026",
-    "anunciante": "EC_AlimentosReal"
-  },
-  {
-    "campana": "EC_AlimentosReal_Congelados_01Noviembre2026",
-    "anunciante": "EC_AlimentosReal"
-  },
-  {
-    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
-    "anunciante": "EC_AlimentosReal"
-  },
-  {
-    "campana": "EC_GOA_CuidadoCapilar_YT_21Octubre2026_CPM",
-    "anunciante": "EC_GOA"
-  },
-  {
-    "campana": "EC_GOA_CuidadoCapilar_26Octubre2026_Alcance",
-    "anunciante": "EC_GOA"
-  },
-  {
-    "campana": "EC_Etafashion_72HorasBllackFriday_31Octubre2026",
-    "anunciante": "EC_Etafashion"
-  },
-  {
-    "campana": "EC_Etafashion_MinutoDorado_01Noviembre2026",
-    "anunciante": "EC_Etafashion"
-  },
-  {
-    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
-    "anunciante": "EC_Prefectura"
-  },
-  {
-    "campana": "EC_Prefectura_ObraCentroExpo_29Junio2026",
-    "anunciante": "EC_Prefectura"
-  },
-  {
-    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_05Septiembre2026",
-    "anunciante": "EC_Prefectura"
-  },
-  {
-    "campana": "EC_CrisSal_QuienMásQueCrisSal_Bumper_YT_23Septiembre2026_CPM",
-    "anunciante": "EC_CrisSal"
-  },
-  {
-    "campana": "EC_CrisSal_QuienMásQueCrisSal_Comercial_YT_23Septiembre2026_CPM",
-    "anunciante": "EC_CrisSal"
-  },
-  {
-    "campana": "EC_CrisSal_QuienMásQueCrisSal_Short_YT_23Septiembre2026_CPM",
-    "anunciante": "EC_CrisSal"
-  },
-  {
-    "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_03Octubre2026",
-    "anunciante": "EC_Prefectura"
-  },
-  {
-    "campana": "EC_Prefectura_EntregaDeTablets_Octubre2026",
-    "anunciante": "EC_Prefectura"
-  },
-  {
-    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Interacciones",
-    "anunciante": "EC_GoldenBear"
-  },
-  {
-    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_30Septiembre2026_Vistas",
-    "anunciante": "EC_GoldenBear"
-  },
-  {
-    "campana": "EC_Bambú_22Junio2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_22Junio2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_15Julio2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_15Julio2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_07Agosto2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_07Agosto2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Alcance",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_RoséGold_01Septiembre2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_MejorPremio_01Septiembre2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Bambú_AppleSpice_01Septiembre2026_Interacciones",
-    "anunciante": "EC_Bambú"
-  },
-  {
-    "campana": "EC_Tips_ConcursoGalápagos_14Octubre2026_Interacciones",
-    "anunciante": "EC_Tips"
-  },
-  {
-    "campana": "EC_GoldenBear_TecnologíaDeOtraGalaxia_22Octubre2026_Interacciones",
-    "anunciante": "EC_GoldenBear"
-  },
-  {
-    "campana": "EC_Tips_AONDifusor_28Octubre2026_Alcance",
-    "anunciante": "EC_Tips"
-  },
-  {
-    "campana": "EC_NetlifeBusiness_CrecerTuNegocio_08Septiembre2026",
-    "anunciante": "EC_NetlifeBusiness"
-  },
-  {
-    "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
-    "anunciante": "EC_NetlifeBusiness"
-  },
-  {
-    "campana": "EC_NetlifeHogar_SúbeteAlPlan_10Noviembre2026",
-    "anunciante": "EC_NetlifeHogar"
+    "campana": "PE_TeApuesto_CasinoOnline_Bonificado_16Noviembre2026",
+    "anunciante": "PE_TeApuesto"
   }
 ]

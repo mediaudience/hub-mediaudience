@@ -1,16 +1,36 @@
 [
   {
-    "anunciante": "",
-    "campana": "",
-    "ejecutivo": "",
-    "formato": "",
-    "tipoVenta": "",
+    "anunciante": "BMR Store",
+    "campana": "Afiliados",
+    "ejecutivo": "Gilberto Rodríguez",
+    "formato": "Afiliados",
+    "tipoVenta": "CPA",
+    "fechaInicio": "2026-11-11",
+    "fechaFin": "2026-12-10",
+    "objetivo": 0,
+    "consumo": 0,
+    "porcentajeConsumo": 0,
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": ""
+    },
+    "pais": "México"
+  },
+  {
+    "anunciante": "Vexi",
+    "campana": "Afiliados",
+    "ejecutivo": "Gilberto Rodríguez",
+    "formato": "Afiliados",
+    "tipoVenta": "CPA",
     "fechaInicio": "",
     "fechaFin": "",
     "objetivo": 0,
     "consumo": 0,
     "porcentajeConsumo": 0,
-    "reporte": "",
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": ""
+    },
     "pais": "México"
   },
   {
@@ -25,6 +45,9 @@
     "consumo": 159270,
     "porcentajeConsumo": 111.49,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": ""
+    },
     "pais": "México"
   },
   {
@@ -39,6 +62,9 @@
     "consumo": 239796,
     "porcentajeConsumo": 61.71,
     "reporte": "Enviado",
+    "extras": {
+      "Venta Costo Interno": ""
+    },
     "pais": "México"
   }
 ]

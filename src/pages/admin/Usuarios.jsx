@@ -399,17 +399,20 @@ export default function AdminUsuarios() {
       const body = {
         nombre: form.nombre,
         rol: form.rol,
-        clienteId: form.rol === "usuario_externo" ? Number(form.clienteId) || null : null,
-        clienteIds: form.rol === "usuario_interno" ? (paisCompleto ? [] : form.clienteIds) : undefined,
+        clienteId: form.rol === "usuario_externo" ? form.clienteIds[0] ?? null : null,
+        clienteIds:
+          form.rol === "usuario_interno"
+            ? paisCompleto
+              ? []
+              : form.clienteIds
+            : form.rol === "usuario_externo"
+              ? form.clienteIds
+              : undefined,
         pais: form.rol === "usuario_interno" ? form.pais || null : null,
         perfil: form.rol === "usuario_interno" ? form.perfil || null : null,
         gestionVeTodosPaises: form.rol === "usuario_interno" ? !!form.gestionVeTodosPaises : false,
-        anunciantes:
-          form.rol === "usuario_externo" && form.clienteId
-            ? anunciantesPayloadDeCliente(form.clienteId)
-            : undefined,
         anunciantesPorCliente:
-          form.rol === "usuario_interno"
+          form.rol === "usuario_interno" || form.rol === "usuario_externo"
             ? paisCompleto
               ? {}
               : Object.fromEntries(
@@ -629,7 +632,7 @@ export default function AdminUsuarios() {
                         ) : u.rol === "admin" || u.rol === "super_admin" ? (
                           "Todos"
                         ) : (
-                          u.clienteNombre || "—"
+                          (u.clienteNombres.length ? u.clienteNombres.join(", ") : u.clienteNombre) || "—"
                         )}
                         {Object.keys(u.anunciantesPorCliente || {}).length > 0 && (
                           <span
@@ -725,8 +728,8 @@ export default function AdminUsuarios() {
                   setForm((f) => ({
                     ...f,
                     rol: e.target.value,
-                    clienteId: e.target.value === "usuario_externo" ? f.clienteId : "",
-                    clienteIds: e.target.value === "usuario_interno" ? f.clienteIds : [],
+                    clienteId: "",
+                    clienteIds: ["usuario_interno", "usuario_externo"].includes(e.target.value) ? f.clienteIds : [],
                     pais: e.target.value === "usuario_interno" ? f.pais : "",
                     perfil: e.target.value === "usuario_interno" ? f.perfil : "",
                     anunciantesPorCliente: {},
@@ -747,36 +750,33 @@ export default function AdminUsuarios() {
 
             {form.rol === "usuario_externo" && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Cliente</label>
-                <select
-                  required
-                  value={form.clienteId}
-                  onChange={(e) => setForm((f) => ({ ...f, clienteId: e.target.value }))}
-                  className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-magenta"
-                >
-                  <option value="" disabled>
-                    {clientes.length === 0 ? "No hay clientes activos — crea uno primero" : "Selecciona un cliente"}
-                  </option>
-                  {clientes.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.nombre}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-
-            {form.rol === "usuario_externo" && form.clienteId && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Anunciantes visibles</label>
-                <AnunciantesCheckboxes
-                  cliente={clientes.find((c) => c.id === Number(form.clienteId))}
-                  seleccionados={anunciantesSeleccionados(form.clienteId)}
-                  onToggle={(a, checked) => toggleAnunciante(form.clienteId, a, checked)}
-                />
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Clientes</label>
+                {clientes.length === 0 ? (
+                  <p className="text-sm text-slate-label">No hay clientes activos — crea uno primero.</p>
+                ) : (
+                  <div className="flex flex-col gap-1.5 max-h-48 overflow-y-auto rounded-lg border border-slate-200 p-3">
+                    {clientes.map((c) => (
+                      <label key={c.id} className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                          type="checkbox"
+                          checked={form.clienteIds.includes(c.id)}
+                          onChange={(e) =>
+                            setForm((f) => ({
+                              ...f,
+                              clienteIds: e.target.checked
+                                ? [...f.clienteIds, c.id]
+                                : f.clienteIds.filter((id) => id !== c.id),
+                            }))
+                          }
+                          className="accent-brand-magenta"
+                        />
+                        {c.nombre}
+                      </label>
+                    ))}
+                  </div>
+                )}
                 <p className="mt-1.5 text-xs text-slate-label">
-                  Con todos marcados, este usuario ve todos los anunciantes de este cliente (incluidos los que se
-                  agreguen después).
+                  Marca uno o más clientes. Si tiene varios, podrá cambiar entre ellos desde el menú de su cuenta.
                 </p>
               </div>
             )}
@@ -892,7 +892,8 @@ export default function AdminUsuarios() {
               </div>
             )}
 
-            {form.rol === "usuario_interno" && !paisCompleto && form.clienteIds.length > 0 && (
+            {(form.rol === "usuario_externo" || (form.rol === "usuario_interno" && !paisCompleto)) &&
+              form.clienteIds.length > 0 && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">Anunciantes visibles por cliente</label>
                 <div className="flex flex-col gap-3">
@@ -933,7 +934,7 @@ export default function AdminUsuarios() {
             <div className="flex gap-3 mt-2">
               <button
                 type="submit"
-                disabled={saving || (form.rol === "usuario_externo" && clientes.length === 0)}
+                disabled={saving || (form.rol === "usuario_externo" && form.clienteIds.length === 0)}
                 className="bg-brand-magenta text-on-accent text-sm font-medium px-5 py-2.5 rounded-md hover:bg-brand-magenta/90 disabled:opacity-60"
               >
                 {saving ? "Guardando..." : "Guardar"}

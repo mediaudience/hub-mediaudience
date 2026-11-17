@@ -27,33 +27,6 @@
     "cliente": "PE_Cartavio"
   },
   {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
-    "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Julio_MiCasaPropia",
-    "mes": "Julio",
-    "formato": "CTV",
-    "link": "https://drive.google.com/file/d/1ND-8Qp2X8I4_aaT26mMQz_AuXgvvIVxE/view?usp=drive_link",
-    "cliente": "EC_Banco del Pacífico"
-  },
-  {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
-    "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Agosto_MiCasaPropia",
-    "mes": "Agosto",
-    "formato": "CTV",
-    "link": "https://drive.google.com/file/d/1qXmSsMpTcDlmTCzyWdC8AO00Bx2Nd_Eg/view?usp=sharing",
-    "cliente": "EC_Banco del Pacífico"
-  },
-  {
-    "campana": "EC_BancoDelPacífico_MiCasaPropia_Septiembre2026",
-    "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Septiembre_MiCasaPropia",
-    "mes": "Septiembre",
-    "formato": "CTV",
-    "link": "https://drive.google.com/file/d/1rYSbrECynvi6r5mJxa0gI67N6Od4LcEN/view?usp=sharing",
-    "cliente": "EC_Banco del Pacífico"
-  },
-  {
     "campana": "PE_Alicorp_NosLavaremosLasManos_Junio2026",
     "anunciante": "PE_Alicorp",
     "motivo": "Junio_NosLavaremosLasManos",
@@ -169,5 +142,32 @@
     "formato": "CTV",
     "link": "https://drive.google.com/file/d/1oscGtGaZbAmap2mURXfNroSHV52Hq9S4/view?usp=sharing",
     "cliente": "PE_Alicorp"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Julio_MiCasaPropia",
+    "mes": "Julio",
+    "formato": "CTV",
+    "link": "https://drive.google.com/file/d/1ND-8Qp2X8I4_aaT26mMQz_AuXgvvIVxE/view?usp=drive_link",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Agosto2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Agosto_MiCasaPropia",
+    "mes": "Agosto",
+    "formato": "CTV",
+    "link": "https://drive.google.com/file/d/1qXmSsMpTcDlmTCzyWdC8AO00Bx2Nd_Eg/view?usp=sharing",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_MiCasaPropia_Septiembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Septiembre_MiCasaPropia",
+    "mes": "Septiembre",
+    "formato": "CTV",
+    "link": "https://drive.google.com/file/d/1rYSbrECynvi6r5mJxa0gI67N6Od4LcEN/view?usp=sharing",
+    "cliente": "EC_Banco del Pacífico"
   }
 ]

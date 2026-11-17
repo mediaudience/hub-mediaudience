@@ -93,7 +93,20 @@ export function getCanalesContratados(user) {
 // TODOS los clientes activos de ese país -- incluidos los que se creen
 // después, sin tener que volver a tocar los permisos de este usuario.
 function getClienteIdsVisibles(user) {
-  if (user.rol === 'usuario_externo') return user.clienteId ? [user.clienteId] : [];
+  // usuario_externo: su cliente principal (users.cliente_id) MÁS los que un
+  // Admin le haya sumado en `usuario_clientes` (puede tener varios desde
+  // 2026-11-17). Un externo antiguo sin filas ahí sigue viendo solo el suyo.
+  if (user.rol === 'usuario_externo') {
+    const asignados = db
+      .prepare(
+        `SELECT uc.cliente_id AS id FROM usuario_clientes uc
+         JOIN clientes c ON c.id = uc.cliente_id AND c.activo = 1
+         WHERE uc.user_id = ?`
+      )
+      .all(user.id)
+      .map((r) => r.id);
+    return [...new Set([...(user.clienteId ? [user.clienteId] : []), ...asignados])];
+  }
   if (user.rol === 'usuario_interno') {
     const porAsignacionManual = db
       .prepare(

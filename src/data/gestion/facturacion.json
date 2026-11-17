@@ -1840,13 +1840,13 @@
     "agencia": "Paradais",
     "cliente": "Cris Sal",
     "producto": "YouTube",
-    "estadoFactura": "Pendiente",
+    "estadoFactura": "Facturado",
     "ordenAgencia": "16667",
     "pdfOrden": "https://drive.google.com/file/d/192n-Dw844nAi7gcgY0fZqXRuvBGHAMQP/view?usp=drive_link",
     "pdfFactura": "",
     "consumoNeto": 2428.57,
-    "montoFacturado": 0,
-    "montoPendiente": 2428.57,
+    "montoFacturado": 2428.57,
+    "montoPendiente": 0,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2112,13 +2112,13 @@
     "agencia": "Mindshare",
     "cliente": "Lotería Nacional",
     "producto": "Programatica",
-    "estadoFactura": "Pendiente",
-    "ordenAgencia": "pendiente",
-    "pdfOrden": "",
-    "pdfFactura": "",
+    "estadoFactura": "Facturado",
+    "ordenAgencia": "824183",
+    "pdfOrden": "https://drive.google.com/file/d/126EuXL4ytlcnbw5FyDgClYkX_4sc9T-g/view?usp=drive_link",
+    "pdfFactura": "https://drive.google.com/file/d/1y0UmtpEyDZUjtpIEBe_LyJOBYvtU1jT8/view?usp=drive_link",
     "consumoNeto": 2000,
-    "montoFacturado": 0,
-    "montoPendiente": 2000,
+    "montoFacturado": 2000,
+    "montoPendiente": 0,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2148,7 +2148,7 @@
     "producto": "Programatica",
     "estadoFactura": "Pendiente",
     "ordenAgencia": "17486",
-    "pdfOrden": "",
+    "pdfOrden": "https://drive.google.com/file/d/15Q3GPEfzLl5o9Tm4hVMN1X8EozILHj03/view?usp=drive_link",
     "pdfFactura": "",
     "consumoNeto": 7000,
     "montoFacturado": 0,
@@ -2163,13 +2163,30 @@
     "agencia": "Paradais",
     "cliente": "Banco Pacifico",
     "producto": "Push programatico",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "17543",
-    "pdfOrden": "",
+    "pdfOrden": "https://drive.google.com/file/d/1Etrn6p5TEvtkH_cLX4_PoLpOHDdFsWOV/view?usp=drive_link",
     "pdfFactura": "",
     "consumoNeto": 2000,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 2000,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Paradais",
+    "cliente": "Banco Pacifico",
+    "producto": "Tiktok",
+    "estadoFactura": "Pendiente",
+    "ordenAgencia": "17940",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 10000,
+    "montoFacturado": 0,
+    "montoPendiente": 10000,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2180,13 +2197,13 @@
     "agencia": "Paradais",
     "cliente": "Cris Sal",
     "producto": "Tiktok",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "17814",
-    "pdfOrden": "",
+    "pdfOrden": "https://drive.google.com/file/d/1Bp5OVDRtnZY-C2rIkZEERRETJgU71l1z/view?usp=drive_link",
     "pdfFactura": "",
     "consumoNeto": 2203.36,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 2203.36,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2203,7 +2220,7 @@
     "pdfFactura": "",
     "consumoNeto": 4000,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 4000,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2220,7 +2237,7 @@
     "pdfFactura": "",
     "consumoNeto": 4200,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 4200,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2231,13 +2248,13 @@
     "agencia": "Mindshare",
     "cliente": "Loteria Nacional",
     "producto": "Programatica",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
     "consumoNeto": 1500,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 1500,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2248,13 +2265,13 @@
     "agencia": "Mindshare",
     "cliente": "Loteria Nacional",
     "producto": "Programatica",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
     "consumoNeto": 800,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 800,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2265,13 +2282,13 @@
     "agencia": "Mindshare",
     "cliente": "Loteria Nacional",
     "producto": "Leads",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
     "consumoNeto": 2000,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 2000,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2282,13 +2299,13 @@
     "agencia": "Paradais",
     "cliente": "Alimentos Real",
     "producto": "Programatica",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
     "consumoNeto": 2427.12,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 2427.12,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2299,13 +2316,13 @@
     "agencia": "Paradais",
     "cliente": "Alimentos Real",
     "producto": "Push Premium",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
     "consumoNeto": 4416.67,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 4416.67,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2316,13 +2333,13 @@
     "agencia": "Paradais",
     "cliente": "Del Portal",
     "producto": "Programatica",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
     "consumoNeto": 595,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 595,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2333,13 +2350,13 @@
     "agencia": "La Destilería",
     "cliente": "Panteón Metropolitano",
     "producto": "Programatica",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
     "consumoNeto": 153.84,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 153.84,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2350,13 +2367,13 @@
     "agencia": "Mindshare",
     "cliente": "Eta Fashion",
     "producto": "Programatica",
-    "estadoFactura": "",
+    "estadoFactura": "Pendiente",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
     "consumoNeto": 2000,
     "montoFacturado": 0,
-    "montoPendiente": 0,
+    "montoPendiente": 2000,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2367,6 +2384,142 @@
     "agencia": "Mindshare",
     "cliente": "Netlife Hogar",
     "producto": "Gaming",
+    "estadoFactura": "Pendiente",
+    "ordenAgencia": "962813",
+    "pdfOrden": "https://drive.google.com/file/d/16rN0RHPdTFaUF6ZDm2N9lrihG8UTxG4q/view?usp=drive_link",
+    "pdfFactura": "",
+    "consumoNeto": 2500,
+    "montoFacturado": 0,
+    "montoPendiente": 2500,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Mindshare",
+    "cliente": "Loteria Nacional",
+    "producto": "Programatica",
+    "estadoFactura": "Pendiente",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 1500,
+    "montoFacturado": 0,
+    "montoPendiente": 1500,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Mindshare",
+    "cliente": "Loteria Nacional",
+    "producto": "Programatica",
+    "estadoFactura": "Pendiente",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 500,
+    "montoFacturado": 0,
+    "montoPendiente": 500,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Por Ingresar",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 0,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Banco Pacifico",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 13000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "JAC",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 5000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Ford",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 4500,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Kosko",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 3000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Manglero",
+    "producto": "",
     "estadoFactura": "",
     "ordenAgencia": "",
     "pdfOrden": "",
@@ -2380,10 +2533,44 @@
     "pais": "Ecuador"
   },
   {
-    "mes": "Nov",
-    "agencia": "Mindshare",
-    "cliente": "Loteria Nacional",
-    "producto": "Programatica",
+    "mes": "",
+    "agencia": "",
+    "cliente": "Bado",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 2500,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "GOA",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 3000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Sika",
+    "producto": "",
     "estadoFactura": "",
     "ordenAgencia": "",
     "pdfOrden": "",
@@ -2397,15 +2584,49 @@
     "pais": "Ecuador"
   },
   {
-    "mes": "Nov",
-    "agencia": "Mindshare",
-    "cliente": "Loteria Nacional",
-    "producto": "Programatica",
+    "mes": "",
+    "agencia": "",
+    "cliente": "Asia Auto",
+    "producto": "",
     "estadoFactura": "",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
-    "consumoNeto": 500,
+    "consumoNeto": 766,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Kia",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 5000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Loteria online",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 0,
     "montoFacturado": 0,
     "montoPendiente": 0,
     "extras": {

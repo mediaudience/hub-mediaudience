@@ -623,8 +623,40 @@ function anunciantesPorClienteValidosOError(mapa, clienteIdsPermitidos) {
   return null;
 }
 
+// Clientes de un usuario_externo: los de `usuario_clientes` (pueden ser varios
+// desde 2026-11-17) o, si es un externo antiguo sin filas ahí, su único
+// `users.cliente_id`. El principal (cliente_id) va siempre primero.
+function getClientesDeExterno(u) {
+  const asignados = getClientesDeUsuario(u.id);
+  if (!u.cliente_id) return asignados;
+  const principal = asignados.find((c) => c.id === u.cliente_id) ??
+    db.prepare('SELECT id, nombre FROM clientes WHERE id = ?').get(u.cliente_id);
+  return [...(principal ? [principal] : []), ...asignados.filter((c) => c.id !== u.cliente_id)];
+}
+
+// Lista de clientes pedida para un usuario_externo: `clienteIds` (nuevo,
+// varios) o, por compatibilidad, `clienteId` (uno). Devuelve { ids, error }.
+function clienteIdsExternoOError(clienteIds, clienteId) {
+  let ids;
+  if (Array.isArray(clienteIds)) ids = clienteIds.map(Number);
+  else if (clienteIds !== undefined) return { error: 'clienteIds debe ser una lista' };
+  else ids = clienteId ? [Number(clienteId)] : [];
+  ids = [...new Set(ids)];
+  if (ids.length === 0) return { error: 'Selecciona al menos un cliente para el rol Usuario Externo' };
+  for (const id of ids) {
+    const error = clienteActivoOError(id);
+    if (error) return { error };
+  }
+  return { ids };
+}
+
 function toPublicUsuario(u) {
-  const clientesAsignados = u.rol === ROL_CON_CLIENTES_ASIGNADOS ? getClientesDeUsuario(u.id) : [];
+  const clientesAsignados =
+    u.rol === ROL_CON_CLIENTES_ASIGNADOS
+      ? getClientesDeUsuario(u.id)
+      : u.rol === ROL_CON_CLIENTE
+        ? getClientesDeExterno(u)
+        : [];
   return {
     id: u.id,
     email: u.email,
@@ -673,9 +705,11 @@ router.post('/usuarios', async (req, res) => {
   if (STAFF_ROLES.includes(rol) && req.user.rol !== 'super_admin') {
     return res.status(403).json({ error: 'Solo un Super Admin puede crear una cuenta Admin o Super Admin' });
   }
+  let idsExterno = [];
   if (rol === ROL_CON_CLIENTE) {
-    const error = clienteActivoOError(clienteId);
-    if (error) return res.status(400).json({ error });
+    const r = clienteIdsExternoOError(clienteIds, clienteId);
+    if (r.error) return res.status(400).json({ error: r.error });
+    idsExterno = r.ids;
   }
   if (rol === ROL_CON_CLIENTES_ASIGNADOS && clienteIds !== undefined) {
     const error = clienteIdsValidosOError(clienteIds);
@@ -703,15 +737,20 @@ router.post('/usuarios', async (req, res) => {
   // siempre como { clienteId: [anunciante, ...] } -- usuario_externo solo
   // puede acotar dentro de su único cliente.
   let anunciantesMapa;
-  if (rol === ROL_CON_CLIENTE) {
+  if (rol === ROL_CON_CLIENTE && anunciantesPorCliente !== undefined) {
+    // Externo con varios clientes: mismo formato que usuario_interno.
+    anunciantesMapa = anunciantesPorCliente;
+    const error = anunciantesPorClienteValidosOError(anunciantesMapa, idsExterno);
+    if (error) return res.status(400).json({ error });
+  } else if (rol === ROL_CON_CLIENTE) {
     // anunciantes === null significa "sin restricción" (checklist con todos
     // marcados) -- no es lo mismo que un array vacío explícito, que sí debe
     // rechazarse. Antes se envolvía el null tal cual y la validación de abajo
     // lo confundía con un array vacío, rechazando el guardado.
     if (anunciantes !== undefined) {
-      anunciantesMapa = anunciantes === null ? {} : { [clienteId]: anunciantes };
+      anunciantesMapa = anunciantes === null ? {} : { [idsExterno[0]]: anunciantes };
       if (anunciantes !== null) {
-        const error = anunciantesPorClienteValidosOError(anunciantesMapa, [Number(clienteId)]);
+        const error = anunciantesPorClienteValidosOError(anunciantesMapa, [idsExterno[0]]);
         if (error) return res.status(400).json({ error });
       }
     }
@@ -735,13 +774,14 @@ router.post('/usuarios', async (req, res) => {
       passwordHash,
       nombre,
       rol,
-      rol === ROL_CON_CLIENTE ? clienteId : null,
+      rol === ROL_CON_CLIENTE ? idsExterno[0] : null,
       rol === ROL_CON_CLIENTES_ASIGNADOS ? pais || null : null,
       rol === ROL_CON_CLIENTES_ASIGNADOS ? perfil || null : null,
       rol === ROL_CON_CLIENTES_ASIGNADOS && gestionVeTodosPaises ? 1 : 0
     );
 
   if (rol === ROL_CON_CLIENTES_ASIGNADOS) setClientesDeUsuario(info.lastInsertRowid, clienteIds);
+  if (rol === ROL_CON_CLIENTE) setClientesDeUsuario(info.lastInsertRowid, idsExterno);
   if (anunciantesMapa !== undefined) setAnunciantesPorClienteDeUsuario(info.lastInsertRowid, anunciantesMapa);
 
   const invitacion = await enviarInvitacion({ nombre, email, password, rol });
@@ -805,10 +845,17 @@ router.put('/usuarios/:id', (req, res) => {
 
   const nuevoRol = rol ?? user.rol;
   let nuevoClienteId = null;
+  let idsExterno = [];
   if (nuevoRol === ROL_CON_CLIENTE) {
-    nuevoClienteId = clienteId ?? user.cliente_id;
-    const error = clienteActivoOError(nuevoClienteId);
-    if (error) return res.status(400).json({ error });
+    // Sin clienteIds/clienteId en el body = conserva los clientes que ya tenía.
+    const pedidos =
+      clienteIds === undefined && clienteId === undefined && user.rol === ROL_CON_CLIENTE
+        ? getClientesDeExterno(user).map((c) => c.id)
+        : clienteIds;
+    const r = clienteIdsExternoOError(pedidos, clienteId);
+    if (r.error) return res.status(400).json({ error: r.error });
+    idsExterno = r.ids;
+    nuevoClienteId = idsExterno[0];
   }
   if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS && clienteIds !== undefined) {
     const error = clienteIdsValidosOError(clienteIds);
@@ -842,7 +889,11 @@ router.put('/usuarios/:id', (req, res) => {
   }
 
   let anunciantesMapa;
-  if (nuevoRol === ROL_CON_CLIENTE) {
+  if (nuevoRol === ROL_CON_CLIENTE && anunciantesPorCliente !== undefined) {
+    anunciantesMapa = anunciantesPorCliente;
+    const error = anunciantesPorClienteValidosOError(anunciantesMapa, idsExterno);
+    if (error) return res.status(400).json({ error });
+  } else if (nuevoRol === ROL_CON_CLIENTE) {
     // Ver el mismo comentario en POST /usuarios: null = sin restricción.
     if (anunciantes !== undefined) {
       anunciantesMapa = anunciantes === null ? {} : { [nuevoClienteId]: anunciantes };
@@ -872,9 +923,11 @@ router.put('/usuarios/:id', (req, res) => {
   );
 
   if (nuevoRol === ROL_CON_CLIENTES_ASIGNADOS) {
-    if (clienteIds !== undefined) setClientesDeUsuario(user.id, clienteIds);
-  } else if (user.rol === ROL_CON_CLIENTES_ASIGNADOS) {
-    // Dejó de ser usuario_interno: limpia asignaciones que ya no aplican.
+    if (clienteIds !== undefined || user.rol !== ROL_CON_CLIENTES_ASIGNADOS) setClientesDeUsuario(user.id, clienteIds ?? []);
+  } else if (nuevoRol === ROL_CON_CLIENTE) {
+    setClientesDeUsuario(user.id, idsExterno);
+  } else {
+    // Ya no tiene clientes asignados (Admin/Super Admin): limpia lo que no aplica.
     setClientesDeUsuario(user.id, []);
   }
 

@@ -27,15 +27,6 @@
     "cliente": "EC_Alimentos los Andes"
   },
   {
-    "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
-    "anunciante": "EC_BancoDelPacífico",
-    "motivo": "Testimonio PYME",
-    "mes": "Junio",
-    "formato": "YouTube",
-    "link": "https://drive.google.com/drive/folders/15WWQV3r5cobhuj8KXKL7KUME1za1HUXR?usp=sharing",
-    "cliente": "EC_Banco del Pacífico"
-  },
-  {
     "campana": "EC_GOA_CuidadoCapilar_YT_21Octubre2026_CPM",
     "anunciante": "EC_GOA",
     "motivo": "Octubre_CuidadoCapilar_CPM",
@@ -151,5 +142,14 @@
     "formato": "YouTube",
     "link": "https://docs.google.com/spreadsheets/d/1nTrzp_SzaawDNOStKyP4lvHT2OpRaEM7xQGrdZ2rtJc/edit?usp=sharing",
     "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_TestimonioPYME_Junio2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Testimonio PYME",
+    "mes": "Junio",
+    "formato": "YouTube",
+    "link": "https://drive.google.com/drive/folders/15WWQV3r5cobhuj8KXKL7KUME1za1HUXR?usp=sharing",
+    "cliente": "EC_Banco del Pacífico"
   }
 ]

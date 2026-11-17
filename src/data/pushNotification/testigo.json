@@ -475,5 +475,32 @@
     "formato": "Push Display",
     "link": "https://drive.google.com/file/d/1D3_2fzLxXFpmniH7faDAz9IH9zlIsPOI/view?usp=sharing",
     "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Pacificard_Noviembre2026",
+    "anunciante": "EC_BancoDelPacífico",
+    "motivo": "Noviembre_Pacificard",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "link": "https://drive.google.com/file/d/1kwgO7OF55T2e6Gdt72kCtiOMakBfTVu7/view?usp=sharing",
+    "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "PE_TeApuesto_CasinoOnline_Bonificado_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline_Bonificado",
+    "mes": "Noviembre",
+    "formato": "Push Programático",
+    "link": "https://drive.google.com/drive/folders/1BX6lZhlJD4tib-kd_b3c0OQrrgbG162H?usp=sharing",
+    "cliente": "PE_Te Apuesto"
+  },
+  {
+    "campana": "PE_TeApuesto_CasinoOnline_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "link": "https://drive.google.com/drive/folders/1UXoRhHTLSMuBHXdDQ8VbwB8MuYn8Z6GZ?usp=sharing",
+    "cliente": "PE_Te Apuesto"
   }
 ]
