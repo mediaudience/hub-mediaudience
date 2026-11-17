@@ -18,9 +18,9 @@
     "mes": "Noviembre",
     "formato": "Push Premium Video",
     "ubicacion": "Ayacucho",
-    "impresionesTotales": 5210,
-    "clicsTotales": 557,
-    "ctr": 10.69,
+    "impresionesTotales": 8792,
+    "clicsTotales": 996,
+    "ctr": 11.33,
     "cliente": "PE_PromPerú"
   },
   {
@@ -30,9 +30,9 @@
     "mes": "Noviembre",
     "formato": "Push Premium Video",
     "ubicacion": "Apurimac",
-    "impresionesTotales": 1303,
-    "clicsTotales": 115,
-    "ctr": 8.83,
+    "impresionesTotales": 1814,
+    "clicsTotales": 109,
+    "ctr": 6.01,
     "cliente": "PE_PromPerú"
   },
   {
@@ -42,9 +42,9 @@
     "mes": "Noviembre",
     "formato": "Push Premium Video",
     "ubicacion": "Lima",
-    "impresionesTotales": 2966,
-    "clicsTotales": 338,
-    "ctr": 11.4,
+    "impresionesTotales": 3997,
+    "clicsTotales": 456,
+    "ctr": 11.41,
     "cliente": "PE_PromPerú"
   },
   {
@@ -54,9 +54,9 @@
     "mes": "Noviembre",
     "formato": "Push Premium Video",
     "ubicacion": "Ica",
-    "impresionesTotales": 536,
-    "clicsTotales": 22,
-    "ctr": 4.1,
+    "impresionesTotales": 1457,
+    "clicsTotales": 103,
+    "ctr": 7.07,
     "cliente": "PE_PromPerú"
   },
   {
@@ -66,9 +66,9 @@
     "mes": "Noviembre",
     "formato": "Push Premium Video",
     "ubicacion": "Perú",
-    "impresionesTotales": 0,
-    "clicsTotales": 0,
-    "ctr": 0,
+    "impresionesTotales": 12256,
+    "clicsTotales": 1302,
+    "ctr": 10.62,
     "cliente": "PE_PromPerú"
   }
 ]

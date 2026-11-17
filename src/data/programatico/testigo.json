@@ -252,6 +252,24 @@
     "cliente": "EC_La Destilería"
   },
   {
+    "campana": "EC_Ferrisariato_BlackFridays_Noviembre2026",
+    "anunciante": "EC_Ferrisariato",
+    "motivo": "Noviembre_BlackFridays",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "https://drive.google.com/drive/folders/1DYe8QOyEKda6FsuCi333YMV25hOpfM2k?usp=sharing",
+    "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_Ferrisariato_BlackFridays_Noviembre2026",
+    "anunciante": "EC_Ferrisariato",
+    "motivo": "Noviembre_BlackFridays_DataExtra",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "https://docs.google.com/spreadsheets/d/1zPLLflzxxC30pS5-2nFV8trYKhBEY4y98KyWk4LKUw4/edit?gid=2017677837#gid=2017677837",
+    "cliente": "EC_La Destilería"
+  },
+  {
     "campana": "EC_BancoDelPacífico_Institucional_MiCasaPropia_Enero2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Enero_Institucional_Mi Casa Propia",
@@ -771,6 +789,15 @@
     "mes": "Noviembre",
     "formato": "Rich Media",
     "link": "https://drive.google.com/drive/folders/1yuEtxpGJEAXohFYqgVL_s6JulWZBwzZH?usp=sharing",
+    "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "EC_NetlifeHogar_SúbeteAlPlan_10Noviembre2026",
+    "anunciante": "EC_NetlifeHogar",
+    "motivo": "Noviembre_SúbeteAlPlan",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "https://drive.google.com/drive/folders/1K5zRTHzOqSU4Ya9EfJGS1PDBABaTW9fm?usp=sharing",
     "cliente": "EC_Netlife"
   }
 ]

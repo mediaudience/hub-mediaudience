@@ -180,6 +180,10 @@
     "anunciante": "EC_PanteónMetropolitano"
   },
   {
+    "campana": "EC_Ferrisariato_BlackFridays_Noviembre2026",
+    "anunciante": "EC_Ferrisariato"
+  },
+  {
     "campana": "EC_BancoDelPacífico_MiCasaPropia_Julio2026",
     "anunciante": "EC_BancoDelPacífico"
   },
@@ -650,5 +654,9 @@
   {
     "campana": "EC_NetlifeBusiness_CreadorDigital_12Noviembre2026",
     "anunciante": "EC_NetlifeBusiness"
+  },
+  {
+    "campana": "EC_NetlifeHogar_SúbeteAlPlan_10Noviembre2026",
+    "anunciante": "EC_NetlifeHogar"
   }
 ]

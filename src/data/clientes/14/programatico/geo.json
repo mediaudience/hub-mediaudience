@@ -58,5 +58,17 @@
     "clicsTotales": 9,
     "ctr": 0.17,
     "cliente": "EC_Netlife"
+  },
+  {
+    "campana": "EC_NetlifeHogar_SúbeteAlPlan_10Noviembre2026",
+    "anunciante": "EC_NetlifeHogar",
+    "motivo": "Noviembre_SúbeteAlPlan",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 70568,
+    "clicsTotales": 695,
+    "ctr": 0.98,
+    "cliente": "EC_Netlife"
   }
 ]

@@ -1695,7 +1695,7 @@
     "montoFacturado": 45.39,
     "montoPendiente": 0,
     "extras": {
-      "ORDEN INTERNA": ""
+      "ORDEN INTERNA": "-"
     },
     "pais": "Ecuador"
   },
@@ -1746,7 +1746,7 @@
     "montoFacturado": 7000,
     "montoPendiente": 0,
     "extras": {
-      "ORDEN INTERNA": ""
+      "ORDEN INTERNA": "-"
     },
     "pais": "Ecuador"
   },
@@ -2160,8 +2160,42 @@
   },
   {
     "mes": "Nov",
+    "agencia": "Paradais",
+    "cliente": "Banco Pacifico",
+    "producto": "Push programatico",
+    "estadoFactura": "",
+    "ordenAgencia": "17543",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 2000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Paradais",
+    "cliente": "Cris Sal",
+    "producto": "Tiktok",
+    "estadoFactura": "",
+    "ordenAgencia": "17814",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 2203.36,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
     "agencia": "Mindshare",
-    "cliente": "BET593",
+    "cliente": "BET593 (Lotería)",
     "producto": "CTV",
     "estadoFactura": "Pendiente",
     "ordenAgencia": "",
@@ -2178,13 +2212,13 @@
   {
     "mes": "Nov",
     "agencia": "Mindshare",
-    "cliente": "BET593",
+    "cliente": "BET593 (Lotería)",
     "producto": "Gaming",
     "estadoFactura": "Pendiente",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
-    "consumoNeto": 4000,
+    "consumoNeto": 4200,
     "montoFacturado": 0,
     "montoPendiente": 0,
     "extras": {
@@ -2193,15 +2227,185 @@
     "pais": "Ecuador"
   },
   {
-    "mes": "",
-    "agencia": "",
-    "cliente": "",
-    "producto": "",
+    "mes": "Nov",
+    "agencia": "Mindshare",
+    "cliente": "Loteria Nacional",
+    "producto": "Programatica",
     "estadoFactura": "",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
-    "consumoNeto": 0,
+    "consumoNeto": 1500,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Mindshare",
+    "cliente": "Loteria Nacional",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 800,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Mindshare",
+    "cliente": "Loteria Nacional",
+    "producto": "Leads",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 2000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Paradais",
+    "cliente": "Alimentos Real",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 2427.12,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Paradais",
+    "cliente": "Alimentos Real",
+    "producto": "Push Premium",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 4416.67,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Paradais",
+    "cliente": "Del Portal",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 595,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "La Destilería",
+    "cliente": "Panteón Metropolitano",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 153.84,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Mindshare",
+    "cliente": "Eta Fashion",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 2000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Mindshare",
+    "cliente": "Netlife Hogar",
+    "producto": "Gaming",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 2500,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Mindshare",
+    "cliente": "Loteria Nacional",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 1500,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Mindshare",
+    "cliente": "Loteria Nacional",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 500,
     "montoFacturado": 0,
     "montoPendiente": 0,
     "extras": {
