@@ -9,6 +9,19 @@ export function calcularAgregado(col, rows) {
   if (col.type === "numero" || col.type === "moneda") {
     return rows.reduce((s, r) => s + (r[col.key] ?? 0), 0);
   }
+  // "decimal" (Frecuencia): el total NO se suma -- es suma(numeradorKey) /
+  // suma(denominadorKey), p. ej. Impresiones Totales / Alcance (pedido de Jose
+  // 2026-11-18). Sin ese par, promedio simple de la columna.
+  if (col.type === "decimal") {
+    if (col.numeradorKey && col.denominadorKey) {
+      const numerador = rows.reduce((s, r) => s + (r[col.numeradorKey] ?? 0), 0);
+      const denominador = rows.reduce((s, r) => s + (r[col.denominadorKey] ?? 0), 0);
+      return denominador > 0 ? Math.round((numerador / denominador) * 100) / 100 : 0;
+    }
+    return rows.length > 0
+      ? Math.round((rows.reduce((s, r) => s + (r[col.key] ?? 0), 0) / rows.length) * 100) / 100
+      : 0;
+  }
   if (col.type === "porcentaje") {
     if (col.numeradorKey && col.denominadorKey) {
       const numerador = rows.reduce((s, r) => s + (r[col.numeradorKey] ?? 0), 0);

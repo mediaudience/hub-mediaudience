@@ -18,9 +18,21 @@
     "mes": "Noviembre",
     "formato": "Rich Media",
     "ubicacion": "Ecuador",
-    "impresionesTotales": 31332,
-    "clicsTotales": 42,
-    "ctr": 0.13,
+    "impresionesTotales": 137976,
+    "clicsTotales": 332,
+    "ctr": 0.24,
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Etafashion_DíasDeTecnologíaBlack_10Noviembre2026",
+    "anunciante": "EC_Etafashion",
+    "motivo": "Noviembre_DíasDeTecnologíaBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 28065,
+    "clicsTotales": 73,
+    "ctr": 0.26,
     "cliente": "EC_Paradais"
   }
 ]

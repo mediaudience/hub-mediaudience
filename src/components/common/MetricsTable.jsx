@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
-import { formatNumber, formatCurrency } from "../../utils/format";
+import { formatNumber, formatCurrency, formatDecimal } from "../../utils/format";
 import { calcularAgregado } from "../../utils/agregaciones";
 import Card from "./Card";
 
 const FORMATTERS = {
   numero: formatNumber,
   moneda: formatCurrency,
+  decimal: formatDecimal,
   porcentaje: (v) => `${(v ?? 0).toFixed(2)}%`,
 };
 
@@ -87,7 +88,7 @@ export default function MetricsTable({ rows, columns, sortKey = "fecha", showTot
               className={`transition-colors hover:bg-brand-purple/5 ${i % 2 === 0 ? "bg-white" : "bg-slate-50"}`}
             >
               {columns.map((col) => {
-                const esNumerico = col.type === "numero" || col.type === "moneda" || col.type === "porcentaje";
+                const esNumerico = col.type === "numero" || col.type === "moneda" || col.type === "porcentaje" || col.type === "decimal";
                 const valor = FORMATTERS[col.type] ? FORMATTERS[col.type](r[col.key]) : r[col.key];
                 return (
                   <td

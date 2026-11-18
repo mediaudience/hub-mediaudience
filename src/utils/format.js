@@ -10,6 +10,13 @@ export function formatNumber(value) {
   return numberFmt.format(Math.round(value ?? 0));
 }
 
+// Métricas que son un promedio/ratio sin %, como Frecuencia (impresiones por
+// usuario alcanzado): siempre con 2 decimales -- pedido de Jose 2026-11-18.
+const decimalFmt = new Intl.NumberFormat("es-EC", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+export function formatDecimal(value) {
+  return decimalFmt.format(value ?? 0);
+}
+
 export function formatCurrency(value) {
   return currencyFmt.format(value ?? 0);
 }

@@ -18,9 +18,9 @@
     "mes": "Noviembre",
     "formato": "Rich Media",
     "ubicacion": "Quito",
-    "impresionesTotales": 4924,
-    "clicsTotales": 12,
-    "ctr": 0.24,
+    "impresionesTotales": 31219,
+    "clicsTotales": 109,
+    "ctr": 0.35,
     "cliente": "EC_Netlife"
   },
   {
@@ -30,9 +30,9 @@
     "mes": "Noviembre",
     "formato": "Rich Media",
     "ubicacion": "Cuenca",
-    "impresionesTotales": 1303,
-    "clicsTotales": 6,
-    "ctr": 0.46,
+    "impresionesTotales": 4374,
+    "clicsTotales": 29,
+    "ctr": 0.66,
     "cliente": "EC_Netlife"
   },
   {
@@ -42,9 +42,9 @@
     "mes": "Noviembre",
     "formato": "Rich Media",
     "ubicacion": "Manta",
-    "impresionesTotales": 133,
-    "clicsTotales": 2,
-    "ctr": 1.5,
+    "impresionesTotales": 1079,
+    "clicsTotales": 10,
+    "ctr": 0.93,
     "cliente": "EC_Netlife"
   },
   {
@@ -54,9 +54,9 @@
     "mes": "Noviembre",
     "formato": "Rich Media",
     "ubicacion": "Guayaquil",
-    "impresionesTotales": 5318,
-    "clicsTotales": 9,
-    "ctr": 0.17,
+    "impresionesTotales": 11360,
+    "clicsTotales": 33,
+    "ctr": 0.29,
     "cliente": "EC_Netlife"
   },
   {

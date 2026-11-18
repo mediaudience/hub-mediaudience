@@ -5,7 +5,7 @@
     "motivo": "Octubre_72HorasBlackFriday",
     "mes": "Octubre",
     "formato": "Rich Media",
-    "link": "",
+    "link": "https://drive.google.com/file/d/11yY-3OeaEfMOyGWwOWpmA1Q5mKSFuH0e/view?usp=drive_link",
     "cliente": "EC_Paradais"
   },
   {
@@ -14,7 +14,16 @@
     "motivo": "Noviembre_MinutoDorado",
     "mes": "Noviembre",
     "formato": "Rich Media",
-    "link": "",
+    "link": "https://drive.google.com/file/d/1yptd5F_H4z6f-A-1gURyl89pBcw1Qg3y/view?usp=drive_link",
+    "cliente": "EC_Paradais"
+  },
+  {
+    "campana": "EC_Etafashion_DíasDeTecnologíaBlack_10Noviembre2026",
+    "anunciante": "EC_Etafashion",
+    "motivo": "Noviembre_DíasDeTecnologíaBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "https://drive.google.com/file/d/1nvuSmo_LZ-8003CvOtcosEGws7V0_jRC/view?usp=drive_link",
     "cliente": "EC_Paradais"
   }
 ]

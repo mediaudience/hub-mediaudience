@@ -296,6 +296,10 @@
     "anunciante": "EC_Etafashion"
   },
   {
+    "campana": "EC_Etafashion_DíasDeTecnologíaBlack_10Noviembre2026",
+    "anunciante": "EC_Etafashion"
+  },
+  {
     "campana": "EC_Prefectura_PasoLateralBabahoyoJujan_11Junio2026",
     "anunciante": "EC_Prefectura"
   },
@@ -633,6 +637,22 @@
   },
   {
     "campana": "EC_BancoDelPacífico_Institucional_Navidad_Noviembre2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_Diferidos_Noviembre2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_ElAhorrón_Noviembre2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_LoEstamosLogrando_Noviembre2026",
+    "anunciante": "EC_BancoDelPacífico"
+  },
+  {
+    "campana": "EC_BancoDelPacífico_Institucional_LevántateMiPyme_Noviembre2026",
     "anunciante": "EC_BancoDelPacífico"
   },
   {
