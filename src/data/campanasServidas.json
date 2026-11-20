@@ -694,5 +694,9 @@
   {
     "campana": "PE_TeApuesto_CasinoOnline_Bonificado_16Noviembre2026",
     "anunciante": "PE_TeApuesto"
+  },
+  {
+    "campana": "EC_SupermercadosDelPortal_04Noviembre2026",
+    "anunciante": "EC_SupermercadosDelPortal"
   }
 ]
