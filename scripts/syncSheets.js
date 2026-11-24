@@ -171,6 +171,21 @@ function parseFilas(rows, campos) {
   );
 }
 
+// Campos calculados por fila (ej. CTR, CR, CPA en Performance) declarados en
+// `derivados` de la pestaña en canalMetricas.js: numerador / denominador *
+// factor, 0 si el denominador es 0. Así el Sheet solo trae datos crudos.
+function aplicarDerivados(filas, derivados) {
+  if (!derivados?.length) return filas;
+  return filas.map((r) => {
+    const extra = {};
+    for (const d of derivados) {
+      const den = r[d.denominadorKey] ?? 0;
+      extra[d.key] = den > 0 ? Math.round(((r[d.numeradorKey] ?? 0) / den) * (d.factor ?? 1) * 100) / 100 : 0;
+    }
+    return { ...r, ...extra };
+  });
+}
+
 // -------- Escritura/lectura de archivos --------
 
 export async function writeJson(filePath, data) {
@@ -228,7 +243,8 @@ async function syncClienteCanal({ clienteId, clienteNombre, canal, sheetId }) {
   // [[project_mediaudience_permisos_finos]]).
   const datasets = {};
   tabKeys.forEach((key, i) => {
-    datasets[key] = parseFilas(rowsPorTab[i], metricas.sheetTabs[key].campos).map((r) => ({
+    const tabConfig = metricas.sheetTabs[key];
+    datasets[key] = aplicarDerivados(parseFilas(rowsPorTab[i], tabConfig.campos), tabConfig.derivados).map((r) => ({
       ...r,
       cliente: clienteNombre,
     }));

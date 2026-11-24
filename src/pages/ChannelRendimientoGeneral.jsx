@@ -8,6 +8,7 @@ import TestigoTable from "../components/common/TestigoTable";
 import GeoMap from "../components/common/GeoMap";
 import GeoResumen from "../components/common/GeoResumen";
 import EvolucionDiariaChart from "../components/common/EvolucionDiariaChart";
+import PerformanceResumen from "../components/performance/PerformanceResumen";
 import { formatNumber, formatCurrency } from "../utils/format";
 import { downloadCSV } from "../utils/csv";
 import { useClienteActivo } from "../context/ClienteActivoContext";
@@ -38,6 +39,13 @@ function calcularKpi(kpi, rows) {
   if (kpi.formula === "suma") {
     const total = rows.reduce((s, r) => s + (r[kpi.key] ?? 0), 0);
     return KPI_FORMATTERS[kpi.type] ? KPI_FORMATTERS[kpi.type](total) : total;
+  }
+  if (kpi.formula === "cociente") {
+    const numerador = rows.reduce((s, r) => s + (r[kpi.numeradorKey] ?? 0), 0);
+    const denominador = rows.reduce((s, r) => s + (r[kpi.denominadorKey] ?? 0), 0);
+    if (denominador <= 0) return "—";
+    const v = numerador / denominador;
+    return KPI_FORMATTERS[kpi.type] ? KPI_FORMATTERS[kpi.type](v) : v.toFixed(2);
   }
   if (kpi.formula === "ratio") {
     const numerador = rows.reduce((s, r) => s + (r[kpi.numeradorKey] ?? 0), 0);
@@ -111,6 +119,19 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
     [filasDelClienteActivo, campana, anunciante, motivo, periodo]
   );
 
+  // Metas por campaña (solo Performance, pestaña "Campañas" del Sheet) con
+  // los mismos filtros de cliente/anunciante/campaña que la tabla.
+  const metas = useMemo(
+    () =>
+      (data.metas ?? SIN_FILAS).filter(
+        (m) =>
+          (!clienteActivo || m.cliente === clienteActivo) &&
+          (!campana || m.campana === campana) &&
+          (!anunciante || m.anunciante === anunciante)
+      ),
+    [data.metas, clienteActivo, campana, anunciante]
+  );
+
   const handleDownload = () => downloadCSV(tab.key, filas, tab.columns);
 
   // "Cliente" acá pega directo sobre el mismo estado global de "Cliente
@@ -166,7 +187,9 @@ export default function ChannelRendimientoGeneral({ data, uiTabs }) {
 
         {tab.key === "detalle-diario" && <EvolucionDiariaChart rows={filas} columns={tab.columns} />}
 
-        {tab.key === "testigo" ? (
+        {tab.vista === "performance-resumen" ? (
+          <PerformanceResumen filas={filas} metas={metas} />
+        ) : tab.key === "testigo" ? (
           <TestigoTable rows={filas} columns={tab.columns.filter((c) => c.key !== "link")} />
         ) : (
           <MetricsTable rows={filas} columns={tab.columns} showTotals={!!tab.totales} />

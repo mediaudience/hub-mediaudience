@@ -189,7 +189,9 @@ function getClienteIdsConCanal(clienteIds, canalDir) {
 // lista pasa a depender del canal (sin 'testigo', con 'interacciones') --
 // hoy los 2 canales ya migrados (ctvOtt, pushNotification) comparten el
 // mismo set de 3, así que se deja fijo por simplicidad hasta ese momento.
-const RENDIMIENTO_TAB_KEYS = ['diario', 'geo', 'testigo'];
+// 'metas' = pestaña "Campañas" del servicio Performance (budget, CPA objetivo,
+// meta de conversiones); los demás servicios no la tienen y queda en [].
+const RENDIMIENTO_TAB_KEYS = ['diario', 'geo', 'testigo', 'metas'];
 
 async function leerDatasets(dir) {
   const valores = await Promise.all(
@@ -203,12 +205,12 @@ async function leerDatasets(dir) {
 // campanasServidas.json como antes de esta reestructuración.
 export async function getRendimientoGeneral(canalDir, user) {
   if (VE_TODO_SIN_FILTRO.includes(user.rol)) {
-    const { diario, geo, testigo } = await leerDatasets(path.join(DATA_DIR, canalDir));
+    const { diario, geo, testigo, metas } = await leerDatasets(path.join(DATA_DIR, canalDir));
     const diarioRows = diario ?? [];
     const campanas = [...new Set(diarioRows.map((r) => r.campana))];
     const anunciantes = [...new Set(diarioRows.map((r) => r.anunciante).filter(Boolean))];
     const clientes = [...new Set(diarioRows.map((r) => r.cliente).filter(Boolean))];
-    return { diario: diarioRows, geo: geo ?? [], testigo: testigo ?? [], campanas, anunciantes, clientes, sinDatos: false };
+    return { diario: diarioRows, geo: geo ?? [], testigo: testigo ?? [], metas: metas ?? [], campanas, anunciantes, clientes, sinDatos: false };
   }
 
   // usuario_externo / usuario_interno: cada cliente visible que haya
@@ -219,7 +221,7 @@ export async function getRendimientoGeneral(canalDir, user) {
   // nombre de marca, así que se lee y filtra por cliente antes de combinar.
   const clienteIds = getClienteIdsConCanal(getClienteIdsVisibles(user), canalDir);
   if (clienteIds.length === 0) {
-    return { diario: [], geo: [], testigo: [], campanas: [], anunciantes: [], clientes: [], sinDatos: true };
+    return { diario: [], geo: [], testigo: [], metas: [], campanas: [], anunciantes: [], clientes: [], sinDatos: true };
   }
 
   const porCliente = await Promise.all(
@@ -231,6 +233,7 @@ export async function getRendimientoGeneral(canalDir, user) {
         diario: filtrar(datasets.diario),
         geo: filtrar(datasets.geo),
         testigo: filtrar(datasets.testigo),
+        metas: filtrar(datasets.metas),
         sinDatos: RENDIMIENTO_TAB_KEYS.every((key) => datasets[key] === null),
       };
     })
@@ -239,9 +242,10 @@ export async function getRendimientoGeneral(canalDir, user) {
   const diario = porCliente.flatMap((c) => c.diario);
   const geo = porCliente.flatMap((c) => c.geo);
   const testigo = porCliente.flatMap((c) => c.testigo);
+  const metas = porCliente.flatMap((c) => c.metas);
   const campanas = [...new Set(diario.map((r) => r.campana))];
   const anunciantes = [...new Set(diario.map((r) => r.anunciante).filter(Boolean))];
   const clientes = [...new Set(diario.map((r) => r.cliente).filter(Boolean))];
 
-  return { diario, geo, testigo, campanas, anunciantes, clientes, sinDatos: porCliente.every((c) => c.sinDatos) };
+  return { diario, geo, testigo, metas, campanas, anunciantes, clientes, sinDatos: porCliente.every((c) => c.sinDatos) };
 }

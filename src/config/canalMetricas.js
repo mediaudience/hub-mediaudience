@@ -17,6 +17,7 @@
 //   kpis: tarjetas KPI arriba de la tabla, con `formula`:
 //     - "suma": suma el campo `key` de todas las filas
 //     - "ratio": numeradorKey / denominadorKey * 100, redondeado (para VTR%/CTR%)
+//     - "cociente": numeradorKey / denominadorKey sin *100 (ej. CPA = Inversión / Conversiones)
 //     - "promedio": promedio simple del campo `key` (fallback cuando no hay
 //       numerador/denominador crudo en el dataset para calcular el ratio real)
 
@@ -780,6 +781,132 @@ export const CANAL_METRICAS = {
         kpis: [
           { label: "Impresiones Totales", key: "impresionesTotales", formula: "suma", type: "numero" },
           { label: "Clics Totales", key: "clicsTotales", formula: "suma", type: "numero" },
+          { label: "CTR%", formula: "ratio", numeradorKey: "clicsTotales", denominadorKey: "impresionesTotales", type: "porcentaje" },
+        ],
+      },
+      {
+        key: "testigo",
+        label: "Testigo",
+        source: "testigo",
+        columns: [
+          { key: "campana", label: "Campaña" },
+          { key: "anunciante", label: "Anunciante" },
+          { key: "motivo", label: "Motivo" },
+          { key: "formato", label: "Formato" },
+          { key: "mes", label: "Mes" },
+          { key: "link", label: "Testigo", type: "link" },
+        ],
+        kpis: [],
+      },
+    ],
+  },
+  // Performance (compra de leads / CPA) -- agregado 2026-11-24. A diferencia
+  // de los servicios de medios, lo que se paga es una conversión (registro,
+  // lead, venta), así que el reporte gira alrededor de Conversiones, CPA e
+  // Inversión contra el budget/meta de cada campaña (pestaña "Campañas").
+  // Plantilla base: tropicalización del reporte semanal del partner (Affise)
+  // al formato MA. Impresiones vienen ESTIMADAS por el partner (CTR supuesto),
+  // por eso la etiqueta "(est.)" en el panel.
+  performance: {
+    sheetTabs: {
+      diario: {
+        nombre: "Diario",
+        campos: [
+          { header: "Campaña", key: "campana", type: "texto" },
+          { header: "Anunciante", key: "anunciante", type: "texto" },
+          { header: "Motivo", key: "motivo", type: "texto" },
+          { header: "Fecha", key: "fecha", type: "fecha" },
+          { header: "Mes", key: "mes", type: "texto" },
+          { header: "Fuente de tráfico", key: "fuente", type: "texto" },
+          { header: "Impresiones (estimadas)", key: "impresionesTotales", type: "numero" },
+          { header: "Clics", key: "clicsTotales", type: "numero" },
+          { header: "Conversiones aprobadas", key: "convAprobadas", type: "numero" },
+          { header: "Conversiones en revisión", key: "convRevision", type: "numero" },
+          { header: "Conversiones rechazadas", key: "convRechazadas", type: "numero" },
+          { header: "Inversión", key: "inversion", type: "moneda" },
+          { header: "Notas", key: "notas", type: "texto" },
+        ],
+        // Calculados por el sync en cada fila (no se escriben en el Sheet):
+        // valor = numerador / denominador * factor, 0 si el denominador es 0.
+        derivados: [
+          { key: "ctr", numeradorKey: "clicsTotales", denominadorKey: "impresionesTotales", factor: 100 },
+          { key: "cr", numeradorKey: "convAprobadas", denominadorKey: "clicsTotales", factor: 100 },
+          { key: "cpa", numeradorKey: "inversion", denominadorKey: "convAprobadas", factor: 1 },
+        ],
+      },
+      metas: {
+        nombre: "Campañas",
+        campos: [
+          { header: "Campaña", key: "campana", type: "texto" },
+          { header: "Anunciante", key: "anunciante", type: "texto" },
+          { header: "Evento pagable", key: "eventoPagable", type: "texto" },
+          { header: "CPA objetivo", key: "cpaObjetivo", type: "moneda" },
+          { header: "Budget", key: "budget", type: "moneda" },
+          { header: "Meta de conversiones", key: "metaConversiones", type: "numero" },
+          { header: "Inicio", key: "inicio", type: "fecha" },
+          { header: "Fin", key: "fin", type: "fecha" },
+        ],
+      },
+      testigo: {
+        nombre: "Testigo",
+        campos: [
+          { header: "Campaña", key: "campana", type: "texto" },
+          { header: "Anunciante", key: "anunciante", type: "texto" },
+          { header: "Motivo", key: "motivo", type: "texto" },
+          { header: "Mes", key: "mes", type: "texto" },
+          { header: "Formato", key: "formato", type: "texto" },
+          { header: "Link", key: "link", type: "link" },
+        ],
+      },
+    },
+    uiTabs: [
+      {
+        key: "resumen",
+        label: "Resumen",
+        source: "diario",
+        vista: "performance-resumen",
+        columns: [
+          { key: "fecha", label: "Fecha" },
+          { key: "campana", label: "Campaña" },
+          { key: "anunciante", label: "Anunciante" },
+          { key: "clicsTotales", label: "Clics", type: "numero" },
+          { key: "convAprobadas", label: "Conversiones aprobadas", type: "numero" },
+          { key: "inversion", label: "Inversión", type: "moneda" },
+        ],
+        kpis: [
+          { label: "Inversión", key: "inversion", formula: "suma", type: "moneda" },
+          { label: "Conversiones aprobadas", key: "convAprobadas", formula: "suma", type: "numero" },
+          { label: "CPA real", formula: "cociente", numeradorKey: "inversion", denominadorKey: "convAprobadas", type: "moneda" },
+          { label: "Clics", key: "clicsTotales", formula: "suma", type: "numero" },
+          { label: "Tasa de conversión", formula: "ratio", numeradorKey: "convAprobadas", denominadorKey: "clicsTotales", type: "porcentaje" },
+        ],
+      },
+      {
+        key: "detalle-diario",
+        label: "Detalle Diario",
+        source: "diario",
+        totales: true,
+        // Anchos fijos: las Notas del partner son largas y sin ancho estiraban
+        // cada fila; con ancho fijo se recortan y se leen completas al pasar el mouse.
+        // Sin CPA por día: los días sin conversiones mostraban $0,00 (engañoso);
+        // el CPA real vive en las KPI de Resumen.
+        columns: [
+          { key: "fecha", label: "Fecha", width: 120 },
+          { key: "campana", label: "Campaña", width: 240 },
+          { key: "fuente", label: "Fuente", width: 150 },
+          { key: "impresionesTotales", label: "Impresiones (est.)", align: "right", type: "numero", width: 160 },
+          { key: "clicsTotales", label: "Clics", align: "right", type: "numero", width: 90 },
+          { key: "ctr", label: "CTR%", align: "right", type: "porcentaje", numeradorKey: "clicsTotales", denominadorKey: "impresionesTotales", width: 80 },
+          { key: "convAprobadas", label: "Aprobadas", align: "right", type: "numero", width: 120 },
+          { key: "convRevision", label: "En revisión", align: "right", type: "numero", width: 125 },
+          { key: "convRechazadas", label: "Rechazadas", align: "right", type: "numero", width: 125 },
+          { key: "cr", label: "CR%", align: "right", type: "porcentaje", numeradorKey: "convAprobadas", denominadorKey: "clicsTotales", width: 80 },
+          { key: "inversion", label: "Inversión", align: "right", type: "moneda", width: 110 },
+          { key: "notas", label: "Notas", width: 340 },
+        ],
+        kpis: [
+          { label: "Impresiones (est.)", key: "impresionesTotales", formula: "suma", type: "numero" },
+          { label: "Clics", key: "clicsTotales", formula: "suma", type: "numero" },
           { label: "CTR%", formula: "ratio", numeradorKey: "clicsTotales", denominadorKey: "impresionesTotales", type: "porcentaje" },
         ],
       },
