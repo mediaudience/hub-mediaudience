@@ -19,6 +19,7 @@ export const ADMIN_NAV_GROUP = {
     { label: "Etapas de Prospección", path: "/admin/etapas-prospeccion", superAdminOnly: true },
     { label: "Actividad", path: "/admin/actividad", superAdminOnly: true },
     { label: "Sheets de Gestión", path: "/admin/gestion-sheets" },
+    { label: "Preview Testigos", path: "/admin/preview-testigos" },
     { label: "Firmas", path: "/admin/firmas", internoVisible: true },
     { label: "Material Comercial", path: "/admin/material-comercial", internoVisible: true, seccionInterno: "materialComercial" },
   ],

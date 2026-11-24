@@ -486,4 +486,42 @@ if (!db.prepare('PRAGMA table_info(firmas)').all().some((c) => c.name === 'token
 db.exec('UPDATE firmas SET token = lower(hex(randomblob(12))) WHERE token IS NULL')
 db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_firmas_token ON firmas (token)')
 
+// Admin > Preview Testigos (server/previewTestigosRoutes.js): una fila por
+// medio capturado. desktop_json/mobile_json = {ancho, alto, escala,
+// espacios:[{id,w,h,x,y,origen}]}; asignaciones_json = {espacioId:
+// creativoId|null}. Capturas y creatividades viven en disco
+// (PREVIEW_TESTIGOS_DIR), fuera del repo.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS preview_testigos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    cliente_id INTEGER REFERENCES clientes(id),
+    url TEXT NOT NULL,
+    titulo_pagina TEXT,
+    estado TEXT NOT NULL DEFAULT 'capturando',
+    error TEXT,
+    desktop_json TEXT,
+    mobile_json TEXT,
+    asignaciones_json TEXT NOT NULL DEFAULT '{}',
+    opciones_json TEXT NOT NULL DEFAULT '{}',
+    creado_por INTEGER REFERENCES users(id),
+    capturado_at TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE TABLE IF NOT EXISTS preview_testigo_creativos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    testigo_id INTEGER NOT NULL REFERENCES preview_testigos(id),
+    nombre TEXT NOT NULL,
+    ancho INTEGER NOT NULL,
+    alto INTEGER NOT NULL,
+    ancho_px INTEGER NOT NULL,
+    alto_px INTEGER NOT NULL,
+    archivo TEXT NOT NULL UNIQUE,
+    mime TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`)
+db.exec('CREATE INDEX IF NOT EXISTS idx_preview_testigo_creativos_testigo ON preview_testigo_creativos (testigo_id)')
+
 export default db

@@ -14,6 +14,7 @@ import AdminPaises from "./pages/admin/Paises";
 import AdminActividad from "./pages/admin/Actividad";
 import AdminEtapasProspeccion from "./pages/admin/EtapasProspeccion";
 import AdminGestionSheets from "./pages/admin/GestionSheets";
+import PreviewTestigos from "./pages/admin/PreviewTestigos";
 import EnDesarrollo from "./pages/gestion/EnDesarrollo";
 import Prospeccion from "./pages/gestion/Prospeccion";
 import CampanasServidas from "./pages/gestion/CampanasServidas";
@@ -54,6 +55,8 @@ export default function App() {
             <Route path="admin/usuarios" element={<AdminUsuarios />} />
             <Route path="admin/clientes" element={<AdminClientes />} />
             <Route path="admin/gestion-sheets" element={<AdminGestionSheets />} />
+            <Route path="admin/preview-testigos" element={<PreviewTestigos />} />
+            <Route path="admin/preview-testigos/:id" element={<PreviewTestigos />} />
 
             <Route element={<RequireSuperAdmin />}>
               <Route path="admin/servicios" element={<AdminServicios />} />

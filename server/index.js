@@ -12,6 +12,7 @@ import gestionRouter from './gestionRoutes.js'
 import marcaRouter from './marcaRoutes.js'
 import firmaImagenRouter from './firmaImagen.js'
 import presentacionesRouter from './presentacionesRoutes.js'
+import previewTestigosRouter from './previewTestigosRoutes.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const SQLiteStore = SQLiteStoreFactory(session)
@@ -91,6 +92,7 @@ app.use('/api/marca', marcaRouter)
 // Pública (sin login): la imagen de cada firma que se pega en Gmail.
 app.use('/api/firma', firmaImagenRouter)
 app.use('/api/presentaciones', presentacionesRouter)
+app.use('/api/preview-testigos', previewTestigosRouter)
 
 app.use((err, req, res, next) => {
   console.error(err)
