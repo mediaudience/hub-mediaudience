@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import Card from "../common/Card";
-import { formatNumber, formatCurrency, TIER_COLORS } from "../../utils/format";
+import { formatNumber, formatUSD, TIER_COLORS } from "../../utils/format";
 
 // Pestaña "Resumen" del servicio Performance (compra de leads / CPA), agregada
 // 2026-11-24. Debajo de las KPI genéricas (canalMetricas.js) muestra lo que un
@@ -80,8 +80,8 @@ function AvanceCampana({ meta, filas }) {
           <div className="text-right">
             <p className="label-mono text-[10px] text-gray-500">CPA real / objetivo</p>
             <p className="text-lg font-medium tabular-nums" style={{ color: cpaReal === null ? undefined : cpaOk ? TIER_COLORS.green : TIER_COLORS.red }}>
-              {cpaReal === null ? "—" : formatCurrency(cpaReal)}
-              <span className="text-gray-500 text-sm"> / {formatCurrency(meta.cpaObjetivo)}</span>
+              {cpaReal === null ? "—" : formatUSD(cpaReal)}
+              <span className="text-gray-500 text-sm"> / {formatUSD(meta.cpaObjetivo)}</span>
             </p>
           </div>
         )}
@@ -101,7 +101,7 @@ function AvanceCampana({ meta, filas }) {
           label="Inversión vs. budget"
           valor={inversion}
           total={meta.budget}
-          texto={`${formatCurrency(inversion)} de ${formatCurrency(meta.budget)}`}
+          texto={`${formatUSD(inversion)} de ${formatUSD(meta.budget)}`}
         />
       )}
       {totalDias > 0 && (

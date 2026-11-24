@@ -9,7 +9,7 @@ import GeoMap from "../components/common/GeoMap";
 import GeoResumen from "../components/common/GeoResumen";
 import EvolucionDiariaChart from "../components/common/EvolucionDiariaChart";
 import PerformanceResumen from "../components/performance/PerformanceResumen";
-import { formatNumber, formatCurrency } from "../utils/format";
+import { formatNumber, formatCurrency, formatUSD } from "../utils/format";
 import { downloadCSV } from "../utils/csv";
 import { useClienteActivo } from "../context/ClienteActivoContext";
 
@@ -32,6 +32,7 @@ function dentroDelPeriodo(fecha, periodo) {
 const KPI_FORMATTERS = {
   numero: formatNumber,
   moneda: formatCurrency,
+  usd: formatUSD,
   porcentaje: (v) => `${(v ?? 0).toFixed(2)}%`,
 };
 

@@ -824,7 +824,6 @@ export const CANAL_METRICAS = {
           { header: "Conversiones en revisión", key: "convRevision", type: "numero" },
           { header: "Conversiones rechazadas", key: "convRechazadas", type: "numero" },
           { header: "Inversión", key: "inversion", type: "moneda" },
-          { header: "Notas", key: "notas", type: "texto" },
         ],
         // Calculados por el sync en cada fila (no se escriben en el Sheet):
         // valor = numerador / denominador * factor, 0 si el denominador es 0.
@@ -871,12 +870,12 @@ export const CANAL_METRICAS = {
           { key: "anunciante", label: "Anunciante" },
           { key: "clicsTotales", label: "Clics", type: "numero" },
           { key: "convAprobadas", label: "Conversiones aprobadas", type: "numero" },
-          { key: "inversion", label: "Inversión", type: "moneda" },
+          { key: "inversion", label: "Inversión", type: "usd" },
         ],
         kpis: [
-          { label: "Inversión", key: "inversion", formula: "suma", type: "moneda" },
+          { label: "Inversión", key: "inversion", formula: "suma", type: "usd" },
           { label: "Conversiones aprobadas", key: "convAprobadas", formula: "suma", type: "numero" },
-          { label: "CPA real", formula: "cociente", numeradorKey: "inversion", denominadorKey: "convAprobadas", type: "moneda" },
+          { label: "CPA real", formula: "cociente", numeradorKey: "inversion", denominadorKey: "convAprobadas", type: "usd" },
           { label: "Clics", key: "clicsTotales", formula: "suma", type: "numero" },
           { label: "Tasa de conversión", formula: "ratio", numeradorKey: "convAprobadas", denominadorKey: "clicsTotales", type: "porcentaje" },
         ],
@@ -886,8 +885,7 @@ export const CANAL_METRICAS = {
         label: "Detalle Diario",
         source: "diario",
         totales: true,
-        // Anchos fijos: las Notas del partner son largas y sin ancho estiraban
-        // cada fila; con ancho fijo se recortan y se leen completas al pasar el mouse.
+        // Sin columna Notas (pedido de Jose 2026-11-24).
         // Sin CPA por día: los días sin conversiones mostraban $0,00 (engañoso);
         // el CPA real vive en las KPI de Resumen.
         columns: [
@@ -901,8 +899,7 @@ export const CANAL_METRICAS = {
           { key: "convRevision", label: "En revisión", align: "right", type: "numero", width: 125 },
           { key: "convRechazadas", label: "Rechazadas", align: "right", type: "numero", width: 125 },
           { key: "cr", label: "CR%", align: "right", type: "porcentaje", numeradorKey: "convAprobadas", denominadorKey: "clicsTotales", width: 80 },
-          { key: "inversion", label: "Inversión", align: "right", type: "moneda", width: 110 },
-          { key: "notas", label: "Notas", width: 340 },
+          { key: "inversion", label: "Inversión", align: "right", type: "usd", width: 110 },
         ],
         kpis: [
           { label: "Impresiones (est.)", key: "impresionesTotales", formula: "suma", type: "numero" },

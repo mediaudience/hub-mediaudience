@@ -8,12 +8,12 @@
 export function calcularAgregado(col, rows) {
   // Moneda con numerador/denominador (CPA = Inversión / Conversiones en
   // Performance): el total es el cociente de las sumas, no la suma de CPAs.
-  if (col.type === "moneda" && col.numeradorKey && col.denominadorKey) {
+  if ((col.type === "moneda" || col.type === "usd") && col.numeradorKey && col.denominadorKey) {
     const numerador = rows.reduce((s, r) => s + (r[col.numeradorKey] ?? 0), 0);
     const denominador = rows.reduce((s, r) => s + (r[col.denominadorKey] ?? 0), 0);
     return denominador > 0 ? Math.round((numerador / denominador) * 100) / 100 : 0;
   }
-  if (col.type === "numero" || col.type === "moneda") {
+  if (col.type === "numero" || col.type === "moneda" || col.type === "usd") {
     return rows.reduce((s, r) => s + (r[col.key] ?? 0), 0);
   }
   // "decimal" (Frecuencia): el total NO se suma -- es suma(numeradorKey) /

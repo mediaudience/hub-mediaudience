@@ -17,6 +17,12 @@ export function formatDecimal(value) {
   return decimalFmt.format(value ?? 0);
 }
 
+// Dólares explícitos ("US$ 60,00") para Performance -- pedido de Jose
+// 2026-11-24: con solo "$" no quedaba claro que la inversión es en dólares.
+export function formatUSD(value) {
+  return `US$ ${decimalFmt.format(value ?? 0)}`;
+}
+
 export function formatCurrency(value) {
   return currencyFmt.format(value ?? 0);
 }

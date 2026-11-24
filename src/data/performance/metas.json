@@ -1,0 +1,13 @@
+[
+  {
+    "campana": "AT_PE_Registro_CPA_Nov26",
+    "anunciante": "PE_Apuesta Total",
+    "eventoPagable": "Registro (CPA)",
+    "cpaObjetivo": 12,
+    "budget": 5000,
+    "metaConversiones": 417,
+    "inicio": "2026-11-06",
+    "fin": "2026-11-30",
+    "cliente": "PE_Apuesta Total"
+  }
+]
