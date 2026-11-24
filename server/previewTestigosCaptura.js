@@ -73,28 +73,66 @@ export async function validarUrlMedio(texto) {
 const CSS_POPUPS = `
   #onesignal-slidedown-container, #onesignal-popover-container, #onesignal-bell-container, .onesignal-slidedown-container,
   #didomi-host, #qc-cmp2-container, #onetrust-consent-sdk, #CybotCookiebotDialog, .fc-consent-root, .fc-dialog-overlay,
-  .tp-modal, .tp-backdrop, [id^="sp_message_container"] { display: none !important; }`;
+  .tp-modal, .tp-backdrop, [id^="sp_message_container"],
+  ins.adsbygoogle[data-anchor-status], ins[id^="gpt_unit_"], ins.adsbygoogle[data-vignette-loaded], [id^="google_vignette"] { display: none !important; }`;
 
 // --- Dentro de la página -----------------------------------------------------
 
-function ocultarPopups() {
+// Bloquea todo lo flotante del sitio (pedido de Raiza 2026-11-24: zócalos,
+// stickies, anclas de Google, avisos): cualquier elemento `fixed` se oculta,
+// salvo la cabecera pegada arriba (se deja en su lugar como parte de la
+// página); los `sticky` pasan a `relative` y quedan en su lugar del flujo.
+// Se instala como intervalo porque muchos zócalos aparecen tarde.
+function bloquearFlotantes() {
   const RX =
-    /(onesignal|cookie|consent|gdpr|didomi|qc-cmp|truste|osano|sp_message|fc-consent|cmp-|modal|popup|pop-up|newsletter|notific|push|interstitial|subscri|suscri|paywall|lightbox|backdrop|overlay|prompt|gr-visual)/i;
-  const area = innerWidth * innerHeight;
-  for (const el of document.querySelectorAll('body *')) {
-    const cs = getComputedStyle(el);
-    if (cs.position !== 'fixed' && cs.position !== 'sticky') continue;
-    const r = el.getBoundingClientRect();
-    const firma = `${el.id} ${String(el.className)} ${el.getAttribute('role') || ''}`;
-    const grande = r.width * r.height > area * 0.25;
-    const z = parseInt(cs.zIndex, 10) || 0;
-    if (RX.test(firma) || el.getAttribute('role') === 'dialog' || el.getAttribute('aria-modal') === 'true' || (grande && z >= 100) || z >= 100000) {
+    /(onesignal|cookie|consent|gdpr|didomi|qc-cmp|truste|osano|sp_message|fc-consent|cmp-|modal|popup|pop-up|newsletter|notific|push|interstitial|subscri|suscri|paywall|lightbox|backdrop|overlay|prompt|anchor|sticky|zocalo|footer-ad|adhesion|vignette)/i;
+  // Todos los elementos, incluidos los que cuelgan directo de <html> (así
+  // inserta Google sus anclas: <ins id="gpt_unit_..."> fuera del body) y los
+  // de shadow DOM.
+  const todos = () => {
+    const out = [];
+    const recorrer = (raiz) => {
+      for (const el of raiz.querySelectorAll('*')) {
+        out.push(el);
+        if (el.shadowRoot) recorrer(el.shadowRoot);
+      }
+    };
+    recorrer(document);
+    return out.filter((el) => !['HTML', 'HEAD', 'BODY', 'SCRIPT', 'STYLE', 'LINK', 'META'].includes(el.tagName));
+  };
+  const pasada = () => {
+    const ancho = innerWidth;
+    for (const el of todos()) {
+      if (el.dataset.mauFijo) continue;
+      const cs = getComputedStyle(el);
+      if (cs.position === 'sticky' || cs.position === '-webkit-sticky') {
+        el.style.setProperty('position', 'relative', 'important');
+        el.style.setProperty('top', 'auto', 'important');
+        el.style.setProperty('bottom', 'auto', 'important');
+        continue;
+      }
+      if (cs.position !== 'fixed') continue;
+      if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+      const r = el.getBoundingClientRect();
+      const firma = `${el.id} ${String(el.className)} ${el.getAttribute('role') || ''}`;
+      const cabecera =
+        !RX.test(firma) && scrollY < 5 && r.top <= 2 && r.width >= ancho * 0.6 && r.height > 0 && r.height <= 200 &&
+        el.tagName !== 'IFRAME' && !el.querySelector('iframe[id^="google_ads"], ins.adsbygoogle');
+      if (cabecera) {
+        // Queda arriba como parte de la página, sin flotar al desplazar.
+        el.dataset.mauFijo = '1';
+        el.style.setProperty('position', 'absolute', 'important');
+        continue;
+      }
       el.style.setProperty('display', 'none', 'important');
     }
-  }
-  for (const el of [document.documentElement, document.body]) {
-    el.style.setProperty('overflow', 'visible', 'important');
-  }
+    for (const el of [document.documentElement, document.body]) {
+      el.style.setProperty('overflow', 'visible', 'important');
+    }
+  };
+  pasada();
+  clearInterval(window.__mauFlotantes);
+  window.__mauFlotantes = setInterval(pasada, 300);
 }
 
 function detectarEspacios(formatos) {
@@ -162,15 +200,16 @@ async function capturarDispositivo(browser, url, dev, destino) {
     }, ALTO_MAXIMO);
     await new Promise((r) => setTimeout(r, 2500));
     await page.addStyleTag({ content: CSS_POPUPS }).catch(() => {});
-    await page.evaluate(ocultarPopups);
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.evaluate(bloquearFlotantes);
+    await new Promise((r) => setTimeout(r, 600));
     const espacios = await page.evaluate(detectarEspacios, FORMATOS_TESTIGO);
     const alto = await page.evaluate(
       (max) => Math.min(Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, innerHeight), max),
       ALTO_MAXIMO
     );
-    // Algunos avisos (notificaciones push, cookies) aparecen tarde: segunda pasada.
-    await new Promise((r) => setTimeout(r, 800));
-    await page.evaluate(ocultarPopups);
+    // Los zócalos y avisos que aparecen tarde los agarra el intervalo.
+    await new Promise((r) => setTimeout(r, 900));
     const titulo = await page.title().catch(() => '');
     const buf = await page.screenshot({
       type: 'jpeg',
