@@ -714,5 +714,9 @@
   {
     "campana": "AT_PE_Registro_CPA_Nov26",
     "anunciante": "PE_Apuesta Total"
+  },
+  {
+    "campana": "UDEP_PE_MBA_Distancia_Lead_Nov26",
+    "anunciante": "PE_Universidad de Piura"
   }
 ]
