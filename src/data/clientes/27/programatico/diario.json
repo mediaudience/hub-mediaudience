@@ -1,0 +1,53 @@
+[
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "fecha": "2026-11-20",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "impresionesTotales": 19082,
+    "clicsTotales": 98,
+    "ctr": 0.51,
+    "vistasTotales": 17830,
+    "quartil25": 13916,
+    "quartil50": 10398,
+    "quartil75": 8776,
+    "vtr": 93.44,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "fecha": "2026-11-21",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "impresionesTotales": 7812,
+    "clicsTotales": 42,
+    "ctr": 0.54,
+    "vistasTotales": 7260,
+    "quartil25": 6448,
+    "quartil50": 3278,
+    "quartil75": 2602,
+    "vtr": 92.93,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "fecha": "2026-11-22",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "impresionesTotales": 11249,
+    "clicsTotales": 81,
+    "ctr": 0.72,
+    "vistasTotales": 9184,
+    "quartil25": 7514,
+    "quartil50": 5736,
+    "quartil75": 3219,
+    "vtr": 81.64,
+    "cliente": "EC_Moda RM"
+  }
+]

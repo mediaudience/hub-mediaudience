@@ -1,0 +1,26 @@
+[
+  {
+    "campana": "EC_ViceministerioDeProducciónIndustriaTurismo_ProfetaDeLaAmazonía_29Octubre2026",
+    "anunciante": "EC_ViceministerioDeProducciónIndustriaTurismo",
+    "motivo": "Octubre_ProfetaDeLaAmazonía_Display",
+    "mes": "Octubre",
+    "formato": "Display Programático",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 2254000,
+    "clicsTotales": 8377,
+    "ctr": 0.37,
+    "cliente": "EC_Viceministerio de Producción, Industria y Turismo"
+  },
+  {
+    "campana": "EC_ViceministerioDeProducciónIndustriaTurismo_ProfetaDeLaAmazonía_29Octubre2026",
+    "anunciante": "EC_ViceministerioDeProducciónIndustriaTurismo",
+    "motivo": "Octubre_ProfetaDeLaAmazonía_RichMedia",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 1499255,
+    "clicsTotales": 9570,
+    "ctr": 0.64,
+    "cliente": "EC_Viceministerio de Producción, Industria y Turismo"
+  }
+]

@@ -119,6 +119,23 @@ function nombreSinPrefijo(cliente) {
   return cliente.nombre.startsWith(prefijo) ? cliente.nombre.slice(prefijo.length) : cliente.nombre;
 }
 
+// Búsqueda sin distinguir mayúsculas ni tildes ("ALICORP" = "alicorp",
+// "Telefonica" = "Telefónica") -- pedido de Jose 2026-11-24 para ver si un
+// cliente ya existe antes de crearlo de nuevo.
+function normalizarBusqueda(texto) {
+  return String(texto ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function clienteCoincide(cliente, termino) {
+  const t = normalizarBusqueda(termino);
+  if (!t) return true;
+  return [cliente.nombre, ...(cliente.anunciantes ?? [])].some((v) => normalizarBusqueda(v).includes(t));
+}
+
 function componerNombre(pais, nombreLimpio) {
   const limpio = nombreLimpio.trim();
   return pais ? `${pais}_${limpio}` : limpio;
@@ -194,6 +211,7 @@ export default function AdminClientes() {
   const [sincronizandoId, setSincronizandoId] = useState(null);
   const [sincronizandoCanal, setSincronizandoCanal] = useState(null);
   const [menuAbierto, setMenuAbierto] = useState(null);
+  const [busqueda, setBusqueda] = useState("");
 
   useEffect(() => {
     if (menuAbierto === null) return;
@@ -424,6 +442,14 @@ export default function AdminClientes() {
       )
     : new Set();
 
+  const clientesFiltrados = clientes.filter((c) => clienteCoincide(c, busqueda));
+  // Al crear un cliente nuevo: clientes ya existentes cuyo nombre (sin el
+  // prefijo de país) o anunciantes se parecen a lo que se está escribiendo.
+  const posiblesDuplicados =
+    form && !form.id && normalizarBusqueda(form.nombre).length >= 2
+      ? clientes.filter((c) => clienteCoincide({ ...c, nombre: nombreSinPrefijo(c) }, form.nombre))
+      : [];
+
   return (
     <div>
       <GradientHeader title="Administración: Clientes" showDownload={false} />
@@ -451,6 +477,7 @@ export default function AdminClientes() {
 
       {!form && (
         <>
+          <div className="mb-4 flex flex-wrap items-center gap-3">
           <button
             type="button"
             onClick={() => {
@@ -458,15 +485,26 @@ export default function AdminClientes() {
               setEditandoAnunciante(null);
               setForm({ id: null, nombre: "", pais: "", canales: canalesVacios(canales), anunciantes: [], activo: true });
             }}
-            className="mb-4 bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90"
+            className="bg-brand-magenta text-on-accent text-sm font-medium px-4 py-2 rounded-md hover:bg-brand-magenta/90"
           >
             + Nuevo Cliente
           </button>
+          <input
+            type="search"
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            placeholder="Buscar cliente o anunciante..."
+            aria-label="Buscar cliente o anunciante"
+            className="w-full sm:w-80 rounded-lg border border-slate-200 px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+          />
+          </div>
 
           {loading ? (
             <Spinner label="Cargando clientes..." />
           ) : clientes.length === 0 ? (
             <EmptyState message="No hay clientes creados todavía. Usa '+ Nuevo Cliente' para dar de alta el primero." />
+          ) : clientesFiltrados.length === 0 ? (
+            <EmptyState message={`Ningún cliente coincide con "${busqueda.trim()}".`} />
           ) : (
             <Card className="overflow-x-auto">
               <table className="w-full text-sm min-w-[700px]">
@@ -480,7 +518,7 @@ export default function AdminClientes() {
                   </tr>
                 </thead>
                 <tbody>
-                  {clientes.map((c, i) => (
+                  {clientesFiltrados.map((c, i) => (
                     <tr key={c.id} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
                       <td className="px-4 py-2.5 text-gray-800">{c.nombre}</td>
                       <td className="px-4 py-2.5">
@@ -574,6 +612,19 @@ export default function AdminClientes() {
                 <p className="mt-1.5 text-xs text-slate-label">
                   Se guardará como <span className="font-mono font-medium text-brand-purple">{componerNombre(form.pais, form.nombre)}</span>
                 </p>
+              )}
+              {posiblesDuplicados.length > 0 && (
+                <div role="status" className="mt-2 rounded-lg bg-semaphore-orange/10 px-3 py-2 text-xs text-semaphore-orange">
+                  <p className="font-medium mb-1">Ya existe{posiblesDuplicados.length > 1 ? "n clientes parecidos" : " un cliente parecido"}:</p>
+                  <ul className="flex flex-col gap-0.5">
+                    {posiblesDuplicados.slice(0, 5).map((c) => (
+                      <li key={c.id}>
+                        <span className="font-mono">{c.nombre}</span>
+                        {!c.activo && " (inactivo)"}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </div>
 

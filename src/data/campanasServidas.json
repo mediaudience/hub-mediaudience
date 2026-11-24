@@ -698,5 +698,17 @@
   {
     "campana": "EC_SupermercadosDelPortal_04Noviembre2026",
     "anunciante": "EC_SupermercadosDelPortal"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM"
+  },
+  {
+    "campana": "EC_Oriental_PonteWokies_Alcance_19Noviembre2026",
+    "anunciante": "EC_Oriental"
+  },
+  {
+    "campana": "EC_ViceministerioDeProducciónIndustriaTurismo_ProfetaDeLaAmazonía_29Octubre2026",
+    "anunciante": "EC_ViceministerioDeProducciónIndustriaTurismo"
   }
 ]

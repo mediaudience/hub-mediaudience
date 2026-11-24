@@ -824,7 +824,34 @@
     "motivo": "Noviembre_DelPortal",
     "mes": "Noviembre",
     "formato": "Display Programático",
-    "link": "",
+    "link": "https://drive.google.com/drive/folders/1VY7GFB8R_pEV1KLahwyOW9HeN7JZ8Gez?usp=sharing",
     "cliente": "EC_Supermercados DelPortal"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ViceministerioDeProducciónIndustriaTurismo_ProfetaDeLaAmazonía_29Octubre2026",
+    "anunciante": "EC_ViceministerioDeProducciónIndustriaTurismo",
+    "motivo": "Octubre_ProfetaDeLaAmazonía_Display",
+    "mes": "Octubre",
+    "formato": "Display Programático",
+    "link": "https://drive.google.com/drive/folders/1WAM-5rEgiIJyNW3DGIjGQaWLgXLozbyi?usp=sharing",
+    "cliente": "EC_Viceministerio de Producción, Industria y Turismo"
+  },
+  {
+    "campana": "EC_ViceministerioDeProducciónIndustriaTurismo_ProfetaDeLaAmazonía_29Octubre2026",
+    "anunciante": "EC_ViceministerioDeProducciónIndustriaTurismo",
+    "motivo": "Octubre_ProfetaDeLaAmazonía_RichMedia",
+    "mes": "Octubre",
+    "formato": "Rich Media",
+    "link": "",
+    "cliente": "EC_Viceministerio de Producción, Industria y Turismo"
   }
 ]

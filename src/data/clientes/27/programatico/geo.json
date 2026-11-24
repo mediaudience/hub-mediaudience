@@ -1,0 +1,110 @@
+[
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Provincia del Guayas",
+    "impresionesTotales": 11716,
+    "clicsTotales": 87,
+    "ctr": 0.74,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Provincia de Pichincha",
+    "impresionesTotales": 8862,
+    "clicsTotales": 66,
+    "ctr": 0.74,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Provincia del Azuay",
+    "impresionesTotales": 3780,
+    "clicsTotales": 12,
+    "ctr": 0.32,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Provincia de Loja",
+    "impresionesTotales": 2824,
+    "clicsTotales": 9,
+    "ctr": 0.32,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Provincia de Manabi",
+    "impresionesTotales": 2560,
+    "clicsTotales": 14,
+    "ctr": 0.55,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Provincia de Santo Domingo de los Tsachilas",
+    "impresionesTotales": 2376,
+    "clicsTotales": 6,
+    "ctr": 0.25,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Provincia del Chimborazo",
+    "impresionesTotales": 2268,
+    "clicsTotales": 8,
+    "ctr": 0.35,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Provincia de Esmeraldas",
+    "impresionesTotales": 2090,
+    "clicsTotales": 11,
+    "ctr": 0.53,
+    "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "EC_ModaRM_UltraBlack_20Noviembre2026",
+    "anunciante": "EC_ModaRM",
+    "motivo": "Noviembre_UltraBlack",
+    "mes": "Noviembre",
+    "formato": "Rich Media",
+    "ubicacion": "Provincia de Imbabura",
+    "impresionesTotales": 1670,
+    "clicsTotales": 8,
+    "ctr": 0.48,
+    "cliente": "EC_Moda RM"
+  }
+]
