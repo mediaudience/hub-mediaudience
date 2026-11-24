@@ -6,9 +6,9 @@
     "mes": "Noviembre",
     "formato": "Push Programático",
     "ubicacion": "Lima Metropolitana",
-    "impresionesTotales": 9548,
-    "clicsTotales": 105,
-    "ctr": 1.1,
+    "impresionesTotales": 76500,
+    "clicsTotales": 808,
+    "ctr": 1.06,
     "cliente": "PE_Te Apuesto"
   },
   {
@@ -18,9 +18,69 @@
     "mes": "Noviembre",
     "formato": "Push Premium Video",
     "ubicacion": "Lima Metropolitana",
-    "impresionesTotales": 0,
-    "clicsTotales": 0,
-    "ctr": 0,
+    "impresionesTotales": 19093,
+    "clicsTotales": 1389,
+    "ctr": 7.27,
+    "cliente": "PE_Te Apuesto"
+  },
+  {
+    "campana": "PE_TeApuesto_CasinoOnline_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Atlantic City Casino",
+    "impresionesTotales": 3518,
+    "clicsTotales": 245,
+    "ctr": 6.96,
+    "cliente": "PE_Te Apuesto"
+  },
+  {
+    "campana": "PE_TeApuesto_CasinoOnline_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "CASINO GOLDEN PALACE",
+    "impresionesTotales": 5103,
+    "clicsTotales": 356,
+    "ctr": 6.98,
+    "cliente": "PE_Te Apuesto"
+  },
+  {
+    "campana": "PE_TeApuesto_CasinoOnline_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Fantastic Casino",
+    "impresionesTotales": 4838,
+    "clicsTotales": 337,
+    "ctr": 6.97,
+    "cliente": "PE_Te Apuesto"
+  },
+  {
+    "campana": "PE_TeApuesto_CasinoOnline_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "LUXOR",
+    "impresionesTotales": 2990,
+    "clicsTotales": 212,
+    "ctr": 7.09,
+    "cliente": "PE_Te Apuesto"
+  },
+  {
+    "campana": "PE_TeApuesto_CasinoOnline_16Noviembre2026",
+    "anunciante": "PE_TeApuesto",
+    "motivo": "Noviembre_CasinoOnline",
+    "mes": "Noviembre",
+    "formato": "Push Premium Video",
+    "ubicacion": "Miami Casino Cirsa",
+    "impresionesTotales": 2462,
+    "clicsTotales": 176,
+    "ctr": 7.15,
     "cliente": "PE_Te Apuesto"
   }
 ]

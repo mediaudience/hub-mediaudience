@@ -1843,12 +1843,12 @@
     "estadoFactura": "Facturado",
     "ordenAgencia": "16667",
     "pdfOrden": "https://drive.google.com/file/d/192n-Dw844nAi7gcgY0fZqXRuvBGHAMQP/view?usp=drive_link",
-    "pdfFactura": "",
+    "pdfFactura": "https://drive.google.com/file/d/18tFvehNWchujcCrhbi_UF0WhJ-4fJMrs/view?usp=drive_link",
     "consumoNeto": 2428.57,
     "montoFacturado": 2428.57,
     "montoPendiente": 0,
     "extras": {
-      "ORDEN INTERNA": ""
+      "ORDEN INTERNA": "."
     },
     "pais": "Ecuador"
   },
@@ -1865,7 +1865,7 @@
     "montoFacturado": 7000,
     "montoPendiente": 0,
     "extras": {
-      "ORDEN INTERNA": ""
+      "ORDEN INTERNA": "."
     },
     "pais": "Ecuador"
   },
@@ -1877,7 +1877,7 @@
     "estadoFactura": "Facturado",
     "ordenAgencia": "OC-2026-10-10",
     "pdfOrden": "https://drive.google.com/file/d/1jXv3y6CcTLWNaM36NUReRah5kljsILXV/view?usp=drive_link",
-    "pdfFactura": "",
+    "pdfFactura": "https://drive.google.com/file/d/1HFcvlp6UoTwDVPPFnQRoO_JAu70dpgSf/view?usp=drive_link",
     "consumoNeto": 64.96,
     "montoFacturado": 64.96,
     "montoPendiente": 0,
@@ -1942,13 +1942,13 @@
     "agencia": "Paradais",
     "cliente": "Alimentos Real",
     "producto": "Programatica",
-    "estadoFactura": "Pendiente",
-    "ordenAgencia": "pendiente",
-    "pdfOrden": "",
-    "pdfFactura": "",
+    "estadoFactura": "Facturado",
+    "ordenAgencia": "2846",
+    "pdfOrden": "https://drive.google.com/file/d/1Hxb8C11SXOr5ABSgKo6h5RypdaEt8pUW/view?usp=drive_link",
+    "pdfFactura": "https://drive.google.com/file/d/1_-5ax7C4G7_1ng70ykVP1_Nobne5aJn5/view?usp=drive_link",
     "consumoNeto": 1780.47,
-    "montoFacturado": 0,
-    "montoPendiente": 1780.47,
+    "montoFacturado": 1780.47,
+    "montoPendiente": 0,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -1959,13 +1959,13 @@
     "agencia": "OMD",
     "cliente": "Kia",
     "producto": "Push Premium",
-    "estadoFactura": "Pendiente",
+    "estadoFactura": "Facturado",
     "ordenAgencia": "98696",
     "pdfOrden": "https://drive.google.com/file/d/1hBcSWch46Yt7CEzxsrt48syo7plHYUmG/view?usp=drive_link",
-    "pdfFactura": "",
+    "pdfFactura": "https://drive.google.com/file/d/1lWqttNQz4XKYsC6c2QLlniUgUjp8SQZV/view?usp=drive_link",
     "consumoNeto": 1000,
-    "montoFacturado": 0,
-    "montoPendiente": 1000,
+    "montoFacturado": 1000,
+    "montoPendiente": 0,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2061,13 +2061,13 @@
     "agencia": "OMD",
     "cliente": "GOA Botánica",
     "producto": "Tiktok",
-    "estadoFactura": "Pendiente",
-    "ordenAgencia": "pendiente",
-    "pdfOrden": "",
-    "pdfFactura": "",
+    "estadoFactura": "Facturado",
+    "ordenAgencia": "99824",
+    "pdfOrden": "https://drive.google.com/file/d/1oKCLOU94A0ID0HGZYFr4JmoaT9gtu1T3/view?usp=drive_link",
+    "pdfFactura": "https://drive.google.com/file/d/1hsXBj4LKqLAsvPeWrOrZNABuXzWfBOzV/view?usp=drive_link",
     "consumoNeto": 3000,
-    "montoFacturado": 0,
-    "montoPendiente": 3000,
+    "montoFacturado": 3000,
+    "montoPendiente": 0,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2078,13 +2078,13 @@
     "agencia": "OMD",
     "cliente": "GOA Botánica",
     "producto": "YouTube",
-    "estadoFactura": "Pendiente",
-    "ordenAgencia": "pendiente",
-    "pdfOrden": "",
-    "pdfFactura": "",
+    "estadoFactura": "Facturado",
+    "ordenAgencia": "99824",
+    "pdfOrden": "https://drive.google.com/file/d/1oKCLOU94A0ID0HGZYFr4JmoaT9gtu1T3/view?usp=drive_link",
+    "pdfFactura": "https://drive.google.com/file/d/1hsXBj4LKqLAsvPeWrOrZNABuXzWfBOzV/view?usp=drive_link",
     "consumoNeto": 2000,
-    "montoFacturado": 0,
-    "montoPendiente": 2000,
+    "montoFacturado": 2000,
+    "montoPendiente": 0,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2179,14 +2179,65 @@
     "mes": "Nov",
     "agencia": "Paradais",
     "cliente": "Banco Pacifico",
-    "producto": "Tiktok",
+    "producto": "Meta",
     "estadoFactura": "Pendiente",
     "ordenAgencia": "17940",
-    "pdfOrden": "",
+    "pdfOrden": "https://drive.google.com/file/d/1_SeZtY69LAj4iLeTZrovqJhFlCT_7eY6/view?usp=drive_link",
     "pdfFactura": "",
-    "consumoNeto": 10000,
+    "consumoNeto": 14000,
     "montoFacturado": 0,
-    "montoPendiente": 10000,
+    "montoPendiente": 14000,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Paradais",
+    "cliente": "Banco Pacifico",
+    "producto": "Tiktok",
+    "estadoFactura": "Pendiente",
+    "ordenAgencia": "18058",
+    "pdfOrden": "https://drive.google.com/file/d/1Cx8FRpqt3N2n26JrGP-viW2RZaqw1lGk/view?usp=drive_link",
+    "pdfFactura": "",
+    "consumoNeto": 16000,
+    "montoFacturado": 0,
+    "montoPendiente": 16000,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Paradais",
+    "cliente": "Banco Pacifico",
+    "producto": "Programatica",
+    "estadoFactura": "Pendiente",
+    "ordenAgencia": "18044",
+    "pdfOrden": "https://drive.google.com/file/d/1t42pFHfZYlKdFhANdHY6x9P7y5echnIz/view?usp=drive_link",
+    "pdfFactura": "",
+    "consumoNeto": 4800,
+    "montoFacturado": 0,
+    "montoPendiente": 4800,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Paradais",
+    "cliente": "Banco Pacifico",
+    "producto": "Programatica",
+    "estadoFactura": "Pendiente",
+    "ordenAgencia": "18045",
+    "pdfOrden": "https://drive.google.com/file/d/12uat_nTHdpZGzS1EsZrQwcxYg0Eeidn8/view?usp=drive_link",
+    "pdfFactura": "",
+    "consumoNeto": 3200,
+    "montoFacturado": 0,
+    "montoPendiente": 3200,
     "extras": {
       "ORDEN INTERNA": ""
     },
@@ -2331,7 +2382,7 @@
   {
     "mes": "Nov",
     "agencia": "Paradais",
-    "cliente": "Del Portal",
+    "cliente": "Supermercados Del Portal",
     "producto": "Programatica",
     "estadoFactura": "Pendiente",
     "ordenAgencia": "",
@@ -2431,9 +2482,60 @@
     "pais": "Ecuador"
   },
   {
+    "mes": "Nov",
+    "agencia": "Redmedia",
+    "cliente": "Asiauto",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 525,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "Redmedia",
+    "cliente": "Asiauto",
+    "producto": "Programatica",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 279.83,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "Nov",
+    "agencia": "OMD",
+    "cliente": "KIA TASMAN",
+    "producto": "Push Premium",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 1500,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
     "mes": "",
     "agencia": "",
-    "cliente": "Por Ingresar",
+    "cliente": "Ferrisariato",
     "producto": "",
     "estadoFactura": "",
     "ordenAgencia": "",
@@ -2450,13 +2552,81 @@
   {
     "mes": "",
     "agencia": "",
+    "cliente": "Congelados",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 0,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Los Andes",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 0,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Netlife Business",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 0,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "TOTAL NOVIEMBRE",
+    "cliente": "",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 78100.82,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "DIAS PACIFICARD",
     "cliente": "Banco Pacifico",
     "producto": "",
     "estadoFactura": "",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
-    "consumoNeto": 13000,
+    "consumoNeto": 5000,
     "montoFacturado": 0,
     "montoPendiente": 0,
     "extras": {
@@ -2484,24 +2654,7 @@
   {
     "mes": "",
     "agencia": "",
-    "cliente": "Ford",
-    "producto": "",
-    "estadoFactura": "",
-    "ordenAgencia": "",
-    "pdfOrden": "",
-    "pdfFactura": "",
-    "consumoNeto": 4500,
-    "montoFacturado": 0,
-    "montoPendiente": 0,
-    "extras": {
-      "ORDEN INTERNA": ""
-    },
-    "pais": "Ecuador"
-  },
-  {
-    "mes": "",
-    "agencia": "",
-    "cliente": "Kosko",
+    "cliente": "Kiosko",
     "producto": "",
     "estadoFactura": "",
     "ordenAgencia": "",
@@ -2535,7 +2688,7 @@
   {
     "mes": "",
     "agencia": "",
-    "cliente": "Bado",
+    "cliente": "Ceviche De la ñaña",
     "producto": "",
     "estadoFactura": "",
     "ordenAgencia": "",
@@ -2586,47 +2739,132 @@
   {
     "mes": "",
     "agencia": "",
-    "cliente": "Asia Auto",
-    "producto": "",
-    "estadoFactura": "",
-    "ordenAgencia": "",
-    "pdfOrden": "",
-    "pdfFactura": "",
-    "consumoNeto": 766,
-    "montoFacturado": 0,
-    "montoPendiente": 0,
-    "extras": {
-      "ORDEN INTERNA": ""
-    },
-    "pais": "Ecuador"
-  },
-  {
-    "mes": "",
-    "agencia": "",
-    "cliente": "Kia",
-    "producto": "",
-    "estadoFactura": "",
-    "ordenAgencia": "",
-    "pdfOrden": "",
-    "pdfFactura": "",
-    "consumoNeto": 5000,
-    "montoFacturado": 0,
-    "montoPendiente": 0,
-    "extras": {
-      "ORDEN INTERNA": ""
-    },
-    "pais": "Ecuador"
-  },
-  {
-    "mes": "",
-    "agencia": "",
     "cliente": "Loteria online",
     "producto": "",
     "estadoFactura": "",
     "ordenAgencia": "",
     "pdfOrden": "",
     "pdfFactura": "",
-    "consumoNeto": 0,
+    "consumoNeto": 2000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Wokies Oriental",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 1000,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Disney",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 750,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "Moda RM",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 700,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "RM VIDEO",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 605,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "BAMBÚ",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 306,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "POR CONFIRMAR",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 27861,
+    "montoFacturado": 0,
+    "montoPendiente": 0,
+    "extras": {
+      "ORDEN INTERNA": ""
+    },
+    "pais": "Ecuador"
+  },
+  {
+    "mes": "",
+    "agencia": "",
+    "cliente": "PÒSIBLE TOTAL  NOVIEMBRE",
+    "producto": "",
+    "estadoFactura": "",
+    "ordenAgencia": "",
+    "pdfOrden": "",
+    "pdfFactura": "",
+    "consumoNeto": 105961.82,
     "montoFacturado": 0,
     "montoPendiente": 0,
     "extras": {

@@ -187,5 +187,23 @@
     "formato": "Push Premium Display",
     "link": "https://docs.google.com/spreadsheets/d/10L07wXaXte_ypEWnaAT6ajvepbPXAlvB42wPVlRcSrA/edit?usp=sharing",
     "cliente": "PE_Starbucks"
+  },
+  {
+    "campana": "PE_Starbucks_Holiday_19Noviembre2026",
+    "anunciante": "PE_Starbucks",
+    "motivo": "Noviembre_Holiday",
+    "mes": "Noviembre",
+    "formato": "Push Premium Display",
+    "link": "https://drive.google.com/drive/folders/1zI3v0Qv1Zjx85rXUazidt9-nu5dq56kI?usp=sharing",
+    "cliente": "PE_Starbucks"
+  },
+  {
+    "campana": "PE_Starbucks_Holiday_19Noviembre2026",
+    "anunciante": "PE_Starbucks",
+    "motivo": "Noviembre_Holiday_DataExtra",
+    "mes": "Noviembre",
+    "formato": "Push Premium Display",
+    "link": "https://docs.google.com/spreadsheets/d/10L07wXaXte_ypEWnaAT6ajvepbPXAlvB42wPVlRcSrA/edit?gid=1804622381#gid=1804622381",
+    "cliente": "PE_Starbucks"
   }
 ]

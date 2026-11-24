@@ -1224,12 +1224,12 @@
     "fechaInicio": "2026-11-10",
     "fechaFin": "2026-11-23",
     "objetivo": 240000,
-    "consumo": 113501,
-    "porcentajeConsumo": 47.29,
+    "consumo": 219391,
+    "porcentajeConsumo": 91.41,
     "reporte": "No enviado",
     "extras": {
       "Venta Costo Interno": "",
-      "Consumo Diario": "18.071",
+      "Consumo Diario": "6.870",
       "Órdenes Internas": ""
     },
     "pais": "Perú"
@@ -1300,12 +1300,12 @@
     "fechaInicio": "2026-11-16",
     "fechaFin": "2026-11-30",
     "objetivo": 1500,
-    "consumo": 105,
-    "porcentajeConsumo": 7,
+    "consumo": 331,
+    "porcentajeConsumo": 22.07,
     "reporte": "No enviado",
     "extras": {
       "Venta Costo Interno": "",
-      "Consumo Diario": "100",
+      "Consumo Diario": "97",
       "Órdenes Internas": ""
     },
     "pais": "Perú"
@@ -1319,12 +1319,12 @@
     "fechaInicio": "2026-11-16",
     "fechaFin": "2026-11-30",
     "objetivo": 1267500,
-    "consumo": 0,
-    "porcentajeConsumo": 0,
+    "consumo": 741330,
+    "porcentajeConsumo": 58.49,
     "reporte": "No enviado",
     "extras": {
       "Venta Costo Interno": "",
-      "Consumo Diario": "84.500",
+      "Consumo Diario": "65.771",
       "Órdenes Internas": ""
     },
     "pais": "Perú"
@@ -1395,12 +1395,31 @@
     "fechaInicio": "2026-11-17",
     "fechaFin": "2026-11-30",
     "objetivo": 2564,
+    "consumo": 228,
+    "porcentajeConsumo": 8.89,
+    "reporte": "No enviado",
+    "extras": {
+      "Venta Costo Interno": "",
+      "Consumo Diario": "195",
+      "Órdenes Internas": "11-PUSH WORTISE_PERU_MA_TE APUESTO_ CASINO ONLINE_NOVIEMBRE2026.xlsx"
+    },
+    "pais": "Perú"
+  },
+  {
+    "anunciante": "Starbucks",
+    "campana": "Holiday Noviembre",
+    "ejecutivo": "Danny Miller",
+    "formato": "Push Display Premium",
+    "tipoVenta": "CPC",
+    "fechaInicio": "2026-11-19",
+    "fechaFin": "2026-11-30",
+    "objetivo": 1538,
     "consumo": 0,
     "porcentajeConsumo": 0,
     "reporte": "No enviado",
     "extras": {
       "Venta Costo Interno": "",
-      "Consumo Diario": "183",
+      "Consumo Diario": "128",
       "Órdenes Internas": "11-PUSH WORTISE_PERU_MA_TE APUESTO_ CASINO ONLINE_NOVIEMBRE2026.xlsx"
     },
     "pais": "Perú"
