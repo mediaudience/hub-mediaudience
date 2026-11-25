@@ -708,7 +708,11 @@
     "anunciante": "EC_ModaRM"
   },
   {
-    "campana": "EC_Oriental_PonteWokies_Alcance_19Noviembre2026",
+    "campana": "EC_Oriental_PonteWokies_Impactar_Alcance_19Noviembre2026",
+    "anunciante": "EC_Oriental"
+  },
+  {
+    "campana": "EC_Oriental_PonteWokies_Educar_Alcance_23Noviembre2026",
     "anunciante": "EC_Oriental"
   },
   {

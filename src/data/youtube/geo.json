@@ -2292,15 +2292,27 @@
     "cliente": "EC_Banco del Pacífico"
   },
   {
-    "campana": "EC_Oriental_PonteWokies_Alcance_19Noviembre2026",
+    "campana": "EC_Oriental_PonteWokies_Impactar_Alcance_19Noviembre2026",
     "anunciante": "EC_Oriental",
-    "motivo": "Noviembre_PonteWokies_Alcance",
+    "motivo": "Noviembre_PonteWokies_Impactar_Alcance",
     "mes": "Noviembre",
     "formato": "YouTube",
     "ubicacion": "Ecuador",
     "impresionesTotales": 86841,
     "clicsTotales": 62,
     "vistasTotales": 7604,
+    "cliente": "EC_Oriental"
+  },
+  {
+    "campana": "EC_Oriental_PonteWokies_Educar_Alcance_23Noviembre2026",
+    "anunciante": "EC_Oriental",
+    "motivo": "Noviembre_PonteWokies_Educar_Alcance",
+    "mes": "Noviembre",
+    "formato": "YouTube",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 10661,
+    "clicsTotales": 2,
+    "vistasTotales": 0,
     "cliente": "EC_Oriental"
   }
 ]
