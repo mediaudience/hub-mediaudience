@@ -70,5 +70,23 @@
     "formato": "Display Programático",
     "link": "https://docs.google.com/spreadsheets/d/1zPLLflzxxC30pS5-2nFV8trYKhBEY4y98KyWk4LKUw4/edit?gid=2017677837#gid=2017677837",
     "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_07Noviembre2026",
+    "anunciante": "EC_PanteónMetropolitano",
+    "motivo": "Noviembre_BosqueDeLaVida",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "",
+    "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_07Noviembre2026",
+    "anunciante": "EC_PanteónMetropolitano",
+    "motivo": "Noviembre_BosqueDeLaVida_DataExtra",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "",
+    "cliente": "EC_La Destilería"
   }
 ]

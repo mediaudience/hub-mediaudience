@@ -1,17 +1,5 @@
 [
   {
-    "campana": "EC_AlimentosLosAndes_PonleLoTuyo_YT_02Junio2026_CPV",
-    "anunciante": "EC_AlimentosLosAndes"
-  },
-  {
-    "campana": "EC_AlimentosLosAndes_NuevaImagen_YT_01Julio2026_CPM",
-    "anunciante": "EC_AlimentosLosAndes"
-  },
-  {
-    "campana": "EC_AlimentosLosAndes_NuevaImagen_YT_03Agosto2026_CPM",
-    "anunciante": "EC_AlimentosLosAndes"
-  },
-  {
     "campana": "EC_LoteríaNacional_Mamá1_06Abril2026",
     "anunciante": "EC_LoteríaNacional"
   },
@@ -186,6 +174,10 @@
   {
     "campana": "EC_Ferrisariato_BlackFridays_Noviembre2026",
     "anunciante": "EC_Ferrisariato"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_07Noviembre2026",
+    "anunciante": "EC_PanteónMetropolitano"
   },
   {
     "campana": "EC_Granasa_Chevrolet_Junio2026",
@@ -726,5 +718,21 @@
   {
     "campana": "UDEP_PE_MBA_Distancia_Lead_Nov26",
     "anunciante": "PE_Universidad de Piura"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_PonleLoTuyo_YT_02Junio2026_CPV",
+    "anunciante": "EC_AlimentosLosAndes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_NuevaImagen_YT_01Julio2026_CPM",
+    "anunciante": "EC_AlimentosLosAndes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_NuevaImagen_YT_03Agosto2026_CPM",
+    "anunciante": "EC_AlimentosLosAndes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_Caldos_06Noviembre2026_Alcance",
+    "anunciante": "EC_AlimentosLosAndes"
   }
 ]

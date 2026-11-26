@@ -1,0 +1,20 @@
+[
+  {
+    "campana": "EC_AlimentosLosAndes_Caldos_06Noviembre2026_Alcance",
+    "anunciante": "EC_AlimentosLosAndes",
+    "motivo": "Noviembre_Caldo_Alcance",
+    "mes": "Noviembre",
+    "formato": "In-Feed",
+    "link": "",
+    "cliente": "EC_Alimentos los Andes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_Caldos_06Noviembre2026_Alcance",
+    "anunciante": "EC_AlimentosLosAndes",
+    "motivo": "Noviembre_GallinaCriolla_Alcance",
+    "mes": "Noviembre",
+    "formato": "In-Feed",
+    "link": "",
+    "cliente": "EC_Alimentos los Andes"
+  }
+]

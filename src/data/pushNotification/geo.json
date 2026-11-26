@@ -1746,9 +1746,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "San Miguel",
-    "impresionesTotales": 210,
-    "clicsTotales": 21,
-    "ctr": 10,
+    "impresionesTotales": 395,
+    "clicsTotales": 36,
+    "ctr": 9.11,
     "cliente": "PE_Reset"
   },
   {
@@ -1758,9 +1758,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "Pueblo Libre",
-    "impresionesTotales": 210,
-    "clicsTotales": 0,
-    "ctr": 0,
+    "impresionesTotales": 395,
+    "clicsTotales": 4,
+    "ctr": 1.01,
     "cliente": "PE_Reset"
   },
   {
@@ -1770,9 +1770,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "Magdalena del Mar",
-    "impresionesTotales": 211,
-    "clicsTotales": 21,
-    "ctr": 9.95,
+    "impresionesTotales": 397,
+    "clicsTotales": 48,
+    "ctr": 12.09,
     "cliente": "PE_Reset"
   },
   {
@@ -1782,9 +1782,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "Breña",
-    "impresionesTotales": 213,
-    "clicsTotales": 23,
-    "ctr": 10.8,
+    "impresionesTotales": 401,
+    "clicsTotales": 31,
+    "ctr": 7.73,
     "cliente": "PE_Reset"
   },
   {
@@ -1794,9 +1794,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "Jesus María",
-    "impresionesTotales": 212,
-    "clicsTotales": 15,
-    "ctr": 7.08,
+    "impresionesTotales": 397,
+    "clicsTotales": 55,
+    "ctr": 13.85,
     "cliente": "PE_Reset"
   },
   {
@@ -1806,9 +1806,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "La Victoria",
-    "impresionesTotales": 213,
-    "clicsTotales": 25,
-    "ctr": 11.74,
+    "impresionesTotales": 401,
+    "clicsTotales": 35,
+    "ctr": 8.73,
     "cliente": "PE_Reset"
   },
   {
@@ -1818,9 +1818,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "San Borja",
-    "impresionesTotales": 213,
-    "clicsTotales": 31,
-    "ctr": 14.55,
+    "impresionesTotales": 403,
+    "clicsTotales": 29,
+    "ctr": 7.2,
     "cliente": "PE_Reset"
   },
   {
@@ -1830,9 +1830,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "San Isidro",
-    "impresionesTotales": 685,
-    "clicsTotales": 50,
-    "ctr": 7.3,
+    "impresionesTotales": 1225,
+    "clicsTotales": 92,
+    "ctr": 7.51,
     "cliente": "PE_Reset"
   },
   {
@@ -1842,9 +1842,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "Callao",
-    "impresionesTotales": 256,
-    "clicsTotales": 17,
-    "ctr": 6.64,
+    "impresionesTotales": 487,
+    "clicsTotales": 36,
+    "ctr": 7.39,
     "cliente": "PE_Reset"
   },
   {
@@ -1854,9 +1854,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "Bellavista",
-    "impresionesTotales": 222,
-    "clicsTotales": 17,
-    "ctr": 7.66,
+    "impresionesTotales": 419,
+    "clicsTotales": 33,
+    "ctr": 7.88,
     "cliente": "PE_Reset"
   },
   {
@@ -1866,9 +1866,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "La Perla",
-    "impresionesTotales": 211,
-    "clicsTotales": 13,
-    "ctr": 6.16,
+    "impresionesTotales": 397,
+    "clicsTotales": 26,
+    "ctr": 6.55,
     "cliente": "PE_Reset"
   },
   {
@@ -1878,9 +1878,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "La Punta",
-    "impresionesTotales": 211,
-    "clicsTotales": 4,
-    "ctr": 1.9,
+    "impresionesTotales": 395,
+    "clicsTotales": 34,
+    "ctr": 8.61,
     "cliente": "PE_Reset"
   },
   {
@@ -1890,9 +1890,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "Lima",
-    "impresionesTotales": 6457,
-    "clicsTotales": 478,
-    "ctr": 7.4,
+    "impresionesTotales": 12232,
+    "clicsTotales": 943,
+    "ctr": 7.71,
     "cliente": "PE_Reset"
   },
   {
@@ -1902,9 +1902,9 @@
     "mes": "Noviembre",
     "formato": "Push Display",
     "ubicacion": "Rimac",
-    "impresionesTotales": 210,
-    "clicsTotales": 7,
-    "ctr": 3.33,
+    "impresionesTotales": 394,
+    "clicsTotales": 14,
+    "ctr": 3.55,
     "cliente": "PE_Reset"
   },
   {
@@ -2049,6 +2049,18 @@
     "impresionesTotales": 8102,
     "clicsTotales": 768,
     "ctr": 9.48,
+    "cliente": "EC_Alimentos Real"
+  },
+  {
+    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_AtúnReal",
+    "mes": "Noviembre",
+    "formato": "Push Display",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 41844,
+    "clicsTotales": 4282,
+    "ctr": 10.23,
     "cliente": "EC_Alimentos Real"
   },
   {

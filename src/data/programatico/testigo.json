@@ -270,6 +270,24 @@
     "cliente": "EC_La Destilería"
   },
   {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_07Noviembre2026",
+    "anunciante": "EC_PanteónMetropolitano",
+    "motivo": "Noviembre_BosqueDeLaVida",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "",
+    "cliente": "EC_La Destilería"
+  },
+  {
+    "campana": "EC_PanteónMetropolitano_BosqueDeLaVida_07Noviembre2026",
+    "anunciante": "EC_PanteónMetropolitano",
+    "motivo": "Noviembre_BosqueDeLaVida_DataExtra",
+    "mes": "Noviembre",
+    "formato": "Display Programático",
+    "link": "",
+    "cliente": "EC_La Destilería"
+  },
+  {
     "campana": "EC_AlimentosReal_Congelados_03Octubre2026",
     "anunciante": "EC_AlimentosReal",
     "motivo": "Octubre_Congelados",
@@ -293,7 +311,7 @@
     "motivo": "Noviembre_Congelados",
     "mes": "Noviembre",
     "formato": "Display Programático",
-    "link": "",
+    "link": "https://drive.google.com/drive/folders/1UU-Zh0KsoQQC3_0zpJW97Ceghzg1w472?usp=sharing",
     "cliente": "EC_Alimentos Real"
   },
   {
@@ -302,7 +320,7 @@
     "motivo": "Noviembre_AtúnReal",
     "mes": "Noviembre",
     "formato": "Display Programático",
-    "link": "",
+    "link": "https://drive.google.com/drive/folders/1rEH3jqJvuEObzSCPTrfwj9N7wT4MkXSY?usp=sharing",
     "cliente": "EC_Alimentos Real"
   },
   {

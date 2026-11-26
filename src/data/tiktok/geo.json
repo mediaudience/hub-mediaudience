@@ -796,5 +796,61 @@
     "vistas6seg": 1339,
     "seguidores": 0,
     "cliente": "EC_Banco del Pacífico"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_Caldos_06Noviembre2026_Alcance",
+    "anunciante": "EC_AlimentosLosAndes",
+    "motivo": "Noviembre_Caldos_Alcance",
+    "mes": "Noviembre",
+    "formato": "In-Feed",
+    "ubicacion": "Provincia de Guayas",
+    "impresionesTotales": 291466,
+    "clicsTotales": 371,
+    "ctr": 0.13,
+    "vistas6seg": 3730,
+    "seguidores": 15,
+    "cliente": "EC_Alimentos los Andes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_Caldos_06Noviembre2026_Alcance",
+    "anunciante": "EC_AlimentosLosAndes",
+    "motivo": "Noviembre_Caldos_Alcance",
+    "mes": "Noviembre",
+    "formato": "In-Feed",
+    "ubicacion": "Provincia de Pichincha",
+    "impresionesTotales": 348446,
+    "clicsTotales": 376,
+    "ctr": 0.11,
+    "vistas6seg": 4996,
+    "seguidores": 16,
+    "cliente": "EC_Alimentos los Andes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_Caldos_06Noviembre2026_Alcance",
+    "anunciante": "EC_AlimentosLosAndes",
+    "motivo": "Noviembre_Caldos_Alcance",
+    "mes": "Noviembre",
+    "formato": "In-Feed",
+    "ubicacion": "Provincia de Manabí",
+    "impresionesTotales": 167963,
+    "clicsTotales": 175,
+    "ctr": 0.1,
+    "vistas6seg": 2421,
+    "seguidores": 8,
+    "cliente": "EC_Alimentos los Andes"
+  },
+  {
+    "campana": "EC_AlimentosLosAndes_Caldos_06Noviembre2026_Alcance",
+    "anunciante": "EC_AlimentosLosAndes",
+    "motivo": "Noviembre_Caldos_Alcance",
+    "mes": "Noviembre",
+    "formato": "In-Feed",
+    "ubicacion": "Provincia de Azuay",
+    "impresionesTotales": 62702,
+    "clicsTotales": 74,
+    "ctr": 0.12,
+    "vistas6seg": 804,
+    "seguidores": 3,
+    "cliente": "EC_Alimentos los Andes"
   }
 ]

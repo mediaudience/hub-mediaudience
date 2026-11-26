@@ -495,6 +495,15 @@
     "cliente": "EC_Alimentos Real"
   },
   {
+    "campana": "EC_AlimentosReal_AtúnReal_01Noviembre2026",
+    "anunciante": "EC_AlimentosReal",
+    "motivo": "Noviembre_AtúnReal",
+    "mes": "Noviembre",
+    "formato": "Push Display",
+    "link": "https://drive.google.com/file/d/16aenklA3HsZmQXyIPe0j1fx12n1e5baN/view?usp=sharing",
+    "cliente": "EC_Alimentos Real"
+  },
+  {
     "campana": "EC_BancoDelPacífico_Pacificard_Noviembre2026",
     "anunciante": "EC_BancoDelPacífico",
     "motivo": "Noviembre_Pacificard",
