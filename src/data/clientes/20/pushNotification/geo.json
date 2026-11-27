@@ -17,7 +17,7 @@
     "motivo": "Octubre_KiaAutomundo",
     "mes": "Octubre",
     "formato": "Push Premium Video",
-    "ubicacion": "Quito Tenis",
+    "ubicacion": "Quito",
     "impresionesTotales": 2312,
     "clicsTotales": 237,
     "ctr": 10.25,
@@ -57,6 +57,18 @@
     "impresionesTotales": 2320,
     "clicsTotales": 237,
     "ctr": 10.22,
+    "cliente": "EC_Kia"
+  },
+  {
+    "campana": "EC_Kia_Tasman_19Noviembre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Noviembre_Tasman",
+    "mes": "Noviembre",
+    "formato": "Push Display",
+    "ubicacion": "Ecuador",
+    "impresionesTotales": 12677,
+    "clicsTotales": 1097,
+    "ctr": 8.65,
     "cliente": "EC_Kia"
   }
 ]

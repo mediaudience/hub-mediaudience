@@ -60,6 +60,10 @@
     "anunciante": "EC_LoteríaNacional"
   },
   {
+    "campana": "EC_LoteríaNacional_LoteríaNavidad_11Noviembre2026",
+    "anunciante": "EC_LoteríaNacional"
+  },
+  {
     "campana": "EC_Bet593_EcuatorianoPronostica_14Junio2026",
     "anunciante": "EC_Bet593"
   },
@@ -245,6 +249,10 @@
   },
   {
     "campana": "EC_Kia_KiaAutomundo_Octubre2026",
+    "anunciante": "EC_Kia"
+  },
+  {
+    "campana": "EC_Kia_Tasman_19Noviembre2026",
     "anunciante": "EC_Kia"
   },
   {

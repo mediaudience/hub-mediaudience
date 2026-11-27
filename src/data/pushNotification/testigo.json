@@ -443,10 +443,28 @@
   {
     "campana": "EC_Kia_KiaAutomundo_Octubre2026",
     "anunciante": "EC_Kia",
-    "motivo": "Octubre_KiaAutomundo",
+    "motivo": "Octubre_KiaAutomundo_DataExtra",
     "mes": "Octubre",
     "formato": "Push Premium Video",
     "link": "https://docs.google.com/spreadsheets/d/1N2BA4bG1TaqXpyv8vqhMmgIDnb8P0bZrlkjSxT2EprU/edit?usp=sharing",
+    "cliente": "EC_Kia"
+  },
+  {
+    "campana": "EC_Kia_Tasman_19Noviembre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Noviembre_Tasman",
+    "mes": "Noviembre",
+    "formato": "Push Display",
+    "link": "https://drive.google.com/drive/folders/1FShWM4QnRVqWEmlXcsAnnvsfv_FrPdl1?usp=sharing",
+    "cliente": "EC_Kia"
+  },
+  {
+    "campana": "EC_Kia_Tasman_19Noviembre2026",
+    "anunciante": "EC_Kia",
+    "motivo": "Noviembre_Tasman_DataExtra",
+    "mes": "Noviembre",
+    "formato": "Push Display",
+    "link": "https://docs.google.com/spreadsheets/d/1N2BA4bG1TaqXpyv8vqhMmgIDnb8P0bZrlkjSxT2EprU/edit?gid=1811119678#gid=1811119678",
     "cliente": "EC_Kia"
   },
   {
