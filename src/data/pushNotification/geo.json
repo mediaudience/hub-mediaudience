@@ -2046,9 +2046,9 @@
     "mes": "Noviembre",
     "formato": "Push Premium Video",
     "ubicacion": "Perú",
-    "impresionesTotales": 12256,
-    "clicsTotales": 1302,
-    "ctr": 10.62,
+    "impresionesTotales": 30727,
+    "clicsTotales": 3286,
+    "ctr": 10.69,
     "cliente": "PE_PromPerú"
   },
   {
@@ -2350,5 +2350,17 @@
     "clicsTotales": 18,
     "ctr": 9.63,
     "cliente": "EC_Moda RM"
+  },
+  {
+    "campana": "PE_KFC_DescargaLaApp_17Noviembre2026",
+    "anunciante": "PE_KFC",
+    "motivo": "Noviembre_DescargaLaApp",
+    "mes": "Noviembre",
+    "formato": "Push Display",
+    "ubicacion": "Perú",
+    "impresionesTotales": 21437,
+    "clicsTotales": 1868,
+    "ctr": 8.71,
+    "cliente": "PE_KFC"
   }
 ]

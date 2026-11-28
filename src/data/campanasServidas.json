@@ -742,5 +742,9 @@
   {
     "campana": "EC_AlimentosLosAndes_Caldos_06Noviembre2026_Alcance",
     "anunciante": "EC_AlimentosLosAndes"
+  },
+  {
+    "campana": "PE_KFC_DescargaLaApp_17Noviembre2026",
+    "anunciante": "PE_KFC"
   }
 ]
